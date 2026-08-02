@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 import { useNavigate, useParams } from "react-router-dom"
 import { Video, Mic, MicOff, VideoOff, PhoneOff, Sparkles, Shield, CheckCircle2, ArrowRight } from "lucide-react"
@@ -20,6 +20,30 @@ export function LiveConsultationRoom() {
     { sender: astrologer.name, text: "Namaste Arjun! I have opened your Kundli. Your 10th House Jupiter transit is active today.", time: "10:00 AM" }
   ])
   const [chatInput, setChatInput] = useState("")
+
+  const userVideoRef = useRef<HTMLVideoElement>(null)
+
+  // Real webcam feed for self-preview
+  useEffect(() => {
+    let stream: MediaStream | null = null
+    if (phase === "in_call" && callType === "video" && videoActive) {
+      navigator.mediaDevices?.getUserMedia({ video: true })
+        .then(s => {
+          stream = s
+          if (userVideoRef.current) {
+            userVideoRef.current.srcObject = s
+          }
+        })
+        .catch(err => {
+          console.warn("Camera access denied or unavailable:", err)
+        })
+    }
+    return () => {
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop())
+      }
+    }
+  }, [phase, callType, videoActive])
 
   // Timer tick for in_call phase
   useEffect(() => {
@@ -147,8 +171,17 @@ export function LiveConsultationRoom() {
                     </div>
 
                     {/* Self Video PIP */}
-                    <div className="absolute bottom-4 right-4 w-28 h-20 bg-canvas border border-line rounded-md p-2 flex items-center justify-center">
-                      <span className="text-[10px] font-mono text-ink-tertiary">Arjun (You)</span>
+                    <div className="absolute bottom-4 right-4 w-32 h-24 bg-canvas border border-line rounded-md overflow-hidden relative shadow-md flex items-center justify-center">
+                      <video
+                        ref={userVideoRef}
+                        autoPlay
+                        playsInline
+                        muted
+                        className="w-full h-full object-cover"
+                      />
+                      <span className="absolute bottom-1 left-1.5 text-[9px] font-mono bg-canvas/80 text-ink px-1 rounded border border-line/40">
+                        You (Live Camera)
+                      </span>
                     </div>
                   </div>
                 ) : (

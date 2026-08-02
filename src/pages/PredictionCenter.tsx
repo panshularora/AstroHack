@@ -1,0 +1,120 @@
+import { useState } from "react"
+import { motion } from "framer-motion"
+import { Target, CheckCircle2, Clock, TrendingUp, Calendar, Plus, FileText } from "lucide-react"
+import { Button } from "@/components/ui/Button"
+import { Badge } from "@/components/ui/Badge"
+import { Progress } from "@/components/ui/Progress"
+import { Tabs } from "@/components/ui/Tabs"
+import { mockDetailedPredictions, mockPredictionStats } from "@/lib/mock-data"
+
+type Tab = "active" | "verified" | "all"
+
+export function PredictionCenter() {
+  const [tab, setTab] = useState<Tab>("active")
+
+  const filtered = mockDetailedPredictions.filter(p => {
+    if (tab === "active") return p.status === "pending" || p.status === "in_progress"
+    if (tab === "verified") return p.status === "completed"
+    return true
+  })
+
+  const statusBadge = (status: string) => {
+    if (status === "completed") return <Badge variant="success" size="sm">Verified Outcome</Badge>
+    if (status === "in_progress") return <Badge variant="brand" size="sm">Window Active</Badge>
+    if (status === "pending") return <Badge variant="gold" size="sm">Pending Transit</Badge>
+    return <Badge variant="default" size="sm">{status}</Badge>
+  }
+
+  return (
+    <div className="page-container max-w-5xl pb-28">
+      <div className="space-y-10">
+
+        {/* ── Header ─────────────────────────────────────────────── */}
+        <div className="border-b border-line/60 pb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-8 h-8 rounded-md bg-surface-2 border border-brand/30 flex items-center justify-center text-brand">
+                <Target className="w-4 h-4 text-brand" />
+              </div>
+              <p className="text-xs font-mono font-bold uppercase tracking-widest text-brand">Prediction Proof Engine</p>
+            </div>
+            <h1 className="text-h1 font-display text-ink tracking-tight">Verified Prediction Proofs</h1>
+            <p className="text-sm text-ink-secondary mt-1">
+              Every astrologer prediction is tracked against real-life milestones with immutable verification proof.
+            </p>
+          </div>
+          <Button size="sm" className="rounded-md shrink-0">
+            <Plus className="w-4 h-4" /> Attach Outcome Proof
+          </Button>
+        </div>
+
+        {/* ── Metric Cards ───────────────────────────────────────── */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 font-mono">
+          {[
+            { label: "Total Tracked", value: mockPredictionStats.total, icon: Target },
+            { label: "Verified Accurate", value: mockPredictionStats.completed, icon: CheckCircle2 },
+            { label: "Active Windows", value: mockPredictionStats.pending, icon: Clock },
+            { label: "Overall Accuracy", value: `${mockPredictionStats.accuracy}%`, icon: TrendingUp },
+          ].map(s => (
+            <div key={s.label} className="p-4 rounded-lg bg-surface border border-line space-y-2">
+              <div className="flex items-center justify-between text-ink-tertiary">
+                <span className="text-[10px] uppercase font-bold tracking-wider">{s.label}</span>
+                <s.icon className="w-4 h-4 text-brand" />
+              </div>
+              <p className="text-2xl font-bold text-ink tabular-nums tracking-tight">{s.value}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* ── Filter Tabs ─────────────────────────────────────────── */}
+        <Tabs
+          items={[
+            { value: "active", label: "Active Windows" },
+            { value: "verified", label: "Verified Outcomes" },
+            { value: "all", label: "All Records" },
+          ]}
+          value={tab}
+          onChange={(v) => setTab(v as Tab)}
+        />
+
+        {/* ── Predictions List ────────────────────────────────────── */}
+        <div className="space-y-4">
+          {filtered.map((p, i) => (
+            <motion.div key={p.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
+              <div className="p-6 rounded-lg bg-surface border border-line space-y-4">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <h3 className="text-body font-bold text-ink">{p.title}</h3>
+                    <p className="text-caption mt-1 font-mono">
+                      Astrologer: {p.astrologer.name} · Category: {p.category.toUpperCase()}
+                    </p>
+                  </div>
+                  {statusBadge(p.status)}
+                </div>
+
+                {p.notes && (
+                  <div className="p-3 rounded-md bg-surface-2/60 border border-line/60 text-xs text-ink-secondary flex items-start gap-2.5">
+                    <FileText className="w-4 h-4 text-brand shrink-0 mt-0.5" />
+                    <span>{p.notes}</span>
+                  </div>
+                )}
+
+                <div className="flex items-center justify-between pt-3 border-t border-line/60 text-xs font-mono">
+                  <div className="flex items-center gap-2 text-ink-tertiary">
+                    <Calendar className="w-3.5 h-3.5" />
+                    Target: {new Date(p.targetDate).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="text-ink-secondary font-bold">{p.confidence}% Confidence</span>
+                    <Progress value={p.confidence} className="w-24 h-1.5" color="brand" />
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+      </div>
+    </div>
+  )
+}

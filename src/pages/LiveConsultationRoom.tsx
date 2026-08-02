@@ -67,8 +67,17 @@ export function LiveConsultationRoom() {
       {/* ── Waiting Room Phase ─────────────────────────────────── */}
       {phase === "waiting" && (
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="space-y-8">
-          <div className="border-b border-line/60 pb-6 text-center max-w-xl mx-auto">
-            <div className="w-12 h-12 rounded-md bg-surface-2 border border-brand/30 flex items-center justify-center text-brand mx-auto mb-3">
+          <div className="border-b border-line/60 pb-6 text-center max-w-xl mx-auto relative">
+            <button
+              onClick={() => navigate(-1)}
+              className="absolute left-0 top-0 flex items-center gap-1.5 font-mono text-[11px] text-ink-tertiary hover:text-ink transition-colors group"
+            >
+              <svg className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" viewBox="0 0 16 16" fill="none">
+                <path d="M10 12L6 8l4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Back
+            </button>
+            <div className="w-12 h-12 rounded-md bg-surface-2 border border-brand/30 flex items-center justify-center text-brand mx-auto mb-3 mt-8">
               <Sparkles className="w-6 h-6 text-brand" />
             </div>
             <h1 className="text-h1 font-display text-ink tracking-tight">Live Consultation Room</h1>
@@ -78,7 +87,7 @@ export function LiveConsultationRoom() {
           </div>
 
           <div className="p-8 rounded-lg bg-surface border border-line max-w-xl mx-auto space-y-6 text-center">
-            <div className="w-20 h-20 rounded-md bg-surface-2 border border-brand/30 text-brand flex items-center justify-center font-mono font-bold text-xl mx-auto">
+            <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-brand/25 to-surface-3 border-2 border-brand/30 flex items-center justify-center font-mono font-bold text-2xl text-gold-bright mx-auto shadow-glow">
               {astrologer.name.slice(0, 2).toUpperCase()}
             </div>
             <div>

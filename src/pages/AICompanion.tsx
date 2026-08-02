@@ -5,6 +5,7 @@ import { Sparkles, Send, Brain, BookOpen, ArrowRight, MessageSquare } from "luci
 import { Button } from "@/components/ui/Button"
 import { mockChatHistory, mockLatestSession, type ChatMessage } from "@/lib/mock-data"
 import { cn } from "@/lib/utils"
+import ReactMarkdown from "react-markdown"
 
 const suggestions = [
   "What did Dr. Sarah say about my career?",
@@ -109,6 +110,15 @@ export function AICompanion() {
     <div className="page-container max-w-5xl pb-28">
       {/* Header */}
       <div className="mb-8 border-b border-line/60 pb-5">
+        <button
+          onClick={() => navigate(-1)}
+          className="flex items-center gap-1.5 font-mono text-[11px] text-ink-tertiary hover:text-ink transition-colors mb-5 group"
+        >
+          <svg className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" viewBox="0 0 16 16" fill="none">
+            <path d="M10 12L6 8l4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          Back
+        </button>
         <div className="flex items-center gap-3 mb-2">
           <div className="w-8 h-8 rounded-md bg-surface-2 border border-brand/30 flex items-center justify-center text-brand">
             <Sparkles className="w-4 h-4 text-brand" />
@@ -152,7 +162,20 @@ export function AICompanion() {
                         : "bg-surface-2/80 border border-line text-ink"
                     )}
                   >
-                    {msg.content}
+                    {msg.role === "assistant" ? (
+                      <div className="text-xs leading-relaxed">
+                        <ReactMarkdown
+                          components={{
+                            p: ({ children }) => <p className="mb-1.5 last:mb-0">{children}</p>,
+                            strong: ({ children }) => <strong className="font-semibold text-gold-bright">{children}</strong>,
+                          }}
+                        >
+                          {msg.content}
+                        </ReactMarkdown>
+                      </div>
+                    ) : (
+                      msg.content
+                    )}
                   </div>
                   {msg.citations && msg.citations.length > 0 && (
                     <div className="flex items-center flex-wrap gap-2 mt-2 font-mono">
@@ -233,15 +256,24 @@ export function AICompanion() {
             <div className="space-y-3 font-mono text-xs">
               <div className="flex items-center justify-between">
                 <span className="text-ink-ivory-tertiary">Consultations</span>
-                <span className="font-bold text-ink-ivory">{mockLatestSession.duration} min last</span>
+                <div className="text-right">
+                  <span className="font-bold text-ink-ivory">{mockLatestSession.duration} min</span>
+                  <span className="font-mono text-[9px] text-ink-tertiary block">most recent session</span>
+                </div>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-ink-ivory-tertiary">Active Predictions</span>
-                <span className="font-bold text-ink-ivory">{mockLatestSession.predictions.length}</span>
+                <div className="text-right">
+                  <span className="font-bold text-ink-ivory">{mockLatestSession.predictions.length}</span>
+                  <span className="font-mono text-[9px] text-ink-tertiary block">being tracked</span>
+                </div>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-ink-ivory-tertiary">Active Remedies</span>
-                <span className="font-bold text-ink-ivory">{mockLatestSession.remedies.length}</span>
+                <div className="text-right">
+                  <span className="font-bold text-ink-ivory">{mockLatestSession.remedies.length}</span>
+                  <span className="font-mono text-[9px] text-ink-tertiary block">currently active</span>
+                </div>
               </div>
             </div>
             <Button variant="outline" size="sm" className="w-full rounded-md mt-2 font-mono" onClick={() => navigate("/app/memory")}>

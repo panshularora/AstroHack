@@ -1,9 +1,11 @@
 import { motion } from "framer-motion"
-import { Star, Zap, Target, Calendar, TrendingUp, BookOpen } from "lucide-react"
+import { Target, Calendar, TrendingUp, BookOpen, Star, Zap } from "lucide-react"
+import { useNavigate } from "react-router-dom"
 import { Button } from "@/components/ui/Button"
 import { mockDailyBriefData, mockSmartPriorities, mockHabitProgress } from "@/lib/mock-data"
 
 export function DailyBrief() {
+  const navigate = useNavigate()
   const d = mockDailyBriefData
 
   return (
@@ -12,6 +14,15 @@ export function DailyBrief() {
 
         {/* ── Header ─────────────────────────────────────────────── */}
         <div className="border-b border-line/60 pb-6">
+          <button
+            onClick={() => navigate(-1)}
+            className="flex items-center gap-1.5 font-mono text-[11px] text-ink-tertiary hover:text-ink transition-colors mb-5 group"
+          >
+            <svg className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" viewBox="0 0 16 16" fill="none">
+              <path d="M10 12L6 8l4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            Back
+          </button>
           <div className="flex items-center gap-3 mb-2">
             <div className="w-8 h-8 rounded-md bg-surface-2 border border-brand/30 flex items-center justify-center text-brand">
               <Star className="w-4 h-4 text-brand" />
@@ -30,9 +41,22 @@ export function DailyBrief() {
         <div className="grid lg:grid-cols-3 gap-6">
           <div className="p-6 rounded-lg bg-surface border border-line flex flex-col items-center justify-center text-center font-mono">
             <p className="text-xs text-ink-tertiary uppercase font-bold tracking-wider mb-4">Panchang Energy Alignment</p>
-            <div className="w-24 h-24 rounded-full border-2 border-brand/40 flex flex-col items-center justify-center bg-surface-2/60 shadow-lg">
-              <span className="text-3xl font-bold text-ink tabular-nums">{d.energyScore}</span>
-              <span className="text-[10px] text-gold-light uppercase">Optimal</span>
+            <div className="relative w-28 h-28">
+              <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="8" />
+                <circle
+                  cx="50" cy="50" r="42"
+                  fill="none"
+                  stroke="#D97706"
+                  strokeWidth="8"
+                  strokeLinecap="round"
+                  strokeDasharray={`${(d.energyScore / 100) * 263.9} 263.9`}
+                />
+              </svg>
+              <div className="absolute inset-0 flex flex-col items-center justify-center">
+                <span className="font-metric text-3xl font-bold text-ink tabular-nums leading-none">{d.energyScore}</span>
+                <span className="font-mono text-[9px] text-gold-bright uppercase tracking-[0.12em] mt-0.5">Optimal</span>
+              </div>
             </div>
           </div>
           <div className="lg:col-span-2 p-6 rounded-lg bg-surface border border-line space-y-4">

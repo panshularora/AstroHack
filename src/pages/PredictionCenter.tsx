@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { Target, CheckCircle2, Clock, TrendingUp, Calendar, Plus, FileText } from "lucide-react"
+import { useNavigate } from "react-router-dom"
 import { Button } from "@/components/ui/Button"
 import { Badge } from "@/components/ui/Badge"
 import { Progress } from "@/components/ui/Progress"
@@ -10,6 +11,7 @@ import { mockDetailedPredictions, mockPredictionStats } from "@/lib/mock-data"
 type Tab = "active" | "verified" | "all"
 
 export function PredictionCenter() {
+  const navigate = useNavigate()
   const [tab, setTab] = useState<Tab>("active")
 
   const filtered = mockDetailedPredictions.filter(p => {
@@ -32,6 +34,15 @@ export function PredictionCenter() {
         {/* ── Header ─────────────────────────────────────────────── */}
         <div className="border-b border-line/60 pb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
+            <button
+              onClick={() => navigate(-1)}
+              className="flex items-center gap-1.5 font-mono text-[11px] text-ink-tertiary hover:text-ink transition-colors mb-5 group"
+            >
+              <svg className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" viewBox="0 0 16 16" fill="none">
+                <path d="M10 12L6 8l4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Back
+            </button>
             <div className="flex items-center gap-3 mb-2">
               <div className="w-8 h-8 rounded-md bg-surface-2 border border-brand/30 flex items-center justify-center text-brand">
                 <Target className="w-4 h-4 text-brand" />
@@ -51,17 +62,19 @@ export function PredictionCenter() {
         {/* ── Metric Cards ───────────────────────────────────────── */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 font-mono">
           {[
-            { label: "Total Tracked", value: mockPredictionStats.total, icon: Target },
-            { label: "Verified Accurate", value: mockPredictionStats.completed, icon: CheckCircle2 },
-            { label: "Active Windows", value: mockPredictionStats.pending, icon: Clock },
-            { label: "Overall Accuracy", value: `${mockPredictionStats.accuracy}%`, icon: TrendingUp },
+            { icon: Target,      label: "Total Tracked",    valueFn: () => mockPredictionStats.total,    accent: "text-ink",        bg: "bg-surface" },
+            { icon: CheckCircle2,label: "Verified Accurate", valueFn: () => mockPredictionStats.completed, accent: "text-success",     bg: "bg-[rgba(16,185,129,0.12)]" },
+            { icon: Clock,       label: "Active Windows",   valueFn: () => mockPredictionStats.pending,  accent: "text-warning",    bg: "bg-[rgba(245,158,11,0.12)]" },
+            { icon: TrendingUp,  label: "Overall Accuracy", valueFn: () => `${mockPredictionStats.accuracy}%`, accent: "text-brand", bg: "bg-brand-light" },
           ].map(s => (
-            <div key={s.label} className="p-4 rounded-lg bg-surface border border-line space-y-2">
+            <div key={s.label} className={`p-4 rounded-lg border border-line space-y-2 ${s.bg}`}>
               <div className="flex items-center justify-between text-ink-tertiary">
-                <span className="text-[10px] uppercase font-bold tracking-wider">{s.label}</span>
-                <s.icon className="w-4 h-4 text-brand" />
+                <span className="text-[10px] uppercase font-mono font-bold tracking-wider">{s.label}</span>
+                <s.icon className={`w-4 h-4 ${s.accent}`} />
               </div>
-              <p className="text-2xl font-bold text-ink tabular-nums tracking-tight">{s.value}</p>
+              <p className={`font-metric text-2xl font-bold tabular-nums tracking-tight ${s.accent}`}>
+                {s.valueFn()}
+              </p>
             </div>
           ))}
         </div>

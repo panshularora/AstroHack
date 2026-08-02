@@ -1,6 +1,7 @@
 import { motion } from "framer-motion"
-import { ShieldCheck, Star, Users, MessageCircle, Phone, Video, Calendar } from "lucide-react"
+import { ShieldCheck, MessageCircle, Phone, Video, Calendar, Star, Users } from "lucide-react"
 import { Button } from "@/components/ui/Button"
+import { useNavigate } from "react-router-dom"
 import type { Astrologer } from "@/lib/mock-data"
 
 interface StepResultsProps {
@@ -9,84 +10,134 @@ interface StepResultsProps {
 }
 
 export function StepResults({ results, onReset }: StepResultsProps) {
+  const navigate = useNavigate()
+
   return (
     <motion.div
       key="step-results"
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.95 }}
-      transition={{ duration: 0.5 }}
-      className="max-w-4xl mx-auto"
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
     >
-      <div className="text-center mb-10">
-        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Your Perfect Cosmic Guides</h2>
-        <p className="text-secondary-text text-lg">Based on your chart, concerns, and preferences, here are our top recommendations.</p>
+      <div className="mb-8">
+        <h2 className="font-display text-h1 text-ink tracking-tight">Your Verified Matches</h2>
+        <p className="text-sm text-ink-secondary mt-1">
+          Matched to your birth chart transits, Dasha cycle, and consultation focus.
+        </p>
       </div>
 
-      <div className="space-y-6 mb-10">
+      <div className="space-y-4 mb-10">
         {results.map((a, i) => (
-          <motion.div 
+          <motion.div
             key={a.id}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 + (i * 0.1) }}
-            className={`bg-surface border ${i === 0 ? 'border-brand shadow-[0_0_20px_rgba(107,33,168,0.2)]' : 'border-line/60'} rounded-lg p-6 md:p-8 relative overflow-hidden`}
+            transition={{ delay: i * 0.08 }}
+            className={`p-6 rounded-lg border bg-surface transition-all duration-150 hover:border-brand/40 hover:shadow-md ${
+              i === 0 ? "border-brand/50 bg-surface-2/50" : "border-line"
+            }`}
           >
-            {i === 0 && (
-              <div className="absolute top-0 right-8 bg-brand text-white text-xs font-bold px-3 py-1 rounded-b-lg tracking-wider">
-                #1 Match
+            {/* Top row */}
+            <div className="flex items-start justify-between gap-4 mb-5">
+              <div className="flex items-center gap-4">
+                {/* Avatar */}
+                <div className="w-14 h-14 rounded-lg bg-gradient-to-br from-brand/20 to-brand-hover/10 border border-brand/30 flex items-center justify-center font-mono font-bold text-base text-gold-bright shrink-0">
+                  {a.name.slice(0, 2).toUpperCase()}
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-0.5">
+                    <h3 className="text-base font-bold text-ink">{a.name}</h3>
+                    {i === 0 && (
+                      <span className="font-mono text-[9px] font-bold uppercase tracking-[0.14em] px-1.5 py-0.5 bg-brand-light text-brand border border-brand/20 rounded-[2px]">
+                        #1 Match
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-xs font-mono text-ink-tertiary">
+                    {a.specialties.join(" · ")} · {a.yearsExperience}y exp
+                  </p>
+                </div>
+              </div>
+
+              {/* Price + availability */}
+              <div className="text-right shrink-0">
+                <p className="font-metric text-lg font-bold text-ink">₹{a.pricePerMinute}<span className="text-xs font-sans text-ink-tertiary font-normal">/min</span></p>
+                <div className="flex items-center gap-1.5 justify-end mt-1">
+                  <span className={`w-1.5 h-1.5 rounded-full ${a.availability === "online" ? "bg-success" : "bg-warning"}`} />
+                  <span className="font-mono text-[10px] text-ink-tertiary capitalize">{a.availability}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Stats row */}
+            <div className="flex items-center gap-4 mb-4 font-mono text-xs">
+              <span className="flex items-center gap-1.5 text-gold-bright">
+                <Star className="w-3.5 h-3.5 fill-gold-bright" />
+                <span className="font-bold">{a.rating}</span>
+              </span>
+              <span className="flex items-center gap-1.5 text-ink-secondary">
+                <ShieldCheck className="w-3.5 h-3.5 text-success" />
+                <span>{a.verifiedAccuracy}% accuracy</span>
+              </span>
+              <span className="flex items-center gap-1.5 text-ink-secondary">
+                <Users className="w-3.5 h-3.5" />
+                <span>{a.consultationCount}+ sessions</span>
+              </span>
+              <span className="text-ink-tertiary">
+                {a.languages.join(", ")}
+              </span>
+            </div>
+
+            {/* Why this match */}
+            {a.recommendationReason && (
+              <div className="p-4 mb-5 bg-brand-tint border border-brand/15 rounded-md">
+                <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-brand mb-1.5 font-bold">
+                  Why this match
+                </p>
+                <p className="text-xs text-ink-secondary leading-relaxed">{a.recommendationReason}</p>
               </div>
             )}
-            
-            <div className="flex flex-col md:flex-row gap-6">
-              <div className="relative shrink-0 mx-auto md:mx-0">
-                <img src={a.avatar} alt={a.name} className="w-24 h-24 rounded-full border-4 border-card object-cover" />
-                <div className="absolute -bottom-1 -right-1 bg-secondary text-white p-1 rounded-full border-2 border-card" title="AstroVerified">
-                  <ShieldCheck className="w-4 h-4" />
-                </div>
-              </div>
 
-              <div className="flex-1 text-center md:text-left">
-                <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
-                  <div>
-                    <h3 className="text-2xl font-bold text-white mb-1">{a.name}</h3>
-                    <p className="text-sm text-secondary-text mb-3">{a.specialties.join(" • ")} | {a.yearsExperience} Yrs Exp</p>
-                  </div>
-                  <div className="text-xl font-bold text-white mb-4 md:mb-0">${a.pricePerMinute}<span className="text-sm font-normal text-secondary-text">/min</span></div>
-                </div>
-
-                <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-6">
-                  <span className="flex items-center gap-1 bg-gold/10 text-gold text-xs font-bold px-2 py-1 rounded-md"><Star className="w-3.5 h-3.5 fill-gold" /> {a.rating}</span>
-                  <span className="flex items-center gap-1 bg-white/5 text-white/90 text-xs font-bold px-2 py-1 rounded-md"><ShieldCheck className="w-3.5 h-3.5 text-brand" /> {a.verifiedAccuracy}% Accuracy</span>
-                  <span className="flex items-center gap-1 bg-white/5 text-white/90 text-xs font-bold px-2 py-1 rounded-md"><Users className="w-3.5 h-3.5 text-secondary-text" /> {a.consultationCount}+ Sessions</span>
-                  <span className="text-xs text-[#9CA3AF] ml-2">Speaks: {a.languages.join(", ")}</span>
-                </div>
-
-                <div className="bg-brand-light border border-brand/20 rounded-xl p-4 text-sm text-ink-secondary leading-relaxed mb-6 text-left">
-                  <strong className="text-white block mb-1">Why We Recommended This Astrologer:</strong>
-                  {a.recommendationReason}
-                </div>
-
-                <div className="flex flex-wrap gap-3 justify-center md:justify-start">
-                  <Button className="h-10 text-sm gap-2 bg-white text-navy hover:bg-white/90"><MessageCircle className="w-4 h-4" /> Start Chat</Button>
-                  <Button variant="outline" className="h-10 text-sm gap-2 border-line-strong hover:bg-white/5 text-white"><Phone className="w-4 h-4" /> Voice</Button>
-                  <Button variant="outline" className="h-10 text-sm gap-2 border-line-strong hover:bg-white/5 text-white"><Video className="w-4 h-4" /> Video</Button>
-                  <Button variant="outline" className="h-10 text-sm gap-2 border-line-strong hover:bg-white/5 text-white"><Calendar className="w-4 h-4" /> Schedule</Button>
-                </div>
-              </div>
+            {/* Action buttons */}
+            <div className="flex flex-wrap gap-2.5">
+              <Button
+                size="sm"
+                className="rounded-md font-mono"
+                onClick={() => navigate(`/app/room/${a.id}`)}
+              >
+                <MessageCircle className="w-3.5 h-3.5" /> Chat Now
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                className="rounded-md font-mono"
+                onClick={() => navigate(`/app/room/${a.id}`)}
+              >
+                <Phone className="w-3.5 h-3.5" /> Voice
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                className="rounded-md font-mono"
+                onClick={() => navigate(`/app/room/${a.id}`)}
+              >
+                <Video className="w-3.5 h-3.5" /> Video
+              </Button>
+              <Button variant="ghost" size="sm" className="rounded-md font-mono text-ink-secondary">
+                <Calendar className="w-3.5 h-3.5" /> Schedule
+              </Button>
             </div>
           </motion.div>
         ))}
       </div>
-      
-      <div className="flex justify-center gap-4">
-        <button onClick={onReset} className="px-6 py-3 font-medium text-[#9CA3AF] hover:text-white transition-colors cursor-pointer">
-          Start Over
-        </button>
-        <Button variant="outline" className="border-line/60 hover:bg-white/5 text-white">
-          Compare Side by Side
-        </Button>
-      </div>
+
+      <button
+        onClick={onReset}
+        className="font-mono text-xs text-ink-tertiary hover:text-ink underline underline-offset-2 transition-colors"
+      >
+        ← Start over
+      </button>
     </motion.div>
   )
 }

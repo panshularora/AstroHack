@@ -1,11 +1,13 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { BookOpen, Target, Zap, FileText, Search } from "lucide-react"
+import { useNavigate } from "react-router-dom"
 import { Badge } from "@/components/ui/Badge"
 import { Input } from "@/components/ui/Input"
 import { mockTimelineEvents, mockJournalEntries, mockMemoryStats } from "@/lib/mock-data"
 
 export function CosmicMemory() {
+  const navigate = useNavigate()
   const [search, setSearch] = useState("")
 
   const filteredTimeline = mockTimelineEvents.filter(e =>
@@ -20,6 +22,15 @@ export function CosmicMemory() {
         {/* ── Header ─────────────────────────────────────────────── */}
         <div className="border-b border-line/60 pb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
+            <button
+              onClick={() => navigate(-1)}
+              className="flex items-center gap-1.5 font-mono text-[11px] text-ink-tertiary hover:text-ink transition-colors mb-5 group"
+            >
+              <svg className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" viewBox="0 0 16 16" fill="none">
+                <path d="M10 12L6 8l4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Back
+            </button>
             <div className="flex items-center gap-3 mb-2">
               <div className="w-8 h-8 rounded-md bg-surface-2 border border-brand/30 flex items-center justify-center text-brand">
                 <BookOpen className="w-4 h-4 text-brand" />

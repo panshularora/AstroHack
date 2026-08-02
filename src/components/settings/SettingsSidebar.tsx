@@ -22,14 +22,14 @@ export function SettingsSidebar({ activeCategory, onSelectCategory }: SettingsSi
   ]
 
   return (
-    <div className="bg-card border border-white/10 rounded-3xl p-4 flex flex-col gap-1 sticky top-24">
+    <div className="bg-surface border border-line rounded-lg p-4 flex flex-col gap-1 sticky top-24">
       {categories.map((cat) => (
         <button
           key={cat.id}
           onClick={() => onSelectCategory(cat.id)}
-          className={`flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-medium transition-colors text-left w-full ${
+          className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors text-left w-full ${
             activeCategory === cat.id 
-              ? 'bg-white/10 text-white border border-white/5 shadow-inner' 
+              ? 'bg-white/10 text-white border border-line-subtle shadow-inner' 
               : 'text-[#9CA3AF] hover:bg-white/5 hover:text-white border border-transparent'
           }`}
         >

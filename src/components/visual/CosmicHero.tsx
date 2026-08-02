@@ -35,7 +35,7 @@ export function CosmicHero({
         <div className="absolute -top-40 -right-32 w-[34rem] h-[34rem] rounded-full bg-brand/10 blur-[120px] pointer-events-none" />
         <div className="absolute -bottom-48 -left-32 w-[30rem] h-[30rem] rounded-full bg-[#0EA5E9]/8 blur-[110px] pointer-events-none" />
 
-        <div className="relative max-w-7xl mx-auto px-6 md:px-10 pt-10 md:pt-14 pb-16 md:pb-24">
+        <div className="relative max-w-7xl mx-auto px-6 md:px-10 pt-12 pb-10">
           {/* Eyebrow — Geist Mono, always */}
           <motion.p
             initial={{ opacity: 0, y: 8 }}

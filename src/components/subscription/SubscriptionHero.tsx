@@ -3,9 +3,9 @@ import { Star } from "lucide-react"
 export function SubscriptionHero() {
   return (
     <div className="relative pt-20 pb-16 text-center overflow-hidden">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-tr from-primary/20 via-blue-500/10 to-transparent rounded-full blur-[100px] -z-10" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-tr from-brand/20 via-blue-500/10 to-transparent rounded-full blur-[100px] -z-10" />
       
-      <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 mb-8">
+      <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-2 border border-line mb-8">
         <Star className="w-4 h-4 text-gold" />
         <span className="text-xs font-bold text-white uppercase tracking-wider">AstroLive+ Premium</span>
       </div>

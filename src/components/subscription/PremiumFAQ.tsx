@@ -14,7 +14,7 @@ export function PremiumFAQ() {
 
       <div className="space-y-4">
         {mockFAQs.map((faq, i) => (
-          <div key={i} className="bg-card border border-white/10 rounded-2xl overflow-hidden transition-all">
+          <div key={i} className="bg-surface border border-line rounded-lg overflow-hidden transition-all">
             <button 
               className="w-full flex items-center justify-between p-6 text-left hover:bg-white/5 transition-colors"
               onClick={() => setOpen(open === i ? null : i)}

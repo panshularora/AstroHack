@@ -113,7 +113,11 @@ export function Sidebar() {
                       />
                       <span className="flex-1">{item.label}</span>
                       {item.meta && (
-                        <span className="font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-gold-light bg-surface-2 border border-line px-1.5 py-0.5 rounded-sm">
+                        <span className={`font-mono text-[9px] font-bold uppercase tracking-[0.14em] px-1.5 py-0.5 rounded-[2px] ${
+                          item.meta === 'Live' 
+                            ? 'bg-success/15 text-success border border-success/25' 
+                            : 'bg-brand-light text-brand border border-brand/20'
+                        }`}>
                           {item.meta}
                         </span>
                       )}

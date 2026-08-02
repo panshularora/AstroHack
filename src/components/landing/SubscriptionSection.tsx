@@ -21,7 +21,7 @@ export function SubscriptionSection() {
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="p-8 rounded-3xl bg-card border border-white/10 flex flex-col"
+            className="p-8 rounded-lg bg-surface border border-line flex flex-col"
           >
             <h3 className="text-2xl font-bold mb-2">Basic</h3>
             <div className="text-4xl font-bold mb-6">Free</div>
@@ -32,7 +32,7 @@ export function SubscriptionSection() {
               <li className="flex items-center gap-3"><X className="w-5 h-5 text-red-500/50" /> No Daily Briefs</li>
               <li className="flex items-center gap-3"><X className="w-5 h-5 text-red-500/50" /> No Prediction Tracking</li>
             </ul>
-            <Button variant="outline" className="w-full h-12 text-white border-white/20 hover:bg-white/10" onClick={() => navigate('/signup')}>Get Started Free</Button>
+            <Button variant="outline" className="w-full h-12 text-white border-line-strong hover:bg-surface-3" onClick={() => navigate('/signup')}>Get Started Free</Button>
           </motion.div>
 
           {/* AstroLive+ Tier */}
@@ -40,19 +40,19 @@ export function SubscriptionSection() {
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="relative p-8 rounded-3xl bg-gradient-to-b from-card to-card/50 border border-primary/50 shadow-[0_0_30px_rgba(107,33,168,0.2)] flex flex-col"
+            className="relative p-8 rounded-lg bg-gradient-to-b from-surface to-surface/50 border border-brand/50 shadow-[0_0_30px_rgba(107,33,168,0.2)] flex flex-col"
           >
-            <div className="absolute top-0 right-8 -translate-y-1/2 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+            <div className="absolute top-0 right-8 -translate-y-1/2 bg-brand text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
               Most Popular
             </div>
-            <h3 className="text-2xl font-bold mb-2 text-lavender">AstroLive+</h3>
+            <h3 className="text-2xl font-bold mb-2 text-ink-secondary">AstroLive+</h3>
             <div className="text-4xl font-bold mb-6">$12<span className="text-lg text-[#9CA3AF] font-normal">/mo</span></div>
             <ul className="space-y-4 mb-8 flex-1">
-              <li className="flex items-center gap-3"><Check className="w-5 h-5 text-primary" /> Unlimited Cosmic Memory</li>
-              <li className="flex items-center gap-3"><Check className="w-5 h-5 text-primary" /> Automated Prediction Tracking</li>
-              <li className="flex items-center gap-3"><Check className="w-5 h-5 text-primary" /> Personalized Daily Briefs</li>
-              <li className="flex items-center gap-3"><Check className="w-5 h-5 text-primary" /> Joint Relationship Mode</li>
-              <li className="flex items-center gap-3"><Check className="w-5 h-5 text-primary" /> Priority Booking Discounts</li>
+              <li className="flex items-center gap-3"><Check className="w-5 h-5 text-brand" /> Unlimited Cosmic Memory</li>
+              <li className="flex items-center gap-3"><Check className="w-5 h-5 text-brand" /> Automated Prediction Tracking</li>
+              <li className="flex items-center gap-3"><Check className="w-5 h-5 text-brand" /> Personalized Daily Briefs</li>
+              <li className="flex items-center gap-3"><Check className="w-5 h-5 text-brand" /> Joint Relationship Mode</li>
+              <li className="flex items-center gap-3"><Check className="w-5 h-5 text-brand" /> Priority Booking Discounts</li>
             </ul>
             <Button className="w-full h-12 shadow-[0_0_15px_rgba(107,33,168,0.5)]" onClick={() => navigate('/signup')}>Get Started — It's Free</Button>
           </motion.div>

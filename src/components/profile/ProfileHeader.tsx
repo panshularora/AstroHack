@@ -17,7 +17,7 @@ export function ProfileHeader({ astrologer }: { astrologer: VerifiedAstrologer }
     <>
       <div className="relative mb-16">
         {/* Background Banner */}
-        <div className="absolute top-0 left-0 w-full h-48 bg-gradient-to-r from-primary/20 via-blue-500/20 to-secondary/20 rounded-t-3xl overflow-hidden border-x border-t border-white/10">
+        <div className="absolute top-0 left-0 w-full h-48 bg-gradient-to-r from-brand/20 via-blue-500/20 to-secondary/20 rounded-t-3xl overflow-hidden border-x border-t border-line/60">
           <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
         </div>
 
@@ -25,7 +25,7 @@ export function ProfileHeader({ astrologer }: { astrologer: VerifiedAstrologer }
           {/* Avatar & Badges */}
           <div className="shrink-0 relative">
             <img src={astrologer.avatar} alt={astrologer.name} className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-4 border-[#1a1b26] shadow-xl" />
-            <div className="absolute -bottom-2 right-4 bg-primary rounded-full p-2 border-2 border-[#1a1b26] shadow-lg" title="AstroVerified Expert">
+            <div className="absolute -bottom-2 right-4 bg-brand rounded-full p-2 border-2 border-[#1a1b26] shadow-lg" title="AstroVerified Expert">
               <ShieldCheck className="w-6 h-6 text-white" />
             </div>
           </div>
@@ -47,7 +47,7 @@ export function ProfileHeader({ astrologer }: { astrologer: VerifiedAstrologer }
                 
                 <div className="flex flex-wrap items-center gap-4 text-sm font-medium">
                   <div className="flex items-center gap-1.5 text-white/80">
-                    <span className="text-primary font-bold">{astrologer.accuracy}%</span> Verified Accuracy
+                    <span className="text-brand font-bold">{astrologer.accuracy}%</span> Verified Accuracy
                   </div>
                   <div className="w-1 h-1 rounded-full bg-white/20" />
                   <div className="flex items-center gap-1.5 text-white/80">
@@ -71,14 +71,14 @@ export function ProfileHeader({ astrologer }: { astrologer: VerifiedAstrologer }
                   <Button
                     onClick={() => handleOpen("voice")}
                     variant="outline"
-                    className="flex-1 h-12 gap-2 border-white/20 text-white hover:bg-white/5"
+                    className="flex-1 h-12 gap-2 border-line-strong text-white hover:bg-white/5"
                   >
                     <Phone className="w-4 h-4" /> Call
                   </Button>
                   <Button
                     onClick={() => handleOpen("video")}
                     variant="outline"
-                    className="flex-1 h-12 gap-2 border-white/20 text-white hover:bg-white/5"
+                    className="flex-1 h-12 gap-2 border-line-strong text-white hover:bg-white/5"
                   >
                     <Calendar className="w-4 h-4" /> Schedule
                   </Button>

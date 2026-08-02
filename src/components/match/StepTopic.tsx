@@ -41,13 +41,13 @@ export function StepTopic({ selectedTopic, onSelect, onNext }: StepTopicProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
               onClick={() => onSelect(topic.id)}
-              className={`p-6 rounded-2xl border text-center flex flex-col items-center justify-center transition-all cursor-pointer ${
+              className={`p-6 rounded-lg border text-center flex flex-col items-center justify-center transition-all cursor-pointer ${
                 isSelected 
-                  ? "bg-primary/20 border-primary shadow-[0_0_20px_rgba(107,33,168,0.3)]" 
-                  : "bg-card border-white/10 hover:border-white/20 hover:bg-white/5"
+                  ? "bg-brand/20 border-brand shadow-[0_0_20px_rgba(107,33,168,0.3)]" 
+                  : "bg-surface border-line/60 hover:border-line-strong hover:bg-white/5"
               }`}
             >
-              <topic.icon className={`w-8 h-8 mb-4 transition-colors ${isSelected ? "text-primary" : "text-white/50"}`} />
+              <topic.icon className={`w-8 h-8 mb-4 transition-colors ${isSelected ? "text-brand" : "text-white/50"}`} />
               <span className={`font-semibold text-sm transition-colors ${isSelected ? "text-white" : "text-[#9CA3AF]"}`}>{topic.label}</span>
             </motion.button>
           )

@@ -20,12 +20,12 @@ export function CelestialToolsModal({ isOpen, onClose, initialTab = "panchang" }
           initial={{ opacity: 0, scale: 0.95, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 15 }}
-          className="relative w-full max-w-4xl bg-card border border-white/10 rounded-3xl p-6 md:p-8 shadow-2xl overflow-hidden max-h-[90vh] flex flex-col"
+          className="relative w-full max-w-4xl bg-surface border border-line rounded-lg p-6 md:p-8 shadow-2xl overflow-hidden max-h-[90vh] flex flex-col"
         >
           {/* Header */}
-          <div className="flex items-center justify-between border-b border-white/10 pb-5 mb-6">
+          <div className="flex items-center justify-between border-b border-line/60 pb-5 mb-6">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-primary/20 border border-primary/30 flex items-center justify-center text-primary">
+              <div className="w-10 h-10 rounded-lg bg-brand/20 border border-brand/30 flex items-center justify-center text-brand">
                 <Sparkles className="w-5 h-5" />
               </div>
               <div>
@@ -35,17 +35,17 @@ export function CelestialToolsModal({ isOpen, onClose, initialTab = "panchang" }
             </div>
             <button
               onClick={onClose}
-              className="w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/70 hover:text-white transition-colors"
+              className="w-9 h-9 rounded-full bg-white/5 hover:bg-surface-3 flex items-center justify-center text-white/70 hover:text-white transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
 
           {/* Navigation Tabs */}
-          <div className="flex gap-2 border-b border-white/10 pb-4 mb-6 overflow-x-auto">
+          <div className="flex gap-2 border-b border-line/60 pb-4 mb-6 overflow-x-auto">
             {[
               { id: "panchang", label: "Today's Panchang", icon: Sun, color: "text-amber-400" },
-              { id: "kundli", label: "Free Kundli & Chart", icon: BookOpen, color: "text-primary" },
+              { id: "kundli", label: "Free Kundli & Chart", icon: BookOpen, color: "text-brand" },
               { id: "match", label: "Kundli Match (36 Guna)", icon: Heart, color: "text-pink-400" },
               { id: "pooja", label: "Book a Remedial Pooja", icon: Flame, color: "text-gold" },
             ].map((tab) => {
@@ -57,7 +57,7 @@ export function CelestialToolsModal({ isOpen, onClose, initialTab = "panchang" }
                   onClick={() => setActiveTab(tab.id as any)}
                   className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all shrink-0 ${
                     isActive
-                      ? "bg-white/10 text-white border border-white/20 shadow-md"
+                      ? "bg-white/10 text-white border border-line-strong shadow-md"
                       : "text-[#9CA3AF] hover:text-white hover:bg-white/5"
                   }`}
                 >
@@ -93,7 +93,7 @@ function PanchangView() {
 
   return (
     <div className="space-y-6">
-      <div className="bg-gradient-to-r from-amber-500/10 via-primary/10 to-card p-5 rounded-2xl border border-amber-500/20">
+      <div className="bg-gradient-to-r from-amber-500/10 via-primary/10 to-surface p-5 rounded-lg border border-amber-500/20">
         <div className="flex justify-between items-start mb-2">
           <div>
             <h3 className="text-lg font-bold text-white">Daily Vedic Panchang</h3>
@@ -111,7 +111,7 @@ function PanchangView() {
         {panchangData.map((item) => {
           const Icon = item.icon
           return (
-            <div key={item.label} className="p-4 bg-white/3 border border-white/8 rounded-2xl flex items-start gap-3">
+            <div key={item.label} className="p-4 bg-surface-2 border border-line/60 rounded-lg flex items-start gap-3">
               <div className="w-9 h-9 rounded-xl bg-white/5 flex items-center justify-center shrink-0">
                 <Icon className={`w-4 h-4 ${item.color}`} />
               </div>
@@ -130,28 +130,28 @@ function PanchangView() {
 function KundliView() {
   return (
     <div className="space-y-6">
-      <div className="p-5 bg-primary/10 border border-primary/20 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="p-5 bg-brand-light border border-brand/20 rounded-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h3 className="text-lg font-bold text-white">Arjun Sharma's Kundli & Birth Chart</h3>
           <p className="text-xs text-[#9CA3AF]">Vedic (Lahiri) · Aug 15, 1994 · 14:30 · New Delhi</p>
         </div>
-        <button className="px-4 py-2 bg-primary/20 hover:bg-primary/30 text-lavender border border-primary/30 rounded-xl text-xs font-bold transition-colors">
+        <button className="px-4 py-2 bg-brand/20 hover:bg-brand/30 text-ink-secondary border border-brand/30 rounded-xl text-xs font-bold transition-colors">
           Download PDF Chart
         </button>
       </div>
 
       <div className="grid md:grid-cols-3 gap-4">
-        <div className="p-4 bg-white/3 border border-white/8 rounded-2xl">
+        <div className="p-4 bg-surface-2 border border-line/60 rounded-lg">
           <p className="text-xs text-[#9CA3AF] font-bold uppercase mb-2">Lagna (Ascendant)</p>
           <p className="text-xl font-bold text-white">Scorpio (Vrishchika)</p>
-          <p className="text-xs text-primary mt-1">Lord: Mars · Strong Determination</p>
+          <p className="text-xs text-brand mt-1">Lord: Mars · Strong Determination</p>
         </div>
-        <div className="p-4 bg-white/3 border border-white/8 rounded-2xl">
+        <div className="p-4 bg-surface-2 border border-line/60 rounded-lg">
           <p className="text-xs text-[#9CA3AF] font-bold uppercase mb-2">Rashi (Moon Sign)</p>
           <p className="text-xl font-bold text-gold">Leo (Simha)</p>
           <p className="text-xs text-gold mt-1">Lord: Sun · Leadership Potential</p>
         </div>
-        <div className="p-4 bg-white/3 border border-white/8 rounded-2xl">
+        <div className="p-4 bg-surface-2 border border-line/60 rounded-lg">
           <p className="text-xs text-[#9CA3AF] font-bold uppercase mb-2">Current Mahadasha</p>
           <p className="text-xl font-bold text-emerald-400">Rahu Dasha</p>
           <p className="text-xs text-emerald-400 mt-1">Until 2031 · Innovation & Tech Focus</p>
@@ -164,7 +164,7 @@ function KundliView() {
 function KundliMatchView() {
   return (
     <div className="space-y-6">
-      <div className="p-5 bg-pink-500/10 border border-pink-500/20 rounded-2xl">
+      <div className="p-5 bg-pink-500/10 border border-pink-500/20 rounded-lg">
         <div className="flex justify-between items-center mb-3">
           <h3 className="text-lg font-bold text-white">Ashta Koota 36-Guna Compatibility</h3>
           <span className="text-xs font-bold text-pink-400 bg-pink-500/20 px-3 py-1 rounded-full border border-pink-500/30">
@@ -185,7 +185,7 @@ function KundliMatchView() {
           ["Bhakoot", "7 / 7", "Financial Prosperity"],
           ["Nadi", "3 / 8", "Genetic Compatibility"],
         ].map(([title, val, desc]) => (
-          <div key={title} className="p-3 bg-white/3 border border-white/8 rounded-xl">
+          <div key={title} className="p-3 bg-surface-2 border border-line/60 rounded-xl">
             <p className="text-[10px] text-[#9CA3AF] font-bold uppercase">{title}</p>
             <p className="text-base font-bold text-white mt-0.5">{val}</p>
             <p className="text-[10px] text-[#6B7280]">{desc}</p>
@@ -210,7 +210,7 @@ function PoojaBookingView({ onClose }: { onClose: () => void }) {
       </p>
 
       {poojas.map((p) => (
-        <div key={p.name} className="p-4 bg-white/4 border border-white/10 rounded-2xl flex items-center justify-between gap-4">
+        <div key={p.name} className="p-4 bg-surface-2 border border-line rounded-lg flex items-center justify-between gap-4">
           <div>
             <h4 className="font-bold text-white text-sm flex items-center gap-2">
               <Flame className="w-4 h-4 text-gold" /> {p.name}

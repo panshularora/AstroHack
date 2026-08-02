@@ -12,7 +12,7 @@ export function MatchHero({ currentStep, totalSteps }: MatchHeroProps) {
       animate={{ opacity: 1, y: 0 }}
       className="text-center max-w-3xl mx-auto mb-12"
     >
-      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-bold text-lavender uppercase tracking-wider mb-6">
+      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-2 border border-line text-xs font-bold text-ink-secondary uppercase tracking-wider mb-6">
         Step {currentStep} of {totalSteps}
       </div>
       <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">Let's Find the Right Astrologer for You</h1>

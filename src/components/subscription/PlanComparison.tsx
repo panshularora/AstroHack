@@ -18,21 +18,21 @@ export function PlanComparison() {
         <p className="text-[#9CA3AF]">See how AstroLive+ supercharges your experience.</p>
       </div>
 
-      <div className="bg-card border border-white/10 rounded-3xl overflow-hidden shadow-2xl">
-        <div className="grid grid-cols-3 p-6 border-b border-white/10 bg-white/5 backdrop-blur-sm">
+      <div className="bg-surface border border-line rounded-lg overflow-hidden shadow-2xl">
+        <div className="grid grid-cols-3 p-6 border-b border-line/60 bg-white/5 backdrop-blur-sm">
           <div className="font-bold text-white uppercase tracking-wider text-xs">Capability</div>
           <div className="font-bold text-white text-center uppercase tracking-wider text-xs">Free Plan</div>
-          <div className="font-bold text-primary text-center uppercase tracking-wider text-xs flex items-center justify-center gap-1">AstroLive+</div>
+          <div className="font-bold text-brand text-center uppercase tracking-wider text-xs flex items-center justify-center gap-1">AstroLive+</div>
         </div>
         
         {features.map((feat, i) => (
-          <div key={i} className="grid grid-cols-3 p-6 border-b border-white/5 hover:bg-white/5 transition-colors">
+          <div key={i} className="grid grid-cols-3 p-6 border-b border-line-subtle hover:bg-white/5 transition-colors">
             <div className="text-sm font-medium text-white/90">{feat.name}</div>
             <div className="text-sm font-medium text-[#9CA3AF] text-center flex justify-center items-center">
               {typeof feat.free === 'boolean' ? (feat.free ? <Check className="w-4 h-4 text-[#9CA3AF]" /> : <Minus className="w-4 h-4 text-[#9CA3AF]/50" />) : feat.free}
             </div>
-            <div className="text-sm font-bold text-primary text-center flex justify-center items-center">
-              {typeof feat.premium === 'boolean' ? (feat.premium ? <Check className="w-5 h-5 text-primary drop-shadow-md" /> : <Minus className="w-4 h-4 text-primary" />) : feat.premium}
+            <div className="text-sm font-bold text-brand text-center flex justify-center items-center">
+              {typeof feat.premium === 'boolean' ? (feat.premium ? <Check className="w-5 h-5 text-brand drop-shadow-md" /> : <Minus className="w-4 h-4 text-brand" />) : feat.premium}
             </div>
           </div>
         ))}

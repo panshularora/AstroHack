@@ -21,8 +21,8 @@ export function QuickStats() {
       value: 3,
       sub: "1 window opening soon",
       icon: Activity,
-      color: "text-primary",
-      bg: "bg-primary/10 border-primary/20",
+      color: "text-brand",
+      bg: "bg-brand-light border-brand/20",
       glow: "shadow-primary/10",
       route: "/app/predictions"
     },
@@ -57,9 +57,9 @@ export function QuickStats() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: i * 0.08 }}
           onClick={() => navigate(stat.route)}
-          className={`relative bg-card border rounded-2xl p-5 text-left hover:-translate-y-1 transition-all duration-200 shadow-lg ${stat.glow} ${stat.bg} group`}
+          className={`relative bg-surface border rounded-lg p-5 text-left hover:-translate-y-1 transition-all duration-200 shadow-lg ${stat.glow} ${stat.bg} group`}
         >
-          <div className={`w-9 h-9 rounded-xl flex items-center justify-center mb-4 bg-white/5 border border-white/10`}>
+          <div className={`w-9 h-9 rounded-xl flex items-center justify-center mb-4 bg-surface-2 border border-line`}>
             <stat.icon className={`w-4 h-4 ${stat.color}`} />
           </div>
           <motion.p

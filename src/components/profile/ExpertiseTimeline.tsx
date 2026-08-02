@@ -12,7 +12,7 @@ export function ExpertiseTimeline() {
         </div>
       </div>
 
-      <div className="relative pl-6 md:pl-8 border-l-2 border-white/10 space-y-10">
+      <div className="relative pl-6 md:pl-8 border-l-2 border-line/60 space-y-10">
         {mockExpertiseTimeline.map((item, i) => (
           <div key={i} className="relative">
             <div className="absolute -left-[33px] md:-left-[41px] top-1 w-4 h-4 rounded-full bg-gold/20 border-2 border-gold" />

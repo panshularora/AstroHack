@@ -21,7 +21,7 @@ export function PredictionExtractor() {
           </h2>
           <p className="text-[#9CA3AF]">We extracted these predictions from your session. Edit or add more before saving.</p>
         </div>
-        <Button variant="outline" className="hidden md:flex gap-2 h-10 border-white/10 hover:bg-white/5 text-white">
+        <Button variant="outline" className="hidden md:flex gap-2 h-10 border-line/60 hover:bg-white/5 text-white">
           <Plus className="w-4 h-4" /> Add Manual Prediction
         </Button>
       </div>
@@ -34,7 +34,7 @@ export function PredictionExtractor() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, height: 0, overflow: 'hidden' }}
-              className="bg-card border border-white/10 rounded-3xl p-6 relative overflow-hidden"
+              className="bg-surface border border-line rounded-lg p-6 relative overflow-hidden"
             >
               {editingId === p.id ? (
                 <div className="space-y-4 relative z-10">
@@ -53,27 +53,27 @@ export function PredictionExtractor() {
                     </div>
                   </div>
                   <div className="flex justify-end gap-3 mt-4">
-                    <Button variant="outline" onClick={() => setEditingId(null)} className="border-white/10 hover:bg-white/5 text-white">Cancel</Button>
-                    <Button onClick={() => setEditingId(null)} className="bg-primary/20 text-lavender hover:bg-primary/30">Save Changes</Button>
+                    <Button variant="outline" onClick={() => setEditingId(null)} className="border-line/60 hover:bg-white/5 text-white">Cancel</Button>
+                    <Button onClick={() => setEditingId(null)} className="bg-brand/20 text-ink-secondary hover:bg-brand/30">Save Changes</Button>
                   </div>
                 </div>
               ) : (
                 <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 relative z-10">
                   <div className="flex-1">
                     <div className="flex flex-wrap items-center gap-2 mb-3">
-                      <span className="text-[10px] font-bold px-2.5 py-1 bg-primary/20 text-lavender rounded-md uppercase tracking-wider">{p.category}</span>
+                      <span className="text-[10px] font-bold px-2.5 py-1 bg-brand/20 text-ink-secondary rounded-md uppercase tracking-wider">{p.category}</span>
                       <span className="text-[10px] font-bold px-2.5 py-1 bg-white/5 text-white/90 rounded-md flex items-center gap-1 uppercase tracking-wider">
                         <Target className="w-3 h-3" /> {p.confidence}% Confidence
                       </span>
                     </div>
                     <h3 className="text-xl font-bold text-white mb-2">{p.title}</h3>
                     <p className="text-sm text-[#9CA3AF] flex items-center gap-1.5 font-medium">
-                      <Clock className="w-4 h-4 text-primary" /> Target: {p.timeframe}
+                      <Clock className="w-4 h-4 text-brand" /> Target: {p.timeframe}
                     </p>
                   </div>
                   
                   <div className="flex gap-2">
-                    <button onClick={() => setEditingId(p.id)} className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-[#9CA3AF] hover:text-white hover:bg-white/10 transition-colors cursor-pointer">
+                    <button onClick={() => setEditingId(p.id)} className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-[#9CA3AF] hover:text-white hover:bg-surface-3 transition-colors cursor-pointer">
                       <Edit2 className="w-4 h-4" />
                     </button>
                     <button onClick={() => handleDelete(p.id)} className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-[#9CA3AF] hover:text-red-400 hover:bg-red-400/10 transition-colors cursor-pointer">
@@ -87,7 +87,7 @@ export function PredictionExtractor() {
         </AnimatePresence>
       </div>
       
-      <Button variant="outline" className="w-full mt-4 md:hidden border-white/10 h-12 text-white">
+      <Button variant="outline" className="w-full mt-4 md:hidden border-line/60 h-12 text-white">
         <Plus className="w-4 h-4 mr-2" /> Add Manual Prediction
       </Button>
     </div>

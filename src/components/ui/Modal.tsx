@@ -37,7 +37,7 @@ export function Modal({ open, onClose, children, className, showClose = true }: 
             exit={{ opacity: 0, scale: 0.96, y: 12 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             className={cn(
-              "relative z-10 w-full max-w-lg rounded-2xl border border-line bg-surface shadow-2xl",
+              "relative z-10 w-full max-w-lg rounded-lg border border-line bg-surface shadow-2xl",
               className
             )}
           >

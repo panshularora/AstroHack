@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Send, User, Sparkles, BookOpen, Target, HeartPulse } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
+import ReactMarkdown from "react-markdown"
 import { mockChatHistory, type ChatMessage } from "@/lib/mock-data"
 
 export function ChatInterface() {
@@ -13,7 +14,7 @@ export function ChatInterface() {
       case 'consultation': return <BookOpen className="w-3 h-3 text-blue-400" />
       case 'prediction': return <Target className="w-3 h-3 text-gold" />
       case 'remedy': return <HeartPulse className="w-3 h-3 text-emerald-400" />
-      default: return <Sparkles className="w-3 h-3 text-primary" />
+      default: return <Sparkles className="w-3 h-3 text-brand" />
     }
   }
 
@@ -50,14 +51,14 @@ In your July 15 session, **Dr. Sarah Chen** predicted a tech offer window openin
   }
 
   return (
-    <div className="flex flex-col h-[600px] bg-card/50 backdrop-blur-md border border-white/10 rounded-3xl overflow-hidden relative shadow-2xl">
+    <div className="flex flex-col h-[600px] bg-surface border border-line rounded-lg overflow-hidden relative">
       {/* Proactive Alert Banner */}
-      <div className="p-3 bg-primary/10 border-b border-primary/20 flex items-center justify-between text-xs px-6">
+      <div className="p-3 bg-brand-light border-b border-brand/20 flex items-center justify-between text-xs px-6">
         <div className="flex items-center gap-2">
-          <Sparkles className="w-4 h-4 text-primary animate-pulse" />
+          <Sparkles className="w-4 h-4 text-brand animate-pulse" />
           <span className="text-white font-medium">Proactive Memory Alert: Career prediction window opens in 3 days.</span>
         </div>
-        <span className="text-primary font-bold">100% Synced</span>
+        <span className="text-brand font-bold">100% Synced</span>
       </div>
 
       {/* Messages Area */}
@@ -73,36 +74,45 @@ In your July 15 session, **Dr. Sarah Chen** predicted a tech offer window openin
             >
               <div className="shrink-0 mt-1">
                 {msg.role === 'assistant' ? (
-                  <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-primary to-blue-500 flex items-center justify-center shadow-lg">
-                    <Sparkles className="w-4 h-4 text-white" />
+                  <div className="w-8 h-8 rounded-md bg-brand-light border border-brand/30 flex items-center justify-center">
+                    <Sparkles className="w-4 h-4 text-brand" />
                   </div>
                 ) : (
-                  <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center border border-white/5">
+                  <div className="w-8 h-8 rounded-md bg-surface-2 border border-line flex items-center justify-center">
                     <User className="w-4 h-4 text-white/70" />
                   </div>
                 )}
               </div>
 
               <div className="flex flex-col gap-2">
-                <div className={`p-4 rounded-2xl text-sm leading-relaxed ${
+                <div className={`p-4 text-sm leading-relaxed ${
                   msg.role === 'user' 
-                    ? 'bg-primary text-white shadow-md rounded-tr-sm' 
-                    : 'bg-black/40 text-white/90 border border-white/10 rounded-tl-sm backdrop-blur-sm'
+                    ? 'bg-brand text-white rounded-lg rounded-tr-sm' 
+                    : 'bg-surface-2 border border-line rounded-lg rounded-tl-sm'
                 }`}>
-                  <div className="whitespace-pre-wrap">{msg.content}</div>
+                  <div className="prose prose-sm max-w-none prose-invert prose-p:leading-relaxed prose-strong:text-gold-bright prose-p:text-ink/90">
+                    <ReactMarkdown
+                      components={{
+                        p: ({ children }) => <p className="mb-2 last:mb-0 text-sm leading-relaxed">{children}</p>,
+                        strong: ({ children }) => <strong className="font-semibold text-gold-bright">{children}</strong>,
+                      }}
+                    >
+                      {msg.content}
+                    </ReactMarkdown>
+                  </div>
                 </div>
 
                 {msg.citations && (
                   <div className="flex flex-wrap gap-2">
                     {msg.citations.map((cite, idx) => (
-                      <div key={idx} className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[10px] font-bold uppercase tracking-wider text-[#9CA3AF] cursor-pointer hover:bg-white/10 transition-colors">
+                      <div key={idx} className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-surface-2 border border-line text-[10px] font-bold uppercase tracking-wider text-ink-tertiary cursor-pointer hover:bg-surface-3 transition-colors">
                         {getCitationIcon(cite.type)}
                         {cite.title}
                       </div>
                     ))}
                   </div>
                 )}
-                <span className={`text-[10px] text-[#9CA3AF] font-bold ${msg.role === 'user' ? 'text-right' : 'text-left'}`}>
+                <span className={`text-[10px] text-ink-tertiary font-bold ${msg.role === 'user' ? 'text-right' : 'text-left'}`}>
                   {msg.timestamp}
                 </span>
               </div>
@@ -111,21 +121,21 @@ In your July 15 session, **Dr. Sarah Chen** predicted a tech offer window openin
         </AnimatePresence>
 
         {isTyping && (
-          <div className="flex items-center gap-2 text-xs text-[#9CA3AF] p-3 bg-white/5 rounded-2xl w-fit border border-white/10">
-            <Sparkles className="w-4 h-4 text-primary animate-spin" />
+          <div className="flex items-center gap-2 text-xs text-ink-tertiary p-3 bg-surface-2 rounded-md w-fit border border-line">
+            <Sparkles className="w-4 h-4 text-brand animate-spin" />
             <span>AI Companion is reading your Cosmic Memory...</span>
           </div>
         )}
       </div>
 
       {/* Input Area */}
-      <div className="p-4 md:p-6 bg-black/40 border-t border-white/10 backdrop-blur-xl">
+      <div className="p-4 md:p-6 bg-surface border-t border-line">
         <div className="relative flex items-end gap-2">
           <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask about your career window, Dr. Sarah's reading, or active remedies..."
-            className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-4 pr-12 text-sm text-white placeholder:text-[#9CA3AF]/70 focus:outline-none focus:border-primary/50 transition-colors resize-none overflow-hidden min-h-[56px] max-h-[150px]"
+            className="w-full bg-surface-2 border border-line rounded-md py-4 pl-4 pr-12 text-sm text-white placeholder:text-ink-tertiary/70 focus:outline-none focus:border-brand/50 transition-colors resize-none overflow-hidden min-h-[56px] max-h-[150px]"
             rows={1}
             onKeyDown={(e) => {
               if (e.key === 'Enter' && !e.shiftKey) {
@@ -136,13 +146,13 @@ In your July 15 session, **Dr. Sarah Chen** predicted a tech offer window openin
           />
           <button
             onClick={handleSend}
-            className="absolute right-2 bottom-2 w-10 h-10 rounded-xl bg-primary text-white flex items-center justify-center hover:bg-primary/90 transition-colors shadow-lg cursor-pointer"
+            className="absolute right-2 bottom-2 w-10 h-10 rounded-md bg-brand hover:bg-brand-hover text-white flex items-center justify-center transition-soft shadow-lg cursor-pointer"
           >
             <Send className="w-4 h-4" />
           </button>
         </div>
         <div className="mt-3 text-center">
-          <span className="text-[10px] text-[#9CA3AF] font-bold uppercase tracking-wider">AstroLive AI remembers your complete cosmic journey</span>
+          <span className="text-[10px] text-ink-tertiary font-bold uppercase tracking-wider">AstroLive AI remembers your complete cosmic journey</span>
         </div>
       </div>
     </div>

@@ -19,10 +19,10 @@ export function AccuracyDashboard() {
 
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Trend Line Chart */}
-        <div className="bg-card border border-white/10 rounded-3xl p-6 md:p-8 lg:col-span-2 hover:border-white/20 transition-colors">
+        <div className="bg-surface border border-line rounded-lg p-6 md:p-8 lg:col-span-2 hover:border-line-strong transition-colors">
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center gap-2">
-              <Activity className="w-5 h-5 text-primary" />
+              <Activity className="w-5 h-5 text-brand" />
               <h3 className="text-lg font-bold text-white">Accuracy Trend</h3>
             </div>
             <span className="text-sm text-green-400 font-bold bg-green-400/10 px-3 py-1 rounded-full">+5% this year</span>
@@ -42,7 +42,7 @@ export function AccuracyDashboard() {
         </div>
 
         {/* Radar Chart */}
-        <div className="bg-card border border-white/10 rounded-3xl p-6 md:p-8 hover:border-white/20 transition-colors">
+        <div className="bg-surface border border-line rounded-lg p-6 md:p-8 hover:border-line-strong transition-colors">
           <div className="flex items-center gap-2 mb-2">
             <Target className="w-5 h-5 text-gold" />
             <h3 className="text-lg font-bold text-white">Category Success</h3>

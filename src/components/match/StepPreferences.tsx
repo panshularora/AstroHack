@@ -27,9 +27,9 @@ export function StepPreferences({ onNext, onBack }: StepPreferencesProps) {
       <div className="space-y-8 mb-10">
         
         {/* Consultation Mode */}
-        <div className="bg-card border border-white/10 p-6 md:p-8 rounded-3xl">
+        <div className="bg-surface border border-line p-6 md:p-8 rounded-lg">
           <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-5">Consultation Mode</h3>
-          <div className="flex bg-black/40 p-1.5 rounded-xl border border-white/5">
+          <div className="flex bg-black/40 p-1.5 rounded-xl border border-line-subtle">
             {['chat', 'voice', 'video'].map(m => (
               <button
                 key={m}
@@ -45,7 +45,7 @@ export function StepPreferences({ onNext, onBack }: StepPreferencesProps) {
         </div>
 
         {/* Language */}
-        <div className="bg-card border border-white/10 p-6 md:p-8 rounded-3xl">
+        <div className="bg-surface border border-line p-6 md:p-8 rounded-lg">
           <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-5">Preferred Language</h3>
           <div className="flex flex-wrap gap-3">
             {languages.map(l => (
@@ -54,8 +54,8 @@ export function StepPreferences({ onNext, onBack }: StepPreferencesProps) {
                 onClick={() => setSelectedLang(l)}
                 className={`px-5 py-2.5 rounded-full text-sm font-medium border transition-all cursor-pointer ${
                   selectedLang === l 
-                    ? "bg-primary/20 border-primary text-white" 
-                    : "bg-transparent border-white/10 text-[#9CA3AF] hover:border-white/30 hover:text-white"
+                    ? "bg-brand/20 border-brand text-white" 
+                    : "bg-transparent border-line/60 text-[#9CA3AF] hover:border-white/30 hover:text-white"
                 }`}
               >
                 {l}
@@ -65,10 +65,10 @@ export function StepPreferences({ onNext, onBack }: StepPreferencesProps) {
         </div>
 
         {/* Budget Slider */}
-        <div className="bg-card border border-white/10 p-6 md:p-8 rounded-3xl">
+        <div className="bg-surface border border-line p-6 md:p-8 rounded-lg">
           <div className="flex justify-between items-center mb-6">
             <h3 className="text-sm font-bold text-white uppercase tracking-wider">Budget per minute</h3>
-            <span className="text-primary font-bold text-xl">${budget}</span>
+            <span className="text-brand font-bold text-xl">${budget}</span>
           </div>
           <input 
             type="range" 

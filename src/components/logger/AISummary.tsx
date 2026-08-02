@@ -17,18 +17,18 @@ export function AISummary() {
         <p className="text-[#9CA3AF]">AstroLive automatically remembers important guidance so you never have to.</p>
       </div>
 
-      <div className="bg-card border border-white/10 rounded-3xl p-6 md:p-8 relative overflow-hidden">
+      <div className="bg-surface border border-line rounded-lg p-6 md:p-8 relative overflow-hidden">
         <div className="absolute top-0 right-0 p-6 opacity-10 pointer-events-none">
           <Sparkles className="w-32 h-32" />
         </div>
         
-        <div className="flex items-center gap-4 mb-8 pb-6 border-b border-white/10">
-          <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
-            <Sparkles className="w-6 h-6 text-primary" />
+        <div className="flex items-center gap-4 mb-8 pb-6 border-b border-line/60">
+          <div className="w-12 h-12 rounded-full bg-brand/20 flex items-center justify-center flex-shrink-0">
+            <Sparkles className="w-6 h-6 text-brand" />
           </div>
           <div>
             <h3 className="text-lg md:text-xl font-bold text-white">AI Consultation Summary</h3>
-            <p className="text-sm text-primary font-medium mt-1">Topic: {topic}</p>
+            <p className="text-sm text-brand font-medium mt-1">Topic: {topic}</p>
           </div>
         </div>
 

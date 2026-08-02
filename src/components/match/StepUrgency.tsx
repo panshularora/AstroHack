@@ -38,18 +38,18 @@ export function StepUrgency({ urgency, onSelect, onNext, onBack }: StepUrgencyPr
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
               onClick={() => onSelect(u.id)}
-              className={`p-6 rounded-2xl border flex items-center text-left transition-all cursor-pointer ${
+              className={`p-6 rounded-lg border flex items-center text-left transition-all cursor-pointer ${
                 isSelected 
-                  ? "bg-primary/20 border-primary shadow-[0_0_20px_rgba(107,33,168,0.3)]" 
-                  : "bg-card border-white/10 hover:border-white/20 hover:bg-white/5"
+                  ? "bg-brand/20 border-brand shadow-[0_0_20px_rgba(107,33,168,0.3)]" 
+                  : "bg-surface border-line/60 hover:border-line-strong hover:bg-white/5"
               }`}
             >
-              <div className={`w-12 h-12 rounded-full flex items-center justify-center mr-6 shrink-0 transition-colors ${isSelected ? "bg-primary text-white" : "bg-white/5 text-white/50"}`}>
+              <div className={`w-12 h-12 rounded-full flex items-center justify-center mr-6 shrink-0 transition-colors ${isSelected ? "bg-brand text-white" : "bg-white/5 text-white/50"}`}>
                 <u.icon className="w-6 h-6" />
               </div>
               <div>
                 <h3 className={`text-lg font-bold mb-1 transition-colors ${isSelected ? "text-white" : "text-white/80"}`}>{u.label}</h3>
-                <p className={`text-sm transition-colors ${isSelected ? "text-lavender/80" : "text-[#9CA3AF]"}`}>{u.subtext}</p>
+                <p className={`text-sm transition-colors ${isSelected ? "text-ink-secondary/80" : "text-[#9CA3AF]"}`}>{u.subtext}</p>
               </div>
             </motion.button>
           )

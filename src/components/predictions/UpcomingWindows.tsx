@@ -20,7 +20,7 @@ export function UpcomingWindows() {
         <h2 className="text-2xl font-bold text-white">Upcoming Windows</h2>
       </div>
 
-      <div className="bg-gradient-to-br from-gold/20 via-[#1a1b26] to-[#1a1b26] border border-gold/30 rounded-3xl p-6 md:p-10 relative overflow-hidden shadow-[0_0_40px_rgba(250,204,21,0.05)]">
+      <div className="bg-gradient-to-br from-gold/20 via-[#1a1b26] to-[#1a1b26] border border-gold/30 rounded-lg p-6 md:p-10 relative overflow-hidden shadow-[0_0_40px_rgba(250,204,21,0.05)]">
         <div className="absolute top-0 right-0 w-64 h-64 bg-gold/10 rounded-full blur-3xl pointer-events-none" />
         
         <div className="flex flex-col lg:flex-row gap-8 items-start lg:items-center justify-between relative z-10">
@@ -43,14 +43,14 @@ export function UpcomingWindows() {
               <Button
                 onClick={() => navigate("/app/logger")}
                 variant="outline"
-                className="border-white/20 text-white hover:bg-white/5 h-12 px-8 font-bold"
+                className="border-line-strong text-white hover:bg-white/5 h-12 px-8 font-bold"
               >
                 Review Session Notes
               </Button>
             </div>
           </div>
 
-          <div className="bg-black/40 border border-white/10 rounded-3xl p-8 flex items-center justify-center gap-6 min-w-[280px] w-full lg:w-auto shadow-inner">
+          <div className="bg-black/40 border border-line rounded-lg p-8 flex items-center justify-center gap-6 min-w-[280px] w-full lg:w-auto shadow-inner">
             <div className="text-center">
               <div className="text-5xl font-bold text-white mb-2 font-mono">{String(daysRemaining).padStart(2, '0')}</div>
               <div className="text-xs text-gold uppercase font-bold tracking-wider">Days</div>

@@ -25,7 +25,7 @@ export function RecentConsultations({ consultations }: { consultations: Consulta
 
   return (
     <>
-      <div className="bg-card border border-white/10 rounded-3xl p-6 shadow-xl h-full flex flex-col">
+      <div className="bg-surface border border-line rounded-lg p-6 shadow-xl h-full flex flex-col">
         <div className="flex items-center justify-between mb-6">
           <div>
             <h2 className="text-base font-bold text-white">Recent Consultations</h2>
@@ -33,7 +33,7 @@ export function RecentConsultations({ consultations }: { consultations: Consulta
           </div>
           <button
             onClick={() => navigate("/app/logger")}
-            className="text-xs font-bold text-primary hover:text-lavender transition-colors flex items-center gap-1 cursor-pointer"
+            className="text-xs font-bold text-brand hover:text-ink-secondary transition-colors flex items-center gap-1 cursor-pointer"
           >
             View History <ArrowRight className="w-3 h-3" />
           </button>
@@ -46,11 +46,11 @@ export function RecentConsultations({ consultations }: { consultations: Consulta
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: i * 0.1 }}
-              className="bg-white/3 border border-white/8 rounded-2xl p-5 flex flex-col hover:border-white/20 hover:shadow-lg transition-all group"
+              className="bg-surface-2 border border-line/60 rounded-lg p-5 flex flex-col hover:border-line-strong hover:shadow-lg transition-all group"
             >
               <div className="flex justify-between items-start mb-4">
                 <div className="flex items-center gap-3">
-                  <img src={c.astrologerAvatar} alt={c.astrologerName} className="w-11 h-11 rounded-full border border-white/10 object-cover" />
+                  <img src={c.astrologerAvatar} alt={c.astrologerName} className="w-11 h-11 rounded-full border border-line object-cover" />
                   <div>
                     <h3 className="text-white font-semibold text-sm">{c.astrologerName}</h3>
                     <div className="flex items-center gap-2 text-xs text-[#9CA3AF] mt-0.5">
@@ -70,7 +70,7 @@ export function RecentConsultations({ consultations }: { consultations: Consulta
                 </div>
               </div>
               
-              <div className="bg-white/4 rounded-xl p-3 mb-5 border border-white/5">
+              <div className="bg-surface-2 rounded-xl p-3 mb-5 border border-line-subtle">
                 <span className="text-[10px] text-[#9CA3AF] uppercase tracking-wider font-bold">Topic Discussed</span>
                 <p className="text-xs text-white/90 font-medium mt-0.5">{c.topic}</p>
               </div>
@@ -78,21 +78,21 @@ export function RecentConsultations({ consultations }: { consultations: Consulta
               <div className="mt-auto flex flex-col gap-2">
                 <Button
                   onClick={() => handleWatchReplay(c)}
-                  className="w-full text-xs h-9 bg-primary/20 text-lavender hover:bg-primary/30 border border-primary/30 font-bold flex items-center justify-center gap-1.5"
+                  className="w-full text-xs h-9 bg-brand/20 text-ink-secondary hover:bg-brand/30 border border-brand/30 font-bold flex items-center justify-center gap-1.5"
                 >
-                  <Play className="w-3 h-3 fill-primary text-primary" /> Watch Cosmic Replay
+                  <Play className="w-3 h-3 fill-primary text-brand" /> Watch Cosmic Replay
                 </Button>
                 <div className="flex gap-2">
                   <Button
                     variant="outline"
-                    className="flex-1 text-xs h-8 border-white/10 hover:bg-white/10 text-[#9CA3AF] hover:text-white"
+                    className="flex-1 text-xs h-8 border-line/60 hover:bg-surface-3 text-[#9CA3AF] hover:text-white"
                     onClick={() => navigate("/app/logger")}
                   >
                     Notes
                   </Button>
                   <Button
                     variant="outline"
-                    className="flex-1 text-xs h-8 border-white/10 hover:bg-white/10 text-[#9CA3AF] hover:text-white"
+                    className="flex-1 text-xs h-8 border-line/60 hover:bg-surface-3 text-[#9CA3AF] hover:text-white"
                     onClick={() => navigate("/app/match")}
                   >
                     Follow-up

@@ -2,7 +2,7 @@ import { Database } from 'lucide-react'
 
 export function MemoryReassurance() {
   return (
-    <div className="w-full bg-black/40 border border-teal-500/20 rounded-3xl p-6 md:p-8 relative overflow-hidden mt-8 shadow-2xl">
+    <div className="w-full bg-black/40 border border-teal-500/20 rounded-lg p-6 md:p-8 relative overflow-hidden mt-8 shadow-2xl">
       <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-transparent pointer-events-none" />
       
       <div className="relative z-10">

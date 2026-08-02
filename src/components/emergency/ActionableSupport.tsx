@@ -9,7 +9,7 @@ export function ActionableSupport() {
       <h3 className="text-teal-100 font-bold mb-4 text-center text-lg">Immediate Support</h3>
       
       <div className="grid md:grid-cols-2 gap-4">
-        <button className="bg-white/5 hover:bg-white/10 border border-teal-500/20 rounded-2xl p-6 text-left transition-colors flex items-start gap-4 group">
+        <button className="bg-white/5 hover:bg-surface-3 border border-teal-500/20 rounded-lg p-6 text-left transition-colors flex items-start gap-4 group">
           <div className="w-12 h-12 rounded-full bg-teal-500/20 flex items-center justify-center shrink-0">
             <Brain className="w-6 h-6 text-teal-300" />
           </div>
@@ -21,7 +21,7 @@ export function ActionableSupport() {
           </div>
         </button>
 
-        <button className="bg-white/5 hover:bg-white/10 border border-teal-500/20 rounded-2xl p-6 text-left transition-colors flex items-start gap-4 group">
+        <button className="bg-white/5 hover:bg-surface-3 border border-teal-500/20 rounded-lg p-6 text-left transition-colors flex items-start gap-4 group">
           <div className="w-12 h-12 rounded-full bg-teal-500/20 flex items-center justify-center shrink-0 font-bold text-lg text-teal-300 border border-teal-400/30">
             {trustedAstrologer.image}
           </div>

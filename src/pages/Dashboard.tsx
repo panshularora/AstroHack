@@ -98,6 +98,9 @@ function InteractiveCosmicRing({ score }: { score: number }) {
         >
           <span className="font-mono text-[9px] text-white/80 uppercase tracking-[0.22em]">Alignment</span>
           <span className="font-metric text-3xl font-bold text-white tabular-nums leading-none">{score}</span>
+          <span className="font-mono text-[9px] text-white/70 uppercase tracking-[0.14em] mt-0.5 block">
+            / 100 today
+          </span>
         </div>
 
         {/* SVG orbital system */}
@@ -139,7 +142,7 @@ function InteractiveCosmicRing({ score }: { score: number }) {
         </svg>
 
         {/* Outer rotating astrolabe ring */}
-        <div className="absolute inset-0 rounded-full border border-white/10 border-dashed animate-orbit-reverse pointer-events-none" />
+        <div className="absolute inset-0 rounded-full border border-line border-dashed animate-orbit-reverse pointer-events-none" />
       </div>
     </div>
   )

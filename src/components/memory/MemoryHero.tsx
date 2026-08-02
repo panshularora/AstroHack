@@ -19,7 +19,7 @@ export function MemoryHero() {
           </p>
         </div>
         
-        <Button variant="outline" className="gap-2 border-white/20 hover:bg-white/5 text-white whitespace-nowrap">
+        <Button variant="outline" className="gap-2 border-line-strong hover:bg-white/5 text-white whitespace-nowrap">
           <Download className="w-4 h-4" /> Export to PDF
         </Button>
       </div>
@@ -29,10 +29,10 @@ export function MemoryHero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-card border border-white/10 rounded-2xl p-5"
+          className="bg-surface border border-line rounded-lg p-5"
         >
           <div className="flex items-center gap-2 text-[#9CA3AF] mb-2 font-medium">
-            <CalendarCheck className="w-4 h-4 text-primary" /> Consultations
+            <CalendarCheck className="w-4 h-4 text-brand" /> Consultations
           </div>
           <div className="text-3xl font-bold text-white">{stats.totalConsultations}</div>
         </motion.div>
@@ -41,7 +41,7 @@ export function MemoryHero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-card border border-white/10 rounded-2xl p-5"
+          className="bg-surface border border-line rounded-lg p-5"
         >
           <div className="flex items-center gap-2 text-[#9CA3AF] mb-2 font-medium">
             <Target className="w-4 h-4 text-secondary" /> Predictions Won
@@ -53,10 +53,10 @@ export function MemoryHero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-card border border-white/10 rounded-2xl p-5"
+          className="bg-surface border border-line rounded-lg p-5"
         >
           <div className="flex items-center gap-2 text-[#9CA3AF] mb-2 font-medium">
-            <Moon className="w-4 h-4 text-lavender" /> Active Remedies
+            <Moon className="w-4 h-4 text-ink-secondary" /> Active Remedies
           </div>
           <div className="text-3xl font-bold text-white">{stats.activeRemedies}</div>
         </motion.div>
@@ -65,7 +65,7 @@ export function MemoryHero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="bg-card border border-white/10 rounded-2xl p-5 relative overflow-hidden"
+          className="bg-surface border border-line rounded-lg p-5 relative overflow-hidden"
         >
           <div className="absolute top-0 right-0 w-24 h-24 bg-gold/10 rounded-full blur-2xl" />
           <div className="flex items-center gap-2 text-[#9CA3AF] mb-2 font-medium relative z-10">

@@ -16,7 +16,7 @@ export function DigitalTwinModal({ isOpen, onClose }: DigitalTwinModalProps) {
   if (!isOpen) return null
 
   const personalityVectors = [
-    { name: "Leadership Drive & Vision", score: 94, color: "bg-primary text-lavender", desc: "Driven by Sun in Leo & Jupiter 10th house transit." },
+    { name: "Leadership Drive & Vision", score: 94, color: "bg-brand text-ink-secondary", desc: "Driven by Sun in Leo & Jupiter 10th house transit." },
     { name: "Emotional Resilience", score: 86, color: "bg-emerald-500 text-emerald-400", desc: "Elevated through daily Venus Beej Mantra remedy routines." },
     { name: "Strategic Timing & Patience", score: 90, color: "bg-gold text-gold", desc: "Refined over 14 consultations with Dr. Sarah Chen." },
     { name: "Intuition & Subconscious Clarity", score: 88, color: "bg-blue-500 text-blue-400", desc: "Scorpio Ascendant & active Rahu Mahadasha placement." }
@@ -35,12 +35,12 @@ export function DigitalTwinModal({ isOpen, onClose }: DigitalTwinModalProps) {
           initial={{ opacity: 0, scale: 0.95, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 15 }}
-          className="relative w-full max-w-4xl bg-card border border-white/10 rounded-3xl p-6 md:p-8 shadow-2xl overflow-hidden max-h-[92vh] flex flex-col"
+          className="relative w-full max-w-4xl bg-surface border border-line rounded-lg p-6 md:p-8 shadow-2xl overflow-hidden max-h-[92vh] flex flex-col"
         >
           {/* Header */}
-          <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-6 shrink-0">
+          <div className="flex items-center justify-between border-b border-line/60 pb-4 mb-6 shrink-0">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 via-primary to-purple-600 border border-cyan-500/40 flex items-center justify-center text-white shadow-[0_0_20px_rgba(6,182,212,0.4)]">
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-tr from-cyan-500 via-primary to-purple-600 border border-cyan-500/40 flex items-center justify-center text-white shadow-[0_0_20px_rgba(6,182,212,0.4)]">
                 <Cpu className="w-5 h-5 text-cyan-300 animate-pulse" />
               </div>
               <div>
@@ -55,14 +55,14 @@ export function DigitalTwinModal({ isOpen, onClose }: DigitalTwinModalProps) {
 
             <button
               onClick={onClose}
-              className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-[#9CA3AF] hover:text-white cursor-pointer"
+              className="w-8 h-8 rounded-full bg-white/5 hover:bg-surface-3 flex items-center justify-center text-[#9CA3AF] hover:text-white cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
 
           {/* Living Persona Twin Header Card */}
-          <div className="p-5 rounded-2xl bg-gradient-to-r from-cyan-500/10 via-primary/20 to-purple-900/20 border border-cyan-500/30 mb-6 shrink-0">
+          <div className="p-5 rounded-lg bg-gradient-to-r from-cyan-500/10 via-primary/20 to-purple-900/20 border border-cyan-500/30 mb-6 shrink-0">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div className="flex items-center gap-4">
                 <div className="relative">
@@ -84,16 +84,16 @@ export function DigitalTwinModal({ isOpen, onClose }: DigitalTwinModalProps) {
                 </div>
               </div>
 
-              <div className="flex gap-3 text-center border-t md:border-t-0 border-white/10 pt-3 md:pt-0">
-                <div className="px-3 py-1 bg-white/5 rounded-xl border border-white/10">
+              <div className="flex gap-3 text-center border-t md:border-t-0 border-line/60 pt-3 md:pt-0">
+                <div className="px-3 py-1 bg-white/5 rounded-xl border border-line">
                   <span className="text-base font-extrabold text-cyan-400 block">{mockMemoryStats.totalConsultations}</span>
                   <span className="text-[9px] text-[#9CA3AF] uppercase font-bold">Sessions</span>
                 </div>
-                <div className="px-3 py-1 bg-white/5 rounded-xl border border-white/10">
+                <div className="px-3 py-1 bg-white/5 rounded-xl border border-line">
                   <span className="text-base font-extrabold text-gold block">{mockMemoryStats.verifiedAccurate}</span>
                   <span className="text-[9px] text-[#9CA3AF] uppercase font-bold">Verified</span>
                 </div>
-                <div className="px-3 py-1 bg-white/5 rounded-xl border border-white/10">
+                <div className="px-3 py-1 bg-white/5 rounded-xl border border-line">
                   <span className="text-base font-extrabold text-green-400 block">84 / 100</span>
                   <span className="text-[9px] text-[#9CA3AF] uppercase font-bold">Clarity</span>
                 </div>
@@ -102,7 +102,7 @@ export function DigitalTwinModal({ isOpen, onClose }: DigitalTwinModalProps) {
           </div>
 
           {/* Tab Navigation */}
-          <div className="flex border-b border-white/10 mb-6 shrink-0">
+          <div className="flex border-b border-line/60 mb-6 shrink-0">
             <button
               onClick={() => setActiveTab("personality")}
               className={`pb-3 px-4 text-xs font-bold transition-all border-b-2 flex items-center gap-2 ${
@@ -131,7 +131,7 @@ export function DigitalTwinModal({ isOpen, onClose }: DigitalTwinModalProps) {
                   : "border-transparent text-[#9CA3AF] hover:text-white"
               }`}
             >
-              <Brain className="w-4 h-4 text-primary" /> Memory Evolution Timeline
+              <Brain className="w-4 h-4 text-brand" /> Memory Evolution Timeline
             </button>
           </div>
 
@@ -144,7 +144,7 @@ export function DigitalTwinModal({ isOpen, onClose }: DigitalTwinModalProps) {
                 </label>
                 <div className="space-y-4">
                   {personalityVectors.map((pv, idx) => (
-                    <div key={idx} className="p-4 bg-white/3 border border-white/8 rounded-2xl space-y-2">
+                    <div key={idx} className="p-4 bg-surface-2 border border-line/60 rounded-lg space-y-2">
                       <div className="flex justify-between items-center text-xs">
                         <span className="font-bold text-white">{pv.name}</span>
                         <span className={`font-extrabold px-2.5 py-0.5 rounded-full text-xs ${pv.color}`}>
@@ -171,7 +171,7 @@ export function DigitalTwinModal({ isOpen, onClose }: DigitalTwinModalProps) {
                 </label>
                 <div className="space-y-2">
                   {twinInsights.map((ti, idx) => (
-                    <div key={idx} className="p-3.5 bg-white/4 border border-white/8 rounded-xl flex items-start gap-3">
+                    <div key={idx} className="p-3.5 bg-surface-2 border border-line/60 rounded-xl flex items-start gap-3">
                       <Sparkles className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
                       <div>
                         <h4 className="text-xs font-bold text-white">{ti.title}</h4>
@@ -197,7 +197,7 @@ export function DigitalTwinModal({ isOpen, onClose }: DigitalTwinModalProps) {
                     { goal: "Financial Investment Bonus Realization", progress: 100, status: "Verified Accurate (May 15)", color: "text-gold" },
                     { goal: "Synastry Relationship Milestones", progress: 75, status: "Tracking Smoothly", color: "text-blue-400" },
                   ].map((g, idx) => (
-                    <div key={idx} className="p-4 bg-white/4 border border-white/8 rounded-2xl flex items-center justify-between gap-4">
+                    <div key={idx} className="p-4 bg-surface-2 border border-line/60 rounded-lg flex items-center justify-between gap-4">
                       <div>
                         <h4 className="text-xs font-bold text-white">{g.goal}</h4>
                         <span className={`text-[10px] font-semibold ${g.color}`}>{g.status}</span>
@@ -217,7 +217,7 @@ export function DigitalTwinModal({ isOpen, onClose }: DigitalTwinModalProps) {
                 </label>
                 <div className="space-y-2">
                   {mockReminders.slice(0, 2).map(r => (
-                    <div key={r.id} className="p-3.5 bg-white/4 border border-white/8 rounded-xl flex items-center justify-between">
+                    <div key={r.id} className="p-3.5 bg-surface-2 border border-line/60 rounded-xl flex items-center justify-between">
                       <div>
                         <h4 className="text-xs font-bold text-white">{r.title}</h4>
                         <p className="text-xs text-[#9CA3AF] mt-0.5">{r.description}</p>
@@ -243,7 +243,7 @@ export function DigitalTwinModal({ isOpen, onClose }: DigitalTwinModalProps) {
                 { date: "June 10, 2026", title: "Twin Ingested Session #13 (Marcus Thorne)", learn: "Updated synastry compatibility model for Leo + Aries partnership." },
                 { date: "July 15, 2026", title: "Twin Ingested Session #14 (Dr. Sarah Chen)", learn: "Integrated Rahu Mahadasha tech VP leadership prediction (88% confidence)." },
               ].map((m, idx) => (
-                <div key={idx} className="p-4 bg-white/4 border border-white/8 rounded-2xl flex items-start gap-3">
+                <div key={idx} className="p-4 bg-surface-2 border border-line/60 rounded-lg flex items-start gap-3">
                   <div className="w-8 h-8 rounded-full bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 font-bold text-xs shrink-0">
                     {idx + 12}
                   </div>
@@ -258,7 +258,7 @@ export function DigitalTwinModal({ isOpen, onClose }: DigitalTwinModalProps) {
           )}
 
           {/* Footer Bar */}
-          <div className="border-t border-white/10 pt-4 mt-6 flex justify-between items-center shrink-0">
+          <div className="border-t border-line/60 pt-4 mt-6 flex justify-between items-center shrink-0">
             <span className="text-xs text-[#9CA3AF]">Digital Twin updates automatically after every consultation & journal entry</span>
             <button
               onClick={onClose}

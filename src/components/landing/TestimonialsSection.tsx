@@ -1,34 +1,52 @@
-import { motion } from "framer-motion"
 import { Star } from "lucide-react"
-import { mockSuccessStories } from "@/lib/mock-data"
+
+const testimonials = [
+  {
+    quote: "Madhav predicted my company switch would happen before Diwali. I got the offer October 14th. I logged it in Cosmic Memory the same night.",
+    name: "Priya S.",
+    location: "Mumbai",
+    sign: "Scorpio ♏",
+    consultations: "4 consultations",
+  },
+  {
+    quote: "I was sceptical about the accuracy tracking. Then Pandit Rajesh's relationship prediction came true in 6 weeks exactly. The proof is right there in my timeline.",
+    name: "Arjun K.",
+    location: "Bangalore",
+    sign: "Leo ♌",
+    consultations: "7 consultations",
+  },
+  {
+    quote: "No other app remembered what my last astrologer told me. AstroLive 2.0 literally nudged me 3 days before my predicted career window opened.",
+    name: "Sneha R.",
+    location: "Delhi",
+    sign: "Libra ♎",
+    consultations: "2 consultations",
+  },
+]
 
 export function TestimonialsSection() {
   return (
-    <section id="about" className="py-24 px-4 sm:px-6 bg-surface-2/50 border-y border-line">
+    <section id="about" className="ivory-content py-20 px-6">
       <div className="max-w-6xl mx-auto">
         {/* Section header */}
         <div className="max-w-2xl mb-16">
-          <p className="text-[13px] font-medium text-brand uppercase tracking-wider mb-3">
+          <p className="text-overline text-brand mb-3">
             Stories
           </p>
-          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-ink mb-4 text-balance">
+          <h2 className="font-display text-4xl text-ink-ivory mb-4 text-balance">
             Real outcomes, tracked over time.
           </h2>
-          <p className="text-lg text-ink-secondary leading-relaxed">
+          <p className="text-lg text-ink-ivory-secondary leading-relaxed">
             Not just readings — verified results. Here's what happens when astrology becomes a continuous practice.
           </p>
         </div>
 
         {/* Testimonials */}
-        <div className="grid md:grid-cols-2 gap-6">
-          {mockSuccessStories.map((story, i) => (
-            <motion.div
-              key={story.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
-              className="rounded-xl border border-line bg-surface p-8 shadow-sm"
+        <div className="grid md:grid-cols-3 gap-6">
+          {testimonials.map((t, i) => (
+            <div
+              key={i}
+              className="rounded-md bg-ivory-card border border-ivory-border shadow-sm p-8 flex flex-col"
             >
               {/* Stars */}
               <div className="flex gap-0.5 mb-4">
@@ -38,26 +56,21 @@ export function TestimonialsSection() {
               </div>
 
               {/* Quote */}
-              <p className="text-base text-ink leading-relaxed mb-6">
-                "{story.quote}"
+              <p className="text-base text-ink-ivory leading-relaxed mb-6 flex-1">
+                "{t.quote}"
               </p>
 
               {/* Author */}
-              <div className="flex items-center gap-3 pt-4 border-t border-line">
-                <div className="w-10 h-10 rounded-full bg-brand-light text-brand flex items-center justify-center text-sm font-semibold ring-1 ring-line">
-                  {story.image}
+              <div className="flex items-center gap-3 pt-4 border-t border-ivory-border">
+                <div className="w-10 h-10 rounded-md bg-brand-light text-brand flex items-center justify-center text-sm font-semibold">
+                  {t.name.charAt(0)}
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-ink">{story.name}</p>
-                  <p className="text-[13px] text-ink-tertiary">{story.role}</p>
-                </div>
-                <div className="ml-auto">
-                  <span className="text-[11px] font-medium px-2 py-1 rounded-full bg-success-light text-success">
-                    {story.milestone}
-                  </span>
+                  <p className="text-sm font-semibold text-ink-ivory">{t.name}, {t.location}</p>
+                  <p className="text-[13px] text-ink-ivory-tertiary font-mono">{t.sign} — {t.consultations}</p>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

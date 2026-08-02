@@ -3,7 +3,7 @@ import { CheckCircle2 } from 'lucide-react'
 
 export function AdherenceStats({ data }: { data: any[] }) {
   return (
-    <div className="bg-card border border-white/10 rounded-3xl p-6 h-full flex flex-col shadow-xl">
+    <div className="bg-surface border border-line rounded-lg p-6 h-full flex flex-col shadow-xl">
       <div className="flex items-center gap-2 mb-6">
         <CheckCircle2 className="w-5 h-5 text-green-400" />
         <h3 className="text-lg font-bold text-white">Consistency Score</h3>

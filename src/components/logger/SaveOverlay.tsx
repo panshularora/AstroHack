@@ -31,7 +31,7 @@ export function SaveOverlay({ onComplete }: SaveOverlayProps) {
           <motion.div 
             animate={{ rotate: 360 }}
             transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-            className="absolute inset-0 rounded-full border border-primary/30 border-t-primary"
+            className="absolute inset-0 rounded-full border border-brand/30 border-t-primary"
           />
           <motion.div 
             animate={{ rotate: -360 }}
@@ -67,7 +67,7 @@ export function SaveOverlay({ onComplete }: SaveOverlayProps) {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 3 }}
-          className="absolute inset-0 bg-black/90 flex flex-col items-center justify-center z-10 rounded-2xl"
+          className="absolute inset-0 bg-black/90 flex flex-col items-center justify-center z-10 rounded-lg"
         >
           <CheckCircle2 className="w-16 h-16 text-green-400 mb-4" />
           <h2 className="text-3xl font-bold text-white mb-2">Saved Successfully</h2>

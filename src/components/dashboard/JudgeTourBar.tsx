@@ -18,10 +18,10 @@ export function JudgeTourBar() {
 
   return (
     <>
-      <div className="bg-gradient-to-r from-primary/20 via-purple-900/30 to-blue-900/20 border border-primary/30 rounded-2xl p-3 md:p-4 mb-6 shadow-xl">
+      <div className="bg-gradient-to-r from-brand/20 via-purple-900/30 to-blue-900/20 border border-brand/30 rounded-lg p-3 md:p-4 mb-6 shadow-xl">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-primary/30 border border-primary/50 flex items-center justify-center text-primary shrink-0">
+            <div className="w-8 h-8 rounded-xl bg-brand/30 border border-brand/50 flex items-center justify-center text-brand shrink-0">
               <Sparkles className="w-4 h-4" />
             </div>
             <div>
@@ -58,7 +58,7 @@ export function JudgeTourBar() {
             </button>
             <button
               onClick={() => setSimulatorOpen(true)}
-              className="px-3 py-1.5 bg-gradient-to-r from-primary/30 to-purple-600/30 hover:from-primary/40 hover:to-purple-600/40 border border-primary/50 text-white rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
+              className="px-3 py-1.5 bg-gradient-to-r from-brand/30 to-purple-600/30 hover:from-brand/40 hover:to-purple-600/40 border border-brand/50 text-white rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
             >
               <Scale className="w-3.5 h-3.5 text-gold" /> Decision Simulator
             </button>
@@ -70,7 +70,7 @@ export function JudgeTourBar() {
             </button>
             <button
               onClick={() => setConsultModalOpen(true)}
-              className="px-3 py-1.5 bg-primary/20 hover:bg-primary/30 border border-primary/40 text-lavender rounded-xl text-xs font-bold transition-colors flex items-center gap-1 cursor-pointer"
+              className="px-3 py-1.5 bg-brand/20 hover:bg-brand/30 border border-brand/40 text-ink-secondary rounded-xl text-xs font-bold transition-colors flex items-center gap-1 cursor-pointer"
             >
               <MessageSquare className="w-3.5 h-3.5" /> Live Call Demo
             </button>

@@ -30,14 +30,14 @@ export function PersonalGoalsStep({ onNext, onBack, data, updateData }: { onNext
             <button
               key={goal}
               onClick={() => toggleGoal(goal)}
-              className={`p-4 rounded-2xl border text-left transition-all ${
+              className={`p-4 rounded-lg border text-left transition-all ${
                 isSelected 
-                  ? 'bg-primary/20 border-primary text-white shadow-[0_0_15px_rgba(139,92,246,0.2)]' 
-                  : 'bg-white/5 border-white/10 text-[#9CA3AF] hover:bg-white/10 hover:text-white'
+                  ? 'bg-brand/20 border-brand text-white shadow-[0_0_15px_rgba(139,92,246,0.2)]' 
+                  : 'bg-white/5 border-line/60 text-[#9CA3AF] hover:bg-surface-3 hover:text-white'
               }`}
             >
               <div className="flex justify-between items-start mb-2">
-                <div className={`w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${isSelected ? 'border-primary bg-primary' : 'border-[#9CA3AF]'}`}>
+                <div className={`w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${isSelected ? 'border-brand bg-brand' : 'border-[#9CA3AF]'}`}>
                   {isSelected && <Check className="w-3 h-3 text-white" />}
                 </div>
               </div>

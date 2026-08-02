@@ -8,20 +8,20 @@ export function SuccessRoadmapStep({ onNext, data }: { onNext: () => void, data:
     { icon: <Sun className="w-5 h-5 text-gold" />, title: "Daily Brief", desc: "Start each day with personalized insights." },
     { icon: <Database className="w-5 h-5 text-blue-400" />, title: "Automatic Memory", desc: "Your consultations are logged automatically." },
     { icon: <Target className="w-5 h-5 text-green-400" />, title: "Prediction Tracking", desc: "We track outcomes to ensure accuracy." },
-    { icon: <Brain className="w-5 h-5 text-primary" />, title: "AI Evolution", desc: "Your AI gets smarter with every interaction." }
+    { icon: <Brain className="w-5 h-5 text-brand" />, title: "AI Evolution", desc: "Your AI gets smarter with every interaction." }
   ]
 
   return (
     <div className="flex-1 flex flex-col p-6 max-w-xl mx-auto w-full relative min-h-screen justify-center">
       <div className="text-center mb-12 relative z-10">
-        <div className="w-20 h-20 mx-auto bg-primary/20 rounded-full flex items-center justify-center mb-6 animate-[pulse_3s_ease-in-out_infinite]">
-          <Sparkles className="w-10 h-10 text-primary" />
+        <div className="w-20 h-20 mx-auto bg-brand/20 rounded-full flex items-center justify-center mb-6 animate-[pulse_3s_ease-in-out_infinite]">
+          <Sparkles className="w-10 h-10 text-brand" />
         </div>
         <h2 className="text-3xl font-bold text-white mb-2 tracking-tight">You're All Set, {data.name?.split(' ')[0] || 'Explorer'}!</h2>
         <p className="text-[#9CA3AF]">Here is what your lifelong journey looks like.</p>
       </div>
 
-      <div className="bg-card border border-white/10 rounded-[32px] p-8 md:p-12 relative z-10 shadow-2xl">
+      <div className="bg-surface border border-line rounded-[32px] p-8 md:p-12 relative z-10 shadow-2xl">
         <div className="absolute left-12 md:left-16 top-16 bottom-16 w-0.5 bg-gradient-to-b from-gold via-blue-400 to-primary" />
         
         <div className="space-y-8 relative">
@@ -33,7 +33,7 @@ export function SuccessRoadmapStep({ onNext, data }: { onNext: () => void, data:
               transition={{ delay: i * 0.2 }}
               className="flex items-center gap-6"
             >
-              <div className="w-10 h-10 rounded-full bg-black border-2 border-white/20 flex items-center justify-center z-10 shrink-0">
+              <div className="w-10 h-10 rounded-full bg-black border-2 border-line-strong flex items-center justify-center z-10 shrink-0">
                 {step.icon}
               </div>
               <div>

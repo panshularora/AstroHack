@@ -68,7 +68,7 @@ export function CosmicFieldViz({ size = 420, className }: VizProps) {
       </svg>
 
       {/* Outer rotating astrolabe ring */}
-      <div className="absolute inset-0 rounded-full border border-white/8 border-dashed animate-orbit-reverse pointer-events-none" />
+      <div className="absolute inset-0 rounded-full border border-line/60 border-dashed animate-orbit-reverse pointer-events-none" />
     </div>
   )
 }

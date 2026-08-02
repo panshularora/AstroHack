@@ -42,7 +42,7 @@ export function PreferencesStep({
         {/* Preferred Language */}
         <div>
           <h3 className="text-xs font-bold text-white mb-3 uppercase tracking-wider flex items-center gap-2">
-            <Languages className="w-4 h-4 text-primary" /> Preferred Language
+            <Languages className="w-4 h-4 text-brand" /> Preferred Language
           </h3>
           <div className="flex flex-wrap gap-2.5">
             {['English', 'Hindi', 'Spanish', 'French', 'Mandarin'].map(l => (
@@ -52,8 +52,8 @@ export function PreferencesStep({
                 onClick={() => setLang(l.toLowerCase())}
                 className={`px-5 py-2.5 rounded-xl border text-xs font-bold transition-all ${
                   lang === l.toLowerCase()
-                    ? 'bg-primary/20 border-primary text-white shadow-[0_0_15px_rgba(107,33,168,0.3)]'
-                    : 'bg-white/5 border-white/10 text-[#9CA3AF] hover:bg-white/10 hover:text-white'
+                    ? 'bg-brand/20 border-brand text-white shadow-[0_0_15px_rgba(107,33,168,0.3)]'
+                    : 'bg-white/5 border-line/60 text-[#9CA3AF] hover:bg-surface-3 hover:text-white'
                 }`}
               >
                 {l}
@@ -80,10 +80,10 @@ export function PreferencesStep({
                   key={item.id}
                   type="button"
                   onClick={() => setMode(item.id)}
-                  className={`p-4 rounded-2xl border text-center transition-all ${
+                  className={`p-4 rounded-lg border text-center transition-all ${
                     isActive
                       ? `${item.activeBorder} text-white`
-                      : 'bg-white/5 border-white/10 text-[#9CA3AF] hover:bg-white/10 hover:text-white'
+                      : 'bg-white/5 border-line/60 text-[#9CA3AF] hover:bg-surface-3 hover:text-white'
                   }`}
                 >
                   <Icon className={`w-6 h-6 mx-auto mb-2 ${isActive ? item.color : 'text-[#9CA3AF]'}`} />
@@ -111,10 +111,10 @@ export function PreferencesStep({
                 <div
                   key={n.key}
                   onClick={() => toggleNotif(n.key as keyof typeof notifications)}
-                  className={`p-3.5 rounded-2xl border cursor-pointer transition-all flex items-start justify-between gap-2 ${
+                  className={`p-3.5 rounded-lg border cursor-pointer transition-all flex items-start justify-between gap-2 ${
                     isChecked
-                      ? 'bg-primary/10 border-primary/30 text-white'
-                      : 'bg-white/3 border-white/8 text-[#9CA3AF]'
+                      ? 'bg-brand-light border-brand/30 text-white'
+                      : 'bg-surface-2 border-line/60 text-[#9CA3AF]'
                   }`}
                 >
                   <div>

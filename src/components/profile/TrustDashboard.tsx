@@ -14,10 +14,10 @@ export function TrustDashboard() {
 
       <div className="grid lg:grid-cols-2 gap-6">
         {/* Accuracy Trend */}
-        <div className="bg-card border border-white/10 rounded-3xl p-6 md:p-8 hover:border-white/20 transition-colors">
+        <div className="bg-surface border border-line rounded-lg p-6 md:p-8 hover:border-line-strong transition-colors">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-2">
-              <Activity className="w-5 h-5 text-primary" />
+              <Activity className="w-5 h-5 text-brand" />
               <h3 className="text-lg font-bold text-white">Prediction Accuracy</h3>
             </div>
             <span className="text-sm font-bold text-white bg-white/10 px-3 py-1 rounded-full">94% Avg</span>
@@ -43,7 +43,7 @@ export function TrustDashboard() {
         </div>
 
         {/* Satisfaction */}
-        <div className="bg-card border border-white/10 rounded-3xl p-6 md:p-8 hover:border-white/20 transition-colors">
+        <div className="bg-surface border border-line rounded-lg p-6 md:p-8 hover:border-line-strong transition-colors">
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center gap-2">
               <Star className="w-5 h-5 text-gold fill-gold/20" />

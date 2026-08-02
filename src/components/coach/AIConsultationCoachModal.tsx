@@ -59,12 +59,12 @@ export function AIConsultationCoachModal({ isOpen, onClose, astrologerId }: AICo
           initial={{ opacity: 0, scale: 0.95, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 15 }}
-          className="relative w-full max-w-4xl bg-card border border-white/10 rounded-3xl p-6 md:p-8 shadow-2xl overflow-hidden max-h-[92vh] flex flex-col"
+          className="relative w-full max-w-4xl bg-surface border border-line rounded-lg p-6 md:p-8 shadow-2xl overflow-hidden max-h-[92vh] flex flex-col"
         >
           {/* Header */}
-          <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-6 shrink-0">
+          <div className="flex items-center justify-between border-b border-line/60 pb-4 mb-6 shrink-0">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-primary via-purple-600 to-emerald-500 border border-primary/30 flex items-center justify-center text-white shadow-lg">
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-tr from-brand via-purple-600 to-emerald-500 border border-brand/30 flex items-center justify-center text-white shadow-lg">
                 <Brain className="w-5 h-5" />
               </div>
               <div>
@@ -79,29 +79,29 @@ export function AIConsultationCoachModal({ isOpen, onClose, astrologerId }: AICo
 
             <button
               onClick={onClose}
-              className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-[#9CA3AF] hover:text-white cursor-pointer"
+              className="w-8 h-8 rounded-full bg-white/5 hover:bg-surface-3 flex items-center justify-center text-[#9CA3AF] hover:text-white cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
 
           {/* Tab Controls */}
-          <div className="flex border-b border-white/10 mb-6 shrink-0">
+          <div className="flex border-b border-line/60 mb-6 shrink-0">
             <button
               onClick={() => setActiveTab("pre")}
               className={`pb-3 px-4 text-xs font-bold transition-all border-b-2 flex items-center gap-2 ${
                 activeTab === "pre"
-                  ? "border-primary text-white"
+                  ? "border-brand text-white"
                   : "border-transparent text-[#9CA3AF] hover:text-white"
               }`}
             >
-              <ListOrdered className="w-4 h-4 text-primary" /> Pre-Session Briefing & Agenda
+              <ListOrdered className="w-4 h-4 text-brand" /> Pre-Session Briefing & Agenda
             </button>
             <button
               onClick={() => setActiveTab("post")}
               className={`pb-3 px-4 text-xs font-bold transition-all border-b-2 flex items-center gap-2 ${
                 activeTab === "post"
-                  ? "border-primary text-white"
+                  ? "border-brand text-white"
                   : "border-transparent text-[#9CA3AF] hover:text-white"
               }`}
             >
@@ -113,12 +113,12 @@ export function AIConsultationCoachModal({ isOpen, onClose, astrologerId }: AICo
           {activeTab === "pre" && (
             <div className="space-y-6 overflow-y-auto pr-1 flex-1">
               {/* Target Astrologer Brief */}
-              <div className="p-4 bg-white/4 border border-white/8 rounded-2xl flex items-center justify-between">
+              <div className="p-4 bg-surface-2 border border-line/60 rounded-lg flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <img src={selectedAstro.avatar} alt={selectedAstro.name} className="w-12 h-12 rounded-full border border-white/10 object-cover" />
+                  <img src={selectedAstro.avatar} alt={selectedAstro.name} className="w-12 h-12 rounded-full border border-line object-cover" />
                   <div>
                     <h3 className="text-sm font-bold text-white flex items-center gap-1.5">
-                      Upcoming Session with {selectedAstro.name} <ShieldCheck className="w-4 h-4 text-primary" />
+                      Upcoming Session with {selectedAstro.name} <ShieldCheck className="w-4 h-4 text-brand" />
                     </h3>
                     <p className="text-xs text-[#9CA3AF]">
                       {selectedAstro.specialization.join(" · ")} · {selectedAstro.accuracy}% Verified Accuracy
@@ -131,8 +131,8 @@ export function AIConsultationCoachModal({ isOpen, onClose, astrologerId }: AICo
               </div>
 
               {/* Active Prediction Highlight */}
-              <div className="p-4 bg-primary/10 border border-primary/20 rounded-2xl">
-                <div className="flex items-center gap-2 text-xs font-bold text-primary uppercase tracking-wider mb-1">
+              <div className="p-4 bg-brand-light border border-brand/20 rounded-lg">
+                <div className="flex items-center gap-2 text-xs font-bold text-brand uppercase tracking-wider mb-1">
                   <Target className="w-4 h-4" /> Target Prediction Focus
                 </div>
                 <p className="text-sm font-bold text-white">Job Offer in Tech Sector (88% confidence)</p>
@@ -146,7 +146,7 @@ export function AIConsultationCoachModal({ isOpen, onClose, astrologerId }: AICo
                 </label>
                 <div className="space-y-2">
                   {suggestedQuestions.map((q, idx) => (
-                    <div key={idx} className="p-3 bg-white/3 border border-white/8 rounded-xl flex items-start gap-2 text-xs text-white/90">
+                    <div key={idx} className="p-3 bg-surface-2 border border-line/60 rounded-xl flex items-start gap-2 text-xs text-white/90">
                       <Sparkles className="w-4 h-4 text-gold shrink-0 mt-0.5" />
                       <span>{q}</span>
                     </div>
@@ -162,7 +162,7 @@ export function AIConsultationCoachModal({ isOpen, onClose, astrologerId }: AICo
                   </label>
                   <button
                     onClick={handleCopyAgenda}
-                    className="text-xs text-primary font-bold hover:text-lavender flex items-center gap-1 cursor-pointer"
+                    className="text-xs text-brand font-bold hover:text-ink-secondary flex items-center gap-1 cursor-pointer"
                   >
                     {copiedAgenda ? <Check className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5" />}
                     {copiedAgenda ? "Agenda Copied!" : "Copy Agenda for Session"}
@@ -171,8 +171,8 @@ export function AIConsultationCoachModal({ isOpen, onClose, astrologerId }: AICo
 
                 <div className="space-y-2">
                   {preAgenda.map(item => (
-                    <div key={item.num} className="p-3.5 bg-white/4 border border-white/8 rounded-xl flex items-start gap-3">
-                      <span className="w-6 h-6 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center text-xs font-bold text-primary shrink-0">
+                    <div key={item.num} className="p-3.5 bg-surface-2 border border-line/60 rounded-xl flex items-start gap-3">
+                      <span className="w-6 h-6 rounded-full bg-brand/20 border border-brand/40 flex items-center justify-center text-xs font-bold text-brand shrink-0">
                         {item.num}
                       </span>
                       <div>
@@ -190,7 +190,7 @@ export function AIConsultationCoachModal({ isOpen, onClose, astrologerId }: AICo
           {activeTab === "post" && (
             <div className="space-y-6 overflow-y-auto pr-1 flex-1">
               {/* Post-Session Summary Card */}
-              <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl flex items-center justify-between">
+              <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-lg flex items-center justify-between">
                 <div>
                   <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider block mb-1">
                     Completed Session Synthesis
@@ -214,7 +214,7 @@ export function AIConsultationCoachModal({ isOpen, onClose, astrologerId }: AICo
                 </label>
                 <div className="space-y-3">
                   {postActionPlan.map(a => (
-                    <div key={a.id} className="p-4 bg-white/4 border border-white/8 rounded-2xl flex items-center justify-between gap-4">
+                    <div key={a.id} className="p-4 bg-surface-2 border border-line/60 rounded-lg flex items-center justify-between gap-4">
                       <div className="flex items-start gap-3">
                         <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
                         <div>
@@ -222,7 +222,7 @@ export function AIConsultationCoachModal({ isOpen, onClose, astrologerId }: AICo
                           <span className="text-[10px] text-[#9CA3AF]">Target Completion: {a.date}</span>
                         </div>
                       </div>
-                      <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-primary/20 text-lavender border border-primary/30 shrink-0">
+                      <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-brand/20 text-ink-secondary border border-brand/30 shrink-0">
                         {a.status}
                       </span>
                     </div>
@@ -231,13 +231,13 @@ export function AIConsultationCoachModal({ isOpen, onClose, astrologerId }: AICo
               </div>
 
               {/* Recommended Follow-up */}
-              <div className="p-4 bg-white/4 border border-white/8 rounded-2xl flex items-center justify-between">
+              <div className="p-4 bg-surface-2 border border-line/60 rounded-lg flex items-center justify-between">
                 <div>
                   <span className="text-[10px] font-bold text-gold uppercase tracking-wider block mb-1">Recommended Follow-up Schedule</span>
                   <h4 className="text-xs font-bold text-white">Monthly Check-in with Dr. Sarah Chen</h4>
                   <p className="text-xs text-[#9CA3AF]">Optimal Window: August 25, 2026 (During active job offer window)</p>
                 </div>
-                <button className="px-4 py-2 bg-primary hover:bg-primary/90 text-white font-bold rounded-xl text-xs transition-colors shadow-md">
+                <button className="px-4 py-2 bg-brand hover:bg-brand/90 text-white font-bold rounded-xl text-xs transition-colors shadow-md">
                   Book Follow-up
                 </button>
               </div>
@@ -245,11 +245,11 @@ export function AIConsultationCoachModal({ isOpen, onClose, astrologerId }: AICo
           )}
 
           {/* Footer Bar */}
-          <div className="border-t border-white/10 pt-4 mt-6 flex justify-between items-center shrink-0">
+          <div className="border-t border-line/60 pt-4 mt-6 flex justify-between items-center shrink-0">
             <span className="text-xs text-[#9CA3AF]">Powered by Arjun's Cosmic Memory & Lahiri Transits</span>
             <button
               onClick={onClose}
-              className="px-6 py-2 bg-primary hover:bg-primary/90 text-white font-bold rounded-xl text-xs transition-colors shadow-md cursor-pointer"
+              className="px-6 py-2 bg-brand hover:bg-brand/90 text-white font-bold rounded-xl text-xs transition-colors shadow-md cursor-pointer"
             >
               Done
             </button>

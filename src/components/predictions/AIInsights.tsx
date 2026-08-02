@@ -7,7 +7,7 @@ export function AIInsights() {
   return (
     <div className="mb-16">
       <div className="flex items-center gap-3 mb-8">
-        <Sparkles className="w-6 h-6 text-primary" />
+        <Sparkles className="w-6 h-6 text-brand" />
         <div>
           <h2 className="text-2xl font-bold text-white mb-1">AI Insights</h2>
           <p className="text-[#9CA3AF] text-sm">Automated observations generated from your prediction history.</p>
@@ -15,9 +15,9 @@ export function AIInsights() {
       </div>
 
       <div className="grid md:grid-cols-3 gap-6">
-        <div className="bg-primary/10 border border-primary/20 rounded-3xl p-6 md:p-8 hover:bg-primary/20 transition-colors shadow-inner">
-          <div className="w-12 h-12 rounded-2xl bg-primary/20 flex items-center justify-center mb-6 border border-primary/30">
-            <Award className="w-6 h-6 text-primary" />
+        <div className="bg-brand-light border border-brand/20 rounded-lg p-6 md:p-8 hover:bg-brand/20 transition-colors shadow-inner">
+          <div className="w-12 h-12 rounded-lg bg-brand/20 flex items-center justify-center mb-6 border border-brand/30">
+            <Award className="w-6 h-6 text-brand" />
           </div>
           <h4 className="text-lg font-bold text-white mb-3">Most Accurate Guide</h4>
           <p className="text-[#9CA3AF] text-sm leading-relaxed">
@@ -25,8 +25,8 @@ export function AIInsights() {
           </p>
         </div>
 
-        <div className="bg-gold/10 border border-gold/20 rounded-3xl p-6 md:p-8 hover:bg-gold/20 transition-colors shadow-inner">
-          <div className="w-12 h-12 rounded-2xl bg-gold/20 flex items-center justify-center mb-6 border border-gold/30">
+        <div className="bg-gold/10 border border-gold/20 rounded-lg p-6 md:p-8 hover:bg-gold/20 transition-colors shadow-inner">
+          <div className="w-12 h-12 rounded-lg bg-gold/20 flex items-center justify-center mb-6 border border-gold/30">
             <TrendingUp className="w-6 h-6 text-gold" />
           </div>
           <h4 className="text-lg font-bold text-white mb-3">Highest Success Rate</h4>
@@ -35,8 +35,8 @@ export function AIInsights() {
           </p>
         </div>
 
-        <div className="bg-secondary/10 border border-secondary/20 rounded-3xl p-6 md:p-8 hover:bg-secondary/20 transition-colors shadow-inner">
-          <div className="w-12 h-12 rounded-2xl bg-secondary/20 flex items-center justify-center mb-6 border border-secondary/30">
+        <div className="bg-secondary/10 border border-secondary/20 rounded-lg p-6 md:p-8 hover:bg-secondary/20 transition-colors shadow-inner">
+          <div className="w-12 h-12 rounded-lg bg-secondary/20 flex items-center justify-center mb-6 border border-secondary/30">
             <Compass className="w-6 h-6 text-secondary" />
           </div>
           <h4 className="text-lg font-bold text-white mb-3">Pattern Detected</h4>

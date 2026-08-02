@@ -25,15 +25,15 @@ export function FamilyProfiles() {
         </div>
         
         <div className="flex-1 flex justify-center gap-4 py-8">
-          <div className="w-32 aspect-[3/4] bg-card border border-white/10 rounded-3xl flex flex-col items-center justify-center -rotate-6 shadow-xl hover:-translate-y-2 transition-transform">
+          <div className="w-32 aspect-[3/4] bg-surface border border-line rounded-lg flex flex-col items-center justify-center -rotate-6 shadow-xl hover:-translate-y-2 transition-transform">
             <div className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center text-2xl font-bold text-white mb-3 border-4 border-background shadow-inner">D</div>
             <span className="text-sm font-bold text-white">David</span>
           </div>
-          <div className="w-32 aspect-[3/4] bg-card border border-primary/40 rounded-3xl flex flex-col items-center justify-center rotate-3 shadow-2xl z-10 scale-110 hover:-translate-y-2 transition-transform">
-            <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-2xl font-bold text-white mb-3 border-4 border-background shadow-inner">P</div>
+          <div className="w-32 aspect-[3/4] bg-surface border border-brand/40 rounded-lg flex flex-col items-center justify-center rotate-3 shadow-2xl z-10 scale-110 hover:-translate-y-2 transition-transform">
+            <div className="w-16 h-16 bg-brand rounded-full flex items-center justify-center text-2xl font-bold text-white mb-3 border-4 border-background shadow-inner">P</div>
             <span className="text-sm font-bold text-white">Priya</span>
           </div>
-          <div className="w-32 aspect-[3/4] bg-card border border-white/10 rounded-3xl flex flex-col items-center justify-center rotate-12 shadow-xl hover:-translate-y-2 transition-transform">
+          <div className="w-32 aspect-[3/4] bg-surface border border-line rounded-lg flex flex-col items-center justify-center rotate-12 shadow-xl hover:-translate-y-2 transition-transform">
             <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center text-2xl font-bold text-white mb-3 border-4 border-background shadow-inner">M</div>
             <span className="text-sm font-bold text-white">Maya</span>
           </div>

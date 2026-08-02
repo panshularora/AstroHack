@@ -141,22 +141,22 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
           initial={{ opacity: 0, scale: 0.95, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 15 }}
-          className="relative w-full max-w-4xl bg-card border border-white/10 rounded-3xl p-6 md:p-8 shadow-2xl overflow-hidden max-h-[92vh] flex flex-col"
+          className="relative w-full max-w-4xl bg-surface border border-line rounded-lg p-6 md:p-8 shadow-2xl overflow-hidden max-h-[92vh] flex flex-col"
         >
           {/* Header */}
-          <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-6 shrink-0">
+          <div className="flex items-center justify-between border-b border-line/60 pb-4 mb-6 shrink-0">
             <div className="flex items-center gap-3">
-              <img src={astrologer.avatar} alt={astrologer.name} className="w-10 h-10 rounded-full border border-white/10 object-cover" />
+              <img src={astrologer.avatar} alt={astrologer.name} className="w-10 h-10 rounded-full border border-line object-cover" />
               <div>
                 <h2 className="text-base font-bold text-white flex items-center gap-1.5">
-                  {astrologer.name} <ShieldCheck className="w-4 h-4 text-primary" />
+                  {astrologer.name} <ShieldCheck className="w-4 h-4 text-brand" />
                 </h2>
                 <p className="text-xs text-[#9CA3AF]">{astrologer.specialization.join(" · ")}</p>
               </div>
             </div>
 
             {step !== "session" && step !== "processing" && (
-              <button onClick={onClose} className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-[#9CA3AF] hover:text-white">
+              <button onClick={onClose} className="w-8 h-8 rounded-full bg-white/5 hover:bg-surface-3 flex items-center justify-center text-[#9CA3AF] hover:text-white">
                 <X className="w-4 h-4" />
               </button>
             )}
@@ -169,7 +169,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                 <label className="text-xs font-bold text-[#9CA3AF] uppercase tracking-wider mb-3 block">1. Select Mode</label>
                 <div className="grid grid-cols-3 gap-3">
                   {[
-                    { id: "chat", label: "Live Chat", icon: MessageSquare, price: `₹${astrologer.pricing}/min`, color: "border-primary bg-primary/15 text-primary" },
+                    { id: "chat", label: "Live Chat", icon: MessageSquare, price: `₹${astrologer.pricing}/min`, color: "border-brand bg-brand/15 text-brand" },
                     { id: "voice", label: "Voice Call", icon: Phone, price: `₹${astrologer.pricing}/min`, color: "border-blue-500 bg-blue-500/15 text-blue-400" },
                     { id: "video", label: "Video Call", icon: Video, price: `₹${Math.round(astrologer.pricing * 1.2)}/min`, color: "border-green-500 bg-green-500/15 text-green-400" },
                   ].map(m => {
@@ -180,7 +180,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                         key={m.id}
                         type="button"
                         onClick={() => setMode(m.id as any)}
-                        className={`p-4 rounded-2xl border text-center transition-all ${isActive ? m.color : "bg-white/5 border-white/10 text-[#9CA3AF]"}`}
+                        className={`p-4 rounded-lg border text-center transition-all ${isActive ? m.color : "bg-white/5 border-line/60 text-[#9CA3AF]"}`}
                       >
                         <Icon className="w-6 h-6 mx-auto mb-2" />
                         <span className="font-bold text-xs block text-white">{m.label}</span>
@@ -199,8 +199,8 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                       key={d}
                       type="button"
                       onClick={() => setDuration(d)}
-                      className={`p-3 rounded-2xl border text-center transition-all ${
-                        duration === d ? "bg-primary/20 border-primary text-white font-bold" : "bg-white/5 border-white/10 text-[#9CA3AF]"
+                      className={`p-3 rounded-lg border text-center transition-all ${
+                        duration === d ? "bg-brand/20 border-brand text-white font-bold" : "bg-white/5 border-line/60 text-[#9CA3AF]"
                       }`}
                     >
                       <span className="text-base font-bold text-white block">{d} min</span>
@@ -219,7 +219,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                       type="button"
                       onClick={() => setSlot(s)}
                       className={`p-3 rounded-xl border text-xs font-medium text-left transition-all ${
-                        slot === s ? "bg-primary/20 border-primary text-white" : "bg-white/5 border-white/10 text-[#9CA3AF]"
+                        slot === s ? "bg-brand/20 border-brand text-white" : "bg-white/5 border-line/60 text-[#9CA3AF]"
                       }`}
                     >
                       {s}
@@ -233,7 +233,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                 <select
                   value={topic}
                   onChange={e => setTopic(e.target.value)}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-sm text-white outline-none"
+                  className="w-full bg-surface-2 border border-line rounded-xl p-3 text-sm text-white outline-none"
                 >
                   <option value="Career Growth & Transits">Career Growth & Jupiter Transit</option>
                   <option value="Solar Return & Synastry">Solar Return & Synastry Reading</option>
@@ -242,14 +242,14 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                 </select>
               </div>
 
-              <div className="pt-4 flex justify-between items-center border-t border-white/10">
+              <div className="pt-4 flex justify-between items-center border-t border-line/60">
                 <div>
                   <p className="text-xs text-[#9CA3AF]">Total Order</p>
                   <p className="text-xl font-bold text-white">₹{cost}</p>
                 </div>
                 <button
                   onClick={() => setStep("payment")}
-                  className="px-6 py-3 bg-primary hover:bg-primary/90 text-white font-bold rounded-xl text-sm transition-all shadow-[0_0_20px_rgba(107,33,168,0.4)] flex items-center gap-2"
+                  className="px-6 py-3 bg-brand hover:bg-brand/90 text-white font-bold rounded-xl text-sm transition-all shadow-[0_0_20px_rgba(107,33,168,0.4)] flex items-center gap-2"
                 >
                   Proceed to Payment <ArrowRight className="w-4 h-4" />
                 </button>
@@ -260,13 +260,13 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
           {/* ── STEP 2: Payment ─────────────────────────────────────────── */}
           {step === "payment" && (
             <div className="space-y-6 overflow-y-auto pr-1">
-              <div className="p-4 bg-white/5 border border-white/10 rounded-2xl">
+              <div className="p-4 bg-surface-2 border border-line rounded-lg">
                 <p className="text-xs font-bold text-[#9CA3AF] uppercase tracking-wider mb-3">Order Summary</p>
-                <div className="flex justify-between text-sm py-1 border-b border-white/5">
+                <div className="flex justify-between text-sm py-1 border-b border-line-subtle">
                   <span className="text-white">{astrologer.name} ({duration} min {mode})</span>
                   <span className="text-white font-bold">₹{cost}</span>
                 </div>
-                <div className="flex justify-between text-sm py-1 border-b border-white/5">
+                <div className="flex justify-between text-sm py-1 border-b border-line-subtle">
                   <span className="text-[#9CA3AF]">Scheduled Slot</span>
                   <span className="text-white">{slot}</span>
                 </div>
@@ -287,7 +287,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                       key={p.id}
                       onClick={() => setPaymentMethod(p.id)}
                       className={`p-4 rounded-xl border cursor-pointer flex items-center justify-between transition-all ${
-                        paymentMethod === p.id ? "bg-primary/15 border-primary text-white" : "bg-white/5 border-white/10 text-[#9CA3AF]"
+                        paymentMethod === p.id ? "bg-brand/15 border-brand text-white" : "bg-white/5 border-line/60 text-[#9CA3AF]"
                       }`}
                     >
                       <div>
@@ -300,7 +300,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                 </div>
               </div>
 
-              <div className="pt-4 flex justify-between items-center border-t border-white/10">
+              <div className="pt-4 flex justify-between items-center border-t border-line/60">
                 <button onClick={() => setStep("select")} className="text-xs text-[#9CA3AF] hover:text-white">← Back</button>
                 <button
                   onClick={() => setStep("waiting")}
@@ -319,9 +319,9 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                 <motion.div
                   animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.7, 0.3] }}
                   transition={{ duration: 2, repeat: Infinity }}
-                  className="absolute inset-0 rounded-full bg-primary/30 blur-xl"
+                  className="absolute inset-0 rounded-full bg-brand/30 blur-xl"
                 />
-                <img src={astrologer.avatar} alt={astrologer.name} className="w-24 h-24 rounded-full border-4 border-primary object-cover relative z-10 shadow-2xl" />
+                <img src={astrologer.avatar} alt={astrologer.name} className="w-24 h-24 rounded-full border-4 border-brand object-cover relative z-10 shadow-2xl" />
               </div>
 
               <div>
@@ -336,7 +336,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
 
               <button
                 onClick={() => setStep("session")}
-                className="px-8 py-4 bg-primary hover:bg-primary/90 text-white font-bold rounded-2xl text-base transition-all shadow-[0_0_30px_rgba(107,33,168,0.6)] animate-pulse"
+                className="px-8 py-4 bg-brand hover:bg-brand/90 text-white font-bold rounded-lg text-base transition-all shadow-[0_0_30px_rgba(107,33,168,0.6)] animate-pulse"
               >
                 Enter Live {mode === "chat" ? "Chat" : mode === "voice" ? "Call" : "Video"} Room
               </button>
@@ -347,7 +347,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
           {step === "session" && (
             <div className="flex flex-col h-[520px]">
               {/* Session Control Bar */}
-              <div className="flex items-center justify-between p-3 bg-white/5 border border-white/10 rounded-2xl mb-4 shrink-0">
+              <div className="flex items-center justify-between p-3 bg-surface-2 border border-line rounded-lg mb-4 shrink-0">
                 <div className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse" />
                   <span className="text-xs font-bold text-white uppercase tracking-wider">Live {mode.toUpperCase()} Session</span>
@@ -361,7 +361,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                   <button
                     onClick={() => setShowNotes(!showNotes)}
                     className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1 ${
-                      showNotes ? "bg-primary text-white" : "bg-white/10 text-[#9CA3AF] hover:text-white"
+                      showNotes ? "bg-brand text-white" : "bg-white/10 text-[#9CA3AF] hover:text-white"
                     }`}
                   >
                     <Edit3 className="w-3.5 h-3.5" /> Notes
@@ -379,7 +379,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
               {/* Main Session Content Grid */}
               <div className="flex-1 grid grid-cols-1 md:grid-cols-12 gap-4 min-h-0">
                 {/* Mode Media Area */}
-                <div className={`${showNotes ? "md:col-span-8" : "md:col-span-12"} flex flex-col min-h-0 bg-white/3 border border-white/8 rounded-2xl p-4 relative`}>
+                <div className={`${showNotes ? "md:col-span-8" : "md:col-span-12"} flex flex-col min-h-0 bg-surface-2 border border-line/60 rounded-lg p-4 relative`}>
                   
                   {/* CHAT MODE */}
                   {mode === "chat" && (
@@ -387,13 +387,13 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                       <div className="flex-1 overflow-y-auto space-y-3 pr-1">
                         {messages.map((m, i) => (
                           <div key={i} className={`flex ${m.sender === "user" ? "justify-end" : "justify-start"}`}>
-                            <div className={`max-w-[80%] p-3.5 rounded-2xl text-xs leading-relaxed ${
-                              m.sender === "user" ? "bg-primary text-white rounded-tr-none shadow-md" : "bg-white/8 text-white/90 border border-white/10 rounded-tl-none"
+                            <div className={`max-w-[80%] p-3.5 rounded-lg text-xs leading-relaxed ${
+                              m.sender === "user" ? "bg-brand text-white rounded-tr-none shadow-md" : "bg-surface-2 text-white/90 border border-line rounded-tl-none"
                             }`}>
                               <p>{m.text}</p>
                               {m.attachment && (
-                                <div className="mt-2 p-2 bg-black/30 rounded-lg flex items-center gap-2 border border-white/10 text-[10px] text-lavender">
-                                  <FileText className="w-3.5 h-3.5 text-primary" /> {m.attachment}
+                                <div className="mt-2 p-2 bg-black/30 rounded-lg flex items-center gap-2 border border-line text-[10px] text-ink-secondary">
+                                  <FileText className="w-3.5 h-3.5 text-brand" /> {m.attachment}
                                 </div>
                               )}
                               <p className="text-[9px] opacity-60 text-right mt-1">{m.time}</p>
@@ -402,19 +402,19 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                         ))}
                         {isTyping && (
                           <div className="flex items-center gap-2 text-xs text-[#9CA3AF] p-2 bg-white/5 rounded-xl w-fit">
-                            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-bounce" />
+                            <span className="w-1.5 h-1.5 rounded-full bg-brand animate-bounce" />
                             <span>{astrologer.name} is typing...</span>
                           </div>
                         )}
                       </div>
 
                       {/* Chat Input Controls */}
-                      <div className="pt-3 flex gap-2 shrink-0 border-t border-white/8">
+                      <div className="pt-3 flex gap-2 shrink-0 border-t border-line/60">
                         <button
                           type="button"
                           onClick={handleFileUpload}
                           title="Attach Document/Chart"
-                          className="p-2.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-[#9CA3AF] hover:text-white transition-colors"
+                          className="p-2.5 bg-white/5 hover:bg-surface-3 border border-line rounded-xl text-[#9CA3AF] hover:text-white transition-colors"
                         >
                           <Paperclip className="w-4 h-4" />
                         </button>
@@ -424,9 +424,9 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                           onChange={e => setInputText(e.target.value)}
                           onKeyDown={e => e.key === "Enter" && handleSendMessage()}
                           placeholder="Type your question or reflection..."
-                          className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-xs text-white placeholder:text-[#6B7280] outline-none"
+                          className="flex-1 bg-surface-2 border border-line rounded-xl px-4 py-2 text-xs text-white placeholder:text-[#6B7280] outline-none"
                         />
-                        <button onClick={handleSendMessage} className="px-4 py-2 bg-primary rounded-xl text-white font-bold text-xs flex items-center gap-1.5">
+                        <button onClick={handleSendMessage} className="px-4 py-2 bg-brand rounded-xl text-white font-bold text-xs flex items-center gap-1.5">
                           <Send className="w-3.5 h-3.5" /> Send
                         </button>
                       </div>
@@ -463,7 +463,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                         <button
                           onClick={() => setIsMuted(!isMuted)}
                           className={`p-4 rounded-full border transition-all ${
-                            isMuted ? "bg-red-500/20 border-red-500 text-red-400" : "bg-white/10 border-white/20 text-white hover:bg-white/20"
+                            isMuted ? "bg-red-500/20 border-red-500 text-red-400" : "bg-white/10 border-line-strong text-white hover:bg-white/20"
                           }`}
                         >
                           {isMuted ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
@@ -472,7 +472,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                         <button
                           onClick={() => setIsSpeaker(!isSpeaker)}
                           className={`p-4 rounded-full border transition-all ${
-                            isSpeaker ? "bg-primary/20 border-primary text-primary" : "bg-white/10 border-white/20 text-white"
+                            isSpeaker ? "bg-brand/20 border-brand text-brand" : "bg-white/10 border-line-strong text-white"
                           }`}
                         >
                           {isSpeaker ? <Volume2 className="w-5 h-5" /> : <VolumeX className="w-5 h-5" />}
@@ -487,7 +487,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                       {/* Video Grid */}
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 flex-1 min-h-0">
                         {/* Astrologer Stream */}
-                        <div className="relative bg-black/60 rounded-xl overflow-hidden border border-white/10 flex items-center justify-center">
+                        <div className="relative bg-black/60 rounded-xl overflow-hidden border border-line flex items-center justify-center">
                           <img src={astrologer.avatar} alt={astrologer.name} className="w-full h-full object-cover opacity-90" />
                           <div className="absolute bottom-3 left-3 bg-black/60 px-3 py-1 rounded-lg text-xs font-bold text-white backdrop-blur-md">
                             {astrologer.name} (Live)
@@ -495,16 +495,16 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                         </div>
 
                         {/* User Selfie Stream */}
-                        <div className="relative bg-black/60 rounded-xl overflow-hidden border border-white/10 flex items-center justify-center">
+                        <div className="relative bg-black/60 rounded-xl overflow-hidden border border-line flex items-center justify-center">
                           {isCameraOff ? (
                             <div className="text-center p-4">
                               <CameraOff className="w-8 h-8 text-[#9CA3AF] mx-auto mb-2" />
                               <p className="text-xs text-[#9CA3AF]">Camera Turned Off</p>
                             </div>
                           ) : (
-                            <div className="w-full h-full bg-gradient-to-br from-primary/30 to-card flex items-center justify-center text-center p-4">
+                            <div className="w-full h-full bg-gradient-to-br from-brand/30 to-surface flex items-center justify-center text-center p-4">
                               <div>
-                                <div className="w-16 h-16 rounded-full bg-primary/40 flex items-center justify-center text-white text-xl font-bold mx-auto mb-2">
+                                <div className="w-16 h-16 rounded-full bg-brand/40 flex items-center justify-center text-white text-xl font-bold mx-auto mb-2">
                                   A
                                 </div>
                                 <p className="text-xs font-bold text-white">Arjun Sharma (You)</p>
@@ -522,7 +522,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                         <button
                           onClick={() => setIsMuted(!isMuted)}
                           className={`p-3.5 rounded-full border transition-all ${
-                            isMuted ? "bg-red-500/20 border-red-500 text-red-400" : "bg-white/10 border-white/20 text-white"
+                            isMuted ? "bg-red-500/20 border-red-500 text-red-400" : "bg-white/10 border-line-strong text-white"
                           }`}
                         >
                           {isMuted ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
@@ -531,7 +531,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                         <button
                           onClick={() => setIsCameraOff(!isCameraOff)}
                           className={`p-3.5 rounded-full border transition-all ${
-                            isCameraOff ? "bg-red-500/20 border-red-500 text-red-400" : "bg-white/10 border-white/20 text-white"
+                            isCameraOff ? "bg-red-500/20 border-red-500 text-red-400" : "bg-white/10 border-line-strong text-white"
                           }`}
                         >
                           {isCameraOff ? <CameraOff className="w-5 h-5" /> : <Camera className="w-5 h-5" />}
@@ -543,7 +543,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
 
                 {/* Live Notes Panel Sideover */}
                 {showNotes && (
-                  <div className="md:col-span-4 flex flex-col bg-white/5 border border-white/10 rounded-2xl p-4 min-h-0">
+                  <div className="md:col-span-4 flex flex-col bg-surface-2 border border-line rounded-lg p-4 min-h-0">
                     <div className="flex items-center gap-2 mb-3">
                       <FileText className="w-4 h-4 text-gold" />
                       <h4 className="text-xs font-bold text-white uppercase tracking-wider">Live Session Notes</h4>
@@ -552,7 +552,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                       value={userNotes}
                       onChange={e => setUserNotes(e.target.value)}
                       placeholder="Jot down key points during the consultation. These will be saved into Cosmic Memory..."
-                      className="flex-1 bg-black/40 border border-white/10 rounded-xl p-3 text-xs text-white placeholder:text-[#6B7280] outline-none resize-none"
+                      className="flex-1 bg-black/40 border border-line rounded-xl p-3 text-xs text-white placeholder:text-[#6B7280] outline-none resize-none"
                     />
                     <p className="text-[10px] text-[#9CA3AF] mt-2 italic">Notes automatically sync to your session log.</p>
                   </div>
@@ -564,8 +564,8 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
           {/* ── STEP 5: AI Processing ───────────────────────────────────── */}
           {step === "processing" && (
             <div className="text-center py-12 space-y-6">
-              <div className="w-16 h-16 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center mx-auto shadow-[0_0_30px_rgba(107,33,168,0.5)]">
-                <Brain className="w-8 h-8 text-primary animate-pulse" />
+              <div className="w-16 h-16 rounded-full bg-brand/20 border border-brand/40 flex items-center justify-center mx-auto shadow-[0_0_30px_rgba(107,33,168,0.5)]">
+                <Brain className="w-8 h-8 text-brand animate-pulse" />
               </div>
 
               <div>
@@ -576,12 +576,12 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
               <div className="max-w-md mx-auto space-y-2">
                 <div className="h-2 bg-white/10 rounded-full overflow-hidden">
                   <motion.div
-                    className="h-full bg-gradient-to-r from-primary via-gold to-green-400 rounded-full"
+                    className="h-full bg-gradient-to-r from-brand via-gold to-green-400 rounded-full"
                     animate={{ width: `${processingProgress}%` }}
                     transition={{ duration: 0.5 }}
                   />
                 </div>
-                <p className="text-[11px] text-primary font-mono">{processingProgress}% Completed</p>
+                <p className="text-[11px] text-brand font-mono">{processingProgress}% Completed</p>
               </div>
             </div>
           )}
@@ -598,15 +598,15 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
               </div>
 
               <div className="space-y-3">
-                <div className="p-4 bg-primary/10 border border-primary/20 rounded-2xl">
+                <div className="p-4 bg-brand-light border border-brand/20 rounded-lg">
                   <div className="flex items-center gap-2 mb-2">
-                    <Sparkles className="w-4 h-4 text-primary" />
-                    <span className="text-xs font-bold text-primary uppercase">Extracted Prediction</span>
+                    <Sparkles className="w-4 h-4 text-brand" />
+                    <span className="text-xs font-bold text-brand uppercase">Extracted Prediction</span>
                   </div>
                   <p className="text-xs text-white font-medium">Job Offer in Tech Sector (88% confidence) · Window: Late August</p>
                 </div>
 
-                <div className="p-4 bg-gold/10 border border-gold/20 rounded-2xl">
+                <div className="p-4 bg-gold/10 border border-gold/20 rounded-lg">
                   <div className="flex items-center gap-2 mb-2">
                     <Sun className="w-4 h-4 text-gold" />
                     <span className="text-xs font-bold text-gold uppercase">Active Remedy Assigned</span>
@@ -617,7 +617,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
 
               <button
                 onClick={handleFinish}
-                className="w-full py-3.5 bg-primary hover:bg-primary/90 text-white font-bold rounded-xl text-sm transition-all shadow-[0_0_20px_rgba(107,33,168,0.4)] flex items-center justify-center gap-2"
+                className="w-full py-3.5 bg-brand hover:bg-brand/90 text-white font-bold rounded-xl text-sm transition-all shadow-[0_0_20px_rgba(107,33,168,0.4)] flex items-center justify-center gap-2"
               >
                 View Session Log & Memory Archive <ArrowRight className="w-4 h-4" />
               </button>

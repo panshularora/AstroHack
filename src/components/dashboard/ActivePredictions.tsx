@@ -7,7 +7,7 @@ export function ActivePredictions({ predictions }: { predictions: Prediction[] }
     <div className="mb-12">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold text-white">Active Predictions</h2>
-        <button className="text-sm font-medium text-primary hover:text-lavender transition-colors cursor-pointer">View All</button>
+        <button className="text-sm font-medium text-brand hover:text-ink-secondary transition-colors cursor-pointer">View All</button>
       </div>
 
       <div className="flex overflow-x-auto gap-6 pb-6 snap-x snap-mandatory hide-scrollbar" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
@@ -19,9 +19,9 @@ export function ActivePredictions({ predictions }: { predictions: Prediction[] }
             transition={{ duration: 0.4, delay: i * 0.1 }}
             className="flex-none w-[300px] md:w-[360px] snap-start"
           >
-            <div className="bg-card border border-white/10 rounded-3xl p-6 hover:border-white/20 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full flex flex-col">
+            <div className="bg-surface border border-line rounded-lg p-6 hover:border-line-strong hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full flex flex-col">
               <div className="flex justify-between items-start mb-4">
-                <div className="text-xs font-semibold px-2 py-1 bg-primary/10 border border-primary/20 text-lavender rounded-md">
+                <div className="text-xs font-semibold px-2 py-1 bg-brand-light border border-brand/20 text-ink-secondary rounded-md">
                   {p.confidenceLevel}% Confidence
                 </div>
                 {p.status === "pending" ? (
@@ -48,11 +48,11 @@ export function ActivePredictions({ predictions }: { predictions: Prediction[] }
                   <span className="font-medium text-white">{new Date(p.targetDate).toLocaleDateString(undefined, { month: 'short', year: 'numeric' })}</span>
                 </div>
                 <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
-                  <div className="h-full bg-gradient-to-r from-primary to-secondary w-2/3 rounded-full" />
+                  <div className="h-full bg-gradient-to-r from-brand to-secondary w-2/3 rounded-full" />
                 </div>
                 <div className="grid grid-cols-2 gap-2 pt-2">
-                  <button className="text-xs font-medium py-2 rounded-lg bg-white/5 hover:bg-white/10 text-white transition-colors cursor-pointer">Update Status</button>
-                  <button className="text-xs font-medium py-2 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary transition-colors flex items-center justify-center gap-1 cursor-pointer">Details <ArrowRight className="w-3 h-3" /></button>
+                  <button className="text-xs font-medium py-2 rounded-lg bg-white/5 hover:bg-surface-3 text-white transition-colors cursor-pointer">Update Status</button>
+                  <button className="text-xs font-medium py-2 rounded-lg bg-brand-light hover:bg-brand/20 text-brand transition-colors flex items-center justify-center gap-1 cursor-pointer">Details <ArrowRight className="w-3 h-3" /></button>
                 </div>
               </div>
             </div>

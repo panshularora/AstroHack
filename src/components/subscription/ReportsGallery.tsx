@@ -3,7 +3,7 @@ import { FileText, PieChart, LineChart } from "lucide-react"
 export function ReportsGallery() {
   const reports = [
     { icon: <LineChart className="w-8 h-8 text-blue-400" />, title: "Annual Life Journey", desc: "A comprehensive 12-month cosmic forecast." },
-    { icon: <PieChart className="w-8 h-8 text-primary" />, title: "Relationship Growth", desc: "Compatibility and joint transits overview." },
+    { icon: <PieChart className="w-8 h-8 text-brand" />, title: "Relationship Growth", desc: "Compatibility and joint transits overview." },
     { icon: <FileText className="w-8 h-8 text-gold" />, title: "Career Progress", desc: "Tracking professional milestones and opportunities." }
   ]
 
@@ -16,7 +16,7 @@ export function ReportsGallery() {
 
       <div className="grid md:grid-cols-3 gap-6">
         {reports.map((report, i) => (
-          <div key={i} className="aspect-[3/4] bg-white/5 border border-white/10 rounded-3xl p-6 relative overflow-hidden group hover:border-white/20 transition-colors cursor-pointer">
+          <div key={i} className="aspect-[3/4] bg-surface-2 border border-line rounded-lg p-6 relative overflow-hidden group hover:border-line-strong transition-colors cursor-pointer">
             <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/80 z-10 transition-opacity group-hover:opacity-90" />
             <div className="absolute inset-0 opacity-20 blur-[2px] flex flex-col gap-3 p-6 pointer-events-none">
               <div className="w-3/4 h-3 bg-white rounded-full" />
@@ -27,7 +27,7 @@ export function ReportsGallery() {
             </div>
             
             <div className="absolute bottom-6 left-6 right-6 z-20">
-              <div className="w-14 h-14 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center mb-4 border border-white/10 group-hover:scale-110 transition-transform shadow-lg">
+              <div className="w-14 h-14 bg-white/10 backdrop-blur-md rounded-lg flex items-center justify-center mb-4 border border-line group-hover:scale-110 transition-transform shadow-lg">
                 {report.icon}
               </div>
               <h3 className="text-xl font-bold text-white mb-2 leading-tight">{report.title}</h3>

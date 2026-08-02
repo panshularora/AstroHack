@@ -7,7 +7,7 @@ export function EmptyCosmicMemory() {
       <div className="w-24 h-24 bg-blue-500/10 rounded-full flex items-center justify-center mb-6 relative group">
         <div className="absolute inset-0 border border-blue-500/20 rounded-full group-hover:scale-110 transition-transform duration-700" />
         <Database className="w-10 h-10 text-blue-400" />
-        <Sparkles className="w-4 h-4 text-primary absolute top-2 right-2 animate-pulse" />
+        <Sparkles className="w-4 h-4 text-brand absolute top-2 right-2 animate-pulse" />
       </div>
       
       <h3 className="text-2xl font-bold text-white mb-3">Your Journey Starts Here</h3>

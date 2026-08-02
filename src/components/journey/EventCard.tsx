@@ -5,7 +5,7 @@ export function EventCard({ event }: { event: JourneyEvent }) {
   const getIcon = () => {
     switch(event.type) {
       case 'Prediction': return <Target className="w-4 h-4 text-blue-400" />
-      case 'Consultation': return <MessageSquare className="w-4 h-4 text-primary" />
+      case 'Consultation': return <MessageSquare className="w-4 h-4 text-brand" />
       case 'Verified Outcome': return <ShieldCheck className="w-4 h-4 text-green-400" />
       case 'Remedy': return <Sun className="w-4 h-4 text-gold" />
       case 'Journal Entry': return <Book className="w-4 h-4 text-pink-400" />
@@ -17,13 +17,13 @@ export function EventCard({ event }: { event: JourneyEvent }) {
     switch(event.status) {
       case 'completed': return 'border-green-500/50 bg-green-500/10 text-green-400'
       case 'active': return 'border-blue-500/50 bg-blue-500/10 text-blue-400'
-      case 'verified': return 'border-primary/50 bg-primary/10 text-primary'
-      default: return 'border-white/10 bg-white/5 text-[#9CA3AF]'
+      case 'verified': return 'border-brand/50 bg-brand-light text-brand'
+      default: return 'border-line/60 bg-white/5 text-[#9CA3AF]'
     }
   }
 
   return (
-    <div className="flex items-start gap-4 p-4 rounded-xl border border-white/5 bg-black/40 hover:bg-white/5 transition-colors">
+    <div className="flex items-start gap-4 p-4 rounded-xl border border-line-subtle bg-black/40 hover:bg-white/5 transition-colors">
       <div className="mt-1">{getIcon()}</div>
       <div className="flex-1">
         <div className="flex justify-between items-start mb-1">

@@ -15,13 +15,13 @@ export function ReflectionJournal() {
         <p className="text-[#9CA3AF]">Record how you felt about the session. This will be securely saved to your Cosmic Memory.</p>
       </div>
 
-      <div className="bg-card border border-white/10 rounded-3xl p-6 md:p-8">
+      <div className="bg-surface border border-line rounded-lg p-6 md:p-8">
         <textarea 
           placeholder="I felt really relieved after Dr. Vance explained the Saturn transit..."
-          className="w-full h-32 bg-navy/30 border border-white/5 rounded-2xl p-5 text-white placeholder:text-[#9CA3AF]/50 focus:outline-none focus:border-secondary/50 resize-none transition-colors mb-6"
+          className="w-full h-32 bg-navy/30 border border-line-subtle rounded-lg p-5 text-white placeholder:text-[#9CA3AF]/50 focus:outline-none focus:border-secondary/50 resize-none transition-colors mb-6"
         />
 
-        <div className="flex flex-col md:flex-row items-center gap-6 p-6 bg-white/5 rounded-3xl border border-white/5">
+        <div className="flex flex-col md:flex-row items-center gap-6 p-6 bg-white/5 rounded-lg border border-line-subtle">
           <button 
             onClick={() => {
               if (isRecording) {
@@ -36,7 +36,7 @@ export function ReflectionJournal() {
               isRecording 
                 ? 'bg-red-500/20 text-red-500 animate-pulse border border-red-500/50 shadow-[0_0_15px_rgba(239,68,68,0.3)]' 
                 : recorded
-                  ? 'bg-primary/20 text-primary border border-primary/30'
+                  ? 'bg-brand/20 text-brand border border-brand/30'
                   : 'bg-white/10 text-white hover:bg-white/20'
             }`}
           >
@@ -45,7 +45,7 @@ export function ReflectionJournal() {
 
           <div className="flex-1 w-full">
             <div className="flex justify-between text-xs font-bold text-[#9CA3AF] mb-3 uppercase tracking-wider">
-              <span className={isRecording ? 'text-red-400' : recorded ? 'text-primary' : ''}>
+              <span className={isRecording ? 'text-red-400' : recorded ? 'text-brand' : ''}>
                 {isRecording ? "Recording..." : recorded ? "Voice Note Saved" : "Add a Voice Note"}
               </span>
               <span>{isRecording ? "00:12" : recorded ? "01:45" : "00:00"}</span>
@@ -56,7 +56,7 @@ export function ReflectionJournal() {
               {Array.from({ length: 40 }).map((_, i) => (
                 <motion.div
                   key={i}
-                  className={`flex-1 rounded-full ${isRecording ? 'bg-red-500' : recorded ? 'bg-primary' : 'bg-white/20'}`}
+                  className={`flex-1 rounded-full ${isRecording ? 'bg-red-500' : recorded ? 'bg-brand' : 'bg-white/20'}`}
                   animate={isRecording ? { height: Math.random() * 30 + 10 } : { height: recorded ? [10, 25, 15, 30, 20][i % 5] : 4 }}
                   transition={isRecording ? { repeat: Infinity, duration: 0.2, repeatType: "reverse" } : {}}
                 />

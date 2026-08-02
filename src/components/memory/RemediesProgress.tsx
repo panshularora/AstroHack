@@ -23,7 +23,7 @@ export function RemediesProgress() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: i * 0.1 }}
-            className={`bg-card border ${r.status === 'completed' ? 'border-green-500/30' : 'border-white/10'} rounded-3xl p-6 md:p-8 relative overflow-hidden group`}
+            className={`bg-surface border ${r.status === 'completed' ? 'border-green-500/30' : 'border-line/60'} rounded-lg p-6 md:p-8 relative overflow-hidden group`}
           >
             {r.status === 'completed' && (
               <div className="absolute top-0 right-0 w-32 h-32 bg-green-500/10 rounded-full blur-3xl pointer-events-none" />
@@ -32,7 +32,7 @@ export function RemediesProgress() {
             <div className="flex justify-between items-start mb-6 relative z-10">
               <div>
                 <div className="flex items-center gap-2 mb-2">
-                  <Moon className="w-4 h-4 text-lavender" />
+                  <Moon className="w-4 h-4 text-ink-secondary" />
                   <span className="text-[10px] font-bold text-[#9CA3AF] uppercase tracking-wider">via {r.provider}</span>
                 </div>
                 <h3 className="text-lg font-bold text-white leading-tight">{r.title}</h3>
@@ -45,16 +45,16 @@ export function RemediesProgress() {
               </div>
             </div>
 
-            <div className="flex items-center justify-between mt-8 border-t border-white/5 pt-6 relative z-10">
+            <div className="flex items-center justify-between mt-8 border-t border-line-subtle pt-6 relative z-10">
               <span className="text-xs text-[#9CA3AF] font-medium">Last: {r.lastCompleted}</span>
               <div className="flex gap-2">
-                <button className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-[#9CA3AF] hover:text-white hover:bg-white/10 transition-colors cursor-pointer">
+                <button className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-[#9CA3AF] hover:text-white hover:bg-surface-3 transition-colors cursor-pointer">
                   <Settings2 className="w-4 h-4" />
                 </button>
-                <button className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-[#9CA3AF] hover:text-white hover:bg-white/10 transition-colors cursor-pointer">
+                <button className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-[#9CA3AF] hover:text-white hover:bg-surface-3 transition-colors cursor-pointer">
                   <PauseCircle className="w-4 h-4" />
                 </button>
-                <button className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors cursor-pointer ${r.status === 'completed' ? 'bg-green-500/20 text-green-400' : 'bg-primary/20 text-primary hover:bg-primary hover:text-white shadow-[0_0_15px_rgba(124,58,237,0.3)]'}`}>
+                <button className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors cursor-pointer ${r.status === 'completed' ? 'bg-green-500/20 text-green-400' : 'bg-brand/20 text-brand hover:bg-brand hover:text-white shadow-[0_0_15px_rgba(124,58,237,0.3)]'}`}>
                   <CheckCircle className="w-5 h-5" />
                 </button>
               </div>

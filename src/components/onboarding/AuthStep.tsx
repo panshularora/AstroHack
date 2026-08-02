@@ -17,8 +17,8 @@ export function AuthStep({ onNext, onBack, updateData }: { onNext: () => void, o
 
   return (
     <div className="flex-1 flex flex-col p-6 max-w-md mx-auto w-full relative min-h-screen justify-center">
-      <div className="bg-card border border-white/10 rounded-[32px] p-8 relative overflow-hidden shadow-2xl">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-blue-500/10 pointer-events-none" />
+      <div className="bg-surface border border-line rounded-[32px] p-8 relative overflow-hidden shadow-2xl">
+        <div className="absolute inset-0 bg-gradient-to-br from-brand/10 to-blue-500/10 pointer-events-none" />
         
         <div className="relative z-10 space-y-6">
           <div className="text-center">
@@ -29,14 +29,14 @@ export function AuthStep({ onNext, onBack, updateData }: { onNext: () => void, o
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="text-xs font-bold text-[#9CA3AF] uppercase tracking-wider mb-2 flex items-center gap-2">
-                <User className="w-3.5 h-3.5 text-primary" /> Full Name
+                <User className="w-3.5 h-3.5 text-brand" /> Full Name
               </label>
               <input 
                 type="text" 
                 value={name}
                 onChange={e => setName(e.target.value)}
                 placeholder="Arjun Sharma"
-                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors text-sm" 
+                className="w-full bg-black/40 border border-line rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand transition-colors text-sm" 
                 required
               />
             </div>
@@ -49,7 +49,7 @@ export function AuthStep({ onNext, onBack, updateData }: { onNext: () => void, o
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 placeholder="arjun.sharma@example.com"
-                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors text-sm" 
+                className="w-full bg-black/40 border border-line rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand transition-colors text-sm" 
                 required
               />
             </div>
@@ -62,7 +62,7 @@ export function AuthStep({ onNext, onBack, updateData }: { onNext: () => void, o
                 value={phone}
                 onChange={e => setPhone(e.target.value)}
                 placeholder="+1 (555) 382-9102"
-                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors text-sm" 
+                className="w-full bg-black/40 border border-line rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand transition-colors text-sm" 
                 required
               />
             </div>
@@ -75,16 +75,16 @@ export function AuthStep({ onNext, onBack, updateData }: { onNext: () => void, o
           </form>
 
           <div className="relative flex items-center py-2">
-            <div className="flex-grow border-t border-white/10"></div>
+            <div className="flex-grow border-t border-line/60"></div>
             <span className="flex-shrink-0 mx-4 text-[#9CA3AF] text-[10px] uppercase tracking-wider">Or continue with</span>
-            <div className="flex-grow border-t border-white/10"></div>
+            <div className="flex-grow border-t border-line/60"></div>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
-            <button type="button" onClick={onNext} className="p-3 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-colors flex items-center justify-center gap-2 text-white font-medium text-sm">
+            <button type="button" onClick={onNext} className="p-3 bg-surface-2 border border-line rounded-xl hover:bg-surface-3 transition-colors flex items-center justify-center gap-2 text-white font-medium text-sm">
               Google
             </button>
-            <button type="button" onClick={onNext} className="p-3 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-colors flex items-center justify-center gap-2 text-white font-medium text-sm">
+            <button type="button" onClick={onNext} className="p-3 bg-surface-2 border border-line rounded-xl hover:bg-surface-3 transition-colors flex items-center justify-center gap-2 text-white font-medium text-sm">
               Apple
             </button>
           </div>

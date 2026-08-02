@@ -45,7 +45,7 @@ export function CosmicMemoryWidget() {
   const navigate = useNavigate()
 
   return (
-    <div className="bg-card border border-white/10 rounded-3xl p-6 shadow-xl">
+    <div className="bg-surface border border-line rounded-lg p-6 shadow-xl">
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-full bg-emerald-500/15 border border-emerald-500/25 flex items-center justify-center">
@@ -58,7 +58,7 @@ export function CosmicMemoryWidget() {
         </div>
         <button
           onClick={() => navigate("/app/memory")}
-          className="text-xs font-bold text-primary hover:text-lavender transition-colors flex items-center gap-1"
+          className="text-xs font-bold text-brand hover:text-ink-secondary transition-colors flex items-center gap-1"
         >
           View All <ArrowRight className="w-3 h-3" />
         </button>
@@ -71,7 +71,7 @@ export function CosmicMemoryWidget() {
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.4, delay: i * 0.1 }}
-            className="flex gap-3 p-3 bg-white/3 hover:bg-white/6 border border-white/6 hover:border-white/12 rounded-2xl cursor-pointer transition-all group"
+            className="flex gap-3 p-3 bg-surface-2 hover:bg-surface-2 border border-white/6 hover:border-white/12 rounded-lg cursor-pointer transition-all group"
             onClick={() => navigate("/app/memory")}
           >
             <div className={`w-9 h-9 rounded-xl border flex items-center justify-center shrink-0 ${m.iconBg}`}>
@@ -86,7 +86,7 @@ export function CosmicMemoryWidget() {
               <p className="text-[11px] text-white/60 line-clamp-1">{m.snippet}</p>
               <div className="flex gap-1 mt-1.5">
                 {m.tags.map(t => (
-                  <span key={t} className="text-[9px] font-bold px-1.5 py-0.5 bg-white/5 border border-white/10 rounded-full text-[#9CA3AF]">{t}</span>
+                  <span key={t} className="text-[9px] font-bold px-1.5 py-0.5 bg-surface-2 border border-line rounded-full text-[#9CA3AF]">{t}</span>
                 ))}
               </div>
             </div>
@@ -96,7 +96,7 @@ export function CosmicMemoryWidget() {
 
       <button
         onClick={() => navigate("/app/memory")}
-        className="mt-4 w-full flex items-center justify-center gap-2 py-2.5 bg-white/4 hover:bg-white/8 border border-white/8 rounded-xl text-xs font-bold text-[#9CA3AF] hover:text-white transition-all"
+        className="mt-4 w-full flex items-center justify-center gap-2 py-2.5 bg-surface-2 hover:bg-surface-2 border border-line/60 rounded-xl text-xs font-bold text-[#9CA3AF] hover:text-white transition-all"
       >
         <BookOpen className="w-3.5 h-3.5" /> Explore Full Memory Archive
       </button>

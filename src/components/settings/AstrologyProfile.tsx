@@ -13,23 +13,23 @@ export function AstrologyProfile() {
       </div>
 
       <div className="grid lg:grid-cols-2 gap-8">
-        <div className="bg-card border border-white/10 rounded-3xl p-6 md:p-8 space-y-6">
+        <div className="bg-surface border border-line rounded-lg p-6 md:p-8 space-y-6">
           <h3 className="text-lg font-bold text-white flex items-center gap-2 mb-4">
-            <Star className="w-5 h-5 text-primary" /> Birth Details
+            <Star className="w-5 h-5 text-brand" /> Birth Details
           </h3>
           
           <div>
             <label className="text-xs text-[#9CA3AF] flex items-center gap-2 mb-2"><Calendar className="w-3 h-3" /> Date of Birth</label>
-            <input type="date" defaultValue={birthDetails.date} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors [&::-webkit-calendar-picker-indicator]:invert" />
+            <input type="date" defaultValue={birthDetails.date} className="w-full bg-surface-2 border border-line rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand transition-colors [&::-webkit-calendar-picker-indicator]:invert" />
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="text-xs text-[#9CA3AF] flex items-center gap-2 mb-2"><Clock className="w-3 h-3" /> Time of Birth</label>
-              <input type="time" defaultValue={birthDetails.time} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors [&::-webkit-calendar-picker-indicator]:invert" />
+              <input type="time" defaultValue={birthDetails.time} className="w-full bg-surface-2 border border-line rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand transition-colors [&::-webkit-calendar-picker-indicator]:invert" />
             </div>
             <div>
               <label className="text-xs text-[#9CA3AF] flex items-center gap-2 mb-2"><Star className="w-3 h-3" /> System</label>
-              <select defaultValue={birthDetails.system} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors appearance-none">
+              <select defaultValue={birthDetails.system} className="w-full bg-surface-2 border border-line rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand transition-colors appearance-none">
                 <option value="Vedic (Lahiri)">Vedic (Lahiri)</option>
                 <option value="Western">Western</option>
               </select>
@@ -37,13 +37,13 @@ export function AstrologyProfile() {
           </div>
           <div>
             <label className="text-xs text-[#9CA3AF] flex items-center gap-2 mb-2"><MapPin className="w-3 h-3" /> Place of Birth</label>
-            <input type="text" defaultValue={birthDetails.location} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors" />
+            <input type="text" defaultValue={birthDetails.location} className="w-full bg-surface-2 border border-line rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand transition-colors" />
           </div>
           
           <Button className="w-full">Update Chart</Button>
         </div>
 
-        <div className="bg-gradient-to-br from-primary/10 to-blue-500/10 border border-white/10 rounded-3xl p-6 md:p-8 flex flex-col items-center justify-center relative overflow-hidden group">
+        <div className="bg-gradient-to-br from-brand/10 to-blue-500/10 border border-line rounded-lg p-6 md:p-8 flex flex-col items-center justify-center relative overflow-hidden group">
           <div className="absolute inset-0 opacity-20 mix-blend-overlay bg-black pointer-events-none"></div>
           <h3 className="text-lg font-bold text-white mb-8 z-10 relative">Chart Preview</h3>
           

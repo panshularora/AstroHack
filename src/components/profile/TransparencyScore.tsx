@@ -19,14 +19,14 @@ export function TransparencyScore() {
         </div>
       </div>
 
-      <div className="bg-card border border-white/10 rounded-3xl p-6 md:p-10">
+      <div className="bg-surface border border-line rounded-lg p-6 md:p-10">
         <div className="space-y-6 max-w-3xl">
           {metrics.map((metric, i) => (
             <div key={i}>
               <div className="flex justify-between items-end mb-3">
                 <div className="flex items-center gap-3">
                   <span className="text-sm font-bold text-white">{metric.label}</span>
-                  <span className="text-[10px] font-bold text-[#9CA3AF] bg-white/5 px-2 py-0.5 rounded-full uppercase tracking-wider border border-white/5">{metric.weight} Weight</span>
+                  <span className="text-[10px] font-bold text-[#9CA3AF] bg-white/5 px-2 py-0.5 rounded-full uppercase tracking-wider border border-line-subtle">{metric.weight} Weight</span>
                 </div>
                 <span className="text-sm font-bold text-blue-400">{metric.score}/100</span>
               </div>

@@ -9,7 +9,7 @@ export function LoggerHero() {
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="relative bg-card/60 border border-white/10 rounded-3xl p-6 md:p-8 mb-12 overflow-hidden backdrop-blur-xl"
+      className="relative bg-surface/60 border border-line rounded-lg p-6 md:p-8 mb-12 overflow-hidden backdrop-blur-xl"
     >
       <div className="absolute top-0 right-0 w-64 h-64 bg-green-500/10 rounded-full blur-[80px] pointer-events-none" />
       

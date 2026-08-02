@@ -10,13 +10,13 @@ export function RecommendationPanel() {
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-r from-primary/20 via-[#1a1b26] to-secondary/20 border border-primary/30 rounded-3xl p-8 md:p-12 flex flex-col lg:flex-row items-center justify-between gap-8 relative overflow-hidden shadow-[0_0_30px_rgba(124,58,237,0.1)]"
+        className="bg-gradient-to-r from-brand/20 via-[#1a1b26] to-secondary/20 border border-brand/30 rounded-lg p-8 md:p-12 flex flex-col lg:flex-row items-center justify-between gap-8 relative overflow-hidden shadow-[0_0_30px_rgba(124,58,237,0.1)]"
       >
-        <div className="absolute top-0 right-1/4 w-48 h-48 bg-primary/20 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-0 right-1/4 w-48 h-48 bg-brand/20 rounded-full blur-3xl pointer-events-none" />
         
         <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center gap-6">
-          <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center shrink-0 border border-primary/30 shadow-[0_0_15px_rgba(124,58,237,0.3)]">
-            <Sparkles className="w-8 h-8 text-primary" />
+          <div className="w-16 h-16 rounded-full bg-brand/20 flex items-center justify-center shrink-0 border border-brand/30 shadow-[0_0_15px_rgba(124,58,237,0.3)]">
+            <Sparkles className="w-8 h-8 text-brand" />
           </div>
           <div>
             <h3 className="text-2xl font-bold text-white mb-3">Next Best Action</h3>

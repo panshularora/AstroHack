@@ -14,7 +14,7 @@ export function FinalCTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.5 }}
-          className="relative rounded-2xl border border-line bg-surface p-12 sm:p-16 text-center overflow-hidden shadow-sm"
+          className="relative rounded-lg border border-line bg-surface p-12 sm:p-16 text-center overflow-hidden shadow-sm"
         >
           {/* Subtle background */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[300px] bg-brand/5 rounded-full blur-[80px] pointer-events-none" />

@@ -30,10 +30,10 @@ export function StepResults({ results, onReset }: StepResultsProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 + (i * 0.1) }}
-            className={`bg-card border ${i === 0 ? 'border-primary shadow-[0_0_20px_rgba(107,33,168,0.2)]' : 'border-white/10'} rounded-3xl p-6 md:p-8 relative overflow-hidden`}
+            className={`bg-surface border ${i === 0 ? 'border-brand shadow-[0_0_20px_rgba(107,33,168,0.2)]' : 'border-line/60'} rounded-lg p-6 md:p-8 relative overflow-hidden`}
           >
             {i === 0 && (
-              <div className="absolute top-0 right-8 bg-primary text-white text-xs font-bold px-3 py-1 rounded-b-lg tracking-wider">
+              <div className="absolute top-0 right-8 bg-brand text-white text-xs font-bold px-3 py-1 rounded-b-lg tracking-wider">
                 #1 Match
               </div>
             )}
@@ -57,21 +57,21 @@ export function StepResults({ results, onReset }: StepResultsProps) {
 
                 <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-6">
                   <span className="flex items-center gap-1 bg-gold/10 text-gold text-xs font-bold px-2 py-1 rounded-md"><Star className="w-3.5 h-3.5 fill-gold" /> {a.rating}</span>
-                  <span className="flex items-center gap-1 bg-white/5 text-white/90 text-xs font-bold px-2 py-1 rounded-md"><ShieldCheck className="w-3.5 h-3.5 text-primary" /> {a.verifiedAccuracy}% Accuracy</span>
+                  <span className="flex items-center gap-1 bg-white/5 text-white/90 text-xs font-bold px-2 py-1 rounded-md"><ShieldCheck className="w-3.5 h-3.5 text-brand" /> {a.verifiedAccuracy}% Accuracy</span>
                   <span className="flex items-center gap-1 bg-white/5 text-white/90 text-xs font-bold px-2 py-1 rounded-md"><Users className="w-3.5 h-3.5 text-secondary-text" /> {a.consultationCount}+ Sessions</span>
                   <span className="text-xs text-[#9CA3AF] ml-2">Speaks: {a.languages.join(", ")}</span>
                 </div>
 
-                <div className="bg-primary/10 border border-primary/20 rounded-xl p-4 text-sm text-lavender leading-relaxed mb-6 text-left">
+                <div className="bg-brand-light border border-brand/20 rounded-xl p-4 text-sm text-ink-secondary leading-relaxed mb-6 text-left">
                   <strong className="text-white block mb-1">Why We Recommended This Astrologer:</strong>
                   {a.recommendationReason}
                 </div>
 
                 <div className="flex flex-wrap gap-3 justify-center md:justify-start">
                   <Button className="h-10 text-sm gap-2 bg-white text-navy hover:bg-white/90"><MessageCircle className="w-4 h-4" /> Start Chat</Button>
-                  <Button variant="outline" className="h-10 text-sm gap-2 border-white/20 hover:bg-white/5 text-white"><Phone className="w-4 h-4" /> Voice</Button>
-                  <Button variant="outline" className="h-10 text-sm gap-2 border-white/20 hover:bg-white/5 text-white"><Video className="w-4 h-4" /> Video</Button>
-                  <Button variant="outline" className="h-10 text-sm gap-2 border-white/20 hover:bg-white/5 text-white"><Calendar className="w-4 h-4" /> Schedule</Button>
+                  <Button variant="outline" className="h-10 text-sm gap-2 border-line-strong hover:bg-white/5 text-white"><Phone className="w-4 h-4" /> Voice</Button>
+                  <Button variant="outline" className="h-10 text-sm gap-2 border-line-strong hover:bg-white/5 text-white"><Video className="w-4 h-4" /> Video</Button>
+                  <Button variant="outline" className="h-10 text-sm gap-2 border-line-strong hover:bg-white/5 text-white"><Calendar className="w-4 h-4" /> Schedule</Button>
                 </div>
               </div>
             </div>
@@ -83,7 +83,7 @@ export function StepResults({ results, onReset }: StepResultsProps) {
         <button onClick={onReset} className="px-6 py-3 font-medium text-[#9CA3AF] hover:text-white transition-colors cursor-pointer">
           Start Over
         </button>
-        <Button variant="outline" className="border-white/10 hover:bg-white/5 text-white">
+        <Button variant="outline" className="border-line/60 hover:bg-white/5 text-white">
           Compare Side by Side
         </Button>
       </div>

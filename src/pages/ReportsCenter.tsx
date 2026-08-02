@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/Badge"
 import { Tabs } from "@/components/ui/Tabs"
 import { Progress } from "@/components/ui/Progress"
 import { mockReportData } from "@/lib/mock-data"
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts"
 
 type Period = "Weekly" | "Monthly" | "Quarterly" | "Annual (Wrapped)"
 
@@ -124,7 +124,8 @@ export function ReportsCenter() {
                     color: "#F5F0E8",
                   }}
                 />
-                <Line type="monotone" dataKey="clarity" stroke="#D97706" strokeWidth={2} dot={false} />
+                <Legend wrapperStyle={{ fontSize: '11px', fontFamily: 'var(--font-mono)' }} />
+                <Line type="monotone" name="Clarity" dataKey="clarity" stroke="#D97706" strokeWidth={2} dot={false} />
                 <Line type="monotone" dataKey="stress" stroke="#EF4444" strokeWidth={2} dot={false} />
                 <Line type="monotone" dataKey="energy" stroke="#10B981" strokeWidth={2} dot={false} />
               </LineChart>

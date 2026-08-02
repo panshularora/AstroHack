@@ -14,7 +14,7 @@ export function MemoryInsights() {
 
       <div className="grid md:grid-cols-2 gap-6 mb-6">
         {/* Accuracy Bar Chart */}
-        <div className="bg-card border border-white/10 rounded-3xl p-6 md:p-8 hover:border-white/20 transition-colors">
+        <div className="bg-surface border border-line rounded-lg p-6 md:p-8 hover:border-line-strong transition-colors">
           <div className="flex items-center gap-2 mb-6">
             <Sparkles className="w-5 h-5 text-gold" />
             <h3 className="text-lg font-bold text-white">Astrologer Accuracy</h3>
@@ -38,7 +38,7 @@ export function MemoryInsights() {
         </div>
 
         {/* Life Areas Pie Chart */}
-        <div className="bg-card border border-white/10 rounded-3xl p-6 md:p-8 hover:border-white/20 transition-colors">
+        <div className="bg-surface border border-line rounded-lg p-6 md:p-8 hover:border-line-strong transition-colors">
           <div className="flex items-center gap-2 mb-6">
             <PieIcon className="w-5 h-5 text-secondary" />
             <h3 className="text-lg font-bold text-white">Consultation Topics</h3>
@@ -73,7 +73,7 @@ export function MemoryInsights() {
       </div>
 
       {/* Mood Evolution Area Chart */}
-      <div className="bg-card border border-white/10 rounded-3xl p-6 md:p-8 hover:border-white/20 transition-colors">
+      <div className="bg-surface border border-line rounded-lg p-6 md:p-8 hover:border-line-strong transition-colors">
         <div className="flex items-center gap-2 mb-6">
           <TrendingUp className="w-5 h-5 text-green-400" />
           <h3 className="text-lg font-bold text-white">Emotional Evolution</h3>

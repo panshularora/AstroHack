@@ -5,7 +5,7 @@ export function InteractiveJourney() {
     { icon: <MessageSquare className="w-5 h-5 text-white" />, title: "First Consultation", desc: "Your journey begins." },
     { icon: <BookOpen className="w-5 h-5 text-blue-400" />, title: "Cosmic Memory Built", desc: "Insights are permanently stored." },
     { icon: <Target className="w-5 h-5 text-gold" />, title: "Predictions Tracked", desc: "Active timelines are monitored." },
-    { icon: <Sparkles className="w-5 h-5 text-primary" />, title: "Daily AI Check-ins", desc: "Proactive guidance based on your history." }
+    { icon: <Sparkles className="w-5 h-5 text-brand" />, title: "Daily AI Check-ins", desc: "Proactive guidance based on your history." }
   ]
 
   return (
@@ -18,7 +18,7 @@ export function InteractiveJourney() {
       <div className="flex flex-col items-center gap-4">
         {steps.map((step, i) => (
           <div key={i} className="flex flex-col items-center">
-            <div className="w-64 bg-card border border-white/10 rounded-2xl p-4 flex flex-col items-center text-center shadow-lg hover:border-white/20 transition-colors">
+            <div className="w-64 bg-surface border border-line rounded-lg p-4 flex flex-col items-center text-center shadow-lg hover:border-line-strong transition-colors">
               <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center mb-3 shadow-inner">
                 {step.icon}
               </div>
@@ -26,7 +26,7 @@ export function InteractiveJourney() {
               <p className="text-xs text-[#9CA3AF]">{step.desc}</p>
             </div>
             {i < steps.length - 1 && (
-              <div className="h-12 border-l-2 border-dashed border-white/20 my-2 relative">
+              <div className="h-12 border-l-2 border-dashed border-line-strong my-2 relative">
                 <ArrowDown className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-5 h-5 text-white/20" />
               </div>
             )}

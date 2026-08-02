@@ -13,20 +13,20 @@ export function SecurityCenter() {
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
-        <div className="bg-card border border-white/10 rounded-3xl p-6 flex flex-col justify-between hover:border-white/20 transition-colors">
+        <div className="bg-surface border border-line rounded-lg p-6 flex flex-col justify-between hover:border-line-strong transition-colors">
           <div>
-            <div className="w-12 h-12 bg-primary/20 rounded-2xl flex items-center justify-center mb-4 shadow-inner">
-              <Key className="w-6 h-6 text-primary" />
+            <div className="w-12 h-12 bg-brand/20 rounded-lg flex items-center justify-center mb-4 shadow-inner">
+              <Key className="w-6 h-6 text-brand" />
             </div>
             <h3 className="text-lg font-bold text-white mb-2">Password</h3>
             <p className="text-sm text-[#9CA3AF] mb-6">Last changed 3 months ago.</p>
           </div>
-          <Button variant="outline" className="w-full border-white/20">Change Password</Button>
+          <Button variant="outline" className="w-full border-line-strong">Change Password</Button>
         </div>
 
-        <div className="bg-card border border-white/10 rounded-3xl p-6 flex flex-col justify-between hover:border-white/20 transition-colors">
+        <div className="bg-surface border border-line rounded-lg p-6 flex flex-col justify-between hover:border-line-strong transition-colors">
           <div>
-            <div className="w-12 h-12 bg-blue-500/20 rounded-2xl flex items-center justify-center mb-4 shadow-inner">
+            <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4 shadow-inner">
               <Fingerprint className="w-6 h-6 text-blue-400" />
             </div>
             <h3 className="text-lg font-bold text-white mb-2">Two-Factor Authentication</h3>
@@ -36,16 +36,16 @@ export function SecurityCenter() {
         </div>
       </div>
 
-      <div className="bg-card border border-white/10 rounded-3xl p-6 md:p-8">
+      <div className="bg-surface border border-line rounded-lg p-6 md:p-8">
         <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
           <ShieldCheck className="w-5 h-5 text-green-400" /> Active Sessions
         </h3>
         
         <div className="space-y-4">
           {activeSessions.map((session) => (
-            <div key={session.id} className="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/5 hover:bg-white/10 transition-colors">
+            <div key={session.id} className="flex items-center justify-between p-4 bg-white/5 rounded-lg border border-line-subtle hover:bg-surface-3 transition-colors">
               <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-full bg-black/40 flex items-center justify-center border border-white/5">
+                <div className="w-10 h-10 rounded-full bg-black/40 flex items-center justify-center border border-line-subtle">
                   {session.device.includes("MacBook") ? <Laptop className="w-5 h-5 text-white" /> : <Smartphone className="w-5 h-5 text-white" />}
                 </div>
                 <div>

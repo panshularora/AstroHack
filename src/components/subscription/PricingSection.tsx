@@ -19,9 +19,9 @@ export function PricingSection() {
 
       <div className="grid lg:grid-cols-3 gap-8 max-w-5xl mx-auto items-center">
         {plans.map((plan, i) => (
-          <div key={i} className={`bg-card border rounded-3xl p-8 relative flex flex-col h-full ${plan.popular ? 'border-primary shadow-2xl shadow-primary/20 scale-105 z-10' : 'border-white/10 hover:border-white/20 transition-colors'}`}>
+          <div key={i} className={`bg-surface border rounded-lg p-8 relative flex flex-col h-full ${plan.popular ? 'border-brand shadow-2xl shadow-primary/20 scale-105 z-10' : 'border-line/60 hover:border-line-strong transition-colors'}`}>
             {plan.popular && (
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-primary text-white text-xs font-bold uppercase tracking-wider rounded-full flex items-center gap-1 shadow-lg">
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-brand text-white text-xs font-bold uppercase tracking-wider rounded-full flex items-center gap-1 shadow-lg">
                 <Star className="w-3 h-3 fill-current" /> Most Popular
               </div>
             )}
@@ -37,8 +37,8 @@ export function PricingSection() {
             <ul className="space-y-4 mb-8 flex-grow">
               {plan.features.map((f, j) => (
                 <li key={j} className="flex items-center gap-3 text-sm text-white/90">
-                  <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
-                    <Check className="w-3 h-3 text-primary" />
+                  <div className="w-5 h-5 rounded-full bg-brand/20 flex items-center justify-center shrink-0">
+                    <Check className="w-3 h-3 text-brand" />
                   </div>
                   {f}
                 </li>
@@ -48,7 +48,7 @@ export function PricingSection() {
             <Button
               onClick={() => navigate("/app/dashboard")}
               variant={plan.popular ? 'primary' : 'outline'}
-              className={`w-full py-6 font-bold ${!plan.popular && 'border-white/20'}`}
+              className={`w-full py-6 font-bold ${!plan.popular && 'border-line-strong'}`}
             >
               Start 7-Day Free Trial
             </Button>

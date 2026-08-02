@@ -22,7 +22,7 @@ function AstrologerCard({ astrologer, index }: { astrologer: VerifiedAstrologer,
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1 }}
-      className="bg-card border border-white/10 rounded-3xl p-6 relative group hover:border-white/20 transition-all cursor-pointer hover:shadow-[0_0_30px_rgba(255,255,255,0.02)] flex flex-col h-full"
+      className="bg-surface border border-line rounded-lg p-6 relative group hover:border-line-strong transition-all cursor-pointer hover:shadow-[0_0_30px_rgba(255,255,255,0.02)] flex flex-col h-full"
       onClick={() => navigate(`/app/astrologer/${astrologer.id}`)}
     >
       <div className="absolute top-6 right-6">
@@ -36,25 +36,28 @@ function AstrologerCard({ astrologer, index }: { astrologer: VerifiedAstrologer,
 
       <div className="flex items-center gap-4 mb-6">
         <div className="relative">
-          <img src={astrologer.avatar} alt={astrologer.name} className="w-16 h-16 rounded-full object-cover border-2 border-white/10 group-hover:border-primary/50 transition-colors" />
-          <div className="absolute -bottom-2 -right-2 bg-[#1a1b26] rounded-full p-1 border border-white/10">
-            <ShieldCheck className="w-4 h-4 text-primary" />
+          <img src={astrologer.avatar} alt={astrologer.name} className="w-16 h-16 rounded-full object-cover border-2 border-line/60 group-hover:border-brand/50 transition-colors" />
+          <div className="absolute -bottom-2 -right-2 bg-[#1a1b26] rounded-full p-1 border border-line">
+            <ShieldCheck className="w-4 h-4 text-brand" />
           </div>
         </div>
         <div>
-          <h3 className="text-xl font-bold text-white mb-1 group-hover:text-primary transition-colors">{astrologer.name}</h3>
-          <span className="text-xs text-primary font-bold bg-primary/10 px-2 py-1 rounded-md">{astrologer.badge}</span>
+          <h3 className="text-xl font-bold text-white mb-1 group-hover:text-brand transition-colors">{astrologer.name}</h3>
+          <span className="text-xs text-brand font-bold bg-brand-light px-2 py-1 rounded-md">{astrologer.badge}</span>
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-4 mb-6">
-        <div className="bg-white/5 rounded-2xl p-3 text-center">
+        <div className="bg-white/5 rounded-lg p-3 text-center">
           <div className="text-[#9CA3AF] text-[10px] font-bold uppercase tracking-wider mb-1">Accuracy</div>
           <div className="text-xl font-bold text-white">{astrologer.accuracy}%</div>
+          <p className="font-mono text-[9px] text-ink-tertiary mt-0.5 uppercase tracking-[0.1em]">
+            of {astrologer.consultationCount} tracked predictions
+          </p>
         </div>
-        <div className="bg-white/5 rounded-2xl p-3 text-center">
+        <div className="bg-white/5 rounded-lg p-3 text-center">
           <div className="text-[#9CA3AF] text-[10px] font-bold uppercase tracking-wider mb-1">Trust Score</div>
-          <div className="text-xl font-bold text-primary">{astrologer.trustScore}</div>
+          <div className="text-xl font-bold text-brand">{astrologer.trustScore}</div>
         </div>
       </div>
 
@@ -79,7 +82,7 @@ function AstrologerCard({ astrologer, index }: { astrologer: VerifiedAstrologer,
 
       <div className="flex flex-wrap gap-2 mb-6">
         {astrologer.specialization.slice(0, 3).map(spec => (
-          <span key={spec} className="text-[10px] font-bold px-2 py-1 bg-white/5 text-[#9CA3AF] rounded-md uppercase tracking-wider border border-white/10">{spec}</span>
+          <span key={spec} className="text-[10px] font-bold px-2 py-1 bg-white/5 text-[#9CA3AF] rounded-md uppercase tracking-wider border border-line">{spec}</span>
         ))}
       </div>
 

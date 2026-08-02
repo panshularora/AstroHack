@@ -17,13 +17,13 @@ export function CosmicRing({ className, intensity = "medium" }: CosmicRingProps)
     <div className={cn("relative flex items-center justify-center w-64 h-64", className)}>
       {/* Outer Glow */}
       <motion.div
-        className="absolute inset-0 rounded-full bg-primary/20 blur-3xl"
+        className="absolute inset-0 rounded-full bg-brand/20 blur-3xl"
         animate={glowVariants[intensity]}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
       />
       {/* Inner Ring */}
       <motion.div
-        className="absolute inset-4 rounded-full border border-primary/30"
+        className="absolute inset-4 rounded-full border border-brand/30"
         animate={{ rotate: 360 }}
         transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
       />
@@ -34,7 +34,7 @@ export function CosmicRing({ className, intensity = "medium" }: CosmicRingProps)
       />
       {/* Core */}
       <motion.div
-        className="relative z-10 w-24 h-24 rounded-full bg-gradient-to-br from-primary to-secondary shadow-lg shadow-primary/50"
+        className="relative z-10 w-24 h-24 rounded-full bg-gradient-to-br from-brand to-secondary shadow-lg shadow-primary/50"
         animate={glowVariants[intensity]}
         transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
       />

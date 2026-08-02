@@ -43,7 +43,7 @@ export function DashboardHeader({ userName }: { userName: string }) {
             </span>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
-            {greeting} <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-lavender">{userName}</span>
+            {greeting} <span className="bg-clip-text text-transparent bg-gradient-to-r from-brand to-lavender">{userName}</span>
           </h1>
           <p className="text-[#9CA3AF] mt-1 text-sm">{subGreeting}</p>
         </div>
@@ -57,19 +57,19 @@ export function DashboardHeader({ userName }: { userName: string }) {
           </button>
           <button
             onClick={() => navigate("/app/companion")}
-            className="flex items-center gap-2 px-4 py-2.5 bg-primary/10 border border-primary/30 text-primary rounded-xl text-sm font-bold hover:bg-primary/20 transition-colors"
+            className="flex items-center gap-2 px-4 py-2.5 bg-brand-light border border-brand/30 text-brand rounded-xl text-sm font-bold hover:bg-brand/20 transition-colors"
           >
             <Brain className="w-4 h-4" /> Ask AI
           </button>
           <button
             onClick={() => navigate("/app/match")}
-            className="flex items-center gap-2 px-4 py-2.5 bg-white/5 border border-white/10 text-white rounded-xl text-sm font-bold hover:bg-white/10 transition-colors"
+            className="flex items-center gap-2 px-4 py-2.5 bg-surface-2 border border-line text-white rounded-xl text-sm font-bold hover:bg-surface-3 transition-colors"
           >
             <Sparkles className="w-4 h-4" /> Book Session
           </button>
           <button
             onClick={() => navigate("/app/journey")}
-            className="hidden md:flex items-center gap-2 px-4 py-2.5 bg-white/5 border border-white/10 text-white rounded-xl text-sm font-bold hover:bg-white/10 transition-colors"
+            className="hidden md:flex items-center gap-2 px-4 py-2.5 bg-surface-2 border border-line text-white rounded-xl text-sm font-bold hover:bg-surface-3 transition-colors"
           >
             <TrendingUp className="w-4 h-4" /> Life Journey <ArrowRight className="w-3 h-3" />
           </button>

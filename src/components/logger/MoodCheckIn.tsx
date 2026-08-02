@@ -31,10 +31,10 @@ export function MoodCheckIn() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
               onClick={() => setSelected(m.id)}
-              className={`p-4 rounded-2xl border flex flex-col items-center justify-center gap-3 transition-all cursor-pointer ${
+              className={`p-4 rounded-lg border flex flex-col items-center justify-center gap-3 transition-all cursor-pointer ${
                 isSelected 
                   ? "bg-white/10 border-white/30 shadow-[0_0_20px_rgba(255,255,255,0.05)] scale-105" 
-                  : "bg-card border-white/5 hover:border-white/20 hover:bg-white/5"
+                  : "bg-surface border-line-subtle hover:border-line-strong hover:bg-white/5"
               }`}
             >
               <m.icon className={`w-8 h-8 ${m.color} ${!isSelected && 'opacity-70'}`} />

@@ -222,26 +222,26 @@ export function AICompanion() {
           </div>
         </div>
 
-        {/* Sidebar */}
-        <div className="lg:col-span-4 space-y-5">
+        {/* Sidebar — ivory editorial split */}
+        <div className="lg:col-span-4 space-y-5 ivory-content">
           {/* Memory Context */}
-          <div className="p-5 rounded-lg bg-surface border border-line space-y-4">
-            <div className="flex items-center gap-3 border-b border-line/60 pb-3">
+          <div className="bg-ivory border-l border-ivory-border p-6 space-y-6">
+            <div className="flex items-center gap-3 border-b border-ivory-border pb-3">
               <BookOpen className="w-4 h-4 text-brand" />
-              <h3 className="text-body-sm font-bold text-ink">Memory Context</h3>
+              <h3 className="font-mono text-[10px] tracking-[0.16em] uppercase text-brand">Memory Context</h3>
             </div>
             <div className="space-y-3 font-mono text-xs">
               <div className="flex items-center justify-between">
-                <span className="text-ink-tertiary">Consultations</span>
-                <span className="font-bold text-ink">{mockLatestSession.duration} min last</span>
+                <span className="text-ink-ivory-tertiary">Consultations</span>
+                <span className="font-bold text-ink-ivory">{mockLatestSession.duration} min last</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-ink-tertiary">Active Predictions</span>
-                <span className="font-bold text-ink">{mockLatestSession.predictions.length}</span>
+                <span className="text-ink-ivory-tertiary">Active Predictions</span>
+                <span className="font-bold text-ink-ivory">{mockLatestSession.predictions.length}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-ink-tertiary">Active Remedies</span>
-                <span className="font-bold text-ink">{mockLatestSession.remedies.length}</span>
+                <span className="text-ink-ivory-tertiary">Active Remedies</span>
+                <span className="font-bold text-ink-ivory">{mockLatestSession.remedies.length}</span>
               </div>
             </div>
             <Button variant="outline" size="sm" className="w-full rounded-md mt-2 font-mono" onClick={() => navigate("/app/memory")}>
@@ -250,25 +250,25 @@ export function AICompanion() {
           </div>
 
           {/* Latest Session */}
-          <div className="p-5 rounded-lg bg-surface border border-line space-y-4">
-            <div className="flex items-center gap-3 border-b border-line/60 pb-3">
+          <div className="bg-ivory border-l border-ivory-border p-6 space-y-6">
+            <div className="flex items-center gap-3 border-b border-ivory-border pb-3">
               <MessageSquare className="w-4 h-4 text-brand" />
-              <h3 className="text-body-sm font-bold text-ink">Latest Session Notes</h3>
+              <h3 className="font-mono text-[10px] tracking-[0.16em] uppercase text-brand">Latest Session Notes</h3>
             </div>
             <div className="space-y-3">
               <div>
-                <p className="text-caption font-mono uppercase text-ink-tertiary">Topic</p>
-                <p className="text-xs font-bold text-ink mt-0.5">{mockLatestSession.topic}</p>
+                <p className="text-caption font-mono uppercase text-ink-ivory-tertiary">Topic</p>
+                <p className="text-xs font-bold text-ink-ivory mt-0.5">{mockLatestSession.topic}</p>
               </div>
               <div>
-                <p className="text-caption font-mono uppercase text-ink-tertiary">Astrologer</p>
-                <p className="text-xs font-bold text-ink mt-0.5">{mockLatestSession.astrologer.name}</p>
+                <p className="text-caption font-mono uppercase text-ink-ivory-tertiary">Astrologer</p>
+                <p className="text-xs font-bold text-ink-ivory mt-0.5">{mockLatestSession.astrologer.name}</p>
               </div>
               <div>
-                <p className="text-caption font-mono uppercase text-ink-tertiary mb-2">Key Guidance</p>
+                <p className="text-caption font-mono uppercase text-ink-ivory-tertiary mb-2">Key Guidance</p>
                 <ul className="space-y-2">
                   {mockLatestSession.summary.points.map((point, i) => (
-                    <li key={i} className="text-xs text-ink-secondary flex items-start gap-2">
+                    <li key={i} className="text-xs text-ink-ivory-secondary flex items-start gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-brand mt-1.5 shrink-0" />
                       {point}
                     </li>

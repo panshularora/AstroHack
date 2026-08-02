@@ -14,10 +14,10 @@ export function FeatureSlidesStep({ onNext, onBack }: { onNext: () => void, onBa
       color: "from-blue-500/10 to-transparent border-blue-500/20"
     },
     {
-      icon: <Brain className="w-12 h-12 text-primary" />,
+      icon: <Brain className="w-12 h-12 text-brand" />,
       title: "AI Companion",
       desc: "An intelligent assistant that remembers your entire journey, ready to answer questions and provide daily guidance instantly.",
-      color: "from-primary/10 to-transparent border-primary/20"
+      color: "from-brand/10 to-transparent border-brand/20"
     },
     {
       icon: <ShieldCheck className="w-12 h-12 text-green-400" />,
@@ -47,7 +47,7 @@ export function FeatureSlidesStep({ onNext, onBack }: { onNext: () => void, onBa
         </button>
         <div className="flex gap-2">
           {slides.map((_, i) => (
-            <div key={i} className={`w-12 h-1 rounded-full transition-colors ${i === slide ? 'bg-primary' : 'bg-white/20'}`} />
+            <div key={i} className={`w-12 h-1 rounded-full transition-colors ${i === slide ? 'bg-brand' : 'bg-white/20'}`} />
           ))}
         </div>
         <div className="w-[72px]" /> {/* Spacer for centering */}
@@ -64,7 +64,7 @@ export function FeatureSlidesStep({ onNext, onBack }: { onNext: () => void, onBa
             className="w-full"
           >
             <div className={`bg-gradient-to-b ${slides[slide].color} border rounded-[40px] p-12 md:p-20 text-center relative overflow-hidden backdrop-blur-sm`}>
-              <div className="w-24 h-24 mx-auto bg-black/40 rounded-3xl flex items-center justify-center mb-8 border border-white/5 shadow-xl backdrop-blur-md">
+              <div className="w-24 h-24 mx-auto bg-black/40 rounded-lg flex items-center justify-center mb-8 border border-line-subtle shadow-xl backdrop-blur-md">
                 {slides[slide].icon}
               </div>
               <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 tracking-tight">{slides[slide].title}</h2>

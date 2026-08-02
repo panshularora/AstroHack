@@ -15,17 +15,17 @@ export function PredictionComparison() {
         </div>
       </div>
 
-      <div className="bg-black/40 border border-white/5 rounded-3xl p-2 relative overflow-hidden">
+      <div className="bg-black/40 border border-line-subtle rounded-lg p-2 relative overflow-hidden">
         {/* VS Badge */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-[#1a1b26] border border-white/10 rounded-full flex items-center justify-center text-sm font-bold text-white z-10 shadow-2xl">
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-[#1a1b26] border border-line rounded-full flex items-center justify-center text-sm font-bold text-white z-10 shadow-2xl">
           VS
         </div>
 
         <div className="grid md:grid-cols-2 gap-2">
           {/* Perspective 1 */}
-          <div className="bg-card border border-white/10 rounded-2xl p-6 md:p-8 hover:border-white/20 transition-colors">
+          <div className="bg-surface border border-line rounded-lg p-6 md:p-8 hover:border-line-strong transition-colors">
             <div className="flex items-center gap-4 mb-6">
-              <img src={alara.avatar} alt={alara.name} className="w-14 h-14 rounded-full border-2 border-white/10 object-cover" />
+              <img src={alara.avatar} alt={alara.name} className="w-14 h-14 rounded-full border-2 border-line/60 object-cover" />
               <div>
                 <h4 className="text-lg font-bold text-white leading-tight">{alara.name}</h4>
                 <p className="text-xs text-[#9CA3AF]">Consulted Jun 15, 2026</p>
@@ -34,11 +34,11 @@ export function PredictionComparison() {
 
             <div className="space-y-5">
               <div>
-                <span className="text-[10px] text-primary uppercase font-bold tracking-wider mb-2 block">Prediction</span>
+                <span className="text-[10px] text-brand uppercase font-bold tracking-wider mb-2 block">Prediction</span>
                 <p className="text-base text-white/90 leading-relaxed">"You will receive a major job offer in the tech sector around late August, initiated by a former colleague."</p>
               </div>
               
-              <div className="flex items-center justify-between py-4 border-y border-white/5">
+              <div className="flex items-center justify-between py-4 border-y border-line-subtle">
                 <span className="text-xs text-[#9CA3AF] uppercase font-bold tracking-wider">Confidence</span>
                 <span className="text-base font-bold text-white">88%</span>
               </div>
@@ -54,9 +54,9 @@ export function PredictionComparison() {
           </div>
 
           {/* Perspective 2 */}
-          <div className="bg-card border border-white/10 rounded-2xl p-6 md:p-8 hover:border-white/20 transition-colors">
+          <div className="bg-surface border border-line rounded-lg p-6 md:p-8 hover:border-line-strong transition-colors">
             <div className="flex items-center gap-4 mb-6">
-              <img src={sarah.avatar} alt={sarah.name} className="w-14 h-14 rounded-full border-2 border-white/10 object-cover" />
+              <img src={sarah.avatar} alt={sarah.name} className="w-14 h-14 rounded-full border-2 border-line/60 object-cover" />
               <div>
                 <h4 className="text-lg font-bold text-white leading-tight">{sarah.name}</h4>
                 <p className="text-xs text-[#9CA3AF]">Consulted Jul 15, 2026</p>
@@ -69,7 +69,7 @@ export function PredictionComparison() {
                 <p className="text-base text-white/90 leading-relaxed">"Jupiter's 10th house transit creates a peak career window between late August and early September."</p>
               </div>
               
-              <div className="flex items-center justify-between py-4 border-y border-white/5">
+              <div className="flex items-center justify-between py-4 border-y border-line-subtle">
                 <span className="text-xs text-[#9CA3AF] uppercase font-bold tracking-wider">Confidence</span>
                 <span className="text-base font-bold text-white">94%</span>
               </div>

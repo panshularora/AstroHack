@@ -27,7 +27,7 @@ export function BirthDetailsStep({
 
   return (
     <div className="flex-1 flex flex-col p-6 max-w-xl mx-auto w-full relative min-h-screen justify-center">
-      <div className="bg-card border border-white/10 rounded-[32px] p-8 md:p-12 relative overflow-hidden shadow-2xl">
+      <div className="bg-surface border border-line rounded-[32px] p-8 md:p-12 relative overflow-hidden shadow-2xl">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-primary/10 pointer-events-none" />
         
         <div className="relative z-10 space-y-8">
@@ -42,13 +42,13 @@ export function BirthDetailsStep({
             <div className="grid md:grid-cols-2 gap-6">
               <div>
                 <label className="text-xs font-bold text-[#9CA3AF] uppercase tracking-wider mb-2 flex items-center gap-2">
-                  <Calendar className="w-3.5 h-3.5 text-primary" /> Date of Birth
+                  <Calendar className="w-3.5 h-3.5 text-brand" /> Date of Birth
                 </label>
                 <input 
                   type="date"
                   value={dob}
                   onChange={e => setDob(e.target.value)}
-                  className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors text-sm [&::-webkit-calendar-picker-indicator]:invert" 
+                  className="w-full bg-black/40 border border-line rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand transition-colors text-sm [&::-webkit-calendar-picker-indicator]:invert" 
                   required
                 />
               </div>
@@ -60,7 +60,7 @@ export function BirthDetailsStep({
                   type="time" 
                   value={birthTime}
                   onChange={e => setBirthTime(e.target.value)}
-                  className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors text-sm [&::-webkit-calendar-picker-indicator]:invert" 
+                  className="w-full bg-black/40 border border-line rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand transition-colors text-sm [&::-webkit-calendar-picker-indicator]:invert" 
                   required
                 />
                 <p className="text-[10px] text-[#9CA3AF] mt-1">If unsure, estimate as close as possible.</p>
@@ -78,19 +78,19 @@ export function BirthDetailsStep({
                   value={birthPlace}
                   onChange={e => setBirthPlace(e.target.value)}
                   placeholder="Search city, e.g. New Delhi, India"
-                  className="w-full bg-black/40 border border-white/10 rounded-xl pl-10 pr-4 py-3 text-white focus:outline-none focus:border-primary transition-colors text-sm" 
+                  className="w-full bg-black/40 border border-line rounded-xl pl-10 pr-4 py-3 text-white focus:outline-none focus:border-brand transition-colors text-sm" 
                   required
                 />
               </div>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6 pt-4 border-t border-white/10">
+            <div className="grid md:grid-cols-2 gap-6 pt-4 border-t border-line/60">
               <div>
                 <label className="text-xs font-bold text-[#9CA3AF] uppercase tracking-wider mb-2 block">Astrological System</label>
                 <select
                   value={system}
                   onChange={e => setSystem(e.target.value)}
-                  className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors text-sm appearance-none"
+                  className="w-full bg-black/40 border border-line rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand transition-colors text-sm appearance-none"
                 >
                   <option value="vedic">Vedic (Lahiri)</option>
                   <option value="western">Western</option>
@@ -102,7 +102,7 @@ export function BirthDetailsStep({
                 <select
                   value={gender}
                   onChange={e => setGender(e.target.value)}
-                  className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors text-sm appearance-none"
+                  className="w-full bg-black/40 border border-line rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand transition-colors text-sm appearance-none"
                 >
                   <option value="male">Male</option>
                   <option value="female">Female</option>

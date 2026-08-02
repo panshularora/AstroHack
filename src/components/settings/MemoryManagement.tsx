@@ -6,7 +6,7 @@ export function MemoryManagement() {
 
   const categories = [
     { name: "Consultation History", count: memoryUsage.consultations, icon: <Database className="w-5 h-5 text-blue-400" /> },
-    { name: "Prediction Records", count: memoryUsage.predictions, icon: <Target className="w-5 h-5 text-primary" /> },
+    { name: "Prediction Records", count: memoryUsage.predictions, icon: <Target className="w-5 h-5 text-brand" /> },
     { name: "Remedy Logs", count: memoryUsage.remedies, icon: <ShieldAlert className="w-5 h-5 text-green-400" /> },
     { name: "Journal & Mood", count: memoryUsage.journalEntries, icon: <Book className="w-5 h-5 text-gold" /> },
   ]
@@ -18,7 +18,7 @@ export function MemoryManagement() {
         <p className="text-[#9CA3AF]">You are in complete control of what the AI Companion remembers.</p>
       </div>
 
-      <div className="bg-card border border-white/10 rounded-3xl p-8">
+      <div className="bg-surface border border-line rounded-lg p-8">
         <div className="flex items-center justify-between mb-8">
           <div>
             <h3 className="text-lg font-bold text-white">Total Cosmic Memory</h3>
@@ -31,9 +31,9 @@ export function MemoryManagement() {
 
         <div className="space-y-4">
           {categories.map((cat, i) => (
-            <div key={i} className="flex items-center justify-between p-4 bg-white/5 border border-white/5 rounded-2xl group hover:border-white/10 transition-colors">
+            <div key={i} className="flex items-center justify-between p-4 bg-white/5 border border-line-subtle rounded-lg group hover:border-line/60 transition-colors">
               <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-full bg-black/40 flex items-center justify-center border border-white/5">
+                <div className="w-10 h-10 rounded-full bg-black/40 flex items-center justify-center border border-line-subtle">
                   {cat.icon}
                 </div>
                 <div>
@@ -49,8 +49,8 @@ export function MemoryManagement() {
           ))}
         </div>
         
-        <div className="mt-8 p-4 bg-primary/10 border border-primary/20 rounded-xl flex gap-3">
-          <MessageSquare className="w-5 h-5 text-primary shrink-0" />
+        <div className="mt-8 p-4 bg-brand-light border border-brand/20 rounded-xl flex gap-3">
+          <MessageSquare className="w-5 h-5 text-brand shrink-0" />
           <p className="text-sm text-white/90 leading-relaxed">
             <strong>How memory works:</strong> The AI Companion uses these records to provide highly personalized daily briefs and context-aware advice during chats. Deleting records will permanently remove them from the AI's awareness.
           </p>

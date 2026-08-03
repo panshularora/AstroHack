@@ -1,10 +1,11 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { Target, CheckCircle2, Clock, TrendingUp, Calendar, Plus, FileText, Share2 } from "lucide-react"
+import { Target, CheckCircle2, Clock, TrendingUp, Calendar, Plus, FileText, Share2, Upload } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { Button } from "@/components/ui/Button"
 import { PredictionShareCardModal } from "@/components/predictions/PredictionShareCardModal"
 import { PredictionConfidenceModal } from "@/components/predictions/PredictionConfidenceModal"
+import { CosmicVaultModal } from "@/components/vault/CosmicVaultModal"
 import { Badge } from "@/components/ui/Badge"
 import { Progress } from "@/components/ui/Progress"
 import { Tabs } from "@/components/ui/Tabs"
@@ -18,6 +19,7 @@ export function PredictionCenter() {
   const [shareModalOpen, setShareModalOpen] = useState(false)
   const [activeShareData, setActiveShareData] = useState<any>(null)
   const [confidenceModalOpen, setConfidenceModalOpen] = useState(false)
+  const [vaultModalOpen, setVaultModalOpen] = useState(false)
 
   const filtered = mockDetailedPredictions.filter(p => {
     if (tab === "active") return p.status === "pending" || p.status === "in_progress"
@@ -56,15 +58,15 @@ export function PredictionCenter() {
             </div>
             <h1 className="text-h1 font-display text-ink tracking-tight">Verified Prediction Proofs</h1>
             <p className="text-sm text-ink-secondary mt-1">
-              Every astrologer prediction is tracked against real-life milestones with immutable verification proof.
+              Every astrologer prediction is tracked against real-life milestones with immutable document proof (PDF, Visas, Offer Letters).
             </p>
           </div>
           <div className="flex items-center gap-2 shrink-0">
             <Button size="sm" variant="outline" className="rounded-md font-mono text-gold-bright border-gold/30" onClick={() => { setActiveShareData(null); setShareModalOpen(true) }}>
               <Share2 className="w-4 h-4 text-gold-bright" /> Viral Share Card
             </Button>
-            <Button size="sm" className="rounded-md shrink-0">
-              <Plus className="w-4 h-4" /> Attach Outcome Proof
+            <Button size="sm" className="rounded-md shrink-0 bg-amber-500 text-black font-bold hover:bg-amber-600" onClick={() => setVaultModalOpen(true)}>
+              <Upload className="w-4 h-4 mr-1" /> Attach Document (PDF/Visa)
             </Button>
           </div>
         </div>
@@ -122,12 +124,20 @@ export function PredictionCenter() {
                   </div>
                 )}
 
-                <div className="flex items-center justify-between pt-3 border-t border-line/60 text-xs font-mono">
+                <div className="flex flex-wrap items-center justify-between pt-3 border-t border-line/60 gap-3 text-xs font-mono">
                   <div className="flex items-center gap-2 text-ink-tertiary">
                     <Calendar className="w-3.5 h-3.5" />
                     Target: {new Date(p.targetDate).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
                   </div>
-                  <div className="flex items-center gap-3">
+
+                  <div className="flex flex-wrap items-center gap-3">
+                    <button
+                      onClick={() => setVaultModalOpen(true)}
+                      className="flex items-center gap-1 text-[11px] text-blue-400 hover:text-blue-300 font-bold transition-colors"
+                    >
+                      <Upload className="w-3 h-3 text-blue-400" /> Upload Verification PDF
+                    </button>
+
                     <button
                       onClick={() => {
                         setActiveShareData({
@@ -144,6 +154,7 @@ export function PredictionCenter() {
                     >
                       <Share2 className="w-3 h-3 text-brand" /> Share Proof Card
                     </button>
+
                     <button
                       onClick={() => setConfidenceModalOpen(true)}
                       className="flex items-center gap-2 hover:opacity-80 transition-opacity cursor-pointer group/conf"
@@ -170,6 +181,11 @@ export function PredictionCenter() {
       <PredictionConfidenceModal
         isOpen={confidenceModalOpen}
         onClose={() => setConfidenceModalOpen(false)}
+      />
+
+      <CosmicVaultModal
+        isOpen={vaultModalOpen}
+        onClose={() => setVaultModalOpen(false)}
       />
     </div>
   )

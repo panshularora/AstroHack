@@ -1,45 +1,46 @@
 import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useNavigate } from "react-router-dom"
-import { Sparkles, Send, Brain, BookOpen, ArrowRight, MessageSquare } from "lucide-react"
+import { Sparkles, Send, Brain, BookOpen, ArrowRight, MessageSquare, Upload, Folder, ShieldCheck, FileText } from "lucide-react"
 import { Button } from "@/components/ui/Button"
+import { Badge } from "@/components/ui/Badge"
 import { mockChatHistory, mockLatestSession, type ChatMessage } from "@/lib/mock-data"
+import { CosmicVaultModal } from "@/components/vault/CosmicVaultModal"
 import { cn } from "@/lib/utils"
-import ReactMarkdown from "react-markdown"
 
 const suggestions = [
-  "What did Dr. Sarah say about my career?",
-  "Show my active remedies and streaks",
-  "When is my next prediction window?",
-  "Recommend an astrologer for relationship synastry",
+  "What did Guruji Vikram Sharma say about my tech offer?",
+  "Show my active Venus Beej Mantra streak and remedies",
+  "When is my next Jupiter 10th House prediction window?",
+  "Attach my offer letter PDF to verify my career prediction",
 ]
 
 function generateDynamicResponse(prompt: string): { content: string; citations: Array<{ type: "consultation" | "prediction" | "remedy"; title: string; id: string }> } {
   const p = prompt.toLowerCase()
 
-  if (p.includes("career") || p.includes("job") || p.includes("sarah") || p.includes("work")) {
+  if (p.includes("career") || p.includes("offer") || p.includes("vikram") || p.includes("job") || p.includes("tech")) {
     return {
-      content: "Dr. Sarah Chen noted during your July 15 session that your 10th House Jupiter transit forms a 120° trine with your Leo Sun. An executive job offer in the tech sector is predicted between August 20–25 with 88% confidence. She advised finalizing portfolio updates by this Friday.",
+      content: "**Guruji Vikram Sharma** analyzed your natal Kundli during your July 15 session. Your 10th House Jupiter transit forms a exact 120° trine with your Leo Sun.\n\nKey prediction: **Senior Tech Executive Offer** arriving between **August 20–25, 2026** with **88% verified confidence**. He recommended uploading your offer letter PDF to the Cosmic Vault as soon as it arrives to confirm prediction accuracy.",
       citations: [
-        { type: "consultation", title: "Dr. Sarah Chen · Career & Transits", id: "c1" },
-        { type: "prediction", title: "Tech Sector Offer (88% Conf.)", id: "p1" },
+        { type: "consultation", title: "Guruji Vikram Sharma · Career Transits", id: "c1" },
+        { type: "prediction", title: "Tech Offer Window (Aug 20–25, 88% Conf.)", id: "p1" },
       ],
     }
   }
 
-  if (p.includes("remedy") || p.includes("streak") || p.includes("mantra")) {
+  if (p.includes("remedy") || p.includes("streak") || p.includes("mantra") || p.includes("venus")) {
     return {
-      content: "You are currently on Day 11 of your 21-day Venus Beej Mantra remedy (108 recitations daily at sunrise). This balances your 12th House Venus placement. You also have Morning Sun Salutations active with a 14-day streak.",
+      content: "You are currently on **Day 11 of your 21-day Venus Beej Mantra remedy** (*Om Draam Dreem Droum Sah Shukraya Namah* — 108 recitations at sunrise). This balances your 12th House Venus placement.\n\nYou also have a **14-day streak on Morning Surya Arghya**.",
       citations: [
         { type: "remedy", title: "Venus Beej Mantra (Day 11/21)", id: "r1" },
-        { type: "remedy", title: "Sun Salutations (14-Day Streak)", id: "r2" },
+        { type: "remedy", title: "Surya Arghya (14-Day Streak)", id: "r2" },
       ],
     }
   }
 
   if (p.includes("prediction") || p.includes("window") || p.includes("when")) {
     return {
-      content: "Your next major prediction window opens on August 20, 2026 (Tech Sector Job Offer). A secondary financial breakthrough window is calculated for September 15 under Jupiter's direct movement.",
+      content: "Your next primary prediction window opens on **August 20, 2026** (Tech Sector Job Offer). Secondary financial breakthrough window is calculated for **September 15, 2026** under Jupiter's direct motion in your 10th House.",
       citations: [
         { type: "prediction", title: "Tech Offer Window (Aug 20–25)", id: "p1" },
         { type: "prediction", title: "Financial Investment Window (Sept 15)", id: "p2" },
@@ -47,19 +48,19 @@ function generateDynamicResponse(prompt: string): { content: string; citations: 
     }
   }
 
-  if (p.includes("astrologer") || p.includes("relationship") || p.includes("match")) {
+  if (p.includes("attach") || p.includes("pdf") || p.includes("document") || p.includes("vault") || p.includes("visa")) {
     return {
-      content: "For relationship synastry, Pandit Rajesh Kumar (31/36 Gunas Ashtakoot Specialist, 97.4% Verified Accuracy, ₹15/min) is online right now. Would you like me to open your Live Consultation Room?",
+      content: "You can attach your PDF offer letters, H1B visa stamps, or Kundli certificates directly to your predictions using the **Cosmic Vault**. Uploaded documents encrypt with 256-bit security and link to astrologer prediction receipts.",
       citations: [
-        { type: "consultation", title: "Pandit Rajesh Kumar (Verified Expert)", id: "a1" },
+        { type: "consultation", title: "Cosmic Document Vault Active", id: "vault" },
       ],
     }
   }
 
   return {
-    content: `Analyzed your Leo Sun, Scorpio Ascendant, and Rahu Mahadasha transits regarding "${prompt}". Current celestial alignment indicates positive momentum under Jupiter's 10th House transit. Your next major action window opens in 18 days.`,
+    content: `Analyzed your **Leo Sun**, **Scorpio Ascendant**, and **Rahu-Jupiter Mahadasha** transits regarding "${prompt}". Current celestial alignment indicates positive momentum under Jupiter's 10th House transit. Your next major decision aperture opens in **17 days**.`,
     citations: [
-      { type: "consultation", title: "Natal Kundli Transit Map", id: "nk" },
+      { type: "consultation", title: "Natal Kundli Transit Engine", id: "nk" },
     ],
   }
 }
@@ -69,6 +70,7 @@ export function AICompanion() {
   const [messages, setMessages] = useState<ChatMessage[]>(mockChatHistory)
   const [input, setInput] = useState("")
   const [isTyping, setIsTyping] = useState(false)
+  const [vaultOpen, setVaultOpen] = useState(false)
   const scrollRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -103,214 +105,193 @@ export function AICompanion() {
       }
       setMessages(prev => [...prev, aiMsg])
       setIsTyping(false)
-    }, 1100)
+    }, 1000)
   }
 
   return (
-    <div className="page-container max-w-5xl pb-28">
-      {/* Header */}
-      <div className="mb-8 border-b border-line/60 pb-5">
-        <button
-          onClick={() => navigate(-1)}
-          className="flex items-center gap-1.5 font-mono text-[11px] text-ink-tertiary hover:text-ink transition-colors mb-5 group"
-        >
-          <svg className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" viewBox="0 0 16 16" fill="none">
-            <path d="M10 12L6 8l4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-          Back
-        </button>
-        <div className="flex items-center gap-3 mb-2">
-          <div className="w-8 h-8 rounded-md bg-surface-2 border border-brand/30 flex items-center justify-center text-brand">
-            <Sparkles className="w-4 h-4 text-brand" />
-          </div>
-          <p className="text-xs font-mono font-bold uppercase tracking-widest text-brand">AstroAI Twin Engine</p>
-        </div>
-        <h1 className="text-h1 font-display text-ink tracking-tight">Interactive AI Companion</h1>
-        <p className="text-sm text-ink-secondary mt-1">
-          Proactive intelligence with full access to Arjun's birth chart, active transits, predictions, and verified consultation memory.
-        </p>
-      </div>
-
-      <div className="grid lg:grid-cols-12 gap-6">
-        {/* Chat Interface */}
-        <div className="lg:col-span-8">
-          <div className="rounded-lg bg-surface border border-line flex flex-col h-[600px] overflow-hidden">
-            {/* Chat header */}
-            <div className="flex items-center gap-3.5 px-5 py-3.5 border-b border-line/60 bg-surface-2/40">
-              <div className="w-8 h-8 rounded-md bg-surface-2 border border-brand/30 flex items-center justify-center text-brand">
-                <Brain className="w-4 h-4 text-brand" />
+    <div className="page-container max-w-6xl pb-28">
+      <div className="space-y-8">
+        
+        {/* Header */}
+        <div className="border-b border-white/10 pb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-8 h-8 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400">
+                <Brain className="w-4 h-4" />
               </div>
-              <div>
-                <p className="text-xs font-bold text-ink">AstroLive AI Twin</p>
-                <p className="text-caption mt-0.5 font-mono">Leo Sun · Scorpio Ascendant · Rahu Dasha</p>
-              </div>
-              <div className="ml-auto flex items-center gap-2 font-mono text-xs">
-                <div className="w-2 h-2 rounded-full bg-success animate-pulse" />
-                <span className="text-ink-tertiary">Real-Time Sync</span>
-              </div>
+              <p className="text-xs font-mono font-bold uppercase tracking-widest text-amber-400">Cosmic AI Companion</p>
             </div>
+            <h1 className="text-3xl font-bold font-display text-white tracking-tight">AI Twin & Memory Search</h1>
+            <p className="text-sm text-[#9CA3AF] mt-1">
+              Ask about past consultation notes, active Dasha transits, remedies, and prediction proof verification.
+            </p>
+          </div>
 
-            {/* Messages */}
-            <div ref={scrollRef} className="flex-1 overflow-y-auto px-5 py-5 space-y-4">
-              {messages.map(msg => (
-                <div key={msg.id} className={cn("flex flex-col", msg.role === "user" ? "items-end" : "items-start")}>
+          <div className="flex items-center gap-2 shrink-0">
+            <Button
+              variant="outline"
+              size="sm"
+              className="border-blue-500/40 text-blue-300 hover:bg-blue-500/10 font-mono text-xs gap-1.5"
+              onClick={() => setVaultOpen(true)}
+            >
+              <Upload className="w-3.5 h-3.5" /> Attach Life Document (PDF)
+            </Button>
+          </div>
+        </div>
+
+        <div className="grid lg:grid-cols-12 gap-8">
+          
+          {/* Main Chat Feed */}
+          <div className="lg:col-span-8 flex flex-col bg-[#090A0F]/90 border border-white/10 rounded-2xl h-[620px] shadow-2xl backdrop-blur-xl overflow-hidden">
+            
+            {/* Messages Scroll Area */}
+            <div ref={scrollRef} className="flex-1 overflow-y-auto p-6 space-y-6">
+              {messages.map((msg) => (
+                <div
+                  key={msg.id}
+                  className={cn(
+                    "flex gap-4 max-w-[88%]",
+                    msg.role === "user" ? "ml-auto flex-row-reverse" : ""
+                  )}
+                >
                   <div
                     className={cn(
-                      "max-w-[85%] rounded-md px-4 py-3 text-xs leading-relaxed font-sans",
+                      "w-8 h-8 rounded-xl flex items-center justify-center font-mono font-bold text-xs shrink-0 shadow-md",
                       msg.role === "user"
-                        ? "bg-brand text-white border border-brand font-medium"
-                        : "bg-surface-2/80 border border-line text-ink"
+                        ? "bg-amber-500 text-black"
+                        : "bg-gradient-to-br from-purple-600 to-blue-600 text-white"
                     )}
                   >
-                    {msg.role === "assistant" ? (
-                      <div className="text-xs leading-relaxed">
-                        <ReactMarkdown
-                          components={{
-                            p: ({ children }) => <p className="mb-1.5 last:mb-0">{children}</p>,
-                            strong: ({ children }) => <strong className="font-semibold text-gold-bright">{children}</strong>,
-                          }}
-                        >
-                          {msg.content}
-                        </ReactMarkdown>
-                      </div>
-                    ) : (
-                      msg.content
-                    )}
+                    {msg.role === "user" ? "YOU" : "AI"}
                   </div>
-                  {msg.citations && msg.citations.length > 0 && (
-                    <div className="flex items-center flex-wrap gap-2 mt-2 font-mono">
-                      {msg.citations.map(c => (
-                        <span key={c.id} className="text-[10px] bg-surface-2 border border-brand/30 px-2 py-0.5 rounded text-gold-bright">
-                          {c.title}
-                        </span>
-                      ))}
+
+                  <div className="space-y-2">
+                    <div
+                      className={cn(
+                        "p-4 rounded-2xl text-xs leading-relaxed shadow-md",
+                        msg.role === "user"
+                          ? "bg-amber-500 text-black font-semibold"
+                          : "bg-white/5 border border-white/10 text-white"
+                      )}
+                    >
+                      <p className="whitespace-pre-line">{msg.content}</p>
                     </div>
-                  )}
-                  <span className="text-[10px] font-mono text-ink-tertiary mt-1">{msg.timestamp}</span>
+
+                    {msg.citations && msg.citations.length > 0 && (
+                      <div className="flex flex-wrap gap-2 pt-1">
+                        {msg.citations.map((c, i) => (
+                          <div
+                            key={i}
+                            className="px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-500/25 text-amber-300 font-mono text-[10px] flex items-center gap-1.5"
+                          >
+                            <ShieldCheck className="w-3 h-3 text-amber-400" />
+                            <span>{c.title}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    <span className="text-[9px] font-mono text-[#9CA3AF] block px-1">{msg.timestamp}</span>
+                  </div>
                 </div>
               ))}
 
-              {/* Typing indicator */}
-              <AnimatePresence>
-                {isTyping && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 4 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0 }}
-                    className="flex items-start"
-                  >
-                    <div className="bg-surface-2 border border-line rounded-md px-4 py-3 flex items-center gap-1.5 font-mono text-xs text-ink-secondary">
-                      <Sparkles className="w-3.5 h-3.5 text-brand animate-spin" />
-                      <span>Analyzing Kundli transits...</span>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              {isTyping && (
+                <div className="flex items-center gap-2 text-xs font-mono text-amber-400">
+                  <Sparkles className="w-4 h-4 animate-spin" /> AI Twin is searching natal transit engine...
+                </div>
+              )}
             </div>
 
-            {/* Suggestions */}
-            <div className="px-5 pb-3 flex flex-wrap gap-2">
-              {suggestions.map(s => (
+            {/* Suggestions Chips */}
+            <div className="p-3 border-t border-white/10 bg-white/[0.02] flex flex-wrap gap-2">
+              {suggestions.map((s, idx) => (
                 <button
-                  key={s}
+                  key={idx}
                   onClick={() => handleSend(s)}
-                  className="text-xs font-mono bg-surface-2 border border-line hover:border-brand/40 text-ink-secondary hover:text-ink rounded-md px-3 py-1.5 transition-colors"
+                  className="px-3 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-[11px] text-[#9CA3AF] hover:text-white transition-all text-left cursor-pointer font-mono"
                 >
                   {s}
                 </button>
               ))}
             </div>
 
-            {/* Input */}
-            <div className="px-5 py-3.5 border-t border-line/60 bg-surface-2/30">
-              <div className="flex items-center gap-3">
-                <input
-                  type="text"
-                  value={input}
-                  onChange={e => setInput(e.target.value)}
-                  onKeyDown={e => e.key === "Enter" && handleSend()}
-                  placeholder="Ask about your transits, remedies, or past sessions..."
-                  className="flex-1 h-10 rounded-md border border-line bg-surface-2 px-3.5 text-xs text-ink placeholder:text-ink-tertiary focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand font-sans"
-                />
-                <Button
-                  size="sm"
-                  className="rounded-md font-mono"
-                  onClick={() => handleSend()}
-                  disabled={!input.trim() || isTyping}
-                >
-                  <Send className="w-4 h-4" />
-                </Button>
-              </div>
+            {/* Chat Input Bar */}
+            <div className="p-4 border-t border-white/10 flex items-center gap-3 bg-[#090A0F]">
+              <input
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleSend()}
+                placeholder="Ask your AI Cosmic Twin anything (e.g. Dasha, remedies, predictions)..."
+                className="flex-1 h-11 bg-white/5 border border-white/10 rounded-xl px-4 text-xs text-white placeholder:text-[#9CA3AF] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-amber-400"
+              />
+              <Button
+                onClick={() => handleSend()}
+                className="h-11 px-5 rounded-xl bg-amber-500 text-black font-bold hover:bg-amber-600 font-mono text-xs shrink-0 shadow-lg"
+              >
+                <Send className="w-4 h-4 mr-1" /> Ask Twin
+              </Button>
             </div>
-          </div>
-        </div>
 
-        {/* Sidebar — ivory editorial split */}
-        <div className="lg:col-span-4 space-y-5 ivory-content">
-          {/* Memory Context */}
-          <div className="bg-ivory border-l border-ivory-border p-6 space-y-6">
-            <div className="flex items-center gap-3 border-b border-ivory-border pb-3">
-              <BookOpen className="w-4 h-4 text-brand" />
-              <h3 className="font-mono text-[10px] tracking-[0.16em] uppercase text-brand">Memory Context</h3>
-            </div>
-            <div className="space-y-3 font-mono text-xs">
-              <div className="flex items-center justify-between">
-                <span className="text-ink-ivory-tertiary">Consultations</span>
-                <div className="text-right">
-                  <span className="font-bold text-ink-ivory">{mockLatestSession.duration} min</span>
-                  <span className="font-mono text-[9px] text-ink-tertiary block">most recent session</span>
-                </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-ink-ivory-tertiary">Active Predictions</span>
-                <div className="text-right">
-                  <span className="font-bold text-ink-ivory">{mockLatestSession.predictions.length}</span>
-                  <span className="font-mono text-[9px] text-ink-tertiary block">being tracked</span>
-                </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-ink-ivory-tertiary">Active Remedies</span>
-                <div className="text-right">
-                  <span className="font-bold text-ink-ivory">{mockLatestSession.remedies.length}</span>
-                  <span className="font-mono text-[9px] text-ink-tertiary block">currently active</span>
-                </div>
-              </div>
-            </div>
-            <Button variant="ivory" size="sm" className="w-full rounded-md mt-2 font-mono" onClick={() => navigate("/app/memory")}>
-              View Cosmic Memory <ArrowRight className="w-3.5 h-3.5" />
-            </Button>
           </div>
 
-          {/* Latest Session */}
-          <div className="bg-ivory border-l border-ivory-border p-6 space-y-6">
-            <div className="flex items-center gap-3 border-b border-ivory-border pb-3">
-              <MessageSquare className="w-4 h-4 text-brand" />
-              <h3 className="font-mono text-[10px] tracking-[0.16em] uppercase text-brand">Latest Session Notes</h3>
+          {/* Right Context & Vault Sidebar */}
+          <div className="lg:col-span-4 space-y-6">
+            
+            {/* Document Vault Quick Trigger Card */}
+            <div className="p-6 rounded-2xl bg-gradient-to-br from-blue-950/40 via-surface to-black border border-blue-500/30 space-y-4 shadow-xl">
+              <div className="flex items-center gap-2.5 text-blue-400">
+                <Folder className="w-5 h-5" />
+                <h3 className="font-bold text-sm text-white">Cosmic Document Vault</h3>
+              </div>
+              <p className="text-xs text-[#9CA3AF] leading-relaxed">
+                Predictions require proof. Upload offer letters, visas, marriage certificates, or Kundlis to verify astrologer accuracy.
+              </p>
+              <Button
+                variant="ivory"
+                size="sm"
+                className="w-full rounded-xl text-xs font-bold gap-2"
+                onClick={() => setVaultOpen(true)}
+              >
+                <FileText className="w-4 h-4" /> Open Life Vault & Upload PDF
+              </Button>
             </div>
-            <div className="space-y-3">
-              <div>
-                <p className="text-caption font-mono uppercase text-ink-ivory-tertiary">Topic</p>
-                <p className="text-xs font-bold text-ink-ivory mt-0.5">{mockLatestSession.topic}</p>
+
+            {/* Latest Session Details */}
+            <div className="p-6 rounded-2xl bg-[#090A0F]/90 border border-white/10 space-y-4 shadow-xl">
+              <div className="flex items-center justify-between pb-3 border-b border-white/10">
+                <span className="text-xs font-bold text-white flex items-center gap-2">
+                  <MessageSquare className="w-4 h-4 text-amber-400" /> Latest Consultation
+                </span>
+                <span className="text-[10px] font-mono text-amber-400">July 15, 2026</span>
               </div>
               <div>
-                <p className="text-caption font-mono uppercase text-ink-ivory-tertiary">Astrologer</p>
-                <p className="text-xs font-bold text-ink-ivory mt-0.5">{mockLatestSession.astrologer.name}</p>
+                <p className="text-xs font-bold text-white">{mockLatestSession.astrologerName}</p>
+                <p className="text-[11px] text-[#9CA3AF] font-mono mt-0.5">{mockLatestSession.topic}</p>
               </div>
-              <div>
-                <p className="text-caption font-mono uppercase text-ink-ivory-tertiary mb-2">Key Guidance</p>
-                <ul className="space-y-2">
-                  {mockLatestSession.summary.points.map((point, i) => (
-                    <li key={i} className="text-xs text-ink-ivory-secondary flex items-start gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-brand mt-1.5 shrink-0" />
-                      {point}
-                    </li>
-                  ))}
-                </ul>
+              <div className="bg-black/40 p-3 rounded-xl border border-white/5 space-y-2">
+                <p className="text-[11px] text-[#9CA3AF] leading-relaxed">
+                  "{mockLatestSession.keyInsight}"
+                </p>
               </div>
+              <Button
+                variant="outline"
+                size="sm"
+                className="w-full rounded-xl text-xs font-mono border-white/20 text-white"
+                onClick={() => navigate("/app/memory")}
+              >
+                View Full Memory Log <ArrowRight className="w-3.5 h-3.5" />
+              </Button>
             </div>
+
           </div>
+
         </div>
       </div>
+
+      <CosmicVaultModal
+        isOpen={vaultOpen}
+        onClose={() => setVaultOpen(false)}
+      />
     </div>
   )
 }

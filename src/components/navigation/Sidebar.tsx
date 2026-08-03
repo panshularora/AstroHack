@@ -19,7 +19,6 @@ import {
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { mockUser } from "@/lib/mock-data"
-import { useLedger } from "@/context/LedgerContext"
 
 const primaryNavItems = [
   { path: "/app/dashboard", label: "Dashboard", icon: LayoutDashboard },

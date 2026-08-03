@@ -1,6 +1,6 @@
 import { LandingNavbar } from "@/components/landing/LandingNavbar"
 import { AnimatedHero } from "@/components/landing/AnimatedHero"
-import { CoreFeatures } from "@/components/landing/CoreFeatures"
+import { DemoStorySection } from "@/components/landing/DemoStorySection"
 import { TestimonialsSection } from "@/components/landing/TestimonialsSection"
 import { FinalCTA } from "@/components/landing/FinalCTA"
 import { Footer } from "@/components/landing/Footer"
@@ -11,7 +11,7 @@ export function Landing() {
       <LandingNavbar />
       <main>
         <AnimatedHero />
-        <CoreFeatures />
+        <DemoStorySection />
         <TestimonialsSection />
         <FinalCTA />
       </main>

@@ -6,32 +6,19 @@ import { SignUpPage } from "@/pages/auth/SignUpPage"
 import { ForgotPasswordPage } from "@/pages/auth/ForgotPasswordPage"
 
 import { Landing } from "@/pages/Landing"
-import { Dashboard } from "@/pages/Dashboard"
-import { SmartMatch } from "@/pages/SmartMatch"
-import { ConsultLogger } from "@/pages/ConsultLogger"
-import { CosmicMemory } from "@/pages/CosmicMemory"
-import { PredictionCenter } from "@/pages/PredictionCenter"
+import { Ledger } from "@/pages/Ledger"
+import { Consult } from "@/pages/Consult"
+import { You } from "@/pages/You"
 import { AstroVerified } from "@/pages/AstroVerified"
 import { AstrologerProfile } from "@/pages/AstrologerProfile"
-import { AICompanion } from "@/pages/AICompanion"
-import { DailyBrief } from "@/pages/DailyBrief"
 import { Subscription } from "@/pages/Subscription"
 import { Settings } from "@/pages/Settings"
 import { Onboarding } from "@/pages/Onboarding"
-import { ReportsCenter } from "@/pages/ReportsCenter"
-import { LifeJourney } from "@/pages/LifeJourney"
-import { EmergencyGuidance } from "@/pages/EmergencyGuidance"
-import { RelationshipMode } from "@/pages/RelationshipMode"
 import { LiveConsultationRoom } from "@/pages/LiveConsultationRoom"
 
 export const router = createBrowserRouter([
-  // ── Marketing landing page ──────────────────────────────────────────────
-  {
-    path: "/",
-    element: <Landing />,
-  },
+  { path: "/", element: <Landing /> },
 
-  // ── Authentication flow ──────────────────────────────────────────────────
   {
     element: <AuthLayout />,
     children: [
@@ -41,40 +28,37 @@ export const router = createBrowserRouter([
     ],
   },
 
-  // ── Onboarding flow ──────────────────────────────────────────────────────
-  {
-    path: "/onboarding",
-    element: <Onboarding />,
-  },
+  { path: "/onboarding", element: <Onboarding /> },
 
-  // ── Authenticated application (with sidebar / topbar) ───────────────────
   {
     path: "/app",
     element: <AppLayout />,
     children: [
-      { index: true, element: <Navigate to="/app/dashboard" replace /> },
-      { path: "dashboard", element: <Dashboard /> },
-      { path: "match", element: <SmartMatch /> },
-      { path: "logger", element: <ConsultLogger /> },
-      { path: "memory", element: <CosmicMemory /> },
-      { path: "predictions", element: <PredictionCenter /> },
-      { path: "verified", element: <AstroVerified /> },
-      { path: "companion", element: <AICompanion /> },
-      { path: "reports", element: <ReportsCenter /> },
-      { path: "journey", element: <LifeJourney /> },
-      { path: "sos", element: <EmergencyGuidance /> },
-      { path: "astrologer/:id", element: <AstrologerProfile /> },
+      { index: true, element: <Navigate to="/app/ledger" replace /> },
+      { path: "ledger", element: <Ledger /> },
+      { path: "consult", element: <Consult /> },
+      { path: "astrologers", element: <AstroVerified /> },
+      { path: "you", element: <You /> },
       { path: "room/:id", element: <LiveConsultationRoom /> },
+      { path: "astrologer/:id", element: <AstrologerProfile /> },
       { path: "subscription", element: <Subscription /> },
-      { path: "brief", element: <DailyBrief /> },
-      { path: "relationship", element: <RelationshipMode /> },
       { path: "settings", element: <Settings /> },
+
+      // Legacy redirects
+      { path: "dashboard", element: <Navigate to="/app/ledger" replace /> },
+      { path: "predictions", element: <Navigate to="/app/ledger" replace /> },
+      { path: "match", element: <Navigate to="/app/consult" replace /> },
+      { path: "verified", element: <Navigate to="/app/astrologers" replace /> },
+      { path: "brief", element: <Navigate to="/app/ledger" replace /> },
+      { path: "companion", element: <Navigate to="/app/ledger" replace /> },
+      { path: "memory", element: <Navigate to="/app/ledger" replace /> },
+      { path: "logger", element: <Navigate to="/app/consult" replace /> },
+      { path: "reports", element: <Navigate to="/app/you" replace /> },
+      { path: "journey", element: <Navigate to="/app/ledger" replace /> },
+      { path: "sos", element: <Navigate to="/app/ledger" replace /> },
+      { path: "relationship", element: <Navigate to="/app/ledger" replace /> },
     ],
   },
 
-  // ── Fallback: redirect any unknown URL to the landing page ───────────────
-  {
-    path: "*",
-    element: <Navigate to="/" replace />,
-  },
+  { path: "*", element: <Navigate to="/" replace /> },
 ])

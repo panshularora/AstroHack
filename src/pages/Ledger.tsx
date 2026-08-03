@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { useNavigate } from "react-router-dom"
-import { BookOpen, Plus, Share2, AlertCircle } from "lucide-react"
+import { BookOpen, Plus, AlertCircle } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { useLedger } from "@/context/LedgerContext"
 import { PredictionReceiptCard } from "@/components/ledger/PredictionReceiptCard"

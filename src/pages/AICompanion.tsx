@@ -1,9 +1,7 @@
 import { useState, useRef, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
 import { useNavigate } from "react-router-dom"
-import { Sparkles, Send, Brain, BookOpen, ArrowRight, MessageSquare, Upload, Folder, ShieldCheck, FileText } from "lucide-react"
+import { Sparkles, Send, Brain, ArrowRight, MessageSquare, Upload, Folder, ShieldCheck, FileText } from "lucide-react"
 import { Button } from "@/components/ui/Button"
-import { Badge } from "@/components/ui/Badge"
 import { mockChatHistory, mockLatestSession, type ChatMessage } from "@/lib/mock-data"
 import { CosmicVaultModal } from "@/components/vault/CosmicVaultModal"
 import { cn } from "@/lib/utils"
@@ -265,12 +263,12 @@ export function AICompanion() {
                 <span className="text-[10px] font-mono text-amber-400">July 15, 2026</span>
               </div>
               <div>
-                <p className="text-xs font-bold text-white">{mockLatestSession.astrologerName}</p>
+                <p className="text-xs font-bold text-white">{mockLatestSession.astrologer.name}</p>
                 <p className="text-[11px] text-[#9CA3AF] font-mono mt-0.5">{mockLatestSession.topic}</p>
               </div>
               <div className="bg-black/40 p-3 rounded-xl border border-white/5 space-y-2">
                 <p className="text-[11px] text-[#9CA3AF] leading-relaxed">
-                  "{mockLatestSession.keyInsight}"
+                  "{mockLatestSession.summary.advice}"
                 </p>
               </div>
               <Button

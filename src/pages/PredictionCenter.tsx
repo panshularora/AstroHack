@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { Target, CheckCircle2, Clock, TrendingUp, Calendar, Plus, FileText, Share2, Upload } from "lucide-react"
+import { Target, CheckCircle2, Clock, TrendingUp, Calendar, FileText, Share2, Upload } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { Button } from "@/components/ui/Button"
 import { PredictionShareCardModal } from "@/components/predictions/PredictionShareCardModal"

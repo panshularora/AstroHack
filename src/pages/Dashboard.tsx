@@ -9,7 +9,7 @@ import { CosmicHero } from "@/components/visual/CosmicHero"
 import { JudgeTourBar } from "@/components/dashboard/JudgeTourBar"
 import { DashboardMetricCards } from "@/components/dashboard/DashboardMetricCards"
 import { DashboardCharts } from "@/components/dashboard/DashboardCharts"
-import { mockDetailedPredictions, mockDetailedConsultations } from "@/lib/mock-data"
+import { mockDetailedPredictions, mockConsultations } from "@/lib/mock-data"
 import { CosmicVaultModal } from "@/components/vault/CosmicVaultModal"
 
 export function Dashboard() {
@@ -108,7 +108,7 @@ export function Dashboard() {
           </div>
 
           <div className="space-y-3">
-            {mockDetailedConsultations.slice(0, 2).map((c) => (
+            {mockConsultations.slice(0, 2).map((c: any) => (
               <Card key={c.id} className="p-5 space-y-3">
                 <div className="flex items-center justify-between border-b border-white/5 pb-2">
                   <span className="text-xs font-bold text-white">{c.astrologer.name}</span>

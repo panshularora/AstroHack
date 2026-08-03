@@ -276,7 +276,7 @@ export function AICompanion() {
                 </div>
               </div>
             </div>
-            <Button variant="outline" size="sm" className="w-full rounded-md mt-2 font-mono" onClick={() => navigate("/app/memory")}>
+            <Button variant="ivory" size="sm" className="w-full rounded-md mt-2 font-mono" onClick={() => navigate("/app/memory")}>
               View Cosmic Memory <ArrowRight className="w-3.5 h-3.5" />
             </Button>
           </div>

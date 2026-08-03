@@ -102,7 +102,7 @@ export function Ledger() {
               </h2>
               <div className="space-y-3">
                 {needsVerification.map(p => (
-                  <div key={p.id} className="[&_.bg-surface]:bg-ivory-card [&_.border-line]:border-ivory-border [&_.text-ink]:text-ink-ivory [&_.text-ink-secondary]:text-ink-ivory-secondary [&_.text-ink-tertiary]:text-ink-ivory-tertiary">
+                  <div key={p.id}>
                     <PredictionReceiptCard
                       prediction={p}
                       highlight
@@ -117,12 +117,12 @@ export function Ledger() {
           {/* Active windows */}
           {active.length > 0 && (
             <section>
-              <h2 className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-ivory-tertiary mb-4">
+              <h2 className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#9CA3AF] mb-4">
                 Active Windows
               </h2>
               <div className="space-y-3">
                 {active.map(p => (
-                  <div key={p.id} className="[&_.bg-surface]:bg-ivory-card [&_.border-line]:border-ivory-border [&_.text-ink]:text-ink-ivory [&_.text-ink-secondary]:text-ink-ivory-secondary [&_.text-ink-tertiary]:text-ink-ivory-tertiary">
+                  <div key={p.id}>
                     <PredictionReceiptCard prediction={p} />
                   </div>
                 ))}
@@ -133,12 +133,12 @@ export function Ledger() {
           {/* Verified */}
           {verified.length > 0 && (
             <section>
-              <h2 className="font-mono text-[10px] uppercase tracking-[0.16em] text-success mb-4">
+              <h2 className="font-mono text-[10px] uppercase tracking-[0.16em] text-emerald-400 mb-4">
                 Verified Outcomes
               </h2>
               <div className="space-y-3">
                 {verified.map(p => (
-                  <div key={p.id} className="[&_.bg-surface]:bg-ivory-card [&_.border-line]:border-ivory-border [&_.text-ink]:text-ink-ivory [&_.text-ink-secondary]:text-ink-ivory-secondary [&_.text-ink-tertiary]:text-ink-ivory-tertiary">
+                  <div key={p.id}>
                     <PredictionReceiptCard
                       prediction={p}
                       onShare={() => setShareTarget(p)}

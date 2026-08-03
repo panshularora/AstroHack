@@ -367,7 +367,7 @@ export function Dashboard() {
             title="Recent Consultations"
             caption="Archived in Cosmic Memory with verified notes"
             action={
-              <Button variant="outline" size="sm" onClick={() => navigate("/app/logger")} className="border-ivory-border-strong text-ink-ivory hover:bg-ivory-2">
+              <Button variant="ivory" size="sm" onClick={() => navigate("/app/logger")}>
                 Consultation Logs <ArrowRight className="w-3.5 h-3.5" />
               </Button>
             }

@@ -10,19 +10,19 @@ function Badge({ className, variant = "default", size = "sm", ...props }: BadgeP
   return (
     <div
       className={cn(
-        "inline-flex items-center gap-1 rounded-sm font-mono font-semibold transition-all duration-150 border border-line/40",
+        "inline-flex items-center gap-1 rounded-full font-mono font-bold uppercase tracking-wider transition-all duration-200 border shadow-xs select-none",
         {
-          "bg-surface-2 text-ink-secondary": variant === "default",
-          "bg-brand-light text-brand": variant === "brand",
-          "bg-gold-light text-gold": variant === "gold",
-          "bg-success-light text-success": variant === "success",
-          "bg-warning-light text-warning": variant === "warning",
-          "bg-danger-light text-danger": variant === "danger",
-          "bg-transparent text-ink-secondary border border-line": variant === "outline",
+          "bg-white/5 text-[#9CA3AF] border-white/10": variant === "default",
+          "bg-amber-500/20 text-amber-300 border-amber-500/30": variant === "brand",
+          "bg-amber-500/20 text-amber-300 border-amber-500/30": variant === "gold",
+          "bg-emerald-500/20 text-emerald-300 border-emerald-500/30": variant === "success",
+          "bg-amber-500/20 text-amber-300 border-amber-500/30": variant === "warning",
+          "bg-red-500/20 text-red-300 border-red-500/30": variant === "danger",
+          "bg-transparent text-white border-white/20": variant === "outline",
         },
         {
-          "px-2 py-0.5 text-[11px]": size === "sm",
-          "px-2.5 py-1 text-xs": size === "md",
+          "px-2.5 py-0.5 text-[9px]": size === "sm",
+          "px-3 py-1 text-[10px]": size === "md",
         },
         className
       )}

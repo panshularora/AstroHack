@@ -46,7 +46,6 @@ const utilityNavItems = [
 
 export function Sidebar() {
   const navigate = useNavigate()
-  const { stats } = useLedger()
   const initials = mockUser.name.slice(0, 2).toUpperCase()
 
   return (

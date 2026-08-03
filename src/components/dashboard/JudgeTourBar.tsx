@@ -31,96 +31,113 @@ export function JudgeTourBar() {
   return (
     <>
       <div className="bg-gradient-to-r from-brand/20 via-purple-900/30 to-blue-900/20 border border-brand/30 rounded-lg p-3 md:p-4 mb-6 shadow-xl">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-brand/30 border border-brand/50 flex items-center justify-center text-brand shrink-0">
-              <Sparkles className="w-4 h-4" />
+        <div className="flex flex-col gap-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-xl bg-brand/30 border border-brand/50 flex items-center justify-center text-brand shrink-0">
+                <Sparkles className="w-4 h-4" />
+              </div>
+              <div>
+                <p className="text-xs font-bold text-white flex items-center gap-1.5">
+                  AstroLive 2.0 Master Product Story Walkthrough
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+                    GitHub of Life Decisions
+                  </span>
+                </p>
+                <p className="text-[11px] text-[#9CA3AF]">
+                  Follow the 6-step narrative arc: Identity → Orbit → Lifecycle → Life Graph → Proof Vault → Sanctuary
+                </p>
+              </div>
             </div>
-            <div>
-              <p className="text-xs font-bold text-white flex items-center gap-1.5">
-                AstroLive 2.0 Product Tour
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-green-500/20 text-green-400 border border-green-500/30">
-                  Ready for Evaluation
-                </span>
-              </p>
-              <p className="text-[11px] text-[#9CA3AF]">
-                Explore Digital Twin, AI Consultation Coach, Decision Simulator, Life Knowledge Graph, and Live Calls.
-              </p>
-            </div>
-          </div>
 
-          <div className="flex flex-wrap items-center gap-2 shrink-0">
-            <button
-              onClick={() => setTwinOpen(true)}
-              className="px-3 py-1.5 bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-400/40 text-cyan-300 rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
-            >
-              <Cpu className="w-3.5 h-3.5 text-cyan-300" /> Digital Twin
-            </button>
-            <button
-              onClick={() => setCoachOpen(true)}
-              className="px-3 py-1.5 bg-gradient-to-r from-emerald-600/20 to-teal-600/20 hover:from-emerald-600/30 hover:to-teal-600/30 border border-emerald-500/40 text-emerald-300 rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
-            >
-              <Brain className="w-3.5 h-3.5 text-emerald-400" /> AI Coach
-            </button>
-            <button
-              onClick={() => setGraphOpen(true)}
-              className="px-3 py-1.5 bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/40 text-blue-300 rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
-            >
-              <Network className="w-3.5 h-3.5 text-blue-400" /> Life Graph
-            </button>
-            <button
-              onClick={() => setSimulatorOpen(true)}
-              className="px-3 py-1.5 bg-gradient-to-r from-brand/30 to-purple-600/30 hover:from-brand/40 hover:to-purple-600/40 border border-brand/50 text-white rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
-            >
-              <Scale className="w-3.5 h-3.5 text-gold" /> Decision Simulator
-            </button>
-            <button
-              onClick={() => setToolsOpen(true)}
-              className="px-3 py-1.5 bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-400 rounded-xl text-xs font-bold transition-colors flex items-center gap-1 cursor-pointer"
-            >
-              <Sun className="w-3.5 h-3.5" /> Panchang
-            </button>
-            <button
-              onClick={() => setPatternOpen(true)}
-              className="px-3 py-1.5 bg-purple-600/20 hover:bg-purple-600/30 border border-purple-500/40 text-purple-300 rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
-            >
-              <Brain className="w-3.5 h-3.5 text-purple-400" /> Pattern Discovery
-            </button>
-            <button
-              onClick={() => setVaultOpen(true)}
-              className="px-3 py-1.5 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-400/40 text-blue-300 rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
-            >
-              <Folder className="w-3.5 h-3.5 text-blue-400" /> Cosmic Vault
-            </button>
-            <button
-              onClick={() => setConfidenceOpen(true)}
-              className="px-3 py-1.5 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-300 rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
-            >
-              <Target className="w-3.5 h-3.5 text-amber-400" /> Confidence Engine
-            </button>
-            <button
-              onClick={() => setAsyncOpen(true)}
-              className="px-3 py-1.5 bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-400/40 text-emerald-300 rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
-            >
-              <Zap className="w-3.5 h-3.5 text-emerald-400" /> Async Query (₹49)
-            </button>
-            <button
-              onClick={() => setShareOpen(true)}
-              className="px-3 py-1.5 bg-purple-500/20 hover:bg-purple-500/30 border border-purple-400/40 text-purple-300 rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-purple-300" /> Viral Share Card
-            </button>
             <button
               onClick={() => setNarrativeOpen(true)}
-              className="px-3 py-1.5 bg-gradient-to-r from-gold/20 to-amber-500/20 hover:from-gold/30 hover:to-amber-500/30 border border-gold/40 text-gold-bright rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
+              className="px-3 py-1.5 bg-gradient-to-r from-gold/20 to-amber-500/20 hover:from-gold/30 hover:to-amber-500/30 border border-gold/40 text-gold-bright rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm shrink-0"
             >
-              <Sparkles className="w-3.5 h-3.5 text-gold-bright" /> Report Narrative
+              <Sparkles className="w-3.5 h-3.5 text-gold-bright" /> Pitch Executive Narrative
             </button>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2 pt-1 border-t border-white/10">
+            <span className="text-[10px] font-bold text-cyan-400 uppercase tracking-wider mr-1">Story Arc:</span>
+            
+            <button
+              onClick={() => setTwinOpen(true)}
+              className="px-2.5 py-1 bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-400/40 text-cyan-300 rounded-lg text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
+            >
+              <Cpu className="w-3 h-3 text-cyan-300" /> 1. Digital Twin
+            </button>
+            
+            <button
+              onClick={() => setSimulatorOpen(true)}
+              className="px-2.5 py-1 bg-brand/20 hover:bg-brand/30 border border-brand/40 text-white rounded-lg text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
+            >
+              <Scale className="w-3 h-3 text-gold" /> 2. Simulator
+            </button>
+
+            <button
+              onClick={() => setPatternOpen(true)}
+              className="px-2.5 py-1 bg-purple-600/20 hover:bg-purple-600/30 border border-purple-500/40 text-purple-300 rounded-lg text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
+            >
+              <Brain className="w-3 h-3 text-purple-400" /> 3. Pattern Discovery
+            </button>
+
+            <button
+              onClick={() => setConfidenceOpen(true)}
+              className="px-2.5 py-1 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-300 rounded-lg text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
+            >
+              <Target className="w-3 h-3 text-amber-400" /> 4. Confidence Engine
+            </button>
+
+            <button
+              onClick={() => setGraphOpen(true)}
+              className="px-2.5 py-1 bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/40 text-blue-300 rounded-lg text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
+            >
+              <Network className="w-3 h-3 text-blue-400" /> 5. Life Graph
+            </button>
+
+            <button
+              onClick={() => setVaultOpen(true)}
+              className="px-2.5 py-1 bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-400/40 text-emerald-300 rounded-lg text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
+            >
+              <Folder className="w-3 h-3 text-emerald-400" /> 6. Cosmic Vault
+            </button>
+
+            <span className="h-4 w-[1px] bg-white/20 mx-1"></span>
+
+            <button
+              onClick={() => setCoachOpen(true)}
+              className="px-2.5 py-1 bg-emerald-600/15 hover:bg-emerald-600/25 border border-emerald-500/30 text-emerald-400 rounded-lg text-xs font-medium transition-all flex items-center gap-1 cursor-pointer"
+            >
+              <Brain className="w-3 h-3 text-emerald-400" /> AI Coach
+            </button>
+
+            <button
+              onClick={() => setAsyncOpen(true)}
+              className="px-2.5 py-1 bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-400/30 text-emerald-300 rounded-lg text-xs font-medium transition-all flex items-center gap-1 cursor-pointer"
+            >
+              <Zap className="w-3 h-3 text-emerald-400" /> Async Query (₹49)
+            </button>
+
+            <button
+              onClick={() => setShareOpen(true)}
+              className="px-2.5 py-1 bg-purple-500/15 hover:bg-purple-500/25 border border-purple-400/30 text-purple-300 rounded-lg text-xs font-medium transition-all flex items-center gap-1 cursor-pointer"
+            >
+              <Sparkles className="w-3 h-3 text-purple-300" /> Viral Share Card
+            </button>
+
+            <button
+              onClick={() => setToolsOpen(true)}
+              className="px-2.5 py-1 bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-400 rounded-lg text-xs font-medium transition-colors flex items-center gap-1 cursor-pointer"
+            >
+              <Sun className="w-3 h-3" /> Panchang
+            </button>
+
             <button
               onClick={() => setConsultModalOpen(true)}
-              className="px-3 py-1.5 bg-brand/20 hover:bg-brand/30 border border-brand/40 text-ink-secondary rounded-xl text-xs font-bold transition-colors flex items-center gap-1 cursor-pointer"
+              className="px-2.5 py-1 bg-brand/20 hover:bg-brand/30 border border-brand/40 text-ink-secondary rounded-lg text-xs font-medium transition-colors flex items-center gap-1 cursor-pointer"
             >
-              <MessageSquare className="w-3.5 h-3.5" /> Live Call Demo
+              <MessageSquare className="w-3 h-3" /> Live Call Demo
             </button>
           </div>
         </div>

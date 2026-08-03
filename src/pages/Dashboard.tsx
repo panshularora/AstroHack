@@ -56,7 +56,7 @@ export function Dashboard() {
           </div>
 
           <div className="space-y-3">
-            {mockDetailedPredictions.slice(0, 3).map((p) => (
+            {mockDetailedPredictions.slice(0, 3).map((p: any) => (
               <motion.div
                 key={p.id}
                 whileHover={{ x: 3 }}
@@ -66,9 +66,9 @@ export function Dashboard() {
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <p className="font-mono text-[10px] uppercase text-[#9CA3AF] mb-1">
-                        {p.category} · {p.astrologer.name}
+                        {p.category || "CAREER"} · {p.astrologer?.name || p.astrologerName || "Guruji Vikram Sharma"}
                       </p>
-                      <h4 className="text-sm font-bold text-white">{p.title}</h4>
+                      <h4 className="text-sm font-bold text-white">{p.title || p.text}</h4>
                     </div>
                     <Badge variant={p.status === "completed" ? "success" : "gold"}>
                       {p.status === "completed" ? "Verified" : "Active Window"}
@@ -76,7 +76,7 @@ export function Dashboard() {
                   </div>
 
                   <div className="flex items-center justify-between pt-2 border-t border-white/5 text-xs font-mono">
-                    <span className="text-amber-300 font-bold">{p.confidence}% Confidence</span>
+                    <span className="text-amber-300 font-bold">{p.confidence || 88}% Confidence</span>
                     <button
                       onClick={() => setVaultOpen(true)}
                       className="text-cyan-400 hover:text-cyan-300 font-bold flex items-center gap-1 cursor-pointer"
@@ -111,17 +111,17 @@ export function Dashboard() {
             {mockConsultations.slice(0, 2).map((c: any) => (
               <Card key={c.id} className="p-5 space-y-3">
                 <div className="flex items-center justify-between border-b border-white/5 pb-2">
-                  <span className="text-xs font-bold text-white">{c.astrologer.name}</span>
+                  <span className="text-xs font-bold text-white">{c.astrologerName || c.astrologer?.name}</span>
                   <span className="text-[10px] font-mono text-amber-400">{c.date}</span>
                 </div>
                 <p className="text-xs text-[#9CA3AF] leading-relaxed">
-                  "{c.summary.advice}"
+                  "{c.topic || c.keyInsight || c.summary?.advice}"
                 </p>
                 <div className="flex items-center justify-between pt-1 text-[11px] font-mono">
                   <span className="text-emerald-400 font-bold flex items-center gap-1">
-                    <ShieldCheck className="w-3.5 h-3.5" /> {c.predictions.length} Receipts Extracted
+                    <ShieldCheck className="w-3.5 h-3.5" /> {c.durationMinutes || 20} min session · Verified Notes
                   </span>
-                  <span className="text-[#9CA3AF]">₹{c.amountPaid}</span>
+                  <span className="text-[#9CA3AF]">₹{c.cost || c.amountPaid || 400}</span>
                 </div>
               </Card>
             ))}

@@ -12,9 +12,11 @@ import { PredictionShareCardModal } from "@/components/predictions/PredictionSha
 import { AIPatternDiscoveryModal } from "@/components/discovery/AIPatternDiscoveryModal"
 import { CosmicVaultModal } from "@/components/vault/CosmicVaultModal"
 import { PredictionConfidenceModal } from "@/components/predictions/PredictionConfidenceModal"
+import { LifestrandCanvas } from "@/components/spatial/LifestrandCanvas"
 import { mockVerifiedAstrologers } from "@/lib/mock-data"
 
 export function JudgeTourBar() {
+  const [lifestrandOpen, setLifestrandOpen] = useState(false)
   const [toolsOpen, setToolsOpen] = useState(false)
   const [consultModalOpen, setConsultModalOpen] = useState(false)
   const [simulatorOpen, setSimulatorOpen] = useState(false)
@@ -50,12 +52,20 @@ export function JudgeTourBar() {
               </div>
             </div>
 
-            <button
-              onClick={() => setNarrativeOpen(true)}
-              className="px-3 py-1.5 bg-gradient-to-r from-gold/20 to-amber-500/20 hover:from-gold/30 hover:to-amber-500/30 border border-gold/40 text-gold-bright rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm shrink-0"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-gold-bright" /> Pitch Executive Narrative
-            </button>
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                onClick={() => setLifestrandOpen(true)}
+                className="px-3 py-1.5 bg-gradient-to-r from-cyan-500/30 to-blue-600/30 hover:from-cyan-500/40 hover:to-blue-600/40 border border-cyan-400/50 text-cyan-300 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-lg shadow-cyan-500/20"
+              >
+                <Cpu className="w-3.5 h-3.5 text-cyan-300" /> Lifestrand Spatial OS
+              </button>
+              <button
+                onClick={() => setNarrativeOpen(true)}
+                className="px-3 py-1.5 bg-gradient-to-r from-gold/20 to-amber-500/20 hover:from-gold/30 hover:to-amber-500/30 border border-gold/40 text-gold-bright rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm shrink-0"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-gold-bright" /> Pitch Executive Narrative
+              </button>
+            </div>
           </div>
 
           <div className="flex flex-wrap items-center gap-2 pt-1 border-t border-white/10">
@@ -204,6 +214,11 @@ export function JudgeTourBar() {
       <PredictionConfidenceModal
         isOpen={confidenceOpen}
         onClose={() => setConfidenceOpen(false)}
+      />
+
+      <LifestrandCanvas
+        isOpen={lifestrandOpen}
+        onClose={() => setLifestrandOpen(false)}
       />
     </>
   )

@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Sparkles, MessageSquare, Sun, Scale, Network, Brain, Cpu } from "lucide-react"
+import { Sparkles, MessageSquare, Sun, Scale, Network, Brain, Cpu, Zap } from "lucide-react"
 import { CelestialToolsModal } from "@/components/astrology/CelestialToolsModal"
 import { ConsultationFlowModal } from "@/components/consultation/ConsultationFlowModal"
 import { AIDecisionSimulatorModal } from "@/components/simulator/AIDecisionSimulatorModal"

@@ -6,11 +6,22 @@ import { SignUpPage } from "@/pages/auth/SignUpPage"
 import { ForgotPasswordPage } from "@/pages/auth/ForgotPasswordPage"
 
 import { Landing } from "@/pages/Landing"
+import { Dashboard } from "@/pages/Dashboard"
+import { AICompanion } from "@/pages/AICompanion"
+import { SmartMatch } from "@/pages/SmartMatch"
+import { PredictionCenter } from "@/pages/PredictionCenter"
+import { CosmicMemory } from "@/pages/CosmicMemory"
+import { DailyBrief } from "@/pages/DailyBrief"
+import { AstroVerified } from "@/pages/AstroVerified"
+import { ConsultLogger } from "@/pages/ConsultLogger"
+import { AstrologerProfile } from "@/pages/AstrologerProfile"
+import { LifeJourney } from "@/pages/LifeJourney"
+import { RelationshipMode } from "@/pages/RelationshipMode"
+import { EmergencyGuidance } from "@/pages/EmergencyGuidance"
+import { ReportsCenter } from "@/pages/ReportsCenter"
 import { Ledger } from "@/pages/Ledger"
 import { Consult } from "@/pages/Consult"
 import { You } from "@/pages/You"
-import { AstroVerified } from "@/pages/AstroVerified"
-import { AstrologerProfile } from "@/pages/AstrologerProfile"
 import { Subscription } from "@/pages/Subscription"
 import { Settings } from "@/pages/Settings"
 import { Onboarding } from "@/pages/Onboarding"
@@ -34,7 +45,19 @@ export const router = createBrowserRouter([
     path: "/app",
     element: <AppLayout />,
     children: [
-      { index: true, element: <Navigate to="/app/ledger" replace /> },
+      { index: true, element: <Navigate to="/app/dashboard" replace /> },
+      { path: "dashboard", element: <Dashboard /> },
+      { path: "companion", element: <AICompanion /> },
+      { path: "match", element: <SmartMatch /> },
+      { path: "predictions", element: <PredictionCenter /> },
+      { path: "memory", element: <CosmicMemory /> },
+      { path: "brief", element: <DailyBrief /> },
+      { path: "verified", element: <AstroVerified /> },
+      { path: "logger", element: <ConsultLogger /> },
+      { path: "journey", element: <LifeJourney /> },
+      { path: "relationship", element: <RelationshipMode /> },
+      { path: "sos", element: <EmergencyGuidance /> },
+      { path: "reports", element: <ReportsCenter /> },
       { path: "ledger", element: <Ledger /> },
       { path: "consult", element: <Consult /> },
       { path: "astrologers", element: <AstroVerified /> },
@@ -43,20 +66,6 @@ export const router = createBrowserRouter([
       { path: "astrologer/:id", element: <AstrologerProfile /> },
       { path: "subscription", element: <Subscription /> },
       { path: "settings", element: <Settings /> },
-
-      // Legacy redirects
-      { path: "dashboard", element: <Navigate to="/app/ledger" replace /> },
-      { path: "predictions", element: <Navigate to="/app/ledger" replace /> },
-      { path: "match", element: <Navigate to="/app/consult" replace /> },
-      { path: "verified", element: <Navigate to="/app/astrologers" replace /> },
-      { path: "brief", element: <Navigate to="/app/ledger" replace /> },
-      { path: "companion", element: <Navigate to="/app/ledger" replace /> },
-      { path: "memory", element: <Navigate to="/app/ledger" replace /> },
-      { path: "logger", element: <Navigate to="/app/consult" replace /> },
-      { path: "reports", element: <Navigate to="/app/you" replace /> },
-      { path: "journey", element: <Navigate to="/app/ledger" replace /> },
-      { path: "sos", element: <Navigate to="/app/ledger" replace /> },
-      { path: "relationship", element: <Navigate to="/app/ledger" replace /> },
     ],
   },
 

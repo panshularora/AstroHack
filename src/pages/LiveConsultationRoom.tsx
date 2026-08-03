@@ -150,7 +150,7 @@ export function LiveConsultationRoom() {
 
             <div>
               <h3 className="text-lg font-bold text-white">{astrologer.name}</h3>
-              <p className="text-xs text-amber-400 font-mono mt-0.5">{astrologer.expertise.join(", ")} · {astrologer.experience} Years Exp</p>
+              <p className="text-xs text-amber-400 font-mono mt-0.5">{astrologer.specialties.join(", ")} · {astrologer.yearsExperience} Years Exp</p>
             </div>
 
             <Badge variant="gold" size="sm" className="font-mono">₹{astrologer.pricePerMinute}/min · {astrologer.verifiedAccuracy}% Verified Track Record</Badge>

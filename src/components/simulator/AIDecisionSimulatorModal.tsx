@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import {
-  X, Brain, ArrowRight, CheckCircle2, AlertTriangle, RefreshCw, Scale, Plus, Sparkles
+  X, Brain, ArrowRight, CheckCircle2, AlertTriangle, RefreshCw, Scale, Plus
 } from "lucide-react"
 
 interface AIDecisionSimulatorProps {

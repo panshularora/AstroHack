@@ -5,8 +5,8 @@ import { ArrowRight, ShieldCheck, FileText } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { Badge } from "@/components/ui/Badge"
 import { Card } from "@/components/ui/Card"
-import { CosmicHero } from "@/components/visual/CosmicHero"
 import { JudgeTourBar } from "@/components/dashboard/JudgeTourBar"
+import { CelestialOrbitHero } from "@/components/dashboard/CelestialOrbitHero"
 import { DashboardMetricCards } from "@/components/dashboard/DashboardMetricCards"
 import { DashboardCharts } from "@/components/dashboard/DashboardCharts"
 import { mockDetailedPredictions, mockConsultations } from "@/lib/mock-data"
@@ -22,12 +22,8 @@ export function Dashboard() {
       {/* Executive Story Arc Tour Bar */}
       <JudgeTourBar />
 
-      {/* Cosmic Hero Section */}
-      <CosmicHero 
-        eyebrow="Natal Kundli Transits · Leo Sun 14°"
-        title={<span>Live Celestial Transit Engine</span>}
-        subtitle="Jupiter 10th House Trine Active — 120° Alignment with Natal Sun"
-      />
+      {/* Interactive Cosmic Planetary Transit Hero */}
+      <CelestialOrbitHero />
 
       {/* Animated SaaS Metric Cards */}
       <DashboardMetricCards />

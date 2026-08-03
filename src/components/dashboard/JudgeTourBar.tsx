@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Sparkles, MessageSquare, Sun, Scale, Network, Brain, Cpu, Zap, Folder, Target } from "lucide-react"
+import { Sparkles, Compass, Shield, Cpu, Target, Layers, FileText, Activity } from "lucide-react"
 import { CelestialToolsModal } from "@/components/astrology/CelestialToolsModal"
 import { ConsultationFlowModal } from "@/components/consultation/ConsultationFlowModal"
 import { AIDecisionSimulatorModal } from "@/components/simulator/AIDecisionSimulatorModal"
@@ -32,124 +32,86 @@ export function JudgeTourBar() {
 
   return (
     <>
-      <div className="bg-[#090A0F]/90 border border-white/10 rounded-2xl p-3 md:p-4 mb-6 shadow-xl backdrop-blur-xl">
-        <div className="flex flex-col gap-3">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400 shrink-0">
-                <Sparkles className="w-4 h-4" />
-              </div>
-              <div>
-                <p className="text-xs font-bold text-white flex items-center gap-1.5">
-                  AstroLive 2.0 Master Product Story Walkthrough
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
-                    GitHub of Life Decisions
-                  </span>
-                </p>
-                <p className="text-[11px] text-[#9CA3AF]">
-                  Follow the 6-step narrative arc: Identity → Orbit → Lifecycle → Life Graph → Proof Vault → Sanctuary
-                </p>
-              </div>
+      <div className="bg-[#090A0F]/90 border border-white/10 rounded-2xl p-4 mb-6 shadow-xl backdrop-blur-xl space-y-3">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 shrink-0">
+              <Compass className="w-4 h-4" />
             </div>
-
-            <div className="flex items-center gap-2 shrink-0">
-              <button
-                onClick={() => setLifestrandOpen(true)}
-                className="px-3 py-1.5 bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-400/40 text-cyan-300 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-lg"
-              >
-                <Cpu className="w-3.5 h-3.5 text-cyan-300" /> Lifestrand Spatial OS
-              </button>
-              <button
-                onClick={() => setNarrativeOpen(true)}
-                className="px-3 py-1.5 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-300 rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm shrink-0"
-              >
-                <Sparkles className="w-3.5 h-3.5 text-amber-300" /> Pitch Executive Narrative
-              </button>
+            <div>
+              <p className="text-xs font-bold text-white flex items-center gap-2">
+                AstroLive 2.0 Product Story Suite
+                <span className="font-mono text-[9px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                  Interactive Demo
+                </span>
+              </p>
+              <p className="text-[11px] text-[#9CA3AF]">
+                6-Stage Narrative Arc: Identity → Transits → Life Graph → Proof Vault
+              </p>
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2 pt-1 border-t border-white/10">
-            <span className="text-[10px] font-bold text-amber-400 uppercase tracking-wider mr-1">Story Arc:</span>
-            
+          <div className="flex items-center gap-2 shrink-0">
             <button
-              onClick={() => setTwinOpen(true)}
-              className="px-2.5 py-1 bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-400/40 text-cyan-300 rounded-lg text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
+              onClick={() => setLifestrandOpen(true)}
+              className="px-3.5 py-1.5 bg-amber-500 text-black font-bold rounded-xl text-xs hover:bg-amber-400 transition-all flex items-center gap-1.5 shadow-md cursor-pointer"
             >
-              <Cpu className="w-3 h-3 text-cyan-300" /> 1. Digital Twin
+              <Layers className="w-3.5 h-3.5" /> Spatial OS
             </button>
-            
             <button
-              onClick={() => setSimulatorOpen(true)}
-              className="px-2.5 py-1 bg-white/10 hover:bg-white/15 border border-white/20 text-white rounded-lg text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
+              onClick={() => setNarrativeOpen(true)}
+              className="px-3.5 py-1.5 bg-white/5 hover:bg-white/10 border border-white/15 text-white font-bold rounded-xl text-xs transition-all flex items-center gap-1.5 cursor-pointer"
             >
-              <Scale className="w-3 h-3 text-amber-400" /> 2. Simulator
-            </button>
-
-            <button
-              onClick={() => setPatternOpen(true)}
-              className="px-2.5 py-1 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-300 rounded-lg text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
-            >
-              <Brain className="w-3 h-3 text-amber-400" /> 3. Pattern Discovery
-            </button>
-
-            <button
-              onClick={() => setConfidenceOpen(true)}
-              className="px-2.5 py-1 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-300 rounded-lg text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
-            >
-              <Target className="w-3 h-3 text-amber-400" /> 4. Confidence Engine
-            </button>
-
-            <button
-              onClick={() => setGraphOpen(true)}
-              className="px-2.5 py-1 bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/40 text-blue-300 rounded-lg text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
-            >
-              <Network className="w-3 h-3 text-blue-400" /> 5. Life Graph
-            </button>
-
-            <button
-              onClick={() => setVaultOpen(true)}
-              className="px-2.5 py-1 bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-400/40 text-emerald-300 rounded-lg text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
-            >
-              <Folder className="w-3 h-3 text-emerald-400" /> 6. Cosmic Vault
-            </button>
-
-            <span className="h-4 w-[1px] bg-white/20 mx-1"></span>
-
-            <button
-              onClick={() => setCoachOpen(true)}
-              className="px-2.5 py-1 bg-emerald-600/15 hover:bg-emerald-600/25 border border-emerald-500/30 text-emerald-400 rounded-lg text-xs font-medium transition-all flex items-center gap-1 cursor-pointer"
-            >
-              <Brain className="w-3 h-3 text-emerald-400" /> AI Coach
-            </button>
-
-            <button
-              onClick={() => setAsyncOpen(true)}
-              className="px-2.5 py-1 bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-400/30 text-emerald-300 rounded-lg text-xs font-medium transition-all flex items-center gap-1 cursor-pointer"
-            >
-              <Zap className="w-3 h-3 text-emerald-400" /> Async Query (₹49)
-            </button>
-
-            <button
-              onClick={() => setShareOpen(true)}
-              className="px-2.5 py-1 bg-purple-500/15 hover:bg-purple-500/25 border border-purple-400/30 text-purple-300 rounded-lg text-xs font-medium transition-all flex items-center gap-1 cursor-pointer"
-            >
-              <Sparkles className="w-3 h-3 text-purple-300" /> Viral Share Card
-            </button>
-
-            <button
-              onClick={() => setToolsOpen(true)}
-              className="px-2.5 py-1 bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-400 rounded-lg text-xs font-medium transition-colors flex items-center gap-1 cursor-pointer"
-            >
-              <Sun className="w-3 h-3" /> Panchang
-            </button>
-
-            <button
-              onClick={() => setConsultModalOpen(true)}
-              className="px-2.5 py-1 bg-brand/20 hover:bg-brand/30 border border-brand/40 text-ink-secondary rounded-lg text-xs font-medium transition-colors flex items-center gap-1 cursor-pointer"
-            >
-              <MessageSquare className="w-3 h-3" /> Live Call Demo
+              <FileText className="w-3.5 h-3.5 text-amber-400" /> Thesis Deck
             </button>
           </div>
+        </div>
+
+        {/* Clean, Uniform Control Chips */}
+        <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-white/5 text-xs font-mono">
+          <span className="text-[10px] text-[#9CA3AF] uppercase font-bold tracking-widest mr-1">Modules:</span>
+          
+          <button
+            onClick={() => setTwinOpen(true)}
+            className="px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg transition-all flex items-center gap-1.5 cursor-pointer"
+          >
+            <Cpu className="w-3 h-3 text-amber-400" /> Digital Twin
+          </button>
+          
+          <button
+            onClick={() => setSimulatorOpen(true)}
+            className="px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg transition-all flex items-center gap-1.5 cursor-pointer"
+          >
+            <Activity className="w-3 h-3 text-cyan-400" /> Decision Simulator
+          </button>
+
+          <button
+            onClick={() => setConfidenceOpen(true)}
+            className="px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg transition-all flex items-center gap-1.5 cursor-pointer"
+          >
+            <Target className="w-3 h-3 text-amber-400" /> Confidence Engine
+          </button>
+
+          <button
+            onClick={() => setGraphOpen(true)}
+            className="px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg transition-all flex items-center gap-1.5 cursor-pointer"
+          >
+            <Layers className="w-3 h-3 text-emerald-400" /> Life Graph
+          </button>
+
+          <button
+            onClick={() => setVaultOpen(true)}
+            className="px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg transition-all flex items-center gap-1.5 cursor-pointer"
+          >
+            <Shield className="w-3 h-3 text-cyan-400" /> Proof Vault
+          </button>
+
+          <button
+            onClick={() => setCoachOpen(true)}
+            className="px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg transition-all flex items-center gap-1.5 cursor-pointer"
+          >
+            <Sparkles className="w-3 h-3 text-amber-400" /> AI Coach
+          </button>
         </div>
       </div>
 

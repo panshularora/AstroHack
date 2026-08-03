@@ -43,7 +43,7 @@ const mockNodes: LifestrandNode[] = [
     subtitle: "Mahadasha Alignment",
     date: "2026 - 2028",
     status: "Peak Window",
-    color: "from-purple-500/20 to-pink-500/20 border-purple-400/40 text-purple-300",
+    color: "from-amber-500/20 to-amber-700/20 border-amber-400/40 text-amber-300",
     details: "Jupiter transiting 10th house of career & status. Sun-Jupiter 120° trine active."
   },
   {
@@ -178,10 +178,10 @@ export function LifestrandCanvas({ isOpen, onClose }: { isOpen: boolean; onClose
             {/* Layer 3: TIME */}
             <div className="relative z-10 flex flex-col gap-2">
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-purple-400 font-bold">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-amber-400 font-bold">
                   LAYER 3 — TIME (Cosmic Transits & Dashas)
                 </span>
-                <span className="h-[1px] flex-1 bg-purple-500/20"></span>
+                <span className="h-[1px] flex-1 bg-amber-500/20"></span>
               </div>
               <div className="flex items-center justify-end gap-4">
                 <motion.div
@@ -189,10 +189,10 @@ export function LifestrandCanvas({ isOpen, onClose }: { isOpen: boolean; onClose
                   onClick={() => setSelectedNode(mockNodes[2])}
                   className={`p-3.5 rounded-xl bg-gradient-to-r ${mockNodes[2].color} border cursor-pointer flex items-center gap-3 shadow-md w-full max-w-sm`}
                 >
-                  <ShieldCheck className="w-5 h-5 text-purple-400 shrink-0" />
+                  <ShieldCheck className="w-5 h-5 text-amber-400 shrink-0" />
                   <div>
                     <p className="text-xs font-bold text-white">{mockNodes[2].title}</p>
-                    <p className="text-[10px] text-purple-300/80 font-mono">{mockNodes[2].subtitle}</p>
+                    <p className="text-[10px] text-amber-300/80 font-mono">{mockNodes[2].subtitle}</p>
                   </div>
                 </motion.div>
               </div>

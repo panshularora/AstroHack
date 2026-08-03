@@ -32,17 +32,17 @@ export function JudgeTourBar() {
 
   return (
     <>
-      <div className="bg-gradient-to-r from-brand/20 via-purple-900/30 to-blue-900/20 border border-brand/30 rounded-lg p-3 md:p-4 mb-6 shadow-xl">
+      <div className="bg-[#090A0F]/90 border border-white/10 rounded-2xl p-3 md:p-4 mb-6 shadow-xl backdrop-blur-xl">
         <div className="flex flex-col gap-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-brand/30 border border-brand/50 flex items-center justify-center text-brand shrink-0">
+              <div className="w-8 h-8 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400 shrink-0">
                 <Sparkles className="w-4 h-4" />
               </div>
               <div>
                 <p className="text-xs font-bold text-white flex items-center gap-1.5">
                   AstroLive 2.0 Master Product Story Walkthrough
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
                     GitHub of Life Decisions
                   </span>
                 </p>
@@ -55,21 +55,21 @@ export function JudgeTourBar() {
             <div className="flex items-center gap-2 shrink-0">
               <button
                 onClick={() => setLifestrandOpen(true)}
-                className="px-3 py-1.5 bg-gradient-to-r from-cyan-500/30 to-blue-600/30 hover:from-cyan-500/40 hover:to-blue-600/40 border border-cyan-400/50 text-cyan-300 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-lg shadow-cyan-500/20"
+                className="px-3 py-1.5 bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-400/40 text-cyan-300 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-lg"
               >
                 <Cpu className="w-3.5 h-3.5 text-cyan-300" /> Lifestrand Spatial OS
               </button>
               <button
                 onClick={() => setNarrativeOpen(true)}
-                className="px-3 py-1.5 bg-gradient-to-r from-gold/20 to-amber-500/20 hover:from-gold/30 hover:to-amber-500/30 border border-gold/40 text-gold-bright rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm shrink-0"
+                className="px-3 py-1.5 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-300 rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm shrink-0"
               >
-                <Sparkles className="w-3.5 h-3.5 text-gold-bright" /> Pitch Executive Narrative
+                <Sparkles className="w-3.5 h-3.5 text-amber-300" /> Pitch Executive Narrative
               </button>
             </div>
           </div>
 
           <div className="flex flex-wrap items-center gap-2 pt-1 border-t border-white/10">
-            <span className="text-[10px] font-bold text-cyan-400 uppercase tracking-wider mr-1">Story Arc:</span>
+            <span className="text-[10px] font-bold text-amber-400 uppercase tracking-wider mr-1">Story Arc:</span>
             
             <button
               onClick={() => setTwinOpen(true)}
@@ -80,16 +80,16 @@ export function JudgeTourBar() {
             
             <button
               onClick={() => setSimulatorOpen(true)}
-              className="px-2.5 py-1 bg-brand/20 hover:bg-brand/30 border border-brand/40 text-white rounded-lg text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
+              className="px-2.5 py-1 bg-white/10 hover:bg-white/15 border border-white/20 text-white rounded-lg text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
             >
-              <Scale className="w-3 h-3 text-gold" /> 2. Simulator
+              <Scale className="w-3 h-3 text-amber-400" /> 2. Simulator
             </button>
 
             <button
               onClick={() => setPatternOpen(true)}
-              className="px-2.5 py-1 bg-purple-600/20 hover:bg-purple-600/30 border border-purple-500/40 text-purple-300 rounded-lg text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
+              className="px-2.5 py-1 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-300 rounded-lg text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
             >
-              <Brain className="w-3 h-3 text-purple-400" /> 3. Pattern Discovery
+              <Brain className="w-3 h-3 text-amber-400" /> 3. Pattern Discovery
             </button>
 
             <button

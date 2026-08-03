@@ -40,7 +40,7 @@ export function DigitalTwinModal({ isOpen, onClose }: DigitalTwinModalProps) {
           {/* Header */}
           <div className="flex items-center justify-between border-b border-line/60 pb-4 mb-6 shrink-0">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-tr from-cyan-500 via-primary to-purple-600 border border-cyan-500/40 flex items-center justify-center text-white shadow-[0_0_20px_rgba(6,182,212,0.4)]">
+              <div className="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-300 shadow-[0_0_20px_rgba(6,182,212,0.3)]">
                 <Cpu className="w-5 h-5 text-cyan-300 animate-pulse" />
               </div>
               <div>
@@ -62,7 +62,7 @@ export function DigitalTwinModal({ isOpen, onClose }: DigitalTwinModalProps) {
           </div>
 
           {/* Living Persona Twin Header Card */}
-          <div className="p-5 rounded-lg bg-gradient-to-r from-cyan-500/10 via-primary/20 to-purple-900/20 border border-cyan-500/30 mb-6 shrink-0">
+          <div className="p-5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 mb-6 shrink-0">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div className="flex items-center gap-4">
                 <div className="relative">

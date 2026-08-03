@@ -111,7 +111,7 @@ export function AIDecisionSimulatorModal({ isOpen, onClose }: AIDecisionSimulato
           {/* Header */}
           <div className="flex items-center justify-between border-b border-line/60 pb-4 mb-6 shrink-0">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-tr from-brand to-purple-500 border border-brand/30 flex items-center justify-center text-white shadow-lg">
+              <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400 shadow-lg">
                 <Brain className="w-5 h-5" />
               </div>
               <div>

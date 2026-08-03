@@ -68,7 +68,7 @@ export function Topbar() {
             <kbd className="text-[9px] font-mono bg-white/10 px-1.5 py-0.5 rounded text-white/70">⌘K</kbd>
           </div>
 
-          <button onClick={() => navigate("/app/you")} className="w-7 h-7 rounded-lg bg-gradient-to-br from-amber-500 to-purple-600 text-white flex items-center justify-center text-[11px] font-mono font-bold shadow-md cursor-pointer">
+          <button onClick={() => navigate("/app/you")} className="w-7 h-7 rounded-lg bg-amber-500 text-black flex items-center justify-center text-[11px] font-mono font-bold shadow-md cursor-pointer">
             {initials}
           </button>
         </div>

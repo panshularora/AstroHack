@@ -68,7 +68,7 @@ export function AIPatternDiscoveryModal({ isOpen, onClose }: AIPatternDiscoveryM
           {/* Header */}
           <div className="flex items-center justify-between border-b border-line/60 pb-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-md bg-purple-500/15 border border-purple-500/30 flex items-center justify-center text-purple-400">
+              <div className="w-10 h-10 rounded-md bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400">
                 <Brain className="w-5 h-5" />
               </div>
               <div>
@@ -132,9 +132,9 @@ export function AIPatternDiscoveryModal({ isOpen, onClose }: AIPatternDiscoveryM
                 </div>
 
                 {/* AI Actionable Guidance */}
-                <div className="p-3 rounded-md bg-purple-500/10 border border-purple-500/20 flex items-center justify-between text-xs font-mono">
-                  <span className="text-purple-300 font-semibold">{p.aiAction}</span>
-                  <ShieldCheck className="w-4 h-4 text-purple-400 shrink-0" />
+                <div className="p-3 rounded-md bg-amber-500/10 border border-amber-500/20 flex items-center justify-between text-xs font-mono">
+                  <span className="text-amber-300 font-semibold">{p.aiAction}</span>
+                  <ShieldCheck className="w-4 h-4 text-amber-400 shrink-0" />
                 </div>
               </div>
             ))}

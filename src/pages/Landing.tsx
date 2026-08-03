@@ -9,9 +9,7 @@ import {
   Cpu, 
   ShieldCheck, 
   ChevronDown, 
-  CheckCircle2, 
   Compass, 
-  Calendar,
   Lock,
   Zap,
   Globe

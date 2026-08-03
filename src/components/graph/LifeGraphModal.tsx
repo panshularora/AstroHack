@@ -43,7 +43,7 @@ export function LifeGraphModal({ isOpen, onClose }: LifeGraphModalProps) {
       title: "Consultation: Career Growth & Transits",
       type: "consultation",
       date: "2026-07-15",
-      astrologer: "Dr. Sarah Chen",
+      astrologer: "Guruji Vikram Sharma",
       x: 32,
       y: 30,
       connections: ["n_t1", "n_p1", "n_r1", "n_ai1"],
@@ -54,7 +54,7 @@ export function LifeGraphModal({ isOpen, onClose }: LifeGraphModalProps) {
       title: "Prediction: Job Offer in Tech Sector",
       type: "prediction",
       date: "2026-08-25",
-      astrologer: "Dr. Sarah Chen",
+      astrologer: "Guruji Vikram Sharma",
       confidence: 88,
       x: 55,
       y: 22,
@@ -125,22 +125,22 @@ export function LifeGraphModal({ isOpen, onClose }: LifeGraphModalProps) {
 
   const getNodeColor = (type: string) => {
     switch (type) {
-      case "consultation": return { bg: "bg-brand", border: "border-purple-400", text: "text-ink-secondary", glow: "shadow-[0_0_20px_rgba(107,33,168,0.6)]" }
-      case "prediction": return { bg: "bg-gold", border: "border-amber-300", text: "text-gold", glow: "shadow-[0_0_20px_rgba(245,158,11,0.6)]" }
-      case "remedy": return { bg: "bg-emerald-500", border: "border-emerald-300", text: "text-emerald-400", glow: "shadow-[0_0_20px_rgba(16,185,129,0.6)]" }
-      case "milestone": return { bg: "bg-blue-500", border: "border-blue-300", text: "text-blue-400", glow: "shadow-[0_0_20px_rgba(59,130,246,0.6)]" }
-      case "ai_chat": return { bg: "bg-pink-500", border: "border-pink-300", text: "text-pink-400", glow: "shadow-[0_0_20px_rgba(236,72,153,0.6)]" }
-      case "transit": return { bg: "bg-[#8B5CF6]", border: "border-violet-300", text: "text-violet-400", glow: "shadow-[0_0_20px_rgba(139,92,246,0.6)]" }
-      default: return { bg: "bg-[#9CA3AF]", border: "border-line-strong", text: "text-[#9CA3AF]", glow: "" }
+      case "consultation": return { bg: "bg-amber-500 text-black font-bold", border: "border-amber-400", text: "text-amber-300", glow: "shadow-[0_0_20px_rgba(245,158,11,0.6)]" }
+      case "prediction": return { bg: "bg-amber-400 text-black font-bold", border: "border-amber-300", text: "text-amber-300", glow: "shadow-[0_0_20px_rgba(245,158,11,0.6)]" }
+      case "remedy": return { bg: "bg-emerald-500 text-black font-bold", border: "border-emerald-300", text: "text-emerald-400", glow: "shadow-[0_0_20px_rgba(16,185,129,0.6)]" }
+      case "milestone": return { bg: "bg-cyan-400 text-black font-bold", border: "border-cyan-300", text: "text-cyan-400", glow: "shadow-[0_0_20px_rgba(34,211,238,0.6)]" }
+      case "ai_chat": return { bg: "bg-purple-500 text-white font-bold", border: "border-purple-300", text: "text-purple-400", glow: "shadow-[0_0_20px_rgba(168,85,247,0.6)]" }
+      case "transit": return { bg: "bg-blue-500 text-white font-bold", border: "border-blue-300", text: "text-blue-400", glow: "shadow-[0_0_20px_rgba(59,130,246,0.6)]" }
+      default: return { bg: "bg-white/10 text-white font-bold", border: "border-white/20", text: "text-white", glow: "" }
     }
   }
 
   const getNodeIcon = (type: string) => {
     switch (type) {
-      case "consultation": return <BookOpen className="w-4 h-4 text-white" />
-      case "prediction": return <Target className="w-4 h-4 text-navy" />
-      case "remedy": return <Sun className="w-4 h-4 text-white" />
-      case "milestone": return <CheckCircle2 className="w-4 h-4 text-white" />
+      case "consultation": return <BookOpen className="w-4 h-4 text-black" />
+      case "prediction": return <Target className="w-4 h-4 text-black" />
+      case "remedy": return <Sun className="w-4 h-4 text-black" />
+      case "milestone": return <CheckCircle2 className="w-4 h-4 text-black" />
       case "ai_chat": return <Brain className="w-4 h-4 text-white" />
       case "transit": return <Sparkles className="w-4 h-4 text-white" />
       default: return <Sparkles className="w-4 h-4 text-white" />
@@ -156,19 +156,19 @@ export function LifeGraphModal({ isOpen, onClose }: LifeGraphModalProps) {
           initial={{ opacity: 0, scale: 0.95, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 15 }}
-          className="relative w-full max-w-6xl bg-surface border border-line rounded-lg p-6 md:p-8 shadow-2xl overflow-hidden max-h-[92vh] flex flex-col"
+          className="relative w-full max-w-6xl bg-[#090A0F] border border-white/10 rounded-2xl p-6 md:p-8 shadow-2xl overflow-hidden max-h-[92vh] flex flex-col font-sans"
         >
           {/* Header Bar */}
-          <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-line/60 pb-4 mb-6 gap-3 shrink-0">
+          <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-white/10 pb-4 mb-6 gap-3 shrink-0">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-tr from-brand via-purple-600 to-blue-500 border border-brand/30 flex items-center justify-center text-white shadow-lg">
+              <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-300 shadow-lg">
                 <Brain className="w-5 h-5" />
               </div>
               <div>
                 <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                  Interactive Cosmic Life Graph <Sparkles className="w-4 h-4 text-gold animate-pulse" />
+                  Interactive Cosmic Life Graph <Sparkles className="w-4 h-4 text-amber-400 animate-pulse" />
                 </h2>
-                <p className="text-xs text-[#9CA3AF]">
+                <p className="text-xs font-mono text-[#9CA3AF]">
                   Visual knowledge network showing how consultations, transits, and remedies interconnect over time
                 </p>
               </div>
@@ -177,7 +177,7 @@ export function LifeGraphModal({ isOpen, onClose }: LifeGraphModalProps) {
             <div className="flex items-center gap-2 shrink-0">
               <button
                 onClick={onClose}
-                className="w-8 h-8 rounded-full bg-white/5 hover:bg-surface-3 flex items-center justify-center text-[#9CA3AF] hover:text-white cursor-pointer"
+                className="w-8 h-8 rounded-xl bg-white/5 hover:bg-white/10 flex items-center justify-center text-[#9CA3AF] hover:text-white cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -185,7 +185,7 @@ export function LifeGraphModal({ isOpen, onClose }: LifeGraphModalProps) {
           </div>
 
           {/* Filters & Search Controls */}
-          <div className="flex flex-wrap items-center justify-between gap-3 mb-4 shrink-0">
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-4 shrink-0 font-mono text-xs">
             <div className="flex flex-wrap items-center gap-1.5">
               <span className="text-xs text-[#9CA3AF] font-bold uppercase tracking-wider mr-1 flex items-center gap-1">
                 <Filter className="w-3 h-3" /> Filter Nodes:
@@ -201,10 +201,10 @@ export function LifeGraphModal({ isOpen, onClose }: LifeGraphModalProps) {
                 <button
                   key={f.id}
                   onClick={() => setFilterType(f.id)}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                     filterType === f.id
-                      ? "bg-brand text-white border border-brand/40 shadow-sm"
-                      : "bg-surface-2 border border-line text-[#9CA3AF] hover:text-white"
+                      ? "bg-amber-500 text-black shadow-sm"
+                      : "bg-white/5 border border-white/10 text-[#9CA3AF] hover:text-white"
                   }`}
                 >
                   {f.label}
@@ -219,7 +219,7 @@ export function LifeGraphModal({ isOpen, onClose }: LifeGraphModalProps) {
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
                 placeholder="Search graph nodes..."
-                className="w-full bg-surface-2 border border-line rounded-xl pl-9 pr-3 py-1.5 text-xs text-white placeholder:text-[#6B7280] outline-none"
+                className="w-full bg-white/5 border border-white/10 rounded-xl pl-9 pr-3 py-1.5 text-xs text-white placeholder:text-[#6B7280] outline-none"
               />
             </div>
           </div>
@@ -227,7 +227,7 @@ export function LifeGraphModal({ isOpen, onClose }: LifeGraphModalProps) {
           {/* Main Visual Graph Canvas + Details Drawer */}
           <div className="flex-1 grid grid-cols-1 md:grid-cols-12 gap-4 min-h-[460px] overflow-hidden">
             {/* Interactive Canvas Graph Area */}
-            <div className="md:col-span-8 bg-black/40 border border-line rounded-lg relative overflow-hidden flex items-center justify-center p-4">
+            <div className="md:col-span-8 bg-black/50 border border-white/10 rounded-2xl relative overflow-hidden flex items-center justify-center p-4">
               {/* Subtle Cosmic Background Grid */}
               <div className="absolute inset-0 bg-[radial-gradient(#ffffff0a_1px,transparent_1px)] [background-size:16px_16px]" />
 
@@ -245,7 +245,7 @@ export function LifeGraphModal({ isOpen, onClose }: LifeGraphModalProps) {
                         y1={`${node.y}%`}
                         x2={`${targetNode.x}%`}
                         y2={`${targetNode.y}%`}
-                        stroke={isSelected ? "#A855F7" : "rgba(255, 255, 255, 0.12)"}
+                        stroke={isSelected ? "#F59E0B" : "rgba(255, 255, 255, 0.15)"}
                         strokeWidth={isSelected ? 2.5 : 1}
                         strokeDasharray={isSelected ? "none" : "4 4"}
                       />
@@ -267,13 +267,13 @@ export function LifeGraphModal({ isOpen, onClose }: LifeGraphModalProps) {
                     style={{ left: `${node.x}%`, top: `${node.y}%` }}
                     className={`absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer z-10 flex flex-col items-center group`}
                   >
-                    <div className={`w-11 h-11 rounded-lg ${colorConfig.bg} border-2 ${colorConfig.border} flex items-center justify-center transition-all ${
-                      isSelected ? `${colorConfig.glow} scale-125 border-white ring-4 ring-primary/30` : "opacity-90 hover:opacity-100"
+                    <div className={`w-11 h-11 rounded-xl ${colorConfig.bg} border-2 ${colorConfig.border} flex items-center justify-center transition-all ${
+                      isSelected ? `${colorConfig.glow} scale-125 border-white ring-4 ring-amber-500/30` : "opacity-90 hover:opacity-100"
                     }`}>
                       {getNodeIcon(node.type)}
                     </div>
-                    <span className={`text-[10px] font-bold text-white max-w-[110px] text-center truncate mt-1.5 px-2 py-0.5 rounded-lg bg-black/80 border border-line backdrop-blur-md ${
-                      isSelected ? "text-brand border-brand font-extrabold" : "opacity-80 group-hover:opacity-100"
+                    <span className={`text-[10px] font-mono font-bold text-white max-w-[110px] text-center truncate mt-1.5 px-2 py-0.5 rounded-lg bg-black/80 border border-white/10 backdrop-blur-md ${
+                      isSelected ? "text-amber-400 border-amber-500 font-extrabold" : "opacity-80 group-hover:opacity-100"
                     }`}>
                       {node.title}
                     </span>
@@ -281,16 +281,16 @@ export function LifeGraphModal({ isOpen, onClose }: LifeGraphModalProps) {
                 )
               })}
 
-              <div className="absolute bottom-3 left-3 bg-black/60 px-3 py-1.5 rounded-xl border border-line text-[10px] text-[#9CA3AF] backdrop-blur-md">
+              <div className="absolute bottom-3 left-3 bg-black/80 px-3 py-1.5 rounded-xl border border-white/10 text-[10px] font-mono text-[#9CA3AF] backdrop-blur-md">
                 💡 Click any node to inspect connected memory & transits
               </div>
             </div>
 
             {/* Selected Node Cosmic Detail Inspector */}
-            <div className="md:col-span-4 bg-surface-2 border border-line rounded-lg p-5 flex flex-col justify-between overflow-y-auto">
+            <div className="md:col-span-4 bg-white/5 border border-white/10 rounded-2xl p-5 flex flex-col justify-between overflow-y-auto">
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${getNodeColor(selectedNode.type).border} ${getNodeColor(selectedNode.type).bg} text-white`}>
+                  <span className={`text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${getNodeColor(selectedNode.type).border} ${getNodeColor(selectedNode.type).bg}`}>
                     {selectedNode.type.toUpperCase()} NODE
                   </span>
                   <span className="text-[10px] font-mono text-[#9CA3AF]">{selectedNode.date}</span>
@@ -299,26 +299,26 @@ export function LifeGraphModal({ isOpen, onClose }: LifeGraphModalProps) {
                 <div>
                   <h3 className="text-base font-bold text-white leading-snug">{selectedNode.title}</h3>
                   {selectedNode.astrologer && (
-                    <p className="text-xs text-brand font-semibold mt-0.5 flex items-center gap-1">
+                    <p className="text-xs text-amber-400 font-mono font-semibold mt-0.5 flex items-center gap-1">
                       <ShieldCheck className="w-3.5 h-3.5" /> Guided by {selectedNode.astrologer}
                     </p>
                   )}
                 </div>
 
-                <div className="p-3 bg-black/40 border border-line/60 rounded-xl text-xs text-white/90 leading-relaxed">
+                <div className="p-3.5 bg-black/40 border border-white/5 rounded-xl text-xs text-white/90 leading-relaxed font-sans">
                   {selectedNode.description}
                 </div>
 
                 {selectedNode.confidence && (
-                  <div className="p-3 bg-gold/10 border border-gold/20 rounded-xl flex items-center justify-between text-xs">
-                    <span className="text-gold font-bold">Verified Confidence Score</span>
+                  <div className="p-3 bg-amber-500/10 border border-amber-500/30 rounded-xl flex items-center justify-between text-xs font-mono">
+                    <span className="text-amber-300 font-bold">Verified Confidence Score</span>
                     <span className="text-white font-extrabold">{selectedNode.confidence}%</span>
                   </div>
                 )}
 
                 <div>
-                  <span className="text-[10px] font-bold text-[#9CA3AF] uppercase tracking-wider block mb-2">Connected Knowledge Nodes ({selectedNode.connections.length})</span>
-                  <div className="space-y-2">
+                  <span className="text-[10px] font-mono font-bold text-[#9CA3AF] uppercase tracking-wider block mb-2">Connected Knowledge Nodes ({selectedNode.connections.length})</span>
+                  <div className="space-y-2 font-mono">
                     {selectedNode.connections.map(cId => {
                       const cNode = nodes.find(n => n.id === cId)
                       if (!cNode) return null
@@ -326,10 +326,10 @@ export function LifeGraphModal({ isOpen, onClose }: LifeGraphModalProps) {
                         <div
                           key={cId}
                           onClick={() => setSelectedNodeId(cId)}
-                          className="p-2.5 rounded-xl bg-surface-2 border border-line hover:border-brand/50 cursor-pointer transition-all flex items-center justify-between text-xs text-white"
+                          className="p-2.5 rounded-xl bg-white/5 border border-white/10 hover:border-amber-500/50 cursor-pointer transition-all flex items-center justify-between text-xs text-white"
                         >
                           <span className="font-semibold">{cNode.title}</span>
-                          <span className="text-[9px] text-brand uppercase font-bold">{cNode.type}</span>
+                          <span className="text-[9px] text-amber-400 uppercase font-bold">{cNode.type}</span>
                         </div>
                       )
                     })}
@@ -337,10 +337,10 @@ export function LifeGraphModal({ isOpen, onClose }: LifeGraphModalProps) {
                 </div>
               </div>
 
-              <div className="pt-4 mt-4 border-t border-line/60">
+              <div className="pt-4 mt-4 border-t border-white/10">
                 <button
                   onClick={onClose}
-                  className="w-full py-2.5 bg-brand hover:bg-brand/90 text-white font-bold rounded-xl text-xs transition-colors shadow-md flex items-center justify-center gap-1.5 cursor-pointer"
+                  className="w-full py-2.5 bg-amber-500 text-black font-bold rounded-xl text-xs hover:bg-amber-400 transition-colors shadow-md flex items-center justify-center gap-1.5 cursor-pointer font-mono"
                 >
                   Close Graph Inspector
                 </button>

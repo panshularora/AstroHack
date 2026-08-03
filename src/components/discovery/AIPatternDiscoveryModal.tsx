@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion"
-import { X, Sparkles, TrendingUp, Cpu, Lightbulb, ShieldCheck, ArrowRight, Brain, Zap, Activity } from "lucide-react"
+import { X, Sparkles, ShieldCheck, ArrowRight, Brain } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { Badge } from "@/components/ui/Badge"
 

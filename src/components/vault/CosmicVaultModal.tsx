@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { X, FileText, Upload, Link as LinkIcon, ShieldCheck, Check, Sparkles, Folder, Download } from "lucide-react"
+import { X, FileText, Upload, Link as LinkIcon, ShieldCheck, Sparkles, Folder } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { Badge } from "@/components/ui/Badge"
 

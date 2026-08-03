@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion"
-import { X, Target, ShieldCheck, Sparkles, TrendingUp, CheckCircle2, Info, ArrowRight } from "lucide-react"
+import { X, Target, ShieldCheck, Info, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { Badge } from "@/components/ui/Badge"
 import { Progress } from "@/components/ui/Progress"

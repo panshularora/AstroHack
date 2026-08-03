@@ -1,12 +1,19 @@
 import { useState } from "react"
-import { motion } from "framer-motion"
 import { 
   AreaChart, Area, RadarChart, Radar, PolarGrid, 
   PolarAngleAxis, XAxis, YAxis, Tooltip, ResponsiveContainer 
 } from "recharts"
 import { Card } from "@/components/ui/Card"
 import { Tabs } from "@/components/ui/Tabs"
-import { mockChartData } from "@/lib/mock-data"
+
+const TRANSIT_DATA = [
+  { time: "Jul 01", intensity: 65, score: 70 },
+  { time: "Jul 10", intensity: 78, score: 80 },
+  { time: "Jul 20", intensity: 95, score: 92 },
+  { time: "Aug 01", intensity: 88, score: 88 },
+  { time: "Aug 10", intensity: 92, score: 95 },
+  { time: "Aug 20", intensity: 98, score: 96 },
+]
 
 const RADAR_DATA = [
   { subject: "Career", score: 92 },
@@ -41,7 +48,7 @@ export function DashboardCharts() {
 
         <div className="h-[280px] w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={mockChartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+            <AreaChart data={TRANSIT_DATA} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
               <defs>
                 <linearGradient id="transitGradient" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor="#F59E0B" stopOpacity={0.4} />

@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
-import { Target, ArrowRight, ShieldCheck, FileText, CheckCircle2 } from "lucide-react"
+import { ArrowRight, ShieldCheck, FileText } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { Badge } from "@/components/ui/Badge"
 import { Card } from "@/components/ui/Card"
@@ -9,7 +9,7 @@ import { CosmicHero } from "@/components/visual/CosmicHero"
 import { JudgeTourBar } from "@/components/dashboard/JudgeTourBar"
 import { DashboardMetricCards } from "@/components/dashboard/DashboardMetricCards"
 import { DashboardCharts } from "@/components/dashboard/DashboardCharts"
-import { mockPredictions, mockConsultations } from "@/lib/mock-data"
+import { mockDetailedPredictions, mockDetailedConsultations } from "@/lib/mock-data"
 import { CosmicVaultModal } from "@/components/vault/CosmicVaultModal"
 
 export function Dashboard() {
@@ -23,7 +23,11 @@ export function Dashboard() {
       <JudgeTourBar />
 
       {/* Cosmic Hero Section */}
-      <CosmicHero />
+      <CosmicHero 
+        eyebrow="Natal Kundli Transits · Leo Sun 14°"
+        title={<span>Live Celestial Transit Engine</span>}
+        subtitle="Jupiter 10th House Trine Active — 120° Alignment with Natal Sun"
+      />
 
       {/* Animated SaaS Metric Cards */}
       <DashboardMetricCards />
@@ -52,7 +56,7 @@ export function Dashboard() {
           </div>
 
           <div className="space-y-3">
-            {mockPredictions.slice(0, 3).map((p) => (
+            {mockDetailedPredictions.slice(0, 3).map((p) => (
               <motion.div
                 key={p.id}
                 whileHover={{ x: 3 }}
@@ -62,7 +66,7 @@ export function Dashboard() {
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <p className="font-mono text-[10px] uppercase text-[#9CA3AF] mb-1">
-                        {p.category} · {p.astrologerName}
+                        {p.category} · {p.astrologer.name}
                       </p>
                       <h4 className="text-sm font-bold text-white">{p.title}</h4>
                     </div>
@@ -104,7 +108,7 @@ export function Dashboard() {
           </div>
 
           <div className="space-y-3">
-            {mockConsultations.slice(0, 2).map((c) => (
+            {mockDetailedConsultations.slice(0, 2).map((c) => (
               <Card key={c.id} className="p-5 space-y-3">
                 <div className="flex items-center justify-between border-b border-white/5 pb-2">
                   <span className="text-xs font-bold text-white">{c.astrologer.name}</span>

@@ -4,6 +4,7 @@ import { Target, CheckCircle2, Clock, TrendingUp, Calendar, Plus, FileText, Shar
 import { useNavigate } from "react-router-dom"
 import { Button } from "@/components/ui/Button"
 import { PredictionShareCardModal } from "@/components/predictions/PredictionShareCardModal"
+import { PredictionConfidenceModal } from "@/components/predictions/PredictionConfidenceModal"
 import { Badge } from "@/components/ui/Badge"
 import { Progress } from "@/components/ui/Progress"
 import { Tabs } from "@/components/ui/Tabs"
@@ -16,6 +17,7 @@ export function PredictionCenter() {
   const [tab, setTab] = useState<Tab>("active")
   const [shareModalOpen, setShareModalOpen] = useState(false)
   const [activeShareData, setActiveShareData] = useState<any>(null)
+  const [confidenceModalOpen, setConfidenceModalOpen] = useState(false)
 
   const filtered = mockDetailedPredictions.filter(p => {
     if (tab === "active") return p.status === "pending" || p.status === "in_progress"
@@ -142,8 +144,14 @@ export function PredictionCenter() {
                     >
                       <Share2 className="w-3 h-3 text-brand" /> Share Proof Card
                     </button>
-                    <span className="text-ink-secondary font-bold">{p.confidence}% Confidence</span>
-                    <Progress value={p.confidence} className="w-24 h-1.5" color="brand" />
+                    <button
+                      onClick={() => setConfidenceModalOpen(true)}
+                      className="flex items-center gap-2 hover:opacity-80 transition-opacity cursor-pointer group/conf"
+                      title="Click to view Confidence Engine breakdown"
+                    >
+                      <span className="text-ink-secondary font-bold group-hover/conf:text-gold-bright transition-colors">{p.confidence}% Confidence</span>
+                      <Progress value={p.confidence} className="w-20 h-1.5" color="brand" />
+                    </button>
                   </div>
                 </div>
               </div>
@@ -157,6 +165,11 @@ export function PredictionCenter() {
         isOpen={shareModalOpen}
         onClose={() => setShareModalOpen(false)}
         prediction={activeShareData}
+      />
+
+      <PredictionConfidenceModal
+        isOpen={confidenceModalOpen}
+        onClose={() => setConfidenceModalOpen(false)}
       />
     </div>
   )

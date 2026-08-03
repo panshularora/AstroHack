@@ -1,7 +1,9 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { BookOpen, Target, Zap, FileText, Search } from "lucide-react"
+import { BookOpen, Target, Zap, FileText, Search, Folder } from "lucide-react"
 import { useNavigate } from "react-router-dom"
+import { Button } from "@/components/ui/Button"
+import { CosmicVaultModal } from "@/components/vault/CosmicVaultModal"
 import { Badge } from "@/components/ui/Badge"
 import { Input } from "@/components/ui/Input"
 import { mockTimelineEvents, mockJournalEntries, mockMemoryStats } from "@/lib/mock-data"
@@ -9,6 +11,7 @@ import { mockTimelineEvents, mockJournalEntries, mockMemoryStats } from "@/lib/m
 export function CosmicMemory() {
   const navigate = useNavigate()
   const [search, setSearch] = useState("")
+  const [vaultOpen, setVaultOpen] = useState(false)
 
   const filteredTimeline = mockTimelineEvents.filter(e =>
     e.title.toLowerCase().includes(search.toLowerCase()) ||
@@ -42,6 +45,9 @@ export function CosmicMemory() {
               Immutable archive of Arjun's consultations, verified predictions, remedies, and journal notes.
             </p>
           </div>
+          <Button size="sm" variant="outline" className="rounded-md font-mono border-blue-500/30 text-blue-400 gap-2 shrink-0" onClick={() => setVaultOpen(true)}>
+            <Folder className="w-4 h-4 text-blue-400" /> Life Document Vault
+          </Button>
         </div>
 
         {/* ── Metric Cards ───────────────────────────────────────── */}
@@ -144,6 +150,11 @@ export function CosmicMemory() {
         </div>
 
       </div>
+
+      <CosmicVaultModal
+        isOpen={vaultOpen}
+        onClose={() => setVaultOpen(false)}
+      />
     </div>
   )
 }

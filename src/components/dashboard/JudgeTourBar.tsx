@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Sparkles, MessageSquare, Sun, Scale, Network, Brain, Cpu, Zap } from "lucide-react"
+import { Sparkles, MessageSquare, Sun, Scale, Network, Brain, Cpu, Zap, Folder, Target } from "lucide-react"
 import { CelestialToolsModal } from "@/components/astrology/CelestialToolsModal"
 import { ConsultationFlowModal } from "@/components/consultation/ConsultationFlowModal"
 import { AIDecisionSimulatorModal } from "@/components/simulator/AIDecisionSimulatorModal"
@@ -9,6 +9,9 @@ import { DigitalTwinModal } from "@/components/twin/DigitalTwinModal"
 import { ReportNarrativeModal } from "@/components/dashboard/ReportNarrativeModal"
 import { AsyncConsultationModal } from "@/components/consultation/AsyncConsultationModal"
 import { PredictionShareCardModal } from "@/components/predictions/PredictionShareCardModal"
+import { AIPatternDiscoveryModal } from "@/components/discovery/AIPatternDiscoveryModal"
+import { CosmicVaultModal } from "@/components/vault/CosmicVaultModal"
+import { PredictionConfidenceModal } from "@/components/predictions/PredictionConfidenceModal"
 import { mockVerifiedAstrologers } from "@/lib/mock-data"
 
 export function JudgeTourBar() {
@@ -21,6 +24,9 @@ export function JudgeTourBar() {
   const [narrativeOpen, setNarrativeOpen] = useState(false)
   const [asyncOpen, setAsyncOpen] = useState(false)
   const [shareOpen, setShareOpen] = useState(false)
+  const [patternOpen, setPatternOpen] = useState(false)
+  const [vaultOpen, setVaultOpen] = useState(false)
+  const [confidenceOpen, setConfidenceOpen] = useState(false)
 
   return (
     <>
@@ -73,6 +79,24 @@ export function JudgeTourBar() {
               className="px-3 py-1.5 bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-400 rounded-xl text-xs font-bold transition-colors flex items-center gap-1 cursor-pointer"
             >
               <Sun className="w-3.5 h-3.5" /> Panchang
+            </button>
+            <button
+              onClick={() => setPatternOpen(true)}
+              className="px-3 py-1.5 bg-purple-600/20 hover:bg-purple-600/30 border border-purple-500/40 text-purple-300 rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
+            >
+              <Brain className="w-3.5 h-3.5 text-purple-400" /> Pattern Discovery
+            </button>
+            <button
+              onClick={() => setVaultOpen(true)}
+              className="px-3 py-1.5 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-400/40 text-blue-300 rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
+            >
+              <Folder className="w-3.5 h-3.5 text-blue-400" /> Cosmic Vault
+            </button>
+            <button
+              onClick={() => setConfidenceOpen(true)}
+              className="px-3 py-1.5 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-300 rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
+            >
+              <Target className="w-3.5 h-3.5 text-amber-400" /> Confidence Engine
             </button>
             <button
               onClick={() => setAsyncOpen(true)}
@@ -148,6 +172,21 @@ export function JudgeTourBar() {
       <PredictionShareCardModal
         isOpen={shareOpen}
         onClose={() => setShareOpen(false)}
+      />
+
+      <AIPatternDiscoveryModal
+        isOpen={patternOpen}
+        onClose={() => setPatternOpen(false)}
+      />
+
+      <CosmicVaultModal
+        isOpen={vaultOpen}
+        onClose={() => setVaultOpen(false)}
+      />
+
+      <PredictionConfidenceModal
+        isOpen={confidenceOpen}
+        onClose={() => setConfidenceOpen(false)}
       />
     </>
   )

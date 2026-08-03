@@ -7,6 +7,8 @@ import { LifeGraphModal } from "@/components/graph/LifeGraphModal"
 import { AIConsultationCoachModal } from "@/components/coach/AIConsultationCoachModal"
 import { DigitalTwinModal } from "@/components/twin/DigitalTwinModal"
 import { ReportNarrativeModal } from "@/components/dashboard/ReportNarrativeModal"
+import { AsyncConsultationModal } from "@/components/consultation/AsyncConsultationModal"
+import { PredictionShareCardModal } from "@/components/predictions/PredictionShareCardModal"
 import { mockVerifiedAstrologers } from "@/lib/mock-data"
 
 export function JudgeTourBar() {
@@ -17,6 +19,8 @@ export function JudgeTourBar() {
   const [coachOpen, setCoachOpen] = useState(false)
   const [twinOpen, setTwinOpen] = useState(false)
   const [narrativeOpen, setNarrativeOpen] = useState(false)
+  const [asyncOpen, setAsyncOpen] = useState(false)
+  const [shareOpen, setShareOpen] = useState(false)
 
   return (
     <>
@@ -71,6 +75,18 @@ export function JudgeTourBar() {
               <Sun className="w-3.5 h-3.5" /> Panchang
             </button>
             <button
+              onClick={() => setAsyncOpen(true)}
+              className="px-3 py-1.5 bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-400/40 text-emerald-300 rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
+            >
+              <Zap className="w-3.5 h-3.5 text-emerald-400" /> Async Query (₹49)
+            </button>
+            <button
+              onClick={() => setShareOpen(true)}
+              className="px-3 py-1.5 bg-purple-500/20 hover:bg-purple-500/30 border border-purple-400/40 text-purple-300 rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-purple-300" /> Viral Share Card
+            </button>
+            <button
               onClick={() => setNarrativeOpen(true)}
               className="px-3 py-1.5 bg-gradient-to-r from-gold/20 to-amber-500/20 hover:from-gold/30 hover:to-amber-500/30 border border-gold/40 text-gold-bright rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
             >
@@ -122,6 +138,16 @@ export function JudgeTourBar() {
       <ReportNarrativeModal
         isOpen={narrativeOpen}
         onClose={() => setNarrativeOpen(false)}
+      />
+
+      <AsyncConsultationModal
+        isOpen={asyncOpen}
+        onClose={() => setAsyncOpen(false)}
+      />
+
+      <PredictionShareCardModal
+        isOpen={shareOpen}
+        onClose={() => setShareOpen(false)}
       />
     </>
   )

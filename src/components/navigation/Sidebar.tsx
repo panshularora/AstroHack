@@ -2,7 +2,7 @@ import { NavLink, Link, useNavigate } from "react-router-dom"
 import {
   Home, LayoutDashboard, BookOpen, Star, Heart,
   Settings, Sparkles, Target, ShieldCheck, BarChart2,
-  ChevronRight, Crown, MessageSquare, Zap, Compass
+  ChevronRight, Crown, MessageSquare, Zap, Compass, ShieldAlert
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { mockUser } from "@/lib/mock-data"
@@ -48,6 +48,7 @@ const navGroups: NavGroup[] = [
       { path: "/app/predictions", label: "Predictions", icon: Target },
       { path: "/app/reports", label: "Reports", icon: BarChart2 },
       { path: "/app/journey", label: "Life Journey", icon: Heart },
+      { path: "/app/sos", label: "Grounding SOS", icon: ShieldAlert, meta: "SOS" },
     ],
   },
 ]
@@ -116,6 +117,8 @@ export function Sidebar() {
                         <span className={`font-mono text-[9px] font-bold uppercase tracking-[0.14em] px-1.5 py-0.5 rounded-[2px] ${
                           item.meta === 'Live' 
                             ? 'bg-success/15 text-success border border-success/25' 
+                            : item.meta === 'SOS'
+                            ? 'bg-danger/15 text-danger border border-danger/25'
                             : 'bg-brand-light text-brand border border-brand/20'
                         }`}>
                           {item.meta}

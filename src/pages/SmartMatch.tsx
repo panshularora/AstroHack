@@ -1,9 +1,10 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useNavigate } from "react-router-dom"
-import { ArrowRight, ArrowLeft, Star, Shield, Compass, CheckCircle2 } from "lucide-react"
+import { ArrowRight, ArrowLeft, Star, Shield, Compass, CheckCircle2, Zap } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { Badge } from "@/components/ui/Badge"
+import { AsyncConsultationModal } from "@/components/consultation/AsyncConsultationModal"
 import { mockAstrologers } from "@/lib/mock-data"
 import { cn } from "@/lib/utils"
 
@@ -26,6 +27,7 @@ export function SmartMatch() {
   const [step, setStep] = useState(0)
   const [concern, setConcern] = useState("career")
   const [budget, setBudget] = useState("b2")
+  const [asyncModalOpen, setAsyncModalOpen] = useState(false)
   const navigate = useNavigate()
 
   const matches = mockAstrologers
@@ -161,14 +163,19 @@ export function SmartMatch() {
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-4 w-full md:w-auto justify-between md:justify-end pt-3 md:pt-0 border-t md:border-t-0 border-line/60">
+                    <div className="flex flex-wrap items-center gap-3 w-full md:w-auto justify-between md:justify-end pt-3 md:pt-0 border-t md:border-t-0 border-line/60">
                       <div className="text-right">
                         <p className="text-base font-bold font-mono text-ink">₹{a.pricePerMinute * 45}</p>
-                        <p className="text-[10px] font-mono text-ink-tertiary">45 min session</p>
+                        <p className="text-[10px] font-mono text-ink-tertiary">45 min live</p>
                       </div>
-                      <Button size="sm" className="font-mono font-bold" onClick={e => { e.stopPropagation(); navigate(`/app/room/${a.id}`) }}>
-                        Connect Live Session
-                      </Button>
+                      <div className="flex items-center gap-2">
+                        <Button size="sm" variant="outline" className="font-mono text-xs border-emerald-500/30 text-emerald-400" onClick={e => { e.stopPropagation(); setAsyncModalOpen(true) }}>
+                          <Zap className="w-3.5 h-3.5 text-emerald-400" /> Async (₹49)
+                        </Button>
+                        <Button size="sm" className="font-mono font-bold" onClick={e => { e.stopPropagation(); navigate(`/app/room/${a.id}`) }}>
+                          Connect Live Session
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -196,6 +203,11 @@ export function SmartMatch() {
           </Button>
         )}
       </div>
+
+      <AsyncConsultationModal
+        isOpen={asyncModalOpen}
+        onClose={() => setAsyncModalOpen(false)}
+      />
     </div>
   )
 }

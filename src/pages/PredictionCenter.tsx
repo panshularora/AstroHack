@@ -1,8 +1,9 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { Target, CheckCircle2, Clock, TrendingUp, Calendar, Plus, FileText } from "lucide-react"
+import { Target, CheckCircle2, Clock, TrendingUp, Calendar, Plus, FileText, Share2 } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { Button } from "@/components/ui/Button"
+import { PredictionShareCardModal } from "@/components/predictions/PredictionShareCardModal"
 import { Badge } from "@/components/ui/Badge"
 import { Progress } from "@/components/ui/Progress"
 import { Tabs } from "@/components/ui/Tabs"
@@ -13,6 +14,8 @@ type Tab = "active" | "verified" | "all"
 export function PredictionCenter() {
   const navigate = useNavigate()
   const [tab, setTab] = useState<Tab>("active")
+  const [shareModalOpen, setShareModalOpen] = useState(false)
+  const [activeShareData, setActiveShareData] = useState<any>(null)
 
   const filtered = mockDetailedPredictions.filter(p => {
     if (tab === "active") return p.status === "pending" || p.status === "in_progress"
@@ -54,9 +57,14 @@ export function PredictionCenter() {
               Every astrologer prediction is tracked against real-life milestones with immutable verification proof.
             </p>
           </div>
-          <Button size="sm" className="rounded-md shrink-0">
-            <Plus className="w-4 h-4" /> Attach Outcome Proof
-          </Button>
+          <div className="flex items-center gap-2 shrink-0">
+            <Button size="sm" variant="outline" className="rounded-md font-mono text-gold-bright border-gold/30" onClick={() => { setActiveShareData(null); setShareModalOpen(true) }}>
+              <Share2 className="w-4 h-4 text-gold-bright" /> Viral Share Card
+            </Button>
+            <Button size="sm" className="rounded-md shrink-0">
+              <Plus className="w-4 h-4" /> Attach Outcome Proof
+            </Button>
+          </div>
         </div>
 
         {/* ── Metric Cards ───────────────────────────────────────── */}
@@ -118,6 +126,22 @@ export function PredictionCenter() {
                     Target: {new Date(p.targetDate).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
                   </div>
                   <div className="flex items-center gap-3">
+                    <button
+                      onClick={() => {
+                        setActiveShareData({
+                          id: p.id,
+                          title: p.title,
+                          category: p.category.toUpperCase(),
+                          targetDate: p.targetDate,
+                          confidence: p.confidence,
+                          astrologerName: p.astrologer.name
+                        })
+                        setShareModalOpen(true)
+                      }}
+                      className="flex items-center gap-1 text-[11px] text-brand hover:text-brand-hover font-bold transition-colors"
+                    >
+                      <Share2 className="w-3 h-3 text-brand" /> Share Proof Card
+                    </button>
                     <span className="text-ink-secondary font-bold">{p.confidence}% Confidence</span>
                     <Progress value={p.confidence} className="w-24 h-1.5" color="brand" />
                   </div>
@@ -128,6 +152,12 @@ export function PredictionCenter() {
         </div>
 
       </div>
+
+      <PredictionShareCardModal
+        isOpen={shareModalOpen}
+        onClose={() => setShareModalOpen(false)}
+        prediction={activeShareData}
+      />
     </div>
   )
 }

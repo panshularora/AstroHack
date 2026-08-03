@@ -42,13 +42,13 @@ export function PredictionCenter() {
         <div className="border-b border-line/60 pb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
             <button
-              onClick={() => navigate(-1)}
+              onClick={() => navigate("/app/dashboard")}
               className="flex items-center gap-1.5 font-mono text-[11px] text-ink-tertiary hover:text-ink transition-colors mb-5 group"
             >
               <svg className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" viewBox="0 0 16 16" fill="none">
                 <path d="M10 12L6 8l4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              Back
+              ← Back to Dashboard
             </button>
             <div className="flex items-center gap-3 mb-2">
               <div className="w-8 h-8 rounded-md bg-surface-2 border border-brand/30 flex items-center justify-center text-brand">

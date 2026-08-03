@@ -6,6 +6,7 @@ import { AIDecisionSimulatorModal } from "@/components/simulator/AIDecisionSimul
 import { LifeGraphModal } from "@/components/graph/LifeGraphModal"
 import { AIConsultationCoachModal } from "@/components/coach/AIConsultationCoachModal"
 import { DigitalTwinModal } from "@/components/twin/DigitalTwinModal"
+import { ReportNarrativeModal } from "@/components/dashboard/ReportNarrativeModal"
 import { mockVerifiedAstrologers } from "@/lib/mock-data"
 
 export function JudgeTourBar() {
@@ -15,6 +16,7 @@ export function JudgeTourBar() {
   const [graphOpen, setGraphOpen] = useState(false)
   const [coachOpen, setCoachOpen] = useState(false)
   const [twinOpen, setTwinOpen] = useState(false)
+  const [narrativeOpen, setNarrativeOpen] = useState(false)
 
   return (
     <>
@@ -69,6 +71,12 @@ export function JudgeTourBar() {
               <Sun className="w-3.5 h-3.5" /> Panchang
             </button>
             <button
+              onClick={() => setNarrativeOpen(true)}
+              className="px-3 py-1.5 bg-gradient-to-r from-gold/20 to-amber-500/20 hover:from-gold/30 hover:to-amber-500/30 border border-gold/40 text-gold-bright rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer shadow-sm"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-gold-bright" /> Report Narrative
+            </button>
+            <button
               onClick={() => setConsultModalOpen(true)}
               className="px-3 py-1.5 bg-brand/20 hover:bg-brand/30 border border-brand/40 text-ink-secondary rounded-xl text-xs font-bold transition-colors flex items-center gap-1 cursor-pointer"
             >
@@ -109,6 +117,11 @@ export function JudgeTourBar() {
       <DigitalTwinModal
         isOpen={twinOpen}
         onClose={() => setTwinOpen(false)}
+      />
+
+      <ReportNarrativeModal
+        isOpen={narrativeOpen}
+        onClose={() => setNarrativeOpen(false)}
       />
     </>
   )

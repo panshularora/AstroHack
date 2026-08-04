@@ -33,12 +33,13 @@ export function VerificationModal({ isOpen, onClose, prediction, onConfirm }: Ve
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-canvas/80 backdrop-blur-md">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.95 }}
-          className="relative w-full max-w-md bg-surface border border-line rounded-lg p-6 space-y-5 shadow-2xl"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 10 }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
+          className="relative w-full max-w-md bg-[#090A0F] border border-white/10 rounded-2xl p-6 space-y-5 shadow-2xl font-sans"
         >
           <div className="flex items-start justify-between">
             <div>

@@ -42,9 +42,10 @@ export function DigitalTwinModal({ isOpen, onClose }: DigitalTwinModalProps) {
     <AnimatePresence>
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
         <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 15 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 15 }}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 10 }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
           className="relative w-full max-w-4xl bg-[#090A0F] border border-white/10 rounded-2xl p-6 md:p-8 shadow-2xl overflow-hidden max-h-[92vh] flex flex-col"
         >
           {/* Header */}

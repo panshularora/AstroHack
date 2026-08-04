@@ -613,6 +613,13 @@
     background: linear-gradient(90deg, transparent, rgba(217, 119, 6, 0.4), transparent);
   }
 
+  /* ── Body Layout Stabilization (Prevent Modal Zoom & Scrollbar Shifting) ─ */
+  html, body {
+    scrollbar-gutter: stable;
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
   /* ── Ring focus ────────────────────────────────────────────────────────── */
   .ring-focus {
     outline: none;

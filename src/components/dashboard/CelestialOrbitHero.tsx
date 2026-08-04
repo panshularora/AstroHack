@@ -4,6 +4,7 @@ import { ArrowRight, Target } from "lucide-react"
 import { Badge } from "@/components/ui/Badge"
 import { Button } from "@/components/ui/Button"
 import { useNavigate } from "react-router-dom"
+import { useUser } from "@/context/UserContext"
 
 interface Planet {
   id: string
@@ -17,55 +18,57 @@ interface Planet {
   details: string
 }
 
-const PLANETS: Planet[] = [
-  {
-    id: "sun",
-    name: "Sun",
-    sign: "Leo 14°",
-    house: "1st House",
-    status: "Natal Ruler (Active)",
-    color: "#F59E0B",
-    angle: 45,
-    radius: 75,
-    details: "Natal Sun at 14° Leo forms a 120° trine with transiting 10th House Jupiter."
-  },
-  {
-    id: "jupiter",
-    name: "Jupiter",
-    sign: "Taurus 22°",
-    house: "10th House",
-    status: "Career Trine (Peak)",
-    color: "#D97706",
-    angle: 165,
-    radius: 110,
-    details: "Active 10th House transit opening executive promotion aperture (88% Verified Confidence)."
-  },
-  {
-    id: "venus",
-    name: "Venus",
-    sign: "Cancer 08°",
-    house: "12th House",
-    status: "Remedy Day 11/21",
-    color: "#EC4899",
-    angle: 255,
-    radius: 145,
-    details: "12th House placement balanced via daily Venus Beej Mantra recitations at sunrise."
-  },
-  {
-    id: "mercury",
-    name: "Mercury",
-    sign: "Leo 02°",
-    house: "1st House",
-    status: "Direct Motion (3 Days)",
-    color: "#38BDF8",
-    angle: 330,
-    radius: 180,
-    details: "Stationary direct in 1st house accelerates contract sign-offs and strategic negotiations."
-  }
-]
-
 export function CelestialOrbitHero() {
   const navigate = useNavigate()
+  const { user } = useUser()
+
+  const PLANETS: Planet[] = [
+    {
+      id: "sun",
+      name: "Sun",
+      sign: `${user.sunSign} 14°`,
+      house: "1st House",
+      status: "Natal Ruler (Active)",
+      color: "#F59E0B",
+      angle: 45,
+      radius: 75,
+      details: `Natal Sun at 14° ${user.sunSign} forms a 120° trine alignment during ${user.activeDasha}.`
+    },
+    {
+      id: "transit",
+      name: user.transitPlanet,
+      sign: `${user.sunSign} Trine`,
+      house: user.transitHouse,
+      status: "Active Aperture Window",
+      color: "#D97706",
+      angle: 165,
+      radius: 110,
+      details: `Transiting ${user.transitPlanet} in your ${user.transitHouse} opens a high-momentum breakthrough aperture (92% Verified Confidence).`
+    },
+    {
+      id: "venus",
+      name: "Venus",
+      sign: "Cancer 08°",
+      house: "12th House",
+      status: "Remedy Active",
+      color: "#EC4899",
+      angle: 255,
+      radius: 145,
+      details: "12th House placement balanced via daily Venus Beej Mantra recitations at sunrise."
+    },
+    {
+      id: "mercury",
+      name: "Mercury",
+      sign: `${user.sunSign} 02°`,
+      house: "1st House",
+      status: "Direct Motion",
+      color: "#38BDF8",
+      angle: 330,
+      radius: 180,
+      details: "Stationary direct motion accelerates negotiations and personal decision clarity."
+    }
+  ]
+
   const [selectedPlanet, setSelectedPlanet] = useState<Planet>(PLANETS[1])
 
   return (
@@ -86,15 +89,15 @@ export function CelestialOrbitHero() {
 
           <div>
             <h1 className="text-3xl sm:text-4xl font-bold font-display text-white tracking-tight leading-tight">
-              Jupiter 10th House <span className="text-amber-400">Trine Alignment</span>
+              {user.transitPlanet} {user.transitHouse} <span className="text-amber-400">Trine Alignment</span>
             </h1>
             <p className="text-xs font-mono text-[#9CA3AF] mt-1.5 uppercase tracking-widest">
-              Natal Kundli: Leo Sun 14° · Scorpio Ascendant
+              Natal Kundli: {user.sunSign} Sun · {user.ascendant} Ascendant · {user.activeDasha}
             </p>
           </div>
 
           <p className="text-xs sm:text-sm text-[#9CA3AF] leading-relaxed">
-            Transiting Jupiter in your 10th House forms a exact 120° trine with your natal Sun, opening a high-momentum career aperture over the next <span className="text-amber-300 font-bold font-mono">72 hours</span>.
+            Transiting {user.transitPlanet} in your {user.transitHouse} forms a 120° trine with your natal {user.sunSign} Sun for <span className="text-white font-bold">{user.name}</span> over the next <span className="text-amber-300 font-bold font-mono">72 hours</span>.
           </p>
 
           {/* Interactive Selected Planet Card */}
@@ -159,7 +162,7 @@ export function CelestialOrbitHero() {
             >
               <div className="text-center font-mono text-[10px] font-bold text-black leading-tight">
                 SUN
-                <span className="block text-[8px]">14° LEO</span>
+                <span className="block text-[8px] uppercase">{user.sunSign}</span>
               </div>
             </motion.div>
 

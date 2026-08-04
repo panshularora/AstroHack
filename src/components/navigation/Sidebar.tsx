@@ -22,7 +22,7 @@ import {
   PanelLeftOpen
 } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { mockUser } from "@/lib/mock-data"
+import { useUser } from "@/context/UserContext"
 
 const primaryNavItems = [
   { path: "/app/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -49,8 +49,9 @@ const utilityNavItems = [
 
 export function Sidebar() {
   const navigate = useNavigate()
+  const { user } = useUser()
   const [collapsed, setCollapsed] = useState(false)
-  const initials = mockUser.name.slice(0, 2).toUpperCase()
+  const initials = user.name.slice(0, 2).toUpperCase()
 
   return (
     <motion.aside
@@ -202,7 +203,7 @@ export function Sidebar() {
       <div className="border-t border-white/[0.08] p-3">
         <button
           onClick={() => navigate("/app/you")}
-          title={collapsed ? mockUser.name : undefined}
+          title={collapsed ? user.name : undefined}
           className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/[0.08] transition-all group cursor-pointer overflow-hidden"
         >
           <div className="w-8 h-8 rounded-lg bg-amber-500 text-black flex items-center justify-center text-xs font-bold shrink-0 font-mono shadow-md">
@@ -210,9 +211,9 @@ export function Sidebar() {
           </div>
           {!collapsed && (
             <div className="text-left flex-1 min-w-0">
-              <p className="text-xs font-bold text-white truncate">{mockUser.name} Sharma</p>
+              <p className="text-xs font-bold text-white truncate">{user.name}</p>
               <p className="text-[10px] font-mono text-amber-400 truncate">
-                AstroLive Pro Member
+                {user.sunSign} Sun · {user.ascendant}
               </p>
             </div>
           )}

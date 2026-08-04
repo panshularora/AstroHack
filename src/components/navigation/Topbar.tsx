@@ -5,7 +5,7 @@ import {
 } from "lucide-react"
 import { NavLink, useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
-import { mockUser } from "@/lib/mock-data"
+import { useUser } from "@/context/UserContext"
 import { cn } from "@/lib/utils"
 
 const mobileNavItems = [
@@ -27,8 +27,9 @@ const mobileNavItems = [
 
 export function Topbar() {
   const [isOpen, setIsOpen] = useState(false)
+  const { user } = useUser()
   const navigate = useNavigate()
-  const initials = mockUser.name.slice(0, 2).toUpperCase()
+  const initials = user.name.slice(0, 2).toUpperCase()
 
   return (
     <>
@@ -51,12 +52,12 @@ export function Topbar() {
         <div className="hidden md:flex items-center gap-3 px-3 py-1 bg-white/[0.03] border border-white/[0.08] rounded-full text-[11px] font-mono">
           <div className="flex items-center gap-1.5 text-amber-400">
             <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
-            <span className="font-bold">Jupiter 10th House</span>
+            <span className="font-bold">{user.transitPlanet} {user.transitHouse}</span>
           </div>
           <span className="text-white/20">|</span>
           <div className="flex items-center gap-1 text-[#9CA3AF]">
             <Clock className="w-3 h-3 text-cyan-400" />
-            <span>Transit Alignment: 120° Trine</span>
+            <span>{user.sunSign} Sun · {user.ascendant} Ascendant</span>
           </div>
         </div>
 
@@ -68,7 +69,7 @@ export function Topbar() {
             <kbd className="text-[9px] font-mono bg-white/10 px-1.5 py-0.5 rounded text-white/70">⌘K</kbd>
           </div>
 
-          <button onClick={() => navigate("/app/you")} className="w-7 h-7 rounded-lg bg-amber-500 text-black flex items-center justify-center text-[11px] font-mono font-bold shadow-md cursor-pointer">
+          <button onClick={() => navigate("/app/you")} className="w-7 h-7 rounded-lg bg-amber-500 text-black flex items-center justify-center text-[11px] font-mono font-bold shadow-md cursor-pointer" title={user.name}>
             {initials}
           </button>
         </div>

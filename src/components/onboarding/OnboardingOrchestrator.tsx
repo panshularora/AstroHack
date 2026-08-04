@@ -12,7 +12,7 @@ import { AstrologerMatchStep } from './AstrologerMatchStep'
 import { SuccessRoadmapStep } from './SuccessRoadmapStep'
 import { InteractiveTourOverlay } from './InteractiveTourOverlay'
 import { useNavigate } from 'react-router-dom'
-import { mockUser, mockUserSettings } from '@/lib/mock-data'
+import { useUser } from '@/context/UserContext'
 
 export type OnboardingData = {
   name: string
@@ -31,14 +31,15 @@ export type OnboardingData = {
 }
 
 export function OnboardingOrchestrator() {
+  const { createNewUser } = useUser()
   const [currentStep, setCurrentStep] = useState(0)
   const [data, setData] = useState<OnboardingData>({
-    name: 'Arjun Sharma',
-    email: 'arjun.sharma@example.com',
-    phone: '+1 (555) 382-9102',
-    dob: '1994-08-15',
-    birthTime: '14:30',
-    birthPlace: 'New Delhi, India',
+    name: 'New Celestial Member',
+    email: 'user@astrolive.io',
+    phone: '+1 (555) 019-2831',
+    dob: '1996-03-21',
+    birthTime: '12:00',
+    birthPlace: 'New York, USA',
     system: 'vedic',
     gender: 'male',
     goals: ['Career Growth', 'Finance', 'Relationships'],
@@ -55,21 +56,26 @@ export function OnboardingOrchestrator() {
   const updateData = (newData: Partial<OnboardingData>) => {
     setData(prev => {
       const updated = { ...prev, ...newData }
-      // Persist to central mock database
-      if (updated.name) {
-        mockUser.name = updated.name.split(' ')[0] || updated.name
-        mockUserSettings.profile.name = updated.name
-      }
-      if (updated.email) mockUserSettings.profile.email = updated.email
-      if (updated.phone) mockUserSettings.profile.phone = updated.phone
-      if (updated.dob) mockUserSettings.birthDetails.date = updated.dob
-      if (updated.birthTime) mockUserSettings.birthDetails.time = updated.birthTime
-      if (updated.birthPlace) mockUserSettings.birthDetails.location = updated.birthPlace
+      // Create or update real user context chart calculations
+      createNewUser(
+        updated.name || "Member",
+        updated.email || "user@astrolive.io",
+        updated.dob || "1996-03-21",
+        updated.birthTime || "12:00",
+        updated.birthPlace || "New York, USA"
+      )
       return updated
     })
   }
 
   const finishOnboarding = () => {
+    createNewUser(
+      data.name || "Member",
+      data.email || "user@astrolive.io",
+      data.dob || "1996-03-21",
+      data.birthTime || "12:00",
+      data.birthPlace || "New York, USA"
+    )
     navigate('/app/dashboard')
   }
 

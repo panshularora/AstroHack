@@ -1,6 +1,5 @@
 import { useState } from "react"
-import { motion } from "framer-motion"
-import { ArrowRight, Target, Sun, Compass, Activity, ShieldCheck, Zap } from "lucide-react"
+import { ArrowRight, Target, Sun } from "lucide-react"
 import { Badge } from "@/components/ui/Badge"
 import { Button } from "@/components/ui/Button"
 import { useNavigate } from "react-router-dom"

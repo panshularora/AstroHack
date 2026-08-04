@@ -282,7 +282,7 @@ export function LifeGraphModal({ isOpen, onClose }: LifeGraphModalProps) {
               })}
 
               <div className="absolute bottom-3 left-3 bg-black/80 px-3 py-1.5 rounded-xl border border-white/10 text-[10px] font-mono text-[#9CA3AF] backdrop-blur-md">
-                💡 Click any node to inspect connected memory & transits
+                Click any node to inspect connected memory & transits
               </div>
             </div>
 

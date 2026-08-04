@@ -95,7 +95,7 @@ export function RelationshipGraph() {
           </div>
 
           <div className="p-3 bg-black/40 rounded-xl border border-line/60 text-xs text-ink-secondary font-medium">
-            💡 <strong>Interconnected Impact:</strong> {detailsMap[selectedNode]?.connection}
+            <strong className="text-ink font-semibold">Interconnected Impact:</strong> {detailsMap[selectedNode]?.connection}
           </div>
         </div>
       </div>

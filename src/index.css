@@ -602,10 +602,10 @@
     color: var(--color-ink);
     overflow: hidden;
   }
-  /* The ivory content band — clean editorial surface below the hero */
+  /* The content band — clean dark surface matching cosmic design */
   .ivory-content {
-    background: var(--color-ivory);
-    color: var(--color-ink-ivory);
+    background: #080C14;
+    color: #FFFFFF;
   }
   /* Smooth dark→ivory transition seam */
   .cosmic-seam {

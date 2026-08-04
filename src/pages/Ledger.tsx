@@ -8,10 +8,11 @@ import { PredictionReceiptCard } from "@/components/ledger/PredictionReceiptCard
 import { VerificationModal } from "@/components/ledger/VerificationModal"
 import { PredictionShareCardModal } from "@/components/predictions/PredictionShareCardModal"
 import type { DetailedPrediction } from "@/lib/mock-data"
-import { mockUser } from "@/lib/mock-data"
+import { useUser } from "@/context/UserContext"
 
 export function Ledger() {
   const navigate = useNavigate()
+  const { user } = useUser()
   const { predictions, verifyPrediction, stats } = useLedger()
   const [verifyTarget, setVerifyTarget] = useState<DetailedPrediction | null>(null)
   const [shareTarget, setShareTarget] = useState<DetailedPrediction | null>(null)
@@ -38,57 +39,57 @@ export function Ledger() {
   }
 
   return (
-    <div className="pb-28">
-      {/* Hero — cosmic field, minimal */}
-      <div className="cosmic-hero px-6 pt-8 pb-10 md:px-10">
-        <div className="max-w-3xl mx-auto">
-          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-brand mb-2">
-            Prediction Ledger
+    <div className="pb-28 font-sans bg-[#080C14] min-h-screen text-white">
+      {/* Hero — Unified Dark Cosmic Header */}
+      <div className="bg-gradient-to-b from-[#090A0F] to-[#0B101D] border-b border-white/10 px-6 pt-8 pb-10 md:px-10">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <p className="font-mono text-[10px] uppercase tracking-widest text-amber-400 font-bold">
+            Prediction Proof Ledger
           </p>
-          <h1 className="font-display text-h1 text-ink tracking-tight mb-2">
-            {mockUser.name}'s Cosmic Receipts
+          <h1 className="font-display text-2xl md:text-3xl font-bold text-white tracking-tight">
+            {user.name}'s Verified Predictions
           </h1>
-          <p className="text-sm text-ink-secondary max-w-lg">
-            Every astrologer claim, dated and tracked. Confirm outcomes. Build trust over years.
+          <p className="text-xs sm:text-sm text-[#9CA3AF] max-w-xl leading-relaxed">
+            Every astrologer prediction, dated and tracked against real-world outcome documents.
           </p>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-8 font-mono">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 font-mono">
             {[
               { label: "Tracked", value: stats.total },
-              { label: "Verified", value: stats.verified, accent: "text-success" },
-              { label: "Active", value: stats.active, accent: "text-brand" },
-              { label: "Accuracy", value: `${stats.accuracy}%`, accent: "text-gold-bright" },
+              { label: "Verified", value: stats.verified, accent: "text-emerald-400" },
+              { label: "Active", value: stats.active, accent: "text-amber-400" },
+              { label: "Accuracy", value: `${stats.accuracy}%`, accent: "text-cyan-300" },
             ].map(s => (
-              <div key={s.label} className="p-3 rounded-md bg-white/[0.04] border border-line/60">
-                <p className="text-[9px] uppercase tracking-[0.12em] text-ink-tertiary">{s.label}</p>
-                <p className={`text-xl font-bold tabular-nums mt-0.5 ${s.accent || "text-ink"}`}>{s.value}</p>
+              <div key={s.label} className="p-3.5 rounded-xl bg-white/5 border border-white/10">
+                <p className="text-[10px] uppercase tracking-wider text-[#9CA3AF] font-bold">{s.label}</p>
+                <p className={`text-xl font-bold tabular-nums mt-0.5 ${s.accent || "text-white"}`}>{s.value}</p>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Content — ivory editorial */}
-      <div className="ivory-content px-6 py-10 md:px-10">
-        <div className="max-w-3xl mx-auto space-y-10">
+      {/* Content — Unified Dark Glass Container */}
+      <div className="px-6 py-8 md:px-10 bg-[#080C14]">
+        <div className="max-w-4xl mx-auto space-y-8">
 
           {/* Action banner */}
           {needsVerification.length > 0 && (
             <motion.div
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              className="p-4 rounded-lg bg-warning/10 border border-warning/30 flex items-center justify-between gap-4"
+              className="p-4.5 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-between gap-4"
             >
               <div className="flex items-center gap-3">
-                <AlertCircle className="w-5 h-5 text-warning shrink-0" />
+                <AlertCircle className="w-5 h-5 text-amber-400 shrink-0" />
                 <div>
-                  <p className="text-sm font-bold text-ink-ivory">
+                  <p className="text-xs font-bold text-white">
                     {needsVerification.length} prediction{needsVerification.length > 1 ? "s" : ""} need your confirmation
                   </p>
-                  <p className="text-xs text-ink-ivory-secondary font-mono">Window closed — did it happen?</p>
+                  <p className="text-[11px] text-[#9CA3AF] font-mono mt-0.5">Window closed — did it happen?</p>
                 </div>
               </div>
-              <Button size="sm" className="rounded-md shrink-0" onClick={() => setVerifyTarget(needsVerification[0])}>
+              <Button size="sm" className="rounded-xl shrink-0 bg-amber-500 text-black font-bold hover:bg-amber-400 font-mono text-xs cursor-pointer" onClick={() => setVerifyTarget(needsVerification[0])}>
                 Verify Now
               </Button>
             </motion.div>
@@ -96,8 +97,8 @@ export function Ledger() {
 
           {/* Needs verification */}
           {needsVerification.length > 0 && (
-            <section>
-              <h2 className="font-mono text-[10px] uppercase tracking-[0.16em] text-brand mb-4">
+            <section className="space-y-3">
+              <h2 className="font-mono text-[11px] uppercase tracking-wider text-amber-400 font-bold">
                 Needs Verification
               </h2>
               <div className="space-y-3">
@@ -116,9 +117,9 @@ export function Ledger() {
 
           {/* Active windows */}
           {active.length > 0 && (
-            <section>
-              <h2 className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#9CA3AF] mb-4">
-                Active Windows
+            <section className="space-y-3">
+              <h2 className="font-mono text-[11px] uppercase tracking-wider text-[#9CA3AF] font-bold">
+                Active Predictions
               </h2>
               <div className="space-y-3">
                 {active.map(p => (
@@ -132,8 +133,8 @@ export function Ledger() {
 
           {/* Verified */}
           {verified.length > 0 && (
-            <section>
-              <h2 className="font-mono text-[10px] uppercase tracking-[0.16em] text-emerald-400 mb-4">
+            <section className="space-y-3">
+              <h2 className="font-mono text-[11px] uppercase tracking-wider text-emerald-400 font-bold">
                 Verified Outcomes
               </h2>
               <div className="space-y-3">
@@ -151,25 +152,25 @@ export function Ledger() {
 
           {/* Empty CTA */}
           {predictions.length === 0 && (
-            <div className="text-center py-16 space-y-4">
-              <BookOpen className="w-10 h-10 text-brand mx-auto opacity-60" />
-              <h3 className="font-display text-xl text-ink-ivory">Your ledger is empty</h3>
-              <p className="text-sm text-ink-ivory-secondary max-w-sm mx-auto">
+            <div className="text-center py-16 space-y-4 bg-white/5 border border-white/10 rounded-2xl p-8">
+              <BookOpen className="w-10 h-10 text-amber-400 mx-auto opacity-80" />
+              <h3 className="text-base font-bold text-white">Your prediction ledger is empty</h3>
+              <p className="text-xs text-[#9CA3AF] max-w-sm mx-auto font-mono">
                 Book a consultation. Every prediction becomes a dated receipt you can verify later.
               </p>
-              <Button onClick={() => navigate("/app/consult")} className="rounded-md">
-                <Plus className="w-4 h-4" /> Book Consultation
+              <Button onClick={() => navigate("/app/match")} className="rounded-xl bg-amber-500 text-black font-bold font-mono text-xs">
+                <Plus className="w-4 h-4 mr-1" /> Book Consultation
               </Button>
             </div>
           )}
 
-          {/* Book consultation FAB area */}
-          <div className="pt-6 border-t border-ivory-border flex items-center justify-between">
-            <p className="text-xs text-ink-ivory-tertiary font-mono">
-              {stats.total} receipts · Leo Sun · Scorpio Ascendant
+          {/* Footer Area */}
+          <div className="pt-6 border-t border-white/10 flex items-center justify-between font-mono text-xs">
+            <p className="text-[#9CA3AF]">
+              {stats.total} receipts · {user.sunSign} Sun · {user.ascendant} Ascendant
             </p>
-            <Button size="sm" className="rounded-md font-mono" onClick={() => navigate("/app/consult")}>
-              <Plus className="w-4 h-4" /> New Consultation
+            <Button size="sm" className="rounded-xl bg-amber-500 text-black font-bold hover:bg-amber-400 font-mono text-xs cursor-pointer" onClick={() => navigate("/app/match")}>
+              <Plus className="w-4 h-4 mr-1" /> New Consultation
             </Button>
           </div>
         </div>

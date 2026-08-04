@@ -1,8 +1,6 @@
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { User, Calendar, Database, Shield, Bell, Palette, Link2, Info, RefreshCw, Save } from "lucide-react"
+import { User, Calendar, Shield, Info, RefreshCw, Save } from "lucide-react"
 import { Button } from "@/components/ui/Button"
-import { Badge } from "@/components/ui/Badge"
 import { Input } from "@/components/ui/Input"
 import { useUser } from "@/context/UserContext"
 import { cn } from "@/lib/utils"
@@ -19,7 +17,6 @@ type CategoryId = typeof categories[number]["id"]
 export function Settings() {
   const [active, setActive] = useState<CategoryId>("account")
   const { user, updateProfile, resetToDemo } = useUser()
-  const navigate = useNavigate()
 
   const [name, setName] = useState(user.name)
   const [email, setEmail] = useState(user.email)

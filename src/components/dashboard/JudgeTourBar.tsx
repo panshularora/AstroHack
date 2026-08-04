@@ -32,7 +32,7 @@ export function JudgeTourBar() {
 
   return (
     <>
-      <div className="bg-[#090A0F]/90 border border-white/10 rounded-2xl p-4 mb-6 shadow-xl backdrop-blur-xl space-y-3">
+      <div className="bg-[#090A0F]/90 border border-white/10 rounded-2xl p-4 mb-6 shadow-xl backdrop-blur-xl space-y-3 font-sans">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 shrink-0">
@@ -40,29 +40,29 @@ export function JudgeTourBar() {
             </div>
             <div>
               <p className="text-xs font-bold text-white flex items-center gap-2">
-                AstroLive 2.0 Product Story Suite
+                AstroLive 2.0 Product Walkthrough
                 <span className="font-mono text-[9px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
-                  Interactive Demo
+                  Interactive Astrology
                 </span>
               </p>
               <p className="text-[11px] text-[#9CA3AF]">
-                6-Stage Narrative Arc: Identity → Transits → Life Graph → Proof Vault
+                Explore: Kundli Identity → Planetary Transits → Life Graph → Document Vault
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center gap-2 shrink-0 font-mono">
             <button
               onClick={() => setLifestrandOpen(true)}
               className="px-3.5 py-1.5 bg-amber-500 text-black font-bold rounded-xl text-xs hover:bg-amber-400 transition-all flex items-center gap-1.5 shadow-md cursor-pointer"
             >
-              <Layers className="w-3.5 h-3.5" /> Spatial OS
+              <Layers className="w-3.5 h-3.5" /> 3D Kundli Canvas
             </button>
             <button
               onClick={() => setNarrativeOpen(true)}
               className="px-3.5 py-1.5 bg-white/5 hover:bg-white/10 border border-white/15 text-white font-bold rounded-xl text-xs transition-all flex items-center gap-1.5 cursor-pointer"
             >
-              <FileText className="w-3.5 h-3.5 text-amber-400" /> Thesis Deck
+              <FileText className="w-3.5 h-3.5 text-amber-400" /> Executive Pitch
             </button>
           </div>
         </div>
@@ -75,42 +75,42 @@ export function JudgeTourBar() {
             onClick={() => setTwinOpen(true)}
             className="px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg transition-all flex items-center gap-1.5 cursor-pointer"
           >
-            <Cpu className="w-3 h-3 text-amber-400" /> Digital Twin
+            <Cpu className="w-3 h-3 text-amber-400" /> Kundli Identity
           </button>
           
           <button
             onClick={() => setSimulatorOpen(true)}
             className="px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg transition-all flex items-center gap-1.5 cursor-pointer"
           >
-            <Activity className="w-3 h-3 text-cyan-400" /> Decision Simulator
+            <Activity className="w-3 h-3 text-cyan-400" /> Life Decision Calculator
           </button>
 
           <button
             onClick={() => setConfidenceOpen(true)}
             className="px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg transition-all flex items-center gap-1.5 cursor-pointer"
           >
-            <Target className="w-3 h-3 text-amber-400" /> Confidence Engine
+            <Target className="w-3 h-3 text-amber-400" /> Prediction Accuracy
           </button>
 
           <button
             onClick={() => setGraphOpen(true)}
             className="px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg transition-all flex items-center gap-1.5 cursor-pointer"
           >
-            <Layers className="w-3 h-3 text-emerald-400" /> Life Graph
+            <Layers className="w-3 h-3 text-emerald-400" /> Kundli Life Graph
           </button>
 
           <button
             onClick={() => setVaultOpen(true)}
             className="px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg transition-all flex items-center gap-1.5 cursor-pointer"
           >
-            <Shield className="w-3 h-3 text-cyan-400" /> Proof Vault
+            <Shield className="w-3 h-3 text-cyan-400" /> Document Vault
           </button>
 
           <button
             onClick={() => setCoachOpen(true)}
             className="px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg transition-all flex items-center gap-1.5 cursor-pointer"
           >
-            <Sparkles className="w-3 h-3 text-amber-400" /> AI Coach
+            <Sparkles className="w-3 h-3 text-amber-400" /> AI Astrology Coach
           </button>
         </div>
       </div>

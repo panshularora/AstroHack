@@ -26,20 +26,20 @@ import { useUser } from "@/context/UserContext"
 
 const primaryNavItems = [
   { path: "/app/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { path: "/app/companion", label: "AI Companion", icon: Bot, badge: "AI", badgeColor: "bg-cyan-500/20 text-cyan-300 border-cyan-500/30" },
-  { path: "/app/match", label: "Smart Match", icon: Sparkles, badge: "Live", badgeColor: "bg-amber-500/20 text-amber-300 border-amber-500/30" },
-  { path: "/app/predictions", label: "Prediction Center", icon: Target },
-  { path: "/app/memory", label: "Cosmic Memory", icon: Database },
-  { path: "/app/brief", label: "Daily Brief", icon: Calendar },
+  { path: "/app/companion", label: "AI Astrology Companion", icon: Bot, badge: "AI", badgeColor: "bg-cyan-500/20 text-cyan-300 border-cyan-500/30" },
+  { path: "/app/match", label: "36 Gunas Matchmaker", icon: Sparkles, badge: "Live", badgeColor: "bg-amber-500/20 text-amber-300 border-amber-500/30" },
+  { path: "/app/predictions", label: "Kundli Predictions", icon: Target },
+  { path: "/app/memory", label: "Past Consultations Archive", icon: Database },
+  { path: "/app/brief", label: "Daily Kundli Horoscope", icon: Calendar },
 ]
 
 const secondaryNavItems = [
-  { path: "/app/verified", label: "AstroVerified", icon: ShieldCheck },
-  { path: "/app/ledger", label: "Prediction Ledger", icon: BookOpen },
-  { path: "/app/relationship", label: "Relationship Mode", icon: Heart },
-  { path: "/app/journey", label: "Life Journey", icon: Activity },
-  { path: "/app/reports", label: "Reports Center", icon: FileText },
-  { path: "/app/sos", label: "Grounding SOS", icon: LifeBuoy, badge: "SOS", badgeColor: "bg-red-500/20 text-red-400 border-red-500/30" },
+  { path: "/app/verified", label: "Verified Astrologers", icon: ShieldCheck },
+  { path: "/app/ledger", label: "Verified Predictions", icon: BookOpen },
+  { path: "/app/relationship", label: "Kundli Compatibility", icon: Heart },
+  { path: "/app/journey", label: "Macro Dasha Timeline", icon: Activity },
+  { path: "/app/reports", label: "Astrology Reports", icon: FileText },
+  { path: "/app/sos", label: "Remedies & Peace Room", icon: LifeBuoy, badge: "Peace", badgeColor: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" },
 ]
 
 const utilityNavItems = [
@@ -73,7 +73,7 @@ export function Sidebar() {
                   2.0
                 </span>
               </span>
-              <span className="text-[10px] text-[#9CA3AF] font-mono tracking-widest uppercase font-semibold">Life OS</span>
+              <span className="text-[10px] text-[#9CA3AF] font-mono tracking-widest uppercase font-semibold">Vedic Astrology</span>
             </div>
           )}
         </Link>
@@ -93,7 +93,7 @@ export function Sidebar() {
         <div>
           {!collapsed && (
             <p className="px-3 mb-2 text-[10px] font-mono font-bold tracking-widest text-[#9CA3AF]/70 uppercase">
-              Core Operating Suite
+              Core Astrology Suite
             </p>
           )}
           <div className="space-y-0.5">
@@ -131,7 +131,7 @@ export function Sidebar() {
         <div>
           {!collapsed && (
             <p className="px-3 mb-2 text-[10px] font-mono font-bold tracking-widest text-[#9CA3AF]/70 uppercase">
-              Memory & Intelligence
+              Archives & Remedies
             </p>
           )}
           <div className="space-y-0.5">

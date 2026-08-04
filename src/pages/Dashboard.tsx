@@ -39,7 +39,7 @@ export function Dashboard() {
         <div className="lg:col-span-7 space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-lg font-bold text-white">Active Prediction Apertures for {user.name}</h3>
+              <h3 className="text-lg font-bold text-white">Active Predictions for {user.name}</h3>
               <p className="text-xs font-mono text-[#9CA3AF]">Tracked against real-world outcome documents</p>
             </div>
             <Button 
@@ -48,7 +48,7 @@ export function Dashboard() {
               className="text-xs font-mono border-white/20 text-white"
               onClick={() => navigate("/app/predictions")}
             >
-              View Ledger <ArrowRight className="w-3.5 h-3.5" />
+              View Predictions <ArrowRight className="w-3.5 h-3.5" />
             </Button>
           </div>
 

@@ -10,7 +10,7 @@ interface DashboardMetricCardsProps {
 export function DashboardMetricCards({ isLoading }: DashboardMetricCardsProps) {
   const metrics = [
     {
-      title: "Verified Accuracy Rate",
+      title: "Prediction Accuracy",
       value: "94.8%",
       trend: "+3.2% vs last month",
       icon: TrendingUp,
@@ -18,7 +18,7 @@ export function DashboardMetricCards({ isLoading }: DashboardMetricCardsProps) {
       color: "text-emerald-400"
     },
     {
-      title: "Active Aperture Window",
+      title: "Active Transit Window",
       value: "Aug 20–25",
       trend: "10th House Jupiter Trine",
       icon: Target,
@@ -34,7 +34,7 @@ export function DashboardMetricCards({ isLoading }: DashboardMetricCardsProps) {
       color: "text-cyan-400"
     },
     {
-      title: "Cosmic Document Vault",
+      title: "Encrypted Document Vault",
       value: "3 Encrypted PDFs",
       trend: "Offer Letter & Visa Synced",
       icon: ShieldCheck,

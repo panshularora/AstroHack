@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { useNavigate } from "react-router-dom"
-import { Sun, Shield, Sparkles, BookOpen, ArrowLeft, CheckCircle2, Flame, Play, Pause } from "lucide-react"
+import { Shield, Sparkles, ArrowLeft, CheckCircle2, Flame, Play, Pause } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { Badge } from "@/components/ui/Badge"
 import { useUser } from "@/context/UserContext"

@@ -1,20 +1,21 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useNavigate } from "react-router-dom"
-import { ArrowRight, ArrowLeft, Star, Shield, Compass, CheckCircle2, Zap } from "lucide-react"
+import { ArrowRight, ArrowLeft, Star, Shield, Compass, CheckCircle2, Zap, Briefcase, Heart, TrendingUp, Activity, GraduationCap } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { Badge } from "@/components/ui/Badge"
 import { AsyncConsultationModal } from "@/components/consultation/AsyncConsultationModal"
 import { mockAstrologers } from "@/lib/mock-data"
 import { cn } from "@/lib/utils"
+import { useUser } from "@/context/UserContext"
 
 const concerns = [
-  { id: "career", label: "Career & Tech Growth", icon: "💼", detail: "Jupiter 10th House transit focus" },
-  { id: "relationships", label: "Synastry & Marriage", icon: "💍", detail: "Kundli Matching & 7th House" },
-  { id: "finance", label: "Wealth & Investment", icon: "📈", detail: "Rahu Mahadasha financial timing" },
-  { id: "health", label: "Vitality & Energy", icon: "🌿", detail: "Ayurvedic planetary alignment" },
-  { id: "education", label: "Higher Studies & Abroad", icon: "🎓", detail: "9th House & Mercury strength" },
-  { id: "spirituality", label: "Life Path & Karma", icon: "☸️", detail: "Saturn Sade Sati & Moksha" },
+  { id: "career", label: "Career & Tech Growth", icon: Briefcase, detail: "Jupiter 10th House transit focus" },
+  { id: "relationships", label: "Synastry & Marriage", icon: Heart, detail: "Kundli Matching & 7th House" },
+  { id: "finance", label: "Wealth & Investment", icon: TrendingUp, detail: "Rahu Mahadasha financial timing" },
+  { id: "health", label: "Vitality & Energy", icon: Activity, detail: "Ayurvedic planetary alignment" },
+  { id: "education", label: "Higher Studies & Abroad", icon: GraduationCap, detail: "9th House & Mercury strength" },
+  { id: "spirituality", label: "Life Path & Karma", icon: Compass, detail: "Saturn Sade Sati & Moksha" },
 ]
 
 const budgets = [
@@ -29,38 +30,49 @@ export function SmartMatch() {
   const [budget, setBudget] = useState("b2")
   const [asyncModalOpen, setAsyncModalOpen] = useState(false)
   const navigate = useNavigate()
+  const { user } = useUser()
 
   const matches = mockAstrologers
 
   return (
-    <div className="page-container max-w-4xl pb-28">
+    <div className="page-container max-w-4xl pb-28 font-sans">
       {/* ── Header ─────────────────────────────────────────────── */}
-      <div className="mb-10 border-b border-line/60 pb-6">
+      <div className="mb-10 border-b border-white/10 pb-6">
         <button
           onClick={() => navigate(-1)}
-          className="flex items-center gap-1.5 font-mono text-[11px] text-ink-tertiary hover:text-ink transition-colors mb-5 group"
+          className="flex items-center gap-1.5 font-mono text-[11px] text-[#9CA3AF] hover:text-white transition-colors mb-5 group cursor-pointer"
         >
-          <svg className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" viewBox="0 0 16 16" fill="none">
-            <path d="M10 12L6 8l4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-          Back
+          <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" /> Back
         </button>
-        <div className="flex items-center gap-3 mb-2">
-          <div className="w-8 h-8 rounded-md bg-surface-2 border border-brand/30 flex items-center justify-center text-brand">
-            <Compass className="w-4 h-4 text-brand" />
+
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-2">
+              <h1 className="text-2xl font-bold font-display text-white">36 Gunas Astrologer Matchmaker</h1>
+              <Badge variant="gold" size="sm" className="font-mono">Vedic Matching</Badge>
+            </div>
+            <p className="text-xs font-mono text-[#9CA3AF] mt-1">
+              Select your consultation focus to match with top 1% verified astrologers.
+            </p>
           </div>
-          <p className="text-xs font-mono font-bold uppercase tracking-widest text-brand">AI Smart Matcher</p>
+
+          <Button
+            size="sm"
+            variant="outline"
+            className="rounded-xl border-amber-500/30 text-amber-300 font-mono text-xs hover:bg-amber-500/10 cursor-pointer"
+            onClick={() => setAsyncModalOpen(true)}
+          >
+            <Zap className="w-3.5 h-3.5 text-amber-400 mr-1" /> Ask Async Query (₹300)
+          </Button>
         </div>
-        <h1 className="text-h1 font-display text-ink tracking-tight">Match with Verified Vedic Experts</h1>
-        <p className="text-sm text-ink-secondary mt-1">Algorithmic matching based on your birth chart transits, Dasha cycles, and specific life questions.</p>
       </div>
 
-      {/* ── Progress Indicator ─────────────────────────────────── */}
-      <div className="flex items-center gap-2 mb-10">
-        {["1. Select Focus", "2. Choose Format", "3. Verified Matches"].map((label, idx) => (
+      {/* ── Progress Indicator ──────────────────────────────────── */}
+      <div className="grid grid-cols-3 gap-4 mb-8">
+        {["1. Select Focus", "2. Session Depth", "3. Verified Matches"].map((label, idx) => (
           <div key={label} className="flex-1 space-y-1.5">
-            <div className={cn("h-1 rounded-sm transition-all duration-300", idx <= step ? "bg-brand" : "bg-surface-3")} />
-            <p className={cn("text-[11px] font-mono font-semibold", idx <= step ? "text-ink" : "text-ink-tertiary")}>{label}</p>
+            <div className={cn("h-1 rounded-full transition-all duration-300", idx <= step ? "bg-amber-500" : "bg-white/10")} />
+            <p className={cn("text-[11px] font-mono font-semibold", idx <= step ? "text-white" : "text-[#9CA3AF]")}>{label}</p>
           </div>
         ))}
       </div>
@@ -71,30 +83,38 @@ export function SmartMatch() {
           {step === 0 && (
             <div className="space-y-6">
               <div>
-                <h2 className="text-h2 font-display text-ink">What is your primary consultation focus?</h2>
-                <p className="text-caption mt-1">We align your selection with active transits in Arjun's Kundli.</p>
+                <h2 className="text-lg font-bold text-white">What is your primary consultation focus?</h2>
+                <p className="text-xs text-[#9CA3AF] font-mono mt-1">We align your selection with active transits in {user.name}'s Kundli.</p>
               </div>
 
               <div className="grid sm:grid-cols-2 gap-4">
-                {concerns.map(c => (
-                  <div
-                    key={c.id}
-                    onClick={() => setConcern(c.id)}
-                    className={cn(
-                      "p-5 rounded-lg border cursor-pointer transition-all duration-150 relative space-y-2",
-                      concern === c.id
-                        ? "border-brand bg-surface-2 text-ink shadow-md"
-                        : "border-line bg-surface/50 text-ink-secondary hover:border-line-strong hover:bg-surface-2/40"
-                    )}
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="text-2xl">{c.icon}</span>
-                      {concern === c.id && <CheckCircle2 className="w-4 h-4 text-brand" />}
+                {concerns.map(c => {
+                  const IconComp = c.icon
+                  const isSelected = concern === c.id
+                  return (
+                    <div
+                      key={c.id}
+                      onClick={() => setConcern(c.id)}
+                      className={cn(
+                        "p-5 rounded-2xl border cursor-pointer transition-all duration-150 relative space-y-3",
+                        isSelected
+                          ? "border-amber-500 bg-white/10 text-white shadow-xl"
+                          : "border-white/10 bg-[#090A0F]/80 text-[#9CA3AF] hover:border-white/20 hover:text-white"
+                      )}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className={cn("w-9 h-9 rounded-xl flex items-center justify-center border", isSelected ? "bg-amber-500/20 border-amber-400 text-amber-300" : "bg-white/5 border-white/10 text-[#9CA3AF]")}>
+                          <IconComp className="w-5 h-5" />
+                        </div>
+                        {isSelected && <CheckCircle2 className="w-4 h-4 text-amber-400" />}
+                      </div>
+                      <div>
+                        <p className="text-sm font-bold text-white">{c.label}</p>
+                        <p className="text-xs font-mono text-[#9CA3AF] mt-0.5">{c.detail}</p>
+                      </div>
                     </div>
-                    <p className="text-body-sm font-bold text-ink">{c.label}</p>
-                    <p className="text-xs font-mono text-ink-tertiary">{c.detail}</p>
-                  </div>
-                ))}
+                  )
+                })}
               </div>
             </div>
           )}
@@ -102,8 +122,8 @@ export function SmartMatch() {
           {step === 1 && (
             <div className="space-y-6">
               <div>
-                <h2 className="text-h2 font-display text-ink">Select your preferred session depth</h2>
-                <p className="text-caption mt-1">All sessions include audio recording and verified transcript in Cosmic Memory.</p>
+                <h2 className="text-lg font-bold text-white">Select your preferred session depth</h2>
+                <p className="text-xs text-[#9CA3AF] font-mono mt-1">All sessions include audio recording and verified notes in Past Consultations Archive.</p>
               </div>
 
               <div className="space-y-4">
@@ -112,17 +132,17 @@ export function SmartMatch() {
                     key={b.id}
                     onClick={() => setBudget(b.id)}
                     className={cn(
-                      "p-5 rounded-lg border cursor-pointer transition-all duration-150 flex items-center justify-between",
+                      "p-5 rounded-2xl border cursor-pointer transition-all duration-150 flex items-center justify-between",
                       budget === b.id
-                        ? "border-brand bg-surface-2 text-ink shadow-md"
-                        : "border-line bg-surface/50 text-ink-secondary hover:border-line-strong hover:bg-surface-2/40"
+                        ? "border-amber-500 bg-white/10 text-white shadow-xl"
+                        : "border-white/10 bg-[#090A0F]/80 text-[#9CA3AF] hover:border-white/20 hover:text-white"
                     )}
                   >
                     <div>
-                      <p className="text-body-sm font-bold text-ink font-mono">{b.label}</p>
-                      <p className="text-caption mt-1">{b.detail}</p>
+                      <p className="text-sm font-bold text-white font-mono">{b.label}</p>
+                      <p className="text-xs font-mono text-[#9CA3AF] mt-0.5">{b.detail}</p>
                     </div>
-                    {budget === b.id && <CheckCircle2 className="w-5 h-5 text-brand shrink-0" />}
+                    {budget === b.id && <CheckCircle2 className="w-5 h-5 text-amber-400 shrink-0" />}
                   </div>
                 ))}
               </div>
@@ -132,51 +152,24 @@ export function SmartMatch() {
           {step === 2 && (
             <div className="space-y-6">
               <div>
-                <h2 className="text-h2 font-display text-ink">Top Verified Astrologer Matches</h2>
-                <p className="text-caption mt-1">Calculated from 94%+ verified accuracy records and Dasha compatibility.</p>
+                <h2 className="text-lg font-bold text-white">Top Verified Astrologer Matches</h2>
+                <p className="text-xs text-[#9CA3AF] font-mono mt-1">Calculated from 94%+ verified accuracy records and Dasha compatibility.</p>
               </div>
 
               <div className="space-y-4">
                 {matches.map((a) => (
-                  <div
-                    key={a.id}
-                    onClick={() => navigate(`/app/astrologer/${a.id}`)}
-                    className="p-5 rounded-lg bg-surface border border-line hover:border-brand/40 shadow-xs transition-all duration-150 cursor-pointer flex flex-col md:flex-row items-start md:items-center justify-between gap-5"
-                  >
+                  <div key={a.id} className="p-5 rounded-2xl bg-[#090A0F] border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-md bg-surface-2 border border-brand/30 text-brand flex items-center justify-center font-mono font-bold text-sm shrink-0">
-                        {a.name.slice(0, 2).toUpperCase()}
-                      </div>
+                      <img src={a.avatar} alt={a.name} className="w-14 h-14 rounded-2xl object-cover border border-amber-500/30" />
                       <div>
-                        <div className="flex items-center gap-2">
-                          <p className="text-body font-bold text-ink">{a.name}</p>
-                          {a.trustScore >= 95 && <Shield className="w-4 h-4 text-success shrink-0" />}
-                        </div>
-                        <p className="text-caption mt-0.5">{a.specialties.join(" · ")} · {a.yearsExperience}y experience</p>
-                        <div className="flex items-center gap-3 mt-2 text-xs font-mono">
-                          <span className="text-gold-bright font-bold flex items-center gap-1">
-                            <Star className="w-3.5 h-3.5 fill-gold-bright text-gold-bright" /> {a.rating}
-                          </span>
-                          <span className="text-ink-tertiary">({a.consultationCount} sessions)</span>
-                          <Badge variant="success" size="sm">{a.verifiedAccuracy}% Accuracy</Badge>
-                        </div>
+                        <h3 className="text-sm font-bold text-white">{a.name}</h3>
+                        <p className="text-xs font-mono text-amber-400">{a.specialty}</p>
+                        <p className="text-[11px] font-mono text-[#9CA3AF] mt-0.5">{a.experienceYears} Years Exp · {a.rating} ★ ({a.reviewCount} reviews)</p>
                       </div>
                     </div>
-
-                    <div className="flex flex-wrap items-center gap-3 w-full md:w-auto justify-between md:justify-end pt-3 md:pt-0 border-t md:border-t-0 border-line/60">
-                      <div className="text-right">
-                        <p className="text-base font-bold font-mono text-ink">₹{a.pricePerMinute * 45}</p>
-                        <p className="text-[10px] font-mono text-ink-tertiary">45 min live</p>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Button size="sm" variant="outline" className="font-mono text-xs border-emerald-500/30 text-emerald-400" onClick={e => { e.stopPropagation(); setAsyncModalOpen(true) }}>
-                          <Zap className="w-3.5 h-3.5 text-emerald-400" /> Async (₹49)
-                        </Button>
-                        <Button size="sm" className="font-mono font-bold" onClick={e => { e.stopPropagation(); navigate(`/app/room/${a.id}`) }}>
-                          Connect Live Session
-                        </Button>
-                      </div>
-                    </div>
+                    <Button size="sm" className="bg-amber-500 text-black font-bold hover:bg-amber-400 rounded-xl font-mono text-xs" onClick={() => navigate(`/app/astrologer/${a.id}`)}>
+                      Book Session
+                    </Button>
                   </div>
                 ))}
               </div>
@@ -185,21 +178,33 @@ export function SmartMatch() {
         </motion.div>
       </AnimatePresence>
 
-      {/* ── Navigation Buttons ──────────────────────────────────── */}
-      <div className="flex items-center justify-between mt-10 pt-6 border-t border-line/60">
-        {step > 0 ? (
-          <Button variant="outline" size="sm" onClick={() => setStep(step - 1)}>
-            <ArrowLeft className="w-4 h-4" /> Back
-          </Button>
-        ) : <div />}
+      {/* ── Footer Navigation Controls ─────────────────────────── */}
+      <div className="mt-8 pt-6 border-t border-white/10 flex items-center justify-between">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => setStep(prev => prev - 1)}
+          disabled={step === 0}
+          className="rounded-xl border-white/10 text-white font-mono text-xs"
+        >
+          Previous Step
+        </Button>
 
         {step < 2 ? (
-          <Button size="sm" onClick={() => setStep(step + 1)}>
-            View Verified Matches <ArrowRight className="w-4 h-4" />
+          <Button
+            size="sm"
+            onClick={() => setStep(prev => prev + 1)}
+            className="bg-amber-500 text-black font-bold hover:bg-amber-400 rounded-xl font-mono text-xs"
+          >
+            Next Step <ArrowRight className="w-3.5 h-3.5 ml-1" />
           </Button>
         ) : (
-          <Button variant="outline" size="sm" onClick={() => navigate("/app/verified")}>
-            Browse All Astrologers
+          <Button
+            size="sm"
+            onClick={() => navigate("/app/dashboard")}
+            className="bg-amber-500 text-black font-bold hover:bg-amber-400 rounded-xl font-mono text-xs"
+          >
+            Return to Dashboard
           </Button>
         )}
       </div>

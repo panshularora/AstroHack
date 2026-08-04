@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useNavigate } from "react-router-dom"
-import { ArrowRight, ArrowLeft, Star, Shield, Compass, CheckCircle2, Zap, Briefcase, Heart, TrendingUp, Activity, GraduationCap } from "lucide-react"
+import { ArrowRight, ArrowLeft, Compass, CheckCircle2, Zap, Briefcase, Heart, TrendingUp, Activity, GraduationCap } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { Badge } from "@/components/ui/Badge"
 import { AsyncConsultationModal } from "@/components/consultation/AsyncConsultationModal"
@@ -163,8 +163,8 @@ export function SmartMatch() {
                       <img src={a.avatar} alt={a.name} className="w-14 h-14 rounded-2xl object-cover border border-amber-500/30" />
                       <div>
                         <h3 className="text-sm font-bold text-white">{a.name}</h3>
-                        <p className="text-xs font-mono text-amber-400">{a.specialty}</p>
-                        <p className="text-[11px] font-mono text-[#9CA3AF] mt-0.5">{a.experienceYears} Years Exp · {a.rating} ★ ({a.reviewCount} reviews)</p>
+                        <p className="text-xs font-mono text-amber-400">{Array.isArray(a.specialties) ? a.specialties.join(" · ") : "Vedic Astrology"}</p>
+                        <p className="text-[11px] font-mono text-[#9CA3AF] mt-0.5">{a.yearsExperience || 10} Years Exp · {a.rating} ★ ({a.consultationCount || 100} reviews)</p>
                       </div>
                     </div>
                     <Button size="sm" className="bg-amber-500 text-black font-bold hover:bg-amber-400 rounded-xl font-mono text-xs" onClick={() => navigate(`/app/astrologer/${a.id}`)}>

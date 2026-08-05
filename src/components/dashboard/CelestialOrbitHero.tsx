@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { ArrowRight, Target, Sun } from "lucide-react"
+import { ArrowRight, Target, Sun, Compass, Sparkles, Activity } from "lucide-react"
 import { Badge } from "@/components/ui/Badge"
 import { Button } from "@/components/ui/Button"
 import { useNavigate } from "react-router-dom"
@@ -17,6 +17,7 @@ interface Planet {
   radius: number
   details: string
   transitStrength: number
+  icon: typeof Sun
 }
 
 export function CelestialOrbitHero() {
@@ -32,10 +33,11 @@ export function CelestialOrbitHero() {
       house: "1st House",
       status: "Natal Ruler",
       color: "#F59E0B",
-      angle: 45,
-      radius: 75,
+      angle: 35,
+      radius: 100,
       details: `Natal Sun at 14° ${user.sunSign} forms a 120° trine alignment during ${user.activeDasha}.`,
-      transitStrength: 94
+      transitStrength: 94,
+      icon: Sun
     },
     {
       id: "jupiter",
@@ -44,10 +46,11 @@ export function CelestialOrbitHero() {
       house: user.transitHouse || "10th House",
       status: "Active Transit Window",
       color: "#F59E0B",
-      angle: 165,
-      radius: 115,
+      angle: 160,
+      radius: 135,
       details: `Transiting ${user.transitPlanet || "Jupiter"} in your ${user.transitHouse || "10th House"} opens a high-momentum career aperture (92% Verified Confidence).`,
-      transitStrength: 92
+      transitStrength: 92,
+      icon: Target
     },
     {
       id: "venus",
@@ -56,10 +59,11 @@ export function CelestialOrbitHero() {
       house: "12th House",
       status: "Remedy Active",
       color: "#EC4899",
-      angle: 255,
-      radius: 145,
+      angle: 265,
+      radius: 165,
       details: "12th House placement balanced via daily Venus Beej Mantra recitations at sunrise.",
-      transitStrength: 86
+      transitStrength: 86,
+      icon: Sparkles
     },
     {
       id: "mercury",
@@ -69,9 +73,10 @@ export function CelestialOrbitHero() {
       status: "Direct Motion",
       color: "#38BDF8",
       angle: 330,
-      radius: 175,
+      radius: 190,
       details: "Stationary direct motion accelerates negotiations and personal decision clarity.",
-      transitStrength: 90
+      transitStrength: 90,
+      icon: Activity
     }
   ]
 
@@ -86,6 +91,7 @@ export function CelestialOrbitHero() {
   }
 
   const centerInfo = getCenterLabel()
+  const SelectedIcon = selectedPlanet.icon
 
   return (
     <div className="relative rounded-2xl bg-[#090A0F] border border-white/10 p-6 sm:p-8 shadow-2xl overflow-hidden backdrop-blur-xl font-sans">
@@ -143,7 +149,7 @@ export function CelestialOrbitHero() {
               <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-2 backdrop-blur-md">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Sun className="w-4 h-4 text-amber-400" />
+                    <SelectedIcon className="w-4 h-4 text-amber-400" />
                     <span className="text-xs font-bold text-white">{selectedPlanet.name} ({selectedPlanet.status})</span>
                   </div>
                   <Badge className="bg-amber-500/10 text-amber-300 border-amber-500/20 text-[10px] font-mono font-bold">
@@ -175,8 +181,8 @@ export function CelestialOrbitHero() {
         </div>
 
         {/* Right Column: Interactive SVG Orbital System */}
-        <div className="lg:col-span-6 flex items-center justify-center relative min-h-[340px]">
-          <div className="relative w-[320px] h-[320px] sm:w-[360px] sm:h-[360px] flex items-center justify-center">
+        <div className="lg:col-span-6 flex items-center justify-center relative min-h-[380px]">
+          <div className="relative w-[340px] h-[340px] sm:w-[380px] sm:h-[380px] flex items-center justify-center">
             
             {/* SVG Orbit Lines & Rays */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 400 400">

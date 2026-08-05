@@ -42,7 +42,7 @@ export function CosmicMemory() {
             </div>
             <h1 className="text-h1 font-display text-ink tracking-tight">Cosmic Memory Vault</h1>
             <p className="text-sm text-ink-secondary mt-1">
-              Immutable archive of Arjun's consultations, verified predictions, remedies, and journal notes.
+              Immutable archive of {user.name}'s consultations, verified predictions, remedies, and journal notes.
             </p>
           </div>
           <Button size="sm" variant="outline" className="rounded-md font-mono border-blue-500/30 text-blue-400 gap-2 shrink-0" onClick={() => setVaultOpen(true)}>

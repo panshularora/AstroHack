@@ -34,9 +34,9 @@ export function OnboardingOrchestrator() {
   const { createNewUser } = useUser()
   const [currentStep, setCurrentStep] = useState(0)
   const [data, setData] = useState<OnboardingData>({
-    name: 'New Celestial Member',
-    email: 'user@astrolive.io',
-    phone: '+1 (555) 019-2831',
+    name: '',
+    email: '',
+    phone: '',
     dob: '1996-03-21',
     birthTime: '12:00',
     birthPlace: 'New York, USA',

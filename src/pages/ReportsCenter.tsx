@@ -34,7 +34,7 @@ export function ReportsCenter() {
           </div>
           <h1 className="text-h1 font-display text-ink tracking-tight">Cosmic Life Reports</h1>
           <p className="text-sm text-ink-secondary mt-1">
-            Visualized intelligence synthesizing Arjun's transit history, prediction outcomes, and mental clarity.
+            Visualized intelligence synthesizing {user.name}'s transit history, prediction outcomes, and mental clarity.
           </p>
         </div>
 
@@ -73,7 +73,7 @@ export function ReportsCenter() {
                 <Sparkles className="w-4.5 h-4.5 text-brand" />
                 <div>
                   <h3 className="text-body font-bold text-ink">Synthesis & Key Guidance</h3>
-                  <p className="text-caption font-mono mt-0.5">{period} Report · Arjun Sharma</p>
+                  <p className="text-caption font-mono mt-0.5">{period} Report · {user.name}</p>
                 </div>
               </div>
               <p className="text-xs text-ink-secondary leading-relaxed font-sans">

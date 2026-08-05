@@ -48,8 +48,9 @@ export function LiveConsultationRoom() {
   const [videoActive, setVideoActive] = useState(true)
   const [cameraError, setCameraError] = useState(false)
   const [selectedReceipts, setSelectedReceipts] = useState<Set<number>>(new Set([0, 2]))
+  const { user } = useUser()
   const [chatMessages, setChatMessages] = useState<Array<{ sender: string; text: string; time: string }>>([
-    { sender: astrologer.name, text: "Namaste Arjun! I have opened your Kundli. Your 10th House Jupiter transit is active today.", time: "10:00 AM" }
+    { sender: astrologer.name, text: `Namaste ${user.name}! I have opened your Kundli. Your ${user.transitHouse || "10th House"} ${user.transitPlanet || "Jupiter"} transit is active today.`, time: "10:00 AM" }
   ])
   const [chatInput, setChatInput] = useState("")
 

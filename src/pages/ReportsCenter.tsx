@@ -6,11 +6,13 @@ import { Badge } from "@/components/ui/Badge"
 import { Tabs } from "@/components/ui/Tabs"
 import { Progress } from "@/components/ui/Progress"
 import { mockReportData } from "@/lib/mock-data"
+import { useUser } from "@/context/UserContext"
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts"
 
 type Period = "Weekly" | "Monthly" | "Quarterly" | "Annual (Wrapped)"
 
 export function ReportsCenter() {
+  const { user } = useUser()
   const [period, setPeriod] = useState<Period>("Annual (Wrapped)")
   const [isExporting, setIsExporting] = useState(false)
 

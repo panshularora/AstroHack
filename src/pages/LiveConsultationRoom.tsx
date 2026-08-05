@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/Button"
 import { Badge } from "@/components/ui/Badge"
 import { mockAstrologers } from "@/lib/mock-data"
 import { useLedger, type ExtractedReceipt } from "@/context/LedgerContext"
+import { useUser } from "@/context/UserContext"
 import { cn } from "@/lib/utils"
 
 const EXTRACTED_RECEIPTS: Omit<ExtractedReceipt, "id" | "astrologerName">[] = [

@@ -7,9 +7,11 @@ import { CosmicVaultModal } from "@/components/vault/CosmicVaultModal"
 import { Badge } from "@/components/ui/Badge"
 import { Input } from "@/components/ui/Input"
 import { mockTimelineEvents, mockJournalEntries, mockMemoryStats } from "@/lib/mock-data"
+import { useUser } from "@/context/UserContext"
 
 export function CosmicMemory() {
   const navigate = useNavigate()
+  const { user } = useUser()
   const [search, setSearch] = useState("")
   const [vaultOpen, setVaultOpen] = useState(false)
 

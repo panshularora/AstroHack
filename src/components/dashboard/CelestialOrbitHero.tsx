@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ArrowRight, Target, Sun, Sparkles, Activity } from "lucide-react"
 import { Badge } from "@/components/ui/Badge"
@@ -25,62 +25,184 @@ export function CelestialOrbitHero() {
   const { user } = useUser()
   const [centerMode, setCenterMode] = useState<"sun" | "lagna" | "moon">("sun")
 
-  const PLANETS: Planet[] = [
-    {
-      id: "sun",
-      name: "Sun",
-      sign: `${user.sunSign} 14°`,
-      house: "1st House",
-      status: "Natal Ruler",
-      color: "#F59E0B",
-      angle: 35,
-      radius: 100,
-      details: `Natal Sun at 14° ${user.sunSign} forms a 120° trine alignment during ${user.activeDasha}.`,
-      transitStrength: 94,
-      icon: Sun
-    },
-    {
-      id: "jupiter",
-      name: user.transitPlanet || "Jupiter",
-      sign: `${user.sunSign} Trine`,
-      house: user.transitHouse || "10th House",
-      status: "Active Transit Window",
-      color: "#F59E0B",
-      angle: 160,
-      radius: 135,
-      details: `Transiting ${user.transitPlanet || "Jupiter"} in your ${user.transitHouse || "10th House"} opens a high-momentum career aperture (92% Verified Confidence).`,
-      transitStrength: 92,
-      icon: Target
-    },
-    {
-      id: "venus",
-      name: "Venus",
-      sign: "Cancer 08°",
-      house: "12th House",
-      status: "Remedy Active",
-      color: "#EC4899",
-      angle: 265,
-      radius: 165,
-      details: "12th House placement balanced via daily Venus Beej Mantra recitations at sunrise.",
-      transitStrength: 86,
-      icon: Sparkles
-    },
-    {
-      id: "mercury",
-      name: "Mercury",
-      sign: `${user.sunSign} 02°`,
-      house: "1st House",
-      status: "Direct Motion",
-      color: "#38BDF8",
-      angle: 330,
-      radius: 190,
-      details: "Stationary direct motion accelerates negotiations and personal decision clarity.",
-      transitStrength: 90,
-      icon: Activity
+  // Dynamically recalculate planet placements based on focal point (Surya / Lagna / Chandra Kundli)
+  const PLANETS: Planet[] = useMemo(() => {
+    if (centerMode === "lagna") {
+      return [
+        {
+          id: "sun",
+          name: "Sun",
+          sign: `${user.sunSign} 14°`,
+          house: "10th House",
+          status: "Ascendant Ruler",
+          color: "#F59E0B",
+          angle: 45,
+          radius: 100,
+          details: `In Lagna Kundli (${user.ascendant} Ascendant), Sun in 10th House reinforces executive authority & public standing.`,
+          transitStrength: 96,
+          icon: Sun
+        },
+        {
+          id: "jupiter",
+          name: user.transitPlanet || "Jupiter",
+          sign: "Taurus 12°",
+          house: "7th House",
+          status: "Partnership Window",
+          color: "#F59E0B",
+          angle: 210,
+          radius: 135,
+          details: `Transiting Jupiter in 7th House enhances partnership synastry, key contracts, & high-trust alignment.`,
+          transitStrength: 92,
+          icon: Target
+        },
+        {
+          id: "venus",
+          name: "Venus",
+          sign: "Cancer 08°",
+          house: "9th House",
+          status: "Fortune Transit",
+          color: "#EC4899",
+          angle: 300,
+          radius: 165,
+          details: "Venus in 9th House activates dharmic fortune, higher mentorship, & spiritual harmony.",
+          transitStrength: 88,
+          icon: Sparkles
+        },
+        {
+          id: "mercury",
+          name: "Mercury",
+          sign: `${user.sunSign} 02°`,
+          house: "10th House",
+          status: "Direct Motion",
+          color: "#38BDF8",
+          angle: 120,
+          radius: 190,
+          details: "Mercury in 10th House accelerates strategic negotiation clarity & executive communication.",
+          transitStrength: 94,
+          icon: Activity
+        }
+      ]
     }
-  ]
 
-  const [selectedPlanet, setSelectedPlanet] = useState<Planet>(PLANETS[1])
+    if (centerMode === "moon") {
+      return [
+        {
+          id: "sun",
+          name: "Sun",
+          sign: `${user.sunSign} 14°`,
+          house: "4th House",
+          status: "Inner Power",
+          color: "#F59E0B",
+          angle: 285,
+          radius: 100,
+          details: `In Chandra Kundli (Taurus Moon), Sun in 4th House grounds core emotional stability & ancestral strength.`,
+          transitStrength: 90,
+          icon: Sun
+        },
+        {
+          id: "jupiter",
+          name: user.transitPlanet || "Jupiter",
+          sign: "Taurus 12°",
+          house: "1st House",
+          status: "Exalted Chandra-Guru",
+          color: "#F59E0B",
+          angle: 15,
+          radius: 135,
+          details: `Chandra-Guru alignment in 1st House boosts intuitive clarity, optimism, & long-term decision stamina.`,
+          transitStrength: 98,
+          icon: Target
+        },
+        {
+          id: "venus",
+          name: "Venus",
+          sign: "Cancer 08°",
+          house: "3rd House",
+          status: "Creative Drive",
+          color: "#EC4899",
+          angle: 195,
+          radius: 165,
+          details: "Venus in 3rd House elevates artistic output, negotiation charm, & peer collaboration.",
+          transitStrength: 85,
+          icon: Sparkles
+        },
+        {
+          id: "mercury",
+          name: "Mercury",
+          sign: `${user.sunSign} 02°`,
+          house: "4th House",
+          status: "Mental Peace",
+          color: "#38BDF8",
+          angle: 75,
+          radius: 190,
+          details: "Mercury in 4th House provides deep mental clarity for domestic investments & personal peace.",
+          transitStrength: 89,
+          icon: Activity
+        }
+      ]
+    }
+
+    // Default: SUN Mode (Surya Kundli)
+    return [
+      {
+        id: "sun",
+        name: "Sun",
+        sign: `${user.sunSign} 14°`,
+        house: "1st House",
+        status: "Natal Ruler",
+        color: "#F59E0B",
+        angle: 35,
+        radius: 100,
+        details: `Natal Sun at 14° ${user.sunSign} forms a 120° trine alignment during ${user.activeDasha}.`,
+        transitStrength: 94,
+        icon: Sun
+      },
+      {
+        id: "jupiter",
+        name: user.transitPlanet || "Jupiter",
+        sign: `${user.sunSign} Trine`,
+        house: user.transitHouse || "10th House",
+        status: "Active Transit Window",
+        color: "#F59E0B",
+        angle: 160,
+        radius: 135,
+        details: `Transiting ${user.transitPlanet || "Jupiter"} in your ${user.transitHouse || "10th House"} opens a high-momentum career aperture (92% Verified Confidence).`,
+        transitStrength: 92,
+        icon: Target
+      },
+      {
+        id: "venus",
+        name: "Venus",
+        sign: "Cancer 08°",
+        house: "12th House",
+        status: "Remedy Active",
+        color: "#EC4899",
+        angle: 265,
+        radius: 165,
+        details: "12th House placement balanced via daily Venus Beej Mantra recitations at sunrise.",
+        transitStrength: 86,
+        icon: Sparkles
+      },
+      {
+        id: "mercury",
+        name: "Mercury",
+        sign: `${user.sunSign} 02°`,
+        house: "1st House",
+        status: "Direct Motion",
+        color: "#38BDF8",
+        angle: 330,
+        radius: 190,
+        details: "Stationary direct motion accelerates negotiations and personal decision clarity.",
+        transitStrength: 90,
+        icon: Activity
+      }
+    ]
+  }, [centerMode, user])
+
+  const [selectedId, setSelectedId] = useState<string>("jupiter")
+
+  const selectedPlanet = useMemo(() => {
+    return PLANETS.find(p => p.id === selectedId) || PLANETS[1]
+  }, [PLANETS, selectedId])
 
   const getCenterLabel = () => {
     switch (centerMode) {
@@ -104,7 +226,7 @@ export function CelestialOrbitHero() {
         
         {/* Left Column: Contextual Overview & Dynamic Planet State */}
         <div className="lg:col-span-6 space-y-5 text-left">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <span className="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-mono font-bold flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
               Active Transit Focus
@@ -116,8 +238,8 @@ export function CelestialOrbitHero() {
                 <button
                   key={mode}
                   onClick={() => setCenterMode(mode)}
-                  className={`px-2.5 py-0.5 rounded-full font-bold uppercase transition-all cursor-pointer ${
-                    centerMode === mode ? "bg-amber-500 text-black shadow-sm" : "text-[#9CA3AF] hover:text-white"
+                  className={`px-3 py-1 rounded-full font-bold uppercase transition-all cursor-pointer ${
+                    centerMode === mode ? "bg-amber-500 text-black shadow-md" : "text-[#9CA3AF] hover:text-white"
                   }`}
                 >
                   {mode}
@@ -128,7 +250,7 @@ export function CelestialOrbitHero() {
 
           <AnimatePresence mode="wait">
             <motion.div
-              key={selectedPlanet.id}
+              key={`${centerMode}-${selectedPlanet.id}`}
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
@@ -141,7 +263,7 @@ export function CelestialOrbitHero() {
                   <span className="text-amber-400 text-lg font-mono font-normal">({selectedPlanet.transitStrength}% Confidence)</span>
                 </h1>
                 <p className="text-xs font-mono text-[#9CA3AF] mt-1 uppercase tracking-wider">
-                  Natal Chart Focal: {user.sunSign} Sun · {user.ascendant} Ascendant · {user.activeDasha}
+                  {centerMode.toUpperCase()} Focal Chart · {user.sunSign} Sun · {user.ascendant} Ascendant · {user.activeDasha}
                 </p>
               </div>
 
@@ -244,7 +366,7 @@ export function CelestialOrbitHero() {
               return (
                 <motion.button
                   key={p.id}
-                  onClick={() => setSelectedPlanet(p)}
+                  onClick={() => setSelectedId(p.id)}
                   whileHover={{ scale: 1.15 }}
                   style={{ transform: `translate(${x}px, ${y}px)` }}
                   className={`absolute z-20 px-3 py-1.5 rounded-xl border text-xs font-mono font-bold transition-all cursor-pointer shadow-lg flex items-center gap-1.5 ${

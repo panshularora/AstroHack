@@ -32,6 +32,10 @@ export interface UserProfileData {
   }>
 }
 
+export interface UserAccountRecord extends UserProfileData {
+  passwordHash?: string
+}
+
 export function calculateZodiac(dob: string): { sunSign: string; ascendant: string; activeDasha: string; transitPlanet: string; transitHouse: string } {
   if (!dob) {
     return {
@@ -44,9 +48,9 @@ export function calculateZodiac(dob: string): { sunSign: string; ascendant: stri
   }
 
   const [yearStr, monthStr, dayStr] = dob.split("-")
-  const month = parseInt(monthStr, 10)
-  const day = parseInt(dayStr, 10)
-  const year = parseInt(yearStr, 10)
+  const month = parseInt(monthStr, 10) || 8
+  const day = parseInt(dayStr, 10) || 15
+  const year = parseInt(yearStr, 10) || 1994
 
   let sunSign = "Leo"
   if ((month === 1 && day >= 20) || (month === 2 && day <= 18)) sunSign = "Aquarius"
@@ -62,12 +66,10 @@ export function calculateZodiac(dob: string): { sunSign: string; ascendant: stri
   else if ((month === 11 && day >= 22) || (month === 12 && day <= 21)) sunSign = "Sagittarius"
   else if ((month === 12 && day >= 22) || (month === 1 && day <= 19)) sunSign = "Capricorn"
 
-  // Ascendants matrix based on birth hour/day
   const ascendants = ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"]
   const ascendant = ascendants[(day + month) % 12]
 
-  // Dasha calculation based on year
-  const dashas = ["Jupiter-Venus Mahadasha", "Rahu-Jupiter Mahadasha", "Saturn-Mercury Mahadasha", "Sun-Mars Mahadasha", "Moon-Rahu Mahadasha"]
+  const dashas = ["Jupiter-Venus Dasha", "Rahu-Jupiter Dasha", "Saturn-Mercury Dasha", "Sun-Mars Dasha", "Moon-Rahu Dasha"]
   const activeDasha = dashas[year % dashas.length]
 
   const planets = ["Jupiter", "Venus", "Mars", "Saturn", "Mercury"]
@@ -79,16 +81,16 @@ export function calculateZodiac(dob: string): { sunSign: string; ascendant: stri
   return { sunSign, ascendant, activeDasha, transitPlanet, transitHouse }
 }
 
-const DEFAULT_DEMO_USER: UserProfileData = {
+export const DEFAULT_DEMO_USER: UserProfileData = {
   id: "u1",
   name: "Arjun Sharma",
-  email: "arjun@astrolive.io",
+  email: "arjun.sharma@example.com",
   dob: "1994-08-14",
   timeOfBirth: "08:30",
   placeOfBirth: "New Delhi, India",
   sunSign: "Leo",
   ascendant: "Scorpio",
-  activeDasha: "Rahu-Jupiter Mahadasha",
+  activeDasha: "Rahu-Jupiter Dasha",
   transitPlanet: "Jupiter",
   transitHouse: "10th House",
   avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
@@ -104,11 +106,27 @@ const DEFAULT_DEMO_USER: UserProfileData = {
   ]
 }
 
+// Helper to get local user database
+function getUserDatabase(): UserAccountRecord[] {
+  try {
+    const saved = localStorage.getItem("astrolive_user_db")
+    return saved ? JSON.parse(saved) : []
+  } catch {
+    return []
+  }
+}
+
+// Helper to save user database
+function saveUserDatabase(db: UserAccountRecord[]) {
+  localStorage.setItem("astrolive_user_db", JSON.stringify(db))
+}
+
 interface UserContextType {
   user: UserProfileData
   updateProfile: (updates: Partial<UserProfileData>) => void
   resetToDemo: () => void
-  createNewUser: (name: string, email: string, dob: string, time: string, place: string) => void
+  createNewUser: (name: string, email: string, password?: string, dob?: string, time?: string, place?: string) => void
+  loginUser: (email: string, password?: string) => boolean
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined)
@@ -134,65 +152,88 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     setUser(prev => {
       const nextDob = updates.dob || prev.dob
       const calc = calculateZodiac(nextDob)
-      return {
+      const updatedUser = {
         ...prev,
         ...updates,
         ...calc
       }
+
+      // Sync updated user back into the user database if registered
+      const db = getUserDatabase()
+      const index = db.findIndex(u => u.email.toLowerCase() === prev.email.toLowerCase())
+      if (index !== -1) {
+        db[index] = { ...db[index], ...updatedUser }
+        saveUserDatabase(db)
+      }
+
+      return updatedUser
     })
   }
 
   const resetToDemo = () => {
     setUser(DEFAULT_DEMO_USER)
-    localStorage.removeItem("astrolive_active_user")
+    localStorage.setItem("astrolive_active_user", JSON.stringify(DEFAULT_DEMO_USER))
   }
 
-  const createNewUser = (name: string, email: string, dob: string, time: string, place: string) => {
+  const createNewUser = (name: string, email: string, password = "", dob = "1998-05-15", time = "08:30", place = "New Delhi, India") => {
     const calc = calculateZodiac(dob)
-    const newUser: UserProfileData = {
+    const newUser: UserAccountRecord = {
       id: `user-${Date.now()}`,
-      name,
-      email,
+      name: name || "User",
+      email: email.toLowerCase(),
+      passwordHash: password,
       dob,
-      timeOfBirth: time || "12:00",
-      placeOfBirth: place || "New York, USA",
+      timeOfBirth: time,
+      placeOfBirth: place,
       ...calc,
       avatar: `https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=300&q=80`,
       memberSince: "Just Now",
-      predictions: [
-        {
-          id: `p-${Date.now()}-1`,
-          title: `${calc.transitPlanet} ${calc.transitHouse} Breakthrough`,
-          category: "CAREER",
-          confidence: 85,
-          status: "Active Window",
-          astrologerName: "Guruji Vikram Sharma"
-        },
-        {
-          id: `p-${Date.now()}-2`,
-          title: `${calc.sunSign} Sun Alignment Outcome`,
-          category: "FINANCE",
-          confidence: 90,
-          status: "Active Window",
-          astrologerName: "Elena Rostova"
-        }
-      ],
-      consultations: [
-        {
-          id: `c-${Date.now()}-1`,
-          astrologerName: "Guruji Vikram Sharma",
-          topic: `Initial ${calc.sunSign} Kundli Reading`,
-          date: "Today",
-          durationMinutes: 30,
-          cost: 500
-        }
-      ]
+      predictions: [], // Clean empty array for new accounts
+      consultations: [] // Clean empty array for new accounts
     }
+
+    // Save to local user database
+    const db = getUserDatabase()
+    const existingIndex = db.findIndex(u => u.email.toLowerCase() === email.toLowerCase())
+    if (existingIndex !== -1) {
+      db[existingIndex] = newUser
+    } else {
+      db.push(newUser)
+    }
+    saveUserDatabase(db)
+
     setUser(newUser)
+    localStorage.setItem("astrolive_active_user", JSON.stringify(newUser))
+  }
+
+  const loginUser = (email: string, password = ""): boolean => {
+    const cleanEmail = email.toLowerCase().trim()
+
+    // If demo account email
+    if (cleanEmail === "arjun.sharma@example.com" || cleanEmail === "arjun@astrolive.io") {
+      resetToDemo()
+      return true
+    }
+
+    // Check local database for matching account
+    const db = getUserDatabase()
+    const account = db.find(u => u.email.toLowerCase() === cleanEmail)
+
+    if (account) {
+      // Verify password if set
+      if (account.passwordHash && password && account.passwordHash !== password) {
+        return false
+      }
+      setUser(account)
+      localStorage.setItem("astrolive_active_user", JSON.stringify(account))
+      return true
+    }
+
+    return false
   }
 
   return (
-    <UserContext.Provider value={{ user, updateProfile, resetToDemo, createNewUser }}>
+    <UserContext.Provider value={{ user, updateProfile, resetToDemo, createNewUser, loginUser }}>
       {children}
     </UserContext.Provider>
   )

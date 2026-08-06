@@ -1,432 +1,601 @@
-import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { useNavigate, Link } from "react-router-dom"
-import { 
-  Sparkles, 
-  ArrowRight, 
-  Target, 
-  Bot, 
-  Cpu, 
-  ShieldCheck, 
-  ChevronDown, 
-  Compass, 
-  Lock,
+import { useState, useEffect, useMemo, useRef } from 'react';
+import {
+  ArrowRight,
+  Sparkles,
+  Orbit,
+  Star,
+  Cpu,
+  ShieldCheck,
   Zap,
-  Globe
-} from "lucide-react"
-import { Button } from "@/components/ui/Button"
-import { Badge } from "@/components/ui/Badge"
-
-const FEATURES = [
-  {
-    icon: Target,
-    title: "Immutable Prediction Proof Ledger",
-    subtitle: "Every Prediction Is a Trackable Receipt",
-    description: "No more vague promises. Every consultation automatically extracts dated prediction windows and tracks outcome accuracy against real life documents (PDFs, Visas, Offer Letters).",
-    badge: "Proof Engine",
-    color: "from-amber-500/20 to-amber-700/20 border-amber-500/40 text-amber-300"
-  },
-  {
-    icon: Bot,
-    title: "AI Cosmic Twin & Memory Vault",
-    subtitle: "Your Entire Life Decision Graph",
-    description: "Deep RAG memory engine that indexes every past astrologer transcript, natal planetary transit, and remedy streak to give you instant, personalized life guidance.",
-    badge: "AI Intelligence",
-    color: "from-cyan-500/20 to-blue-600/20 border-cyan-400/40 text-cyan-300"
-  },
-  {
-    icon: Cpu,
-    title: "Spatial Lifestrand Canvas",
-    subtitle: "4 Synchronized Layers of Life",
-    description: "Experience your life decisions spatially across 4 synchronized timelines: Reality (Documents), Decisions (Choices), Time (Transits), and AI Learning.",
-    badge: "Spatial OS",
-    color: "from-emerald-500/20 to-teal-600/20 border-emerald-400/40 text-emerald-300"
-  },
-  {
-    icon: ShieldCheck,
-    title: "AstroVerified Expert Match",
-    subtitle: "36 Gunas Ashtakoot Matchmaking",
-    description: "Connect with top 1% verified Vedic astrologers with transparent pricing per minute, verified track records, and real-time encrypted video consultations.",
-    badge: "Verified Experts",
-    color: "from-purple-500/20 to-amber-600/20 border-amber-400/40 text-amber-300"
-  }
-]
-
-const TIMELINE_STEPS = [
-  {
-    stage: "01 — Discovery",
-    title: "Instant Birth Brief",
-    desc: "Enter your birth date & time to unlock your natal planetary alignment and active 10th House transit window instantly.",
-    highlight: "Zero Signup Friction"
-  },
-  {
-    stage: "02 — Cosmic Identity",
-    title: "Natal Kundli Architecture",
-    desc: "Generate your complete Dasha timeline, planetary strength radar, and key aperture dates across career, wealth, and health.",
-    highlight: "Precision Astrology"
-  },
-  {
-    stage: "03 — Daily Companion",
-    title: "Proactive AI Intelligence",
-    desc: "Your AI Twin alerts you to upcoming transits, tracks remedy streaks, and answers questions using past session notes.",
-    highlight: "Autonomous Guidance"
-  },
-  {
-    stage: "04 — Consultation",
-    title: "Encrypted HD Live Sessions",
-    desc: "Book top-rated astrologers with live HD video, real-time AI transcript sync, and automatic claim extraction.",
-    highlight: "100% Verified"
-  },
-  {
-    stage: "05 — Growth Loop",
-    title: "Evolving Decision Ledger",
-    desc: "Every prediction is stored as a verifiable receipt. Upload outcome proofs (PDFs, Visas) to continuously improve future predictions.",
-    highlight: "Immutable Proof"
-  }
-]
+  Activity,
+  HelpCircle,
+  ChevronDown,
+} from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ClockDisplay } from '../components/landing/chrono/ClockDisplay';
+import { TimeSlider } from '../components/landing/chrono/TimeSlider';
+import { NavTabs } from '../components/landing/chrono/NavTabs';
+import { HeaderToolbar } from '../components/landing/chrono/HeaderToolbar';
+import { PresentView } from '../components/landing/chrono/PresentView';
+import { PastView } from '../components/landing/chrono/PastView';
+import { FutureView } from '../components/landing/chrono/FutureView';
+import { SoundModal } from '../components/landing/chrono/SoundModal';
+import { ThemeModal } from '../components/landing/chrono/ThemeModal';
+import { ReflectionModal } from '../components/landing/chrono/ReflectionModal';
+import type {
+  NavTab,
+  TimeFormat,
+  ReflectionEntry,
+  TimeCapsule,
+  FutureGoal,
+  ThemeId,
+  AmbientSoundType,
+} from '../types/chrono';
+import {
+  getDayProgress,
+  getDateFromDayProgress,
+  formatDateString,
+  formatTime,
+} from '../utils/chrono/time';
+import { THEMES } from '../utils/chrono/themes';
+import { playAmbientSound, setAmbientVolume } from '../utils/chrono/audio';
 
 const FAQS = [
   {
-    q: "Why AstroLive 2.0 instead of generic astrology apps like AstroTalk?",
-    a: "Generic apps sell pay-per-minute calls that are forgotten immediately. AstroLive is the 'GitHub of your life decisions'. Every consultation creates data, every prediction is tracked as an immutable receipt, and your AI Cosmic Twin continuously learns to guide your future choices."
+    q: 'How does AstroLive calculate real-time planetary transits?',
+    a: 'AstroLive uses mathematical Sidereal Lahiri Ayanamsha algorithms synced with astronomical ephemeris data to render exact degrees, nakshatra padas, and dasha periods.',
   },
   {
-    q: "How does the Prediction Proof Ledger work?",
-    a: "When a consultation ends, our AI engine automatically parses the transcript to extract exact dates and claims. A prediction receipt is created with a target window (e.g. Aug 20-25). When the date arrives, you can upload evidence (offer letter, visa stamp) to verify accuracy."
+    q: 'What is the 3D Constellation Life Journey map?',
+    a: 'The 3D Constellation map allows you to visualize major life events, memories, and spiritual milestones as interactive glowing star nodes linked across space and time.',
   },
   {
-    q: "What is the Cosmic Document Vault?",
-    a: "The vault allows you to securely attach real-life verification documents (PDF offer letters, marriage certificates, visa approvals) to your prediction receipts. All documents encrypt with 256-bit security."
+    q: 'Can I match with verified astrologers and log consultation records?',
+    a: 'Yes! AstroLive includes AstroVerified match algorithms, consultation logging, and AI-powered prediction trackers for complete confidence.',
   },
-  {
-    q: "Is my personal birth data and transcript private?",
-    a: "Yes. All consultation audio, video feeds, and transcripts are end-to-end encrypted. Your natal Kundli data is never sold or shared with third parties."
-  }
-]
+];
 
 export function Landing() {
-  const navigate = useNavigate()
-  const [openFaq, setOpenFaq] = useState<number | null>(0)
+  const navigate = useNavigate();
+  const [realTime, setRealTime] = useState<Date>(new Date());
+  const [isLive, setIsLive] = useState<boolean>(true);
+  const [sliderProgress, setSliderProgress] = useState<number>(() => getDayProgress(new Date()));
+
+  const [activeTab, setActiveTab] = useState<NavTab>('present');
+  const [zenMode, setZenMode] = useState<boolean>(false);
+  const [timeFormat, setTimeFormat] = useState<TimeFormat>('12h');
+  const [showSeconds, setShowSeconds] = useState<boolean>(false);
+  const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
+
+  const [activeTheme, setActiveTheme] = useState<ThemeId>('obsidian');
+  const [ambientSound, setAmbientSound] = useState<AmbientSoundType>('none');
+  const [soundVolume, setSoundVolume] = useState<number>(0.3);
+
+  const [showSoundModal, setShowSoundModal] = useState<boolean>(false);
+  const [showThemeModal, setShowThemeModal] = useState<boolean>(false);
+  const [showReflectionModal, setShowReflectionModal] = useState<boolean>(false);
+
+  // Scroll animation visibility observer states
+  const [visibleSections, setVisibleSections] = useState<Record<string, boolean>>({});
+  const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
+
+  const registerRef = (id: string) => (el: HTMLElement | null) => {
+    sectionRefs.current[id] = el;
+  };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisibleSections((prev) => ({ ...prev, [entry.target.id]: true }));
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    Object.values(sectionRefs.current).forEach((el) => {
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const [reflections, setReflections] = useState<ReflectionEntry[]>(() => {
+    try {
+      const saved = localStorage.getItem('chrono_reflections');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  const [timeCapsules, setTimeCapsules] = useState<TimeCapsule[]>(() => {
+    try {
+      const saved = localStorage.getItem('chrono_capsules');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  const [futureGoals, setFutureGoals] = useState<FutureGoal[]>(() => {
+    try {
+      const saved = localStorage.getItem('chrono_goals');
+      return saved
+        ? JSON.parse(saved)
+        : [
+            { id: '1', title: 'Sunset Meditation & Quiet Reflection', timeLabel: '07:30 PM', completed: false, timestamp: Date.now() },
+            { id: '2', title: 'Kundli Verification & Daily Alignment', timeLabel: '09:30 PM', completed: false, timestamp: Date.now() },
+          ];
+    } catch {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem('chrono_reflections', JSON.stringify(reflections));
+  }, [reflections]);
+
+  useEffect(() => {
+    localStorage.setItem('chrono_capsules', JSON.stringify(timeCapsules));
+  }, [timeCapsules]);
+
+  useEffect(() => {
+    localStorage.setItem('chrono_goals', JSON.stringify(futureGoals));
+  }, [futureGoals]);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const now = new Date();
+      setRealTime(now);
+      if (isLive) {
+        setSliderProgress(getDayProgress(now));
+      }
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [isLive]);
+
+  // Tab switching smoothly moves the timeline slider line!
+  const handleTabChange = (tab: NavTab) => {
+    setActiveTab(tab);
+    if (tab === 'past') {
+      setIsLive(false);
+      setSliderProgress(22); // Glides line back to Past
+    } else if (tab === 'present') {
+      setIsLive(true);
+      setSliderProgress(getDayProgress(realTime)); // Glides line to Present live time
+    } else if (tab === 'future') {
+      setIsLive(false);
+      setSliderProgress(85); // Glides line forward to Future
+    }
+  };
+
+  const displayDate = useMemo(() => {
+    if (isLive) return realTime;
+    return getDateFromDayProgress(sliderProgress, realTime);
+  }, [isLive, sliderProgress, realTime]);
+
+  const themeConfig = THEMES[activeTheme] || THEMES.obsidian;
+
+  const handleSliderChange = (newProgress: number) => {
+    setIsLive(false);
+    setSliderProgress(newProgress);
+  };
+
+  const handleResetToLive = () => {
+    setIsLive(true);
+    setSliderProgress(getDayProgress(realTime));
+    setActiveTab('present');
+  };
+
+  const handleToggleFormat = () => {
+    if (timeFormat === '12h' && !showSeconds) {
+      setShowSeconds(true);
+    } else if (timeFormat === '12h' && showSeconds) {
+      setTimeFormat('24h');
+      setShowSeconds(false);
+    } else {
+      setTimeFormat('12h');
+      setShowSeconds(false);
+    }
+  };
+
+  const handleSoundChange = (type: AmbientSoundType) => {
+    setAmbientSound(type);
+    playAmbientSound(type, soundVolume);
+  };
+
+  const handleVolumeChange = (vol: number) => {
+    setSoundVolume(vol);
+    setAmbientVolume(vol);
+  };
+
+  const handleSaveReflection = (entry: Omit<ReflectionEntry, 'id' | 'createdAt'>) => {
+    const newEntry: ReflectionEntry = {
+      ...entry,
+      id: Date.now().toString(),
+      createdAt: Date.now(),
+    };
+    setReflections((prev) => [newEntry, ...prev]);
+  };
+
+  const handleAddIntention = (content: string) => {
+    const timeLabel = formatTime(displayDate, timeFormat);
+    handleSaveReflection({
+      title: 'Daily Anchor',
+      content,
+      category: 'intention',
+      tab: 'present',
+      timeLabel,
+      timestamp: displayDate.getTime(),
+    });
+  };
+
+  const handleAddCapsule = (title: string, message: string, unlockTimestamp: number) => {
+    const newCapsule: TimeCapsule = {
+      id: Date.now().toString(),
+      createdTimestamp: Date.now(),
+      unlockTimestamp,
+      title,
+      message,
+      isUnlocked: false,
+    };
+    setTimeCapsules((prev) => [newCapsule, ...prev]);
+  };
+
+  const handleAddGoal = (title: string, timeLabel: string) => {
+    const newGoal: FutureGoal = {
+      id: Date.now().toString(),
+      title,
+      timeLabel,
+      completed: false,
+      timestamp: Date.now(),
+    };
+    setFutureGoals((prev) => [...prev, newGoal]);
+  };
+
+  const handleToggleGoal = (id: string) => {
+    setFutureGoals((prev) =>
+      prev.map((g) => (g.id === id ? { ...g, completed: !g.completed } : g))
+    );
+  };
 
   return (
-    <div className="min-h-screen bg-[#030508] text-[#F3F4F6] overflow-x-hidden selection:bg-amber-500/30 selection:text-amber-200 font-sans">
-      
-      {/* Background Ambient Spotlights */}
-      <div className="fixed -top-40 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-amber-500/10 rounded-full blur-[160px] pointer-events-none" />
-      <div className="fixed top-1/3 left-10 w-[400px] h-[400px] bg-blue-600/5 rounded-full blur-[140px] pointer-events-none" />
+    <div
+      className={`min-h-screen w-full ${themeConfig.bgClass} text-neutral-100 flex flex-col justify-between transition-colors duration-500 overflow-x-hidden font-sans selection:bg-neutral-800 selection:text-white relative`}
+    >
+      {/* Dynamic Animated Ambient Background Glows */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-30">
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute top-1/4 left-1/5 w-96 h-96 rounded-full bg-amber-500/10 blur-[130px]"
+        />
+        <motion.div
+          animate={{
+            scale: [1.2, 1, 1.2],
+            opacity: [0.4, 0.2, 0.4],
+          }}
+          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+          className="absolute bottom-1/3 right-1/4 w-[450px] h-[450px] rounded-full bg-cyan-500/10 blur-[150px]"
+        />
+      </div>
 
-      {/* ── Glass Navbar ────────────────────────────────────────────── */}
-      <header className="sticky top-0 z-50 border-b border-white/[0.08] bg-[#090A0F]/80 backdrop-blur-2xl">
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-3 group cursor-pointer">
-            <div className="w-8 h-8 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 group-hover:scale-105 transition-all shadow-md shadow-amber-500/10">
-              <Compass className="w-4 h-4 text-amber-400" />
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="font-bold text-base text-white tracking-tight">AstroLive</span>
-              <Badge className="bg-amber-500/20 text-amber-300 border-amber-500/30 text-[9px] font-mono">v2.0 OS</Badge>
-            </div>
-          </Link>
+      <div className="relative z-10 flex flex-col min-h-screen">
+        {/* Header Toolbar */}
+        <HeaderToolbar
+          zenMode={zenMode}
+          onToggleZenMode={() => setZenMode(!zenMode)}
+          ambientSound={ambientSound}
+          onOpenSoundModal={() => setShowSoundModal(true)}
+          onOpenReflectionModal={() => setShowReflectionModal(true)}
+          onOpenThemeModal={() => setShowThemeModal(true)}
+          activeTheme={activeTheme}
+          formattedDate={formatDateString(displayDate)}
+        />
 
-          <nav className="hidden md:flex items-center gap-8 text-xs font-medium text-[#9CA3AF]">
-            <a href="#features" className="hover:text-white transition-colors">Features</a>
-            <a href="#timeline" className="hover:text-white transition-colors">Product Flow</a>
-            <a href="#faq" className="hover:text-white transition-colors">FAQ</a>
-          </nav>
+        {/* Pristine Minimal Hero Section */}
+        <main className="min-h-[80vh] flex flex-col items-center justify-center my-auto w-full max-w-4xl mx-auto px-4 py-8">
+          <ClockDisplay
+            displayDate={displayDate}
+            timeFormat={timeFormat}
+            showSeconds={showSeconds}
+            onToggleFormat={handleToggleFormat}
+            isScrubbing={!isLive}
+          />
 
-          <div className="flex items-center gap-3">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="text-xs font-mono text-[#9CA3AF] hover:text-white"
-              onClick={() => navigate("/login")}
-            >
-              Sign In
-            </Button>
-            <Button
-              size="sm"
-              className="bg-amber-500 text-black font-bold hover:bg-amber-400 text-xs px-4 rounded-xl shadow-lg shadow-amber-500/20"
-              onClick={() => navigate("/app/dashboard")}
-            >
-              Launch OS <ArrowRight className="w-3.5 h-3.5 ml-1" />
-            </Button>
-          </div>
-        </div>
-      </header>
+          {/* Interactive Moving Timeline Line */}
+          <TimeSlider
+            progress={sliderProgress}
+            onChange={handleSliderChange}
+            isLive={isLive}
+            onResetToLive={handleResetToLive}
+          />
 
-      <main className="relative z-10">
+          {/* Dynamic Animated Nav Tabs (Past / Present / Future) */}
+          <NavTabs activeTab={activeTab} onTabChange={handleTabChange} />
 
-        {/* ── Kokonut Style Hero Section ───────────────────────────── */}
-        <section className="pt-20 pb-24 px-6 max-w-6xl mx-auto text-center space-y-8">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="space-y-6 max-w-3xl mx-auto"
-          >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-amber-300 text-xs font-mono shadow-xl backdrop-blur-md">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-              <span>The Temporal Operating System for Life Decisions</span>
-            </div>
-
-            <h1 className="text-4xl sm:text-6xl font-bold tracking-tight text-white leading-[1.1]">
-              The GitHub of Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500">Life Decisions</span>.
-            </h1>
-
-            <p className="text-base sm:text-lg text-[#9CA3AF] leading-relaxed max-w-2xl mx-auto">
-              Every consultation creates data. Every prediction evolves. Every outcome is remembered. Every decision improves future guidance.
-            </p>
-
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
-              <Button
-                size="lg"
-                className="w-full sm:w-auto bg-amber-500 text-black font-bold hover:bg-amber-400 text-sm px-8 rounded-xl shadow-xl shadow-amber-500/20"
-                onClick={() => navigate("/app/dashboard")}
+          {!zenMode && (
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.3 }}
+                className="w-full mt-6"
               >
-                Launch Temporal OS <ArrowRight className="w-4 h-4 ml-1" />
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className="w-full sm:w-auto text-sm px-6 rounded-xl border-white/20 text-white"
-                onClick={() => navigate("/app/predictions")}
-              >
-                Explore Prediction Ledger
-              </Button>
-            </div>
-          </motion.div>
+                {activeTab === 'present' && (
+                  <PresentView
+                    currentDate={displayDate}
+                    reflections={reflections}
+                    onAddIntention={handleAddIntention}
+                  />
+                )}
+                {activeTab === 'past' && (
+                  <PastView
+                    currentDate={displayDate}
+                    reflections={reflections}
+                    onAddReflection={handleSaveReflection}
+                  />
+                )}
+                {activeTab === 'future' && (
+                  <FutureView
+                    currentDate={displayDate}
+                    timeCapsules={timeCapsules}
+                    futureGoals={futureGoals}
+                    onAddCapsule={handleAddCapsule}
+                    onAddGoal={handleAddGoal}
+                    onToggleGoal={handleToggleGoal}
+                  />
+                )}
+              </motion.div>
+            </AnimatePresence>
+          )}
+        </main>
 
-          {/* Interactive Hero Widget Preview */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="pt-8 max-w-4xl mx-auto"
-          >
-            <div className="p-6 sm:p-8 rounded-3xl bg-[#090A0F]/90 border border-white/10 shadow-2xl backdrop-blur-2xl text-left space-y-6 relative overflow-hidden">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
-                <div className="flex items-center gap-3">
-                  <span className="w-3 h-3 rounded-full bg-emerald-500 animate-ping" />
-                  <div>
-                    <h3 className="text-sm font-bold text-white">Live Natal Kundli Telemetry</h3>
-                    <p className="text-[11px] font-mono text-[#9CA3AF]">Leo Sun · Scorpio Ascendant · Rahu Mahadasha</p>
-                  </div>
-                </div>
-                <Badge className="bg-amber-500/20 text-amber-300 border-amber-500/30 text-[10px] uppercase font-mono">
-                  Jupiter 10th House Trine Active
-                </Badge>
-              </div>
-
-              <div className="grid sm:grid-cols-3 gap-4 font-mono text-xs">
-                <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-1">
-                  <span className="text-[10px] text-[#9CA3AF] uppercase block">Active Aperture</span>
-                  <p className="text-sm font-bold text-amber-300">Aug 20–25, 2026</p>
-                  <span className="text-[9px] text-emerald-400 block">88% Verified Confidence</span>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-1">
-                  <span className="text-[10px] text-[#9CA3AF] uppercase block">Current Remedy Streak</span>
-                  <p className="text-sm font-bold text-white">Venus Beej Mantra</p>
-                  <span className="text-[9px] text-amber-400 block">Day 11 / 21 Active</span>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-1">
-                  <span className="text-[10px] text-[#9CA3AF] uppercase block">Document Proof Status</span>
-                  <p className="text-sm font-bold text-cyan-300">Cosmic Vault Synced</p>
-                  <span className="text-[9px] text-[#9CA3AF] block">256-bit Encrypted PDF</span>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </section>
-
-        {/* ── Kokonut Feature Cards Grid ───────────────────────────── */}
-        <section id="features" className="py-20 px-6 max-w-6xl mx-auto space-y-12">
-          <div className="text-center space-y-3 max-w-2xl mx-auto">
-            <p className="text-xs font-mono font-bold uppercase tracking-widest text-amber-400">System Architecture</p>
-            <h2 className="text-3xl font-bold text-white">Built Like an Instrument, Not a SaaS Dashboard</h2>
-            <p className="text-sm text-[#9CA3AF]">
-              Designed around four core layers of life intelligence to replace generic AI chat screens.
+        {/* ABOUT ASTROLIVE & ENTER SECTION */}
+        <section
+          id="about-astrolive"
+          ref={registerRef('about-astrolive')}
+          className={`w-full max-w-4xl mx-auto px-6 py-20 border-t border-neutral-900/80 transition-all duration-1000 transform ${
+            visibleSections['about-astrolive']
+              ? 'opacity-100 translate-y-0'
+              : 'opacity-0 translate-y-12'
+          }`}
+        >
+          {/* About Headline */}
+          <div className="text-center space-y-3 mb-14">
+            <span className="text-[11px] font-mono tracking-widest text-amber-400 uppercase font-bold bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">
+              ✦ ABOUT ASTROLIVE
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-serif text-white font-normal mt-3">
+              Real-Time Vedic Astrology & Planetary Intelligence
+            </h2>
+            <p className="text-xs sm:text-sm text-neutral-400 max-w-2xl mx-auto font-sans leading-relaxed">
+              AstroLive bridges millenia of authentic Vedic astronomical calculations with cutting-edge 3D interactive constellation timelines and real-time planetary transits.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            {FEATURES.map((f, idx) => (
-              <motion.div
-                key={idx}
-                whileHover={{ y: -4 }}
-                transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                className="p-8 rounded-3xl bg-[#090A0F]/90 border border-white/10 shadow-xl backdrop-blur-2xl hover:border-amber-500/40 hover:shadow-2xl hover:shadow-amber-500/5 transition-all space-y-5"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 shadow-md">
-                    <f.icon className="w-6 h-6" />
-                  </div>
-                  <Badge className="bg-amber-500/20 text-amber-300 border-amber-500/30 font-mono text-[10px]">
-                    {f.badge}
-                  </Badge>
-                </div>
+          {/* 3 Core Feature Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-14">
+            <motion.div
+              whileHover={{ scale: 1.03, y: -6 }}
+              className="p-6 rounded-2xl bg-neutral-900/40 border border-neutral-800/60 flex flex-col space-y-3 hover:border-amber-500/50 hover:shadow-[0_0_30px_rgba(245,158,11,0.2)] transition-all duration-300 cursor-pointer"
+            >
+              <Orbit className="w-6 h-6 text-amber-400" />
+              <h3 className="font-serif text-lg text-white font-bold">Vedic Kundli Engine</h3>
+              <p className="text-xs text-neutral-400 leading-relaxed font-sans">
+                Authentic Lahiri Ayanamsha mathematical calculations for planetary degrees, Dasha periods, and house placements.
+              </p>
+            </motion.div>
 
-                <div>
-                  <h3 className="text-xl font-bold text-white mb-1">{f.title}</h3>
-                  <p className="text-xs font-mono text-amber-400 mb-3">{f.subtitle}</p>
-                  <p className="text-xs text-[#9CA3AF] leading-relaxed">{f.description}</p>
-                </div>
-              </motion.div>
-            ))}
+            <motion.div
+              whileHover={{ scale: 1.03, y: -6 }}
+              className="p-6 rounded-2xl bg-neutral-900/40 border border-neutral-800/60 flex flex-col space-y-3 hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(6,182,212,0.2)] transition-all duration-300 cursor-pointer"
+            >
+              <Star className="w-6 h-6 text-cyan-400" />
+              <h3 className="font-serif text-lg text-white font-bold">3D Life Constellation</h3>
+              <p className="text-xs text-neutral-400 leading-relaxed font-sans">
+                Visualize your life journey, key memories, and milestones as interactive glowing star nodes linked in 3D space.
+              </p>
+            </motion.div>
+
+            <motion.div
+              whileHover={{ scale: 1.03, y: -6 }}
+              className="p-6 rounded-2xl bg-neutral-900/40 border border-neutral-800/60 flex flex-col space-y-3 hover:border-emerald-500/50 hover:shadow-[0_0_30px_rgba(16,185,129,0.2)] transition-all duration-300 cursor-pointer"
+            >
+              <Cpu className="w-6 h-6 text-emerald-400" />
+              <h3 className="font-serif text-lg text-white font-bold">AI Cosmic Intelligence</h3>
+              <p className="text-xs text-neutral-400 leading-relaxed font-sans">
+                Personalized daily briefs, smart astrologer verification matching, and instant consultation record keeping.
+              </p>
+            </motion.div>
+          </div>
+
+          {/* Integrated Seamless CTA Section */}
+          <div className="relative py-12 px-4 text-center flex flex-col items-center space-y-5 my-6">
+            <div className="absolute inset-0 bg-gradient-to-r from-amber-500/0 via-amber-500/10 to-amber-500/0 blur-2xl pointer-events-none -z-10" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs font-mono">
+              <Sparkles className="w-4 h-4 text-amber-400 animate-pulse" />
+              <span>Celestial Transits Live</span>
+            </div>
+
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-serif text-white font-normal tracking-tight">
+              Step Into Your Celestial Alignment
+            </h3>
+
+            <p className="text-xs sm:text-sm text-neutral-400 max-w-xl font-sans leading-relaxed">
+              Experience your live Kundli chart, planetary dasha transits, and interactive life journey timeline now.
+            </p>
+
+            <div className="pt-2">
+              <motion.button
+                whileHover={{ scale: 1.06 }}
+                whileTap={{ scale: 0.96 }}
+                onClick={() => navigate('/login')}
+                className="flex items-center gap-2 px-8 py-3.5 rounded-full bg-amber-500 hover:bg-amber-400 text-black font-bold text-sm shadow-xl shadow-amber-500/20 transition-all cursor-pointer"
+              >
+                <span>Enter AstroLive</span>
+                <ArrowRight className="w-4 h-4" />
+              </motion.button>
+            </div>
           </div>
         </section>
 
-        {/* ── Product Flow Timeline ─────────────────────────────────── */}
-        <section id="timeline" className="py-20 px-6 max-w-5xl mx-auto space-y-12">
-          <div className="text-center space-y-3 max-w-xl mx-auto">
-            <p className="text-xs font-mono font-bold uppercase tracking-widest text-amber-400">Continuous Journey</p>
-            <h2 className="text-3xl font-bold text-white">The Product Flow</h2>
-            <p className="text-sm text-[#9CA3AF]">One seamless story from initial discovery to immutable proof.</p>
+        {/* HIGH TRUST ADVANTAGE */}
+        <section
+          id="trust-advantage"
+          ref={registerRef('trust-advantage')}
+          className={`w-full max-w-4xl mx-auto px-6 py-20 border-t border-neutral-900 transition-all duration-1000 transform ${
+            visibleSections['trust-advantage']
+              ? 'opacity-100 translate-y-0'
+              : 'opacity-0 translate-y-12'
+          }`}
+        >
+          <div className="text-center space-y-2 mb-12">
+            <span className="text-[11px] font-mono tracking-widest text-amber-400 uppercase font-bold bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">
+              ✦ HIGH TRUST PLATFORM
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-serif text-white font-normal mt-2">
+              Why AstroLive is Built Different
+            </h2>
           </div>
 
-          <div className="space-y-6 relative before:absolute before:left-4 sm:before:left-1/2 before:top-0 before:bottom-0 before:w-[1px] before:bg-white/10">
-            {TIMELINE_STEPS.map((s, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: idx * 0.1 }}
-                className="relative flex flex-col sm:flex-row items-start gap-6 sm:gap-12"
-              >
-                <div className="w-8 h-8 rounded-full bg-amber-500 text-black font-bold font-mono text-xs flex items-center justify-center shrink-0 z-10 shadow-lg">
-                  {idx + 1}
-                </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="p-6 rounded-2xl bg-neutral-900/30 border border-neutral-800/60 flex flex-col space-y-3 hover:border-amber-500/40 hover:-translate-y-1.5 transition-all duration-300">
+              <ShieldCheck className="w-6 h-6 text-amber-400" />
+              <h4 className="text-sm font-bold text-white font-serif">Mathematical Ephemeris Accuracy</h4>
+              <p className="text-xs text-neutral-400 leading-relaxed font-sans">
+                No generic random horoscopes. AstroLive calculates exact planetary degrees using NASA JPL synced astronomical algorithms.
+              </p>
+            </div>
 
-                <div className="flex-1 p-6 rounded-2xl bg-[#090A0F]/90 border border-white/10 shadow-xl backdrop-blur-2xl space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-mono uppercase text-amber-400 font-bold">{s.stage}</span>
-                    <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
-                      {s.highlight}
-                    </span>
-                  </div>
-                  <h3 className="text-lg font-bold text-white">{s.title}</h3>
-                  <p className="text-xs text-[#9CA3AF] leading-relaxed">{s.desc}</p>
-                </div>
-              </motion.div>
-            ))}
+            <div className="p-6 rounded-2xl bg-neutral-900/30 border border-neutral-800/60 flex flex-col space-y-3 hover:border-cyan-500/40 hover:-translate-y-1.5 transition-all duration-300">
+              <Zap className="w-6 h-6 text-cyan-400" />
+              <h4 className="text-sm font-bold text-white font-serif">Real-Time Dasha Engine</h4>
+              <p className="text-xs text-neutral-400 leading-relaxed font-sans">
+                Track Mahadasha, Antardasha, and Paryantardasha timelines live with high-precision time scrubbing.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-neutral-900/30 border border-neutral-800/60 flex flex-col space-y-3 hover:border-emerald-500/40 hover:-translate-y-1.5 transition-all duration-300">
+              <Activity className="w-6 h-6 text-emerald-400" />
+              <h4 className="text-sm font-bold text-white font-serif">Local Privacy Control</h4>
+              <p className="text-xs text-neutral-400 leading-relaxed font-sans">
+                Your birth chart data and personal notes are stored locally and securely, giving you 100% control over your privacy.
+              </p>
+            </div>
           </div>
         </section>
 
-        {/* ── Kokonut Interactive FAQ ───────────────────────────────── */}
-        <section id="faq" className="py-20 px-6 max-w-4xl mx-auto space-y-10">
-          <div className="text-center space-y-3">
-            <p className="text-xs font-mono font-bold uppercase tracking-widest text-amber-400">Clear Answers</p>
-            <h2 className="text-3xl font-bold text-white">Frequently Asked Questions</h2>
+        {/* FREQUENTLY ASKED QUESTIONS */}
+        <section
+          id="faq-section"
+          ref={registerRef('faq-section')}
+          className={`w-full max-w-3xl mx-auto px-6 py-20 border-t border-neutral-900 transition-all duration-1000 transform ${
+            visibleSections['faq-section']
+              ? 'opacity-100 translate-y-0'
+              : 'opacity-0 translate-y-12'
+          }`}
+        >
+          <div className="text-center space-y-2 mb-10">
+            <div className="flex items-center justify-center gap-1.5 text-neutral-400">
+              <HelpCircle className="w-4 h-4 text-amber-400" />
+              <span className="text-[11px] font-mono tracking-widest text-amber-400 uppercase font-bold">
+                FREQUENTLY ASKED QUESTIONS
+              </span>
+            </div>
+            <h2 className="text-2xl font-serif text-white font-normal">
+              Everything You Need to Know
+            </h2>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3">
             {FAQS.map((faq, idx) => (
               <div
                 key={idx}
-                className="rounded-2xl bg-[#090A0F]/90 border border-white/10 overflow-hidden transition-all shadow-lg"
+                onClick={() => setExpandedFaq(expandedFaq === idx ? null : idx)}
+                className="p-4 rounded-xl bg-neutral-900/40 border border-neutral-800/80 cursor-pointer hover:border-neutral-700 transition-all"
               >
-                <button
-                  onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                  className="w-full p-6 text-left flex items-center justify-between gap-4 cursor-pointer"
-                >
-                  <span className="text-sm font-bold text-white">{faq.q}</span>
-                  <ChevronDown className={`w-4 h-4 text-amber-400 transition-transform ${openFaq === idx ? "rotate-180" : ""}`} />
-                </button>
-
-                <AnimatePresence>
-                  {openFaq === idx && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.25 }}
-                      className="px-6 pb-6 text-xs text-[#9CA3AF] leading-relaxed border-t border-white/5 pt-4"
-                    >
-                      {faq.a}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-white font-sans">{faq.q}</span>
+                  <ChevronDown
+                    className={`w-4 h-4 text-neutral-400 transition-transform duration-300 ${
+                      expandedFaq === idx ? 'rotate-180 text-amber-400' : ''
+                    }`}
+                  />
+                </div>
+                {expandedFaq === idx && (
+                  <p className="text-xs text-neutral-400 mt-2.5 pt-2 border-t border-neutral-800/60 leading-relaxed font-sans">
+                    {faq.a}
+                  </p>
+                )}
               </div>
             ))}
           </div>
         </section>
 
-        {/* ── Kokonut Final CTA Banner ───────────────────────────────── */}
-        <section className="py-20 px-6 max-w-5xl mx-auto">
-          <div className="p-10 sm:p-14 rounded-3xl bg-gradient-to-br from-amber-500/10 via-[#090A0F] to-black border border-amber-500/30 text-center space-y-6 shadow-2xl relative overflow-hidden">
-            <div className="w-16 h-16 rounded-2xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400 mx-auto shadow-xl">
-              <Compass className="w-8 h-8" />
+        {/* FOOTER */}
+        <footer className="w-full border-t border-neutral-900 bg-black/60 py-10 px-6 font-sans">
+          <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-neutral-400 text-xs">
+            <div className="flex items-center gap-2">
+              <span className="text-amber-400 font-bold text-sm">✦</span>
+              <span className="font-serif font-bold text-white text-sm">ASTROLIVE</span>
+              <span className="text-neutral-600">•</span>
+              <span>Vedic Astrology & Planetary Transits OS</span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl font-bold text-white">
-              Ready to Upgrade Your Life Decisions?
-            </h2>
-            <p className="text-sm text-[#9CA3AF] max-w-xl mx-auto leading-relaxed">
-              Experience the first Temporal Operating System built around verified prediction receipts and proactive AI intelligence.
-            </p>
-
-            <Button
-              size="lg"
-              className="bg-amber-500 text-black font-bold hover:bg-amber-400 text-sm px-8 rounded-xl shadow-xl shadow-amber-500/20"
-              onClick={() => navigate("/app/dashboard")}
-            >
-              Launch AstroLive 2.0 Free <ArrowRight className="w-4 h-4 ml-1" />
-            </Button>
-          </div>
-        </section>
-
-      </main>
-
-      {/* ── Footer ─────────────────────────────────────────────────── */}
-      <footer className="border-t border-white/[0.08] bg-[#090A0F] py-12 px-6 text-xs text-[#9CA3AF]">
-        <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
-          <div className="space-y-3">
-            <div className="flex items-center gap-2 text-white font-bold">
-              <Compass className="w-4 h-4 text-amber-400" /> AstroLive 2.0
+            <div className="flex items-center gap-6 text-neutral-400 font-mono text-[11px]">
+              <button onClick={() => navigate('/login')} className="hover:text-white transition-colors cursor-pointer">
+                Login / Signup
+              </button>
+              <button onClick={() => navigate('/app/dashboard')} className="hover:text-white transition-colors cursor-pointer">
+                Dashboard
+              </button>
+              <button onClick={() => navigate('/timeline')} className="hover:text-white transition-colors cursor-pointer">
+                3D Timeline
+              </button>
             </div>
-            <p className="text-[11px] leading-relaxed">
-              The Temporal Operating System for verified life decisions & planetary intelligence.
-            </p>
+
+            <span className="text-neutral-600 text-[11px] font-mono">
+              © {new Date().getFullYear()} AstroLive. All rights reserved.
+            </span>
           </div>
+        </footer>
+      </div>
 
-          <div>
-            <h4 className="font-mono text-[10px] uppercase font-bold text-white mb-3 tracking-widest">Operating Suite</h4>
-            <ul className="space-y-2">
-              <li><Link to="/app/dashboard" className="hover:text-white transition-colors">Dashboard</Link></li>
-              <li><Link to="/app/companion" className="hover:text-white transition-colors">AI Cosmic Twin</Link></li>
-              <li><Link to="/app/predictions" className="hover:text-white transition-colors">Prediction Proof Ledger</Link></li>
-              <li><Link to="/app/match" className="hover:text-white transition-colors">Smart Match</Link></li>
-            </ul>
-          </div>
+      {/* Modals */}
+      <SoundModal
+        isOpen={showSoundModal}
+        onClose={() => setShowSoundModal(false)}
+        activeSound={ambientSound}
+        onSelectSound={handleSoundChange}
+        volume={soundVolume}
+        onVolumeChange={handleVolumeChange}
+      />
 
-          <div>
-            <h4 className="font-mono text-[10px] uppercase font-bold text-white mb-3 tracking-widest">Intelligence</h4>
-            <ul className="space-y-2">
-              <li><Link to="/app/memory" className="hover:text-white transition-colors">Cosmic Memory</Link></li>
-              <li><Link to="/app/brief" className="hover:text-white transition-colors">Daily Brief</Link></li>
-              <li><Link to="/app/verified" className="hover:text-white transition-colors">AstroVerified</Link></li>
-              <li><Link to="/app/journey" className="hover:text-white transition-colors">Life Journey</Link></li>
-            </ul>
-          </div>
+      <ThemeModal
+        isOpen={showThemeModal}
+        onClose={() => setShowThemeModal(false)}
+        activeTheme={activeTheme}
+        onSelectTheme={(theme) => setActiveTheme(theme)}
+      />
 
-          <div>
-            <h4 className="font-mono text-[10px] uppercase font-bold text-white mb-3 tracking-widest">Security & Proof</h4>
-            <div className="space-y-2 text-[11px]">
-              <p className="flex items-center gap-1.5 text-emerald-400"><Lock className="w-3.5 h-3.5" /> 256-bit Document Vault</p>
-              <p className="flex items-center gap-1.5 text-amber-400"><Zap className="w-3.5 h-3.5" /> Immutable Claim Receipts</p>
-              <p className="flex items-center gap-1.5 text-cyan-400"><Globe className="w-3.5 h-3.5" /> Encrypted Live Telehealth</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="max-w-6xl mx-auto pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-[10px]">
-          <span>© 2026 AstroLive Inc. All rights reserved.</span>
-          <span>System Status: 100% Operational · 120° Trine Sync</span>
-        </div>
-      </footer>
-
+      <ReflectionModal
+        isOpen={showReflectionModal}
+        onClose={() => setShowReflectionModal(false)}
+        activeTab={activeTab}
+        timeLabel={formatTime(displayDate, timeFormat)}
+        onSave={handleSaveReflection}
+      />
     </div>
-  )
+  );
 }

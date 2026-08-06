@@ -128,12 +128,13 @@ function PanchangView() {
 }
 
 function KundliView() {
+  const { user } = useUser()
   return (
     <div className="space-y-6">
       <div className="p-5 bg-brand-light border border-brand/20 rounded-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h3 className="text-lg font-bold text-white">Arjun Sharma's Kundli & Birth Chart</h3>
-          <p className="text-xs text-[#9CA3AF]">Vedic (Lahiri) · Aug 15, 1994 · 14:30 · New Delhi</p>
+          <h3 className="text-lg font-bold text-white">{user.name}'s Kundli & Birth Chart</h3>
+          <p className="text-xs text-[#9CA3AF]">Vedic (Lahiri) · {user.dob} · {user.timeOfBirth} · {user.placeOfBirth}</p>
         </div>
         <button className="px-4 py-2 bg-brand/20 hover:bg-brand/30 text-ink-secondary border border-brand/30 rounded-xl text-xs font-bold transition-colors">
           Download PDF Chart
@@ -143,18 +144,18 @@ function KundliView() {
       <div className="grid md:grid-cols-3 gap-4">
         <div className="p-4 bg-surface-2 border border-line/60 rounded-lg">
           <p className="text-xs text-[#9CA3AF] font-bold uppercase mb-2">Lagna (Ascendant)</p>
-          <p className="text-xl font-bold text-white">Scorpio (Vrishchika)</p>
-          <p className="text-xs text-brand mt-1">Lord: Mars · Strong Determination</p>
+          <p className="text-xl font-bold text-white">{user.ascendant}</p>
+          <p className="text-xs text-brand mt-1">Natal Ascendant · Strong Determination</p>
         </div>
         <div className="p-4 bg-surface-2 border border-line/60 rounded-lg">
-          <p className="text-xs text-[#9CA3AF] font-bold uppercase mb-2">Rashi (Moon Sign)</p>
-          <p className="text-xl font-bold text-gold">Leo (Simha)</p>
-          <p className="text-xs text-gold mt-1">Lord: Sun · Leadership Potential</p>
+          <p className="text-xs text-[#9CA3AF] font-bold uppercase mb-2">Rashi (Sun/Moon Sign)</p>
+          <p className="text-xl font-bold text-gold">{user.sunSign}</p>
+          <p className="text-xs text-gold mt-1">Natal Sun · Core Power</p>
         </div>
         <div className="p-4 bg-surface-2 border border-line/60 rounded-lg">
           <p className="text-xs text-[#9CA3AF] font-bold uppercase mb-2">Current Mahadasha</p>
-          <p className="text-xl font-bold text-emerald-400">Rahu Dasha</p>
-          <p className="text-xs text-emerald-400 mt-1">Until 2031 · Innovation & Tech Focus</p>
+          <p className="text-xl font-bold text-emerald-400">{user.activeDasha}</p>
+          <p className="text-xs text-emerald-400 mt-1">Active Epoch · High Alignment</p>
         </div>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useCallback, type ReactNode } from "react"
 import { mockDetailedPredictions, type DetailedPrediction } from "@/lib/mock-data"
+import { useUser } from "@/context/UserContext"
 
 export interface ExtractedReceipt {
   id: string
@@ -28,7 +29,14 @@ interface LedgerContextValue {
 const LedgerContext = createContext<LedgerContextValue | null>(null)
 
 export function LedgerProvider({ children }: { children: ReactNode }) {
-  const [predictions, setPredictions] = useState<DetailedPrediction[]>(mockDetailedPredictions)
+  const { user } = useUser()
+
+  // Demo user gets mock data; New users start with a clean empty real-time array
+  const isDemoUser = user.email === "arjun.sharma@example.com" || user.id === "u1"
+
+  const [predictions, setPredictions] = useState<DetailedPrediction[]>(() => {
+    return isDemoUser ? mockDetailedPredictions : []
+  })
 
   const addPredictions = useCallback((receipts: ExtractedReceipt[]) => {
     const newEntries: DetailedPrediction[] = receipts
@@ -73,7 +81,7 @@ export function LedgerProvider({ children }: { children: ReactNode }) {
     verified,
     active,
     needsVerification,
-    accuracy: verified > 0 ? Math.round((verified / predictions.filter(p => p.status === "completed" || p.status === "failed").length || 1) * 100) : 0,
+    accuracy: verified > 0 ? Math.round((verified / (predictions.filter(p => p.status === "completed" || p.status === "failed").length || 1)) * 100) : 0,
   }
 
   return (

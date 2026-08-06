@@ -3,11 +3,12 @@ import { motion, AnimatePresence } from "framer-motion"
 import { useNavigate, Link } from "react-router-dom"
 import { Eye, EyeOff, Mail, Lock, Zap, ArrowRight, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/Button"
-
-const DEMO_CREDENTIALS = { email: "arjun.sharma@example.com", password: "cosmic2026" }
+import { useUser } from "@/context/UserContext"
 
 export function LoginPage() {
   const navigate = useNavigate()
+  const { loginUser, resetToDemo } = useUser()
+
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [showPw, setShowPw] = useState(false)
@@ -15,27 +16,36 @@ export function LoginPage() {
   const [error, setError] = useState("")
   const [demoHint, setDemoHint] = useState(false)
 
-  const simulateLogin = async (e: React.FormEvent | null, demo = false) => {
-    if (e) e.preventDefault()
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
     setError("")
 
-    const creds = demo ? DEMO_CREDENTIALS : { email, password }
-    if (!demo && (!creds.email || !creds.password)) {
+    if (!email || !password) {
       setError("Please enter your email and password.")
       return
     }
 
     setLoading(true)
-    await new Promise(r => setTimeout(r, 1200))
+    await new Promise(r => setTimeout(r, 600))
+
+    const success = loginUser(email, password)
     setLoading(false)
-    navigate("/app/dashboard")
+
+    if (success) {
+      navigate("/app/dashboard")
+    } else {
+      setError("Account not found or password incorrect. Please check your credentials or create a new account.")
+    }
   }
 
   const handleDemo = () => {
-    setEmail(DEMO_CREDENTIALS.email)
-    setPassword(DEMO_CREDENTIALS.password)
+    setEmail("arjun.sharma@example.com")
+    setPassword("cosmic2026")
     setDemoHint(true)
-    setTimeout(() => simulateLogin(null, true), 500)
+    resetToDemo()
+    setTimeout(() => {
+      navigate("/app/dashboard")
+    }, 500)
   }
 
   return (
@@ -45,6 +55,7 @@ export function LoginPage() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
       transition={{ duration: 0.3 }}
+      className="font-sans"
     >
       <div className="mb-6">
         <h2 className="text-2xl font-bold font-display tracking-tight text-ink mb-1">Welcome back</h2>
@@ -53,16 +64,17 @@ export function LoginPage() {
 
       {/* Demo Account Button */}
       <button
+        type="button"
         onClick={handleDemo}
         disabled={loading}
-        className="w-full mb-5 flex items-center gap-3 bg-surface-2 border border-brand/30 hover:border-brand rounded-md p-3.5 text-left group transition-all"
+        className="w-full mb-5 flex items-center gap-3 bg-surface-2 border border-brand/30 hover:border-brand rounded-md p-3.5 text-left group transition-all cursor-pointer"
       >
         <div className="w-8 h-8 rounded-md bg-brand-light border border-brand/20 flex items-center justify-center shrink-0">
           <Zap className="w-4 h-4 text-brand" />
         </div>
         <div className="flex-1">
           <p className="font-bold text-ink text-xs font-mono">Explore Arjun's Demo Field</p>
-          <p className="text-[11px] text-ink-secondary">Instant access to active predictions & chart transits</p>
+          <p className="text-[11px] text-ink-secondary">Instant demo account access with sample predictions</p>
         </div>
         <ArrowRight className="w-4 h-4 text-brand group-hover:translate-x-1 transition-transform" />
       </button>
@@ -73,7 +85,7 @@ export function LoginPage() {
         <div className="flex-1 h-px bg-line" />
       </div>
 
-      <form onSubmit={simulateLogin} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4">
         {/* Email */}
         <div>
           <label className="block text-xs font-mono font-medium text-ink-secondary mb-1.5">Email address</label>
@@ -104,7 +116,7 @@ export function LoginPage() {
               placeholder="••••••••"
               className="w-full h-10 bg-surface-2 border border-line rounded-md pl-9 pr-9 text-xs text-ink placeholder:text-ink-tertiary focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand font-sans"
             />
-            <button type="button" onClick={() => setShowPw(!showPw)} className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-tertiary hover:text-ink">
+            <button type="button" onClick={() => setShowPw(!showPw)} className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-tertiary hover:text-ink cursor-pointer">
               {showPw ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
             </button>
           </div>
@@ -112,23 +124,22 @@ export function LoginPage() {
 
         <AnimatePresence>
           {error && (
-            <motion.p initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="text-xs text-danger font-mono">
+            <motion.p initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="text-xs text-danger font-mono leading-relaxed">
               {error}
             </motion.p>
           )}
           {demoHint && (
             <motion.p initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} className="text-xs text-gold-bright font-mono flex items-center gap-2">
-              <Zap className="w-3.5 h-3.5" /> Loading demo cosmic field…
+              <Zap className="w-3.5 h-3.5 text-amber-400 animate-pulse" /> Loading demo account...
             </motion.p>
           )}
         </AnimatePresence>
 
-        <Button type="submit" disabled={loading} className="w-full rounded-md" size="md">
+        <Button type="submit" disabled={loading} className="w-full rounded-md cursor-pointer" size="md">
           {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Sign In"}
         </Button>
       </form>
 
-      {/* High Contrast Create Account Redirect */}
       <div className="mt-6 pt-4 border-t border-line/60 text-center">
         <p className="text-xs text-ink-secondary">
           Don't have an account?{" "}

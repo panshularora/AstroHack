@@ -4,12 +4,15 @@ import {
   X, Brain, ArrowRight, CheckCircle2, AlertTriangle, RefreshCw, Scale, Plus
 } from "lucide-react"
 
+import { useUser } from "@/context/UserContext"
+
 interface AIDecisionSimulatorProps {
   isOpen: boolean
   onClose: () => void
 }
 
 export function AIDecisionSimulatorModal({ isOpen, onClose }: AIDecisionSimulatorProps) {
+  const { user } = useUser()
   const [selectedPreset, setSelectedPreset] = useState<number>(0)
   const [isSimulating, setIsSimulating] = useState(false)
   const [customInput, setCustomInput] = useState("")
@@ -112,7 +115,7 @@ export function AIDecisionSimulatorModal({ isOpen, onClose }: AIDecisionSimulato
           badge: "High Cosmic Synergy",
           badgeColor: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30",
           transitImpact: "Active Leo Sun & 10th House Jupiter Trine boosts success likelihood.",
-          memoryEvidence: `Custom simulation aligned with Arjun's natal Dasha calculations.`,
+          memoryEvidence: `Custom simulation aligned with ${user.name}'s natal Dasha calculations.`,
           predictions: [`Positive outcome for "${customInput}"`],
           opportunities: ["Accelerated personal growth", "Favorable planetary window"],
           risks: ["Requires disciplined execution"],

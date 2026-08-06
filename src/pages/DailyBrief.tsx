@@ -3,20 +3,31 @@ import { Target, Calendar, TrendingUp, BookOpen, Star, Zap } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { Button } from "@/components/ui/Button"
 import { mockDailyBriefData, mockSmartPriorities, mockHabitProgress } from "@/lib/mock-data"
+import { useUser } from "@/context/UserContext"
 
 export function DailyBrief() {
   const navigate = useNavigate()
+  const { user } = useUser()
+  const isDemoUser = user.email === "arjun.sharma@example.com" || user.id === "u1"
+
   const d = mockDailyBriefData
 
+  const habitProgress = isDemoUser ? mockHabitProgress : {
+    remedyStreak: 0,
+    journalStreak: 0,
+    aiCheckIns: 0,
+    predictionsTracked: 0,
+  }
+
   return (
-    <div className="page-container max-w-5xl pb-28">
+    <div className="page-container max-w-5xl pb-28 font-sans">
       <div className="space-y-10">
 
         {/* ── Header ─────────────────────────────────────────────── */}
         <div className="border-b border-line/60 pb-6">
           <button
             onClick={() => navigate(-1)}
-            className="flex items-center gap-1.5 font-mono text-[11px] text-ink-tertiary hover:text-ink transition-colors mb-5 group"
+            className="flex items-center gap-1.5 font-mono text-[11px] text-ink-tertiary hover:text-ink transition-colors mb-5 group cursor-pointer"
           >
             <svg className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" viewBox="0 0 16 16" fill="none">
               <path d="M10 12L6 8l4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -31,9 +42,9 @@ export function DailyBrief() {
               {new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" })}
             </p>
           </div>
-          <h1 className="text-h1 font-display text-ink tracking-tight">{d.greeting}</h1>
+          <h1 className="text-h1 font-display text-ink tracking-tight">Good Morning, {user.name}</h1>
           <p className="text-sm text-ink-secondary mt-1">
-            Live Panchang & transit synthesis personalized to your Leo Sun & Scorpio Ascendant birth chart.
+            Live Panchang & transit synthesis personalized to your {user.sunSign} Sun & {user.ascendant} Ascendant birth chart.
           </p>
         </div>
 
@@ -89,7 +100,7 @@ export function DailyBrief() {
                       <p className="text-[11px] text-ink-tertiary font-sans mt-0.5">{p.reason}</p>
                     </div>
                   </div>
-                  <Button variant="outline" size="sm" className="rounded-md shrink-0 font-mono text-xs">{p.actionText}</Button>
+                  <Button variant="outline" size="sm" className="rounded-md shrink-0 font-mono text-xs cursor-pointer">{p.actionText}</Button>
                 </div>
               </motion.div>
             ))}
@@ -133,10 +144,10 @@ export function DailyBrief() {
           <h3 className="text-body font-bold text-ink border-b border-line/60 pb-3">Spiritual Habit Progress</h3>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 font-mono">
             {[
-              { label: "Remedy Streak", value: mockHabitProgress.remedyStreak, suffix: "days" },
-              { label: "Journal Streak", value: mockHabitProgress.journalStreak, suffix: "days" },
-              { label: "AI Check-ins", value: mockHabitProgress.aiCheckIns, suffix: "total" },
-              { label: "Predictions Tracked", value: mockHabitProgress.predictionsTracked, suffix: "total" },
+              { label: "Remedy Streak", value: habitProgress.remedyStreak, suffix: "days" },
+              { label: "Journal Streak", value: habitProgress.journalStreak, suffix: "days" },
+              { label: "AI Check-ins", value: habitProgress.aiCheckIns, suffix: "total" },
+              { label: "Predictions Tracked", value: habitProgress.predictionsTracked, suffix: "total" },
             ].map(h => (
               <div key={h.label} className="p-4 rounded-md bg-surface-2/60 border border-line/60 space-y-1">
                 <p className="text-2xl font-bold text-ink tabular-nums">{h.value}</p>

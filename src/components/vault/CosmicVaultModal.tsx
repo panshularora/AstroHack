@@ -12,9 +12,9 @@ interface CosmicVaultModalProps {
 export function CosmicVaultModal({ isOpen, onClose }: CosmicVaultModalProps) {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [documents, setDocuments] = useState([
-    { id: "doc-1", name: "Offer_Letter_TechExec_2026.pdf", category: "CAREER", date: "Aug 15, 2026", linkedPrediction: "Executive Tech Offer (88% Conf.)", verified: true, size: "1.4 MB" },
+    { id: "doc-1", name: "Offer_Letter_TechExec_2026.pdf", category: "CAREER", date: "Aug 15, 2026", linkedPrediction: "Executive Tech Offer (88% Verified)", verified: true, size: "1.4 MB" },
     { id: "doc-2", name: "H1B_Visa_Stamp_Approval.pdf", category: "IMMIGRATION", date: "Nov 12, 2024", linkedPrediction: "US Transit & Visa Clearance", verified: true, size: "2.1 MB" },
-    { id: "doc-3", name: "Ashtakoot_Kundli_Milan_Certificate.pdf", category: "RELATIONSHIP", date: "Feb 04, 2025", linkedPrediction: "31/36 Guna Compatibility Outcome", verified: true, size: "850 KB" },
+    { id: "doc-3", name: "Ashtakoot_Kundli_Milan_Certificate.pdf", category: "RELATIONSHIP", date: "Feb 04, 2025", linkedPrediction: "31/36 Guna Compatibility", verified: true, size: "850 KB" },
     { id: "doc-4", name: "Medical_Vitality_Panchan_Report.pdf", category: "HEALTH", date: "May 20, 2025", linkedPrediction: "Ayurvedic Balance Window", verified: false, size: "3.2 MB" },
   ])
 
@@ -46,13 +46,14 @@ export function CosmicVaultModal({ isOpen, onClose }: CosmicVaultModalProps) {
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+      {/* Centered Fixed Viewport Overlay */}
+      <div className="fixed inset-0 z-[9999] w-screen h-screen flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md overflow-y-auto font-sans">
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 10 }}
+          exit={{ opacity: 0, y: 12 }}
           transition={{ duration: 0.2, ease: "easeOut" }}
-          className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-[#090A0F] border border-white/10 rounded-2xl p-6 sm:p-8 space-y-6 shadow-2xl"
+          className="relative w-full max-w-3xl my-auto bg-[#090A0F] border border-white/10 rounded-2xl p-6 sm:p-8 space-y-6 shadow-2xl overflow-hidden"
         >
           {/* Header */}
           <div className="flex items-center justify-between border-b border-white/10 pb-4">
@@ -90,14 +91,14 @@ export function CosmicVaultModal({ isOpen, onClose }: CosmicVaultModalProps) {
           {/* Upload Drop Zone */}
           <div 
             onClick={() => fileInputRef.current?.click()}
-            className="p-6 rounded-2xl border-2 border-dashed border-amber-500/40 bg-amber-500/5 text-center space-y-3 font-mono cursor-pointer hover:border-amber-400 hover:bg-amber-500/10 transition-all"
+            className="p-8 rounded-2xl border-2 border-dashed border-amber-500/40 bg-amber-500/5 text-center space-y-3 font-mono cursor-pointer hover:border-amber-400 hover:bg-amber-500/10 transition-all"
           >
-            <Upload className="w-8 h-8 text-amber-400 mx-auto animate-bounce" />
+            <Upload className="w-8 h-8 text-amber-400 mx-auto" />
             <div>
-              <p className="text-xs font-bold text-white">Click to Select Real Document (PDF / Image)</p>
-              <p className="text-[10px] text-[#9CA3AF] mt-0.5">Offer Letters, Visas, Kundli Milans, Property Deeds, Contracts</p>
+              <p className="text-sm font-bold text-white">Click to Select Real Document (PDF / Image)</p>
+              <p className="text-xs text-[#9CA3AF] mt-1">Offer Letters, Visas, Kundli Milans, Property Deeds, Contracts</p>
             </div>
-            <Button size="sm" className="rounded-xl font-mono bg-amber-500 text-black font-bold hover:bg-amber-400" disabled={uploading}>
+            <Button size="sm" className="rounded-xl font-mono bg-amber-500 text-black font-bold hover:bg-amber-400 cursor-pointer mt-2" disabled={uploading}>
               {uploading ? "Encrypting & Attaching File..." : "Choose File from Computer"}
             </Button>
           </div>
@@ -109,39 +110,41 @@ export function CosmicVaultModal({ isOpen, onClose }: CosmicVaultModalProps) {
               <span>Linked Prediction & Status</span>
             </div>
 
-            {documents.map(doc => (
-              <div key={doc.id} className="p-4 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between gap-4">
-                <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center shrink-0 text-cyan-300">
-                    <FileText className="w-4 h-4" />
+            <div className="space-y-2.5 max-h-[300px] overflow-y-auto pr-1">
+              {documents.map(doc => (
+                <div key={doc.id} className="p-4 rounded-xl bg-white/5 border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="w-9 h-9 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center shrink-0 text-cyan-300">
+                      <FileText className="w-4.5 h-4.5" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="font-bold text-white truncate text-xs">{doc.name}</p>
+                      <p className="text-[10px] text-[#9CA3AF] mt-0.5">{doc.category} · {doc.size} · Uploaded {doc.date}</p>
+                    </div>
                   </div>
-                  <div className="min-w-0">
-                    <p className="font-bold text-white truncate text-xs">{doc.name}</p>
-                    <p className="text-[10px] text-[#9CA3AF]">{doc.category} · {doc.size} · Uploaded {doc.date}</p>
-                  </div>
-                </div>
 
-                <div className="text-right shrink-0 space-y-1">
-                  <div className="flex items-center gap-1.5 justify-end">
-                    <LinkIcon className="w-3 h-3 text-amber-400" />
-                    <span className="text-[11px] font-bold text-amber-300 truncate max-w-[180px]">{doc.linkedPrediction}</span>
-                  </div>
-                  <div className="flex items-center gap-1 justify-end text-[10px]">
-                    {doc.verified ? (
-                      <span className="text-emerald-400 flex items-center gap-1"><ShieldCheck className="w-3 h-3 text-emerald-400" /> Verified Proof</span>
-                    ) : (
-                      <span className="text-amber-400">Pending Verification</span>
-                    )}
+                  <div className="sm:text-right shrink-0 space-y-1">
+                    <div className="flex items-center gap-1.5 sm:justify-end">
+                      <LinkIcon className="w-3 h-3 text-amber-400 shrink-0" />
+                      <span className="text-xs font-bold text-amber-300">{doc.linkedPrediction}</span>
+                    </div>
+                    <div className="flex items-center gap-1 sm:justify-end text-[10px]">
+                      {doc.verified ? (
+                        <span className="text-emerald-400 flex items-center gap-1 font-bold"><ShieldCheck className="w-3.5 h-3.5 text-emerald-400" /> Verified Proof</span>
+                      ) : (
+                        <span className="text-amber-400 font-bold">Pending Verification</span>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
 
           {/* Footer */}
           <div className="pt-4 border-t border-white/10 flex items-center justify-between font-mono text-xs text-[#9CA3AF]">
-            <span className="flex items-center gap-1"><Sparkles className="w-3.5 h-3.5 text-amber-400" /> 256-Bit Encrypted Vault</span>
-            <Button size="sm" variant="outline" className="rounded-xl font-mono border-white/20 text-white" onClick={onClose}>
+            <span className="flex items-center gap-1.5"><Sparkles className="w-3.5 h-3.5 text-amber-400" /> 256-Bit Encrypted Vault</span>
+            <Button size="sm" variant="outline" className="rounded-xl font-mono border-white/20 text-white cursor-pointer" onClick={onClose}>
               Close Vault
             </Button>
           </div>

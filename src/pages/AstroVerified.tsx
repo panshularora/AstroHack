@@ -1,113 +1,211 @@
 import { useState } from "react"
-import { motion } from "framer-motion"
-import { useNavigate } from "react-router-dom"
-import { ShieldCheck, Star, Search } from "lucide-react"
-import { Button } from "@/components/ui/Button"
-import { Badge } from "@/components/ui/Badge"
-import { Input } from "@/components/ui/Input"
-import { mockVerifiedAstrologers } from "@/lib/mock-data"
+import { PRACTITIONERS } from "@/data/practitioners"
+import type { Practitioner, SessionMode, Specialization, UserBirthDetails } from "@/types/verified"
+import { PractitionerGrid } from "@/components/verified/PractitionerGrid"
+import { LiveSessionModal } from "@/components/verified/LiveSessionModal"
+import { PractitionerProfileModal } from "@/components/verified/PractitionerProfileModal"
+import { FilterModal } from "@/components/verified/FilterModal"
+import { SearchModal } from "@/components/verified/SearchModal"
+import { HowItWorksModal } from "@/components/verified/HowItWorksModal"
+import { PricingModal } from "@/components/verified/PricingModal"
+import { SupportModal } from "@/components/verified/SupportModal"
+import { BirthChartCalculatorModal } from "@/components/verified/BirthChartCalculatorModal"
+import { Compass, ShieldCheck, Filter, Search, HelpCircle, CreditCard, LifeBuoy } from "lucide-react"
+import { useUser } from "@/context/UserContext"
 
 export function AstroVerified() {
-  const [search, setSearch] = useState("")
-  const navigate = useNavigate()
+  const { user } = useUser()
 
-  const filtered = mockVerifiedAstrologers.filter(a =>
-    a.name.toLowerCase().includes(search.toLowerCase()) ||
-    a.specialization.some(s => s.toLowerCase().includes(search.toLowerCase()))
-  )
+  const [activeSpecialtyFilter, setActiveSpecialtyFilter] = useState<Specialization>('All')
+
+  // User birth details derived from global UserContext profile
+  const [userBirthDetails, setUserBirthDetails] = useState<UserBirthDetails>({
+    name: user.name || 'Alexandra Vance',
+    dob: user.dob || '1995-08-15',
+    timeOfBirth: user.timeOfBirth || '10:30',
+    location: user.placeOfBirth || 'New Delhi, India',
+  })
+
+  // Modals state
+  const [activeSession, setActiveSession] = useState<{ practitioner: Practitioner; mode: SessionMode } | null>(null)
+  const [profilePractitioner, setProfilePractitioner] = useState<Practitioner | null>(null)
+  
+  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false)
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false)
+  const [isHowItWorksOpen, setIsHowItWorksOpen] = useState(false)
+  const [isPricingOpen, setIsPricingOpen] = useState(false)
+  const [isSupportOpen, setIsSupportOpen] = useState(false)
+  const [isBirthChartOpen, setIsBirthChartOpen] = useState(false)
+
+  // Filtered practitioners list
+  const filteredPractitioners = PRACTITIONERS.filter((p) => {
+    if (activeSpecialtyFilter === 'All') return true
+    return p.specialty.toLowerCase() === activeSpecialtyFilter.toLowerCase()
+  })
+
+  const handleStartSession = (practitioner: Practitioner, mode: SessionMode) => {
+    setActiveSession({ practitioner, mode })
+  }
 
   return (
-    <div className="page-container max-w-5xl pb-28">
-      <div className="space-y-10">
-
-        {/* ── Header ─────────────────────────────────────────────── */}
-        <div className="border-b border-line/60 pb-6">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-8 h-8 rounded-md bg-surface-2 border border-brand/30 flex items-center justify-center text-brand">
-              <ShieldCheck className="w-4 h-4 text-brand" />
-            </div>
-            <p className="text-xs font-mono font-bold uppercase tracking-widest text-brand">AstroVerified Network</p>
-          </div>
-          <h1 className="text-h1 font-display text-ink tracking-tight">Verified Vedic Practitioners</h1>
-          <p className="text-sm text-ink-secondary mt-1">
-            Expert astrologers with 100% verified accuracy logs, client reviews, and transparent pricing in INR.
-          </p>
+    <div className="min-h-screen flex flex-col justify-between selection:bg-amber-500/20 selection:text-amber-200 font-sans pb-20">
+      
+      {/* Top Controls Bar */}
+      <div className="w-full border-b border-neutral-800/80 bg-neutral-950/80 backdrop-blur-md sticky top-0 z-30 px-4 py-2 flex items-center justify-between text-xs">
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setIsBirthChartOpen(true)}
+            className="flex items-center gap-1.5 px-3 py-1 bg-amber-500/10 hover:bg-amber-500/20 text-amber-200 rounded-full border border-amber-500/30 transition-colors font-serif cursor-pointer"
+          >
+            <Compass className="w-3.5 h-3.5 text-amber-400" />
+            <span>Natal Chart Engine</span>
+          </button>
+          {activeSpecialtyFilter !== 'All' && (
+            <span className="text-[11px] font-mono text-neutral-400 hidden sm:inline">
+              Filtering by: <strong className="text-amber-300">{activeSpecialtyFilter}</strong>
+            </span>
+          )}
         </div>
 
-        {/* ── Search Bar ─────────────────────────────────────────── */}
-        <div className="relative">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-ink-tertiary" />
-          <Input
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            placeholder="Search by name, specialty (Vedic, KP, Prashna, Career)..."
-            className="pl-11 h-11 text-sm bg-surface-2/60 border-line rounded-md font-sans"
-          />
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setIsSearchModalOpen(true)}
+            className="p-1.5 text-neutral-400 hover:text-amber-200 transition-colors cursor-pointer flex items-center gap-1 font-mono text-xs"
+          >
+            <Search className="w-3.5 h-3.5 text-amber-400" />
+            <span className="hidden sm:inline">Search</span>
+          </button>
+          <button
+            onClick={() => setIsFilterModalOpen(true)}
+            className="flex items-center gap-1 text-neutral-400 hover:text-amber-200 transition-colors font-mono cursor-pointer"
+          >
+            <Filter className="w-3.5 h-3.5 text-amber-400" />
+            <span className="hidden sm:inline">Filter</span>
+          </button>
         </div>
-
-        {/* ── Astrologer Grid ─────────────────────────────────────── */}
-        <div className="grid sm:grid-cols-2 gap-6">
-          {filtered.map((a, i) => (
-            <motion.div key={a.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
-              <div
-                onClick={() => navigate(`/app/astrologer/${a.id}`)}
-                className="p-6 rounded-lg bg-surface border border-line hover:border-brand/40 shadow-xs transition-all duration-150 cursor-pointer space-y-5 group"
-              >
-                {/* Profile row */}
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-md bg-surface-2 border border-brand/30 text-brand flex items-center justify-center font-mono font-bold text-sm shrink-0">
-                    {a.name.slice(0, 2).toUpperCase()}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2">
-                      <p className="text-body font-bold text-ink group-hover:text-brand transition-colors">{a.name}</p>
-                      <div className={`w-2 h-2 rounded-full shrink-0 ${a.status === "online" ? "bg-success" : a.status === "busy" ? "bg-warning" : "bg-ink-quaternary"}`} />
-                    </div>
-                    <p className="text-caption mt-0.5">{a.specialization.join(" · ")}</p>
-                  </div>
-                </div>
-
-                {/* Stats row */}
-                <div className="grid grid-cols-3 gap-2.5 font-mono">
-                  {[
-                    { label: "Accuracy", value: `${a.accuracy}%` },
-                    { label: "Experience", value: `${a.experienceYears}y` },
-                    { label: "Sessions", value: a.consultationCount },
-                  ].map(s => (
-                    <div key={s.label} className="text-center p-2.5 rounded-md bg-surface-2/60 border border-line/50">
-                      <p className="text-xs font-bold text-ink">{s.value}</p>
-                      <p className="text-[10px] text-ink-tertiary uppercase mt-0.5">{s.label}</p>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Footer row */}
-                <div className="flex items-center justify-between pt-2 border-t border-line/60">
-                  <div className="flex items-center gap-2 font-mono text-xs">
-                    <Star className="w-3.5 h-3.5 fill-gold-bright text-gold-bright" />
-                    <span className="font-bold text-ink">{a.trustScore}</span>
-                    <Badge variant="gold" size="sm">{a.badge}</Badge>
-                  </div>
-                  <div className="text-right font-mono">
-                    <span className="text-sm font-bold text-ink">₹{a.pricing}</span>
-                    <span className="text-caption text-ink-tertiary">/min</span>
-                  </div>
-                </div>
-
-                <div className="flex gap-2 pt-1">
-                  <Button variant="outline" size="sm" className="flex-1 rounded-md text-xs font-mono" onClick={(e) => { e.stopPropagation(); navigate(`/app/astrologer/${a.id}`) }}>
-                    Profile
-                  </Button>
-                  <Button size="sm" className="flex-1 rounded-md font-mono font-bold text-xs" onClick={(e) => { e.stopPropagation(); navigate(`/app/room/${a.id}`) }}>
-                    Connect Live
-                  </Button>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
       </div>
+
+      {/* Main Directory Header & Content */}
+      <main className="flex-1">
+        <header className="pt-8 pb-6 px-4 text-center max-w-5xl mx-auto flex flex-col items-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900/90 border border-neutral-700/60 shadow-lg text-xs font-medium tracking-wide text-amber-200 mb-4 backdrop-blur-md">
+            <div className="w-5 h-5 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-400">
+              <Compass className="w-3.5 h-3.5" />
+            </div>
+            <span className="font-serif tracking-wider text-amber-100">
+              AstroLive: Verified Predictive Network
+            </span>
+          </div>
+
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-normal text-neutral-100 tracking-tight leading-tight mb-3">
+            Verified Vedic Practitioners
+          </h1>
+
+          <p className="text-sm text-neutral-400 max-w-2xl font-light tracking-wide leading-relaxed mb-4">
+            Connect with verified practitioners for audio, video, and chat sessions with 100% verified accuracy standards.
+          </p>
+
+          <div className="flex items-center gap-4 text-xs text-neutral-500 font-mono">
+            <span className="inline-flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              14 Verified Practitioners Live
+            </span>
+            <span className="text-neutral-700">•</span>
+            <span className="inline-flex items-center gap-1">
+              <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
+              98.5%+ Accuracy Verified
+            </span>
+          </div>
+
+          {/* Quick Action Navigation Bar */}
+          <div className="flex flex-wrap items-center justify-center gap-2 mt-6">
+            <button
+              onClick={() => setIsHowItWorksOpen(true)}
+              className="px-3.5 py-1.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-xs font-mono text-neutral-300 hover:text-amber-200 flex items-center gap-1.5 transition-colors cursor-pointer"
+            >
+              <HelpCircle className="w-3.5 h-3.5 text-amber-400" />
+              <span>How It Works</span>
+            </button>
+            <button
+              onClick={() => setIsPricingOpen(true)}
+              className="px-3.5 py-1.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-xs font-mono text-neutral-300 hover:text-amber-200 flex items-center gap-1.5 transition-colors cursor-pointer"
+            >
+              <CreditCard className="w-3.5 h-3.5 text-amber-400" />
+              <span>Pricing & Credits</span>
+            </button>
+            <button
+              onClick={() => setIsSupportOpen(true)}
+              className="px-3.5 py-1.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-xs font-mono text-neutral-300 hover:text-amber-200 flex items-center gap-1.5 transition-colors cursor-pointer"
+            >
+              <LifeBuoy className="w-3.5 h-3.5 text-amber-400" />
+              <span>Concierge Support</span>
+            </button>
+          </div>
+        </header>
+
+        {/* Directory Grid */}
+        <PractitionerGrid
+          practitioners={filteredPractitioners}
+          onStartSession={handleStartSession}
+          onOpenProfile={(p) => setProfilePractitioner(p)}
+        />
+      </main>
+
+      {/* Interactive Modals */}
+      {activeSession && (
+        <LiveSessionModal
+          practitioner={activeSession.practitioner}
+          mode={activeSession.mode}
+          userBirthDetails={userBirthDetails}
+          onUpdateBirthDetails={setUserBirthDetails}
+          onClose={() => setActiveSession(null)}
+        />
+      )}
+
+      {profilePractitioner && (
+        <PractitionerProfileModal
+          practitioner={profilePractitioner}
+          onStartSession={handleStartSession}
+          onClose={() => setProfilePractitioner(null)}
+        />
+      )}
+
+      {isFilterModalOpen && (
+        <FilterModal
+          activeFilter={activeSpecialtyFilter}
+          onSelectFilter={(spec) => setActiveSpecialtyFilter(spec)}
+          onClose={() => setIsFilterModalOpen(false)}
+        />
+      )}
+
+      {isSearchModalOpen && (
+        <SearchModal
+          practitioners={PRACTITIONERS}
+          onSelectPractitioner={(p) => setProfilePractitioner(p)}
+          onClose={() => setIsSearchModalOpen(false)}
+        />
+      )}
+
+      {isHowItWorksOpen && (
+        <HowItWorksModal onClose={() => setIsHowItWorksOpen(false)} />
+      )}
+
+      {isPricingOpen && (
+        <PricingModal onClose={() => setIsPricingOpen(false)} />
+      )}
+
+      {isSupportOpen && (
+        <SupportModal onClose={() => setIsSupportOpen(false)} />
+      )}
+
+      {isBirthChartOpen && (
+        <BirthChartCalculatorModal
+          userBirthDetails={userBirthDetails}
+          onUpdateBirthDetails={setUserBirthDetails}
+          onClose={() => setIsBirthChartOpen(false)}
+        />
+      )}
+
     </div>
   )
 }

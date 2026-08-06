@@ -1,0 +1,6 @@
+{
+  "name": "Chrono - Time & Reflection",
+  "description": "A minimalist temporal clock and interactive timeline app allowing users to navigate Present live time, review Past reflections, and plan Future goals with ambient sounds and custom themes.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

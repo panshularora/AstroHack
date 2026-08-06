@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { BookOpen, Target, Zap, FileText, Search, Folder } from "lucide-react"
+import { BookOpen, Target, Zap, FileText, Search, Folder, Plus } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { Button } from "@/components/ui/Button"
 import { CosmicVaultModal } from "@/components/vault/CosmicVaultModal"
@@ -12,16 +12,29 @@ import { useUser } from "@/context/UserContext"
 export function CosmicMemory() {
   const navigate = useNavigate()
   const { user } = useUser()
+  const isDemoUser = user.email === "arjun.sharma@example.com" || user.id === "u1"
+
   const [search, setSearch] = useState("")
   const [vaultOpen, setVaultOpen] = useState(false)
 
-  const filteredTimeline = mockTimelineEvents.filter(e =>
+  const memoryStats = isDemoUser ? mockMemoryStats : {
+    totalConsultations: 0,
+    activePredictions: 0,
+    completedPredictions: 0,
+    verifiedAccurate: 0,
+    totalInvestment: 0,
+  }
+
+  const timelineEvents = isDemoUser ? mockTimelineEvents : []
+  const journalEntries = isDemoUser ? mockJournalEntries : []
+
+  const filteredTimeline = timelineEvents.filter(e =>
     e.title.toLowerCase().includes(search.toLowerCase()) ||
     (e.astrologer?.name && e.astrologer.name.toLowerCase().includes(search.toLowerCase()))
   )
 
   return (
-    <div className="page-container max-w-5xl pb-28">
+    <div className="page-container max-w-5xl pb-28 font-sans">
       <div className="space-y-10">
 
         {/* ── Header ─────────────────────────────────────────────── */}
@@ -47,7 +60,7 @@ export function CosmicMemory() {
               Immutable archive of {user.name}'s consultations, verified predictions, remedies, and journal notes.
             </p>
           </div>
-          <Button size="sm" variant="outline" className="rounded-md font-mono border-blue-500/30 text-blue-400 gap-2 shrink-0" onClick={() => setVaultOpen(true)}>
+          <Button size="sm" variant="outline" className="rounded-md font-mono border-blue-500/30 text-blue-400 gap-2 shrink-0 cursor-pointer" onClick={() => setVaultOpen(true)}>
             <Folder className="w-4 h-4 text-blue-400" /> Life Document Vault
           </Button>
         </div>
@@ -55,10 +68,10 @@ export function CosmicMemory() {
         {/* ── Metric Cards ───────────────────────────────────────── */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 font-mono">
           {[
-            { label: "Consultations", value: mockMemoryStats.totalConsultations, icon: BookOpen },
-            { label: "Tracked Predictions", value: mockMemoryStats.activePredictions + mockMemoryStats.completedPredictions, icon: Target },
-            { label: "Verified Accurate", value: mockMemoryStats.verifiedAccurate, icon: Zap },
-            { label: "Total Investment", value: `₹${(mockMemoryStats.totalInvestment / 1000).toFixed(1)}k`, icon: FileText },
+            { label: "Consultations", value: memoryStats.totalConsultations, icon: BookOpen },
+            { label: "Tracked Predictions", value: memoryStats.activePredictions + memoryStats.completedPredictions, icon: Target },
+            { label: "Verified Accurate", value: memoryStats.verifiedAccurate, icon: Zap },
+            { label: "Total Investment", value: `₹${memoryStats.totalInvestment}`, icon: FileText },
           ].map(s => (
             <div key={s.label} className="p-4 rounded-lg bg-surface border border-line space-y-2">
               <div className="flex items-center justify-between text-ink-tertiary">
@@ -88,39 +101,52 @@ export function CosmicMemory() {
             <p className="text-caption mt-0.5">Chronological record of every consultation and milestone</p>
           </div>
 
-          <div className="space-y-4">
-            {filteredTimeline.map((event, i) => (
-              <motion.div key={event.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.04 }}>
-                <div className="p-5 rounded-lg bg-surface border border-line space-y-3">
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-md bg-surface-2 border border-brand/30 flex items-center justify-center shrink-0 text-brand">
-                      {event.type === "consultation"
-                        ? <BookOpen className="w-4 h-4 text-brand" />
-                        : <Target className="w-4 h-4 text-success" />}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between">
-                        <p className="text-body font-bold text-ink">{event.title}</p>
-                        {event.type === "milestone" && <Badge variant="success" size="sm">Milestone</Badge>}
+          {filteredTimeline.length === 0 ? (
+            <div className="text-center py-12 space-y-3 bg-neutral-900/40 border border-neutral-800 rounded-2xl p-8">
+              <BookOpen className="w-8 h-8 text-amber-400 mx-auto opacity-80" />
+              <h3 className="text-sm font-bold text-white">No memory logs recorded yet</h3>
+              <p className="text-xs text-neutral-400 max-w-sm mx-auto font-mono">
+                Your consultation transcripts and verified prediction proofs will appear here in real time.
+              </p>
+              <Button onClick={() => navigate("/app/verified")} className="rounded-xl bg-amber-500 text-black font-bold font-mono text-xs cursor-pointer">
+                <Plus className="w-4 h-4 mr-1" /> Consult Verified Astrologer
+              </Button>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {filteredTimeline.map((event, i) => (
+                <motion.div key={event.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.04 }}>
+                  <div className="p-5 rounded-lg bg-surface border border-line space-y-3">
+                    <div className="flex items-start gap-4">
+                      <div className="w-10 h-10 rounded-md bg-surface-2 border border-brand/30 flex items-center justify-center shrink-0 text-brand">
+                        {event.type === "consultation"
+                          ? <BookOpen className="w-4 h-4 text-brand" />
+                          : <Target className="w-4 h-4 text-success" />}
                       </div>
-                      <p className="text-xs font-mono text-ink-tertiary mt-1">
-                        {new Date(event.date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
-                        {event.astrologer && ` · ${event.astrologer.name}`}
-                        {event.duration && ` · ${event.duration} min`}
-                      </p>
-                      {event.predictionsCount !== undefined && (
-                        <div className="flex items-center gap-4 mt-3 font-mono text-[11px] text-ink-secondary">
-                          <span>{event.predictionsCount} predictions</span>
-                          <span>{event.remediesCount} remedies</span>
-                          <span>{event.notesCount} notes</span>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between">
+                          <p className="text-body font-bold text-ink">{event.title}</p>
+                          {event.type === "milestone" && <Badge variant="success" size="sm">Milestone</Badge>}
                         </div>
-                      )}
+                        <p className="text-xs font-mono text-ink-tertiary mt-1">
+                          {new Date(event.date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+                          {event.astrologer && ` · ${event.astrologer.name}`}
+                          {event.duration && ` · ${event.duration} min`}
+                        </p>
+                        {event.predictionsCount !== undefined && (
+                          <div className="flex items-center gap-4 mt-3 font-mono text-[11px] text-ink-secondary">
+                            <span>{event.predictionsCount} predictions</span>
+                            <span>{event.remediesCount} remedies</span>
+                            <span>{event.notesCount} notes</span>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+                </motion.div>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* ── Journal Entries ─────────────────────────────────────── */}
@@ -130,25 +156,29 @@ export function CosmicMemory() {
             <p className="text-caption mt-0.5">Audio & text reflections linked to your Kundli journey</p>
           </div>
 
-          <div className="space-y-4">
-            {mockJournalEntries.map(entry => (
-              <div key={entry.id} className="p-5 rounded-lg bg-surface border border-line space-y-3 font-sans">
-                <div className="flex items-start gap-4">
-                  <div className="w-9 h-9 rounded-md bg-surface-2 border border-line flex items-center justify-center shrink-0 text-brand">
-                    <FileText className="w-4 h-4 text-brand" />
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-xs text-ink leading-relaxed">{entry.content}</p>
-                    <div className="flex items-center gap-3 mt-3 font-mono text-xs">
-                      <span className="text-ink-tertiary">{new Date(entry.date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>
-                      <Badge variant="gold" size="sm">{entry.mood}</Badge>
-                      {entry.duration && <span className="text-ink-tertiary">{entry.duration}</span>}
+          {journalEntries.length === 0 ? (
+            <p className="text-xs font-mono text-neutral-500 py-4">No reflections recorded yet.</p>
+          ) : (
+            <div className="space-y-4">
+              {journalEntries.map(entry => (
+                <div key={entry.id} className="p-5 rounded-lg bg-surface border border-line space-y-3 font-sans">
+                  <div className="flex items-start gap-4">
+                    <div className="w-9 h-9 rounded-md bg-surface-2 border border-line flex items-center justify-center shrink-0 text-brand">
+                      <FileText className="w-4 h-4 text-brand" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-xs text-ink leading-relaxed">{entry.content}</p>
+                      <div className="flex items-center gap-3 mt-3 font-mono text-xs">
+                        <span className="text-ink-tertiary">{new Date(entry.date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>
+                        <Badge variant="gold" size="sm">{entry.mood}</Badge>
+                        {entry.duration && <span className="text-ink-tertiary">{entry.duration}</span>}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
 
       </div>

@@ -8,6 +8,8 @@ import {
 import { useNavigate } from "react-router-dom"
 import { type VerifiedAstrologer, mockConsultations } from "@/lib/mock-data"
 
+import { useUser } from "@/context/UserContext"
+
 interface ConsultationFlowProps {
   isOpen: boolean
   onClose: () => void
@@ -19,6 +21,7 @@ type Step = "select" | "payment" | "waiting" | "session" | "processing" | "compl
 
 export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode = "chat" }: ConsultationFlowProps) {
   const navigate = useNavigate()
+  const { user } = useUser()
   const [step, setStep] = useState<Step>("select")
   const [mode, setMode] = useState<"chat" | "voice" | "video">(initialMode)
   const [duration, setDuration] = useState<number>(30)
@@ -39,7 +42,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
   const [messages, setMessages] = useState<Array<{ sender: "astro" | "user", text: string, time: string, attachment?: string }>>([
     {
       sender: "astro",
-      text: `Namaste Arjun! Welcome to our session. I'm reviewing your birth chart (Aug 15, 1994 · New Delhi) with the active Jupiter 10th house transit. How can I guide you today?`,
+      text: `Namaste ${user.name}! Welcome to our session. I'm reviewing your birth chart (${user.dob} · ${user.placeOfBirth}) with your active ${user.sunSign} Sun and ${user.ascendant} Ascendant. How can I guide you today?`,
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ])
@@ -507,7 +510,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                                 <div className="w-16 h-16 rounded-full bg-brand/40 flex items-center justify-center text-white text-xl font-bold mx-auto mb-2">
                                   A
                                 </div>
-                                <p className="text-xs font-bold text-white">Arjun Sharma (You)</p>
+                                <p className="text-xs font-bold text-white">{user.name} (You)</p>
                               </div>
                             </div>
                           )}

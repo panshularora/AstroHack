@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { Target, CheckCircle2, Clock, TrendingUp, Calendar, FileText, Share2, Upload } from "lucide-react"
+import { Target, CheckCircle2, Clock, TrendingUp, Calendar, FileText, Share2, Upload, Plus } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { Button } from "@/components/ui/Button"
 import { PredictionShareCardModal } from "@/components/predictions/PredictionShareCardModal"
@@ -9,19 +9,20 @@ import { CosmicVaultModal } from "@/components/vault/CosmicVaultModal"
 import { Badge } from "@/components/ui/Badge"
 import { Progress } from "@/components/ui/Progress"
 import { Tabs } from "@/components/ui/Tabs"
-import { mockDetailedPredictions, mockPredictionStats } from "@/lib/mock-data"
+import { useLedger } from "@/context/LedgerContext"
 
 type Tab = "active" | "verified" | "all"
 
 export function PredictionCenter() {
   const navigate = useNavigate()
+  const { predictions, stats } = useLedger()
   const [tab, setTab] = useState<Tab>("active")
   const [shareModalOpen, setShareModalOpen] = useState(false)
   const [activeShareData, setActiveShareData] = useState<any>(null)
   const [confidenceModalOpen, setConfidenceModalOpen] = useState(false)
   const [vaultModalOpen, setVaultModalOpen] = useState(false)
 
-  const filtered = mockDetailedPredictions.filter(p => {
+  const filtered = predictions.filter(p => {
     if (tab === "active") return p.status === "pending" || p.status === "in_progress"
     if (tab === "verified") return p.status === "completed"
     return true
@@ -35,7 +36,7 @@ export function PredictionCenter() {
   }
 
   return (
-    <div className="page-container max-w-5xl pb-28">
+    <div className="page-container max-w-5xl pb-28 font-sans">
       <div className="space-y-10">
 
         {/* ── Header ─────────────────────────────────────────────── */}
@@ -74,10 +75,10 @@ export function PredictionCenter() {
         {/* ── Metric Cards ───────────────────────────────────────── */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 font-mono">
           {[
-            { icon: Target,      label: "Total Tracked",    valueFn: () => mockPredictionStats.total,    accent: "text-ink",        bg: "bg-surface" },
-            { icon: CheckCircle2,label: "Verified Accurate", valueFn: () => mockPredictionStats.completed, accent: "text-success",     bg: "bg-[rgba(16,185,129,0.12)]" },
-            { icon: Clock,       label: "Active Windows",   valueFn: () => mockPredictionStats.pending,  accent: "text-warning",    bg: "bg-[rgba(245,158,11,0.12)]" },
-            { icon: TrendingUp,  label: "Overall Accuracy", valueFn: () => `${mockPredictionStats.accuracy}%`, accent: "text-brand", bg: "bg-brand-light" },
+            { icon: Target,      label: "Total Tracked",    value: stats.total,    accent: "text-ink",        bg: "bg-surface" },
+            { icon: CheckCircle2,label: "Verified Accurate", value: stats.verified, accent: "text-success",     bg: "bg-[rgba(16,185,129,0.12)]" },
+            { icon: Clock,       label: "Active Windows",   value: stats.active,   accent: "text-warning",    bg: "bg-[rgba(245,158,11,0.12)]" },
+            { icon: TrendingUp,  label: "Overall Accuracy", value: `${stats.accuracy}%`, accent: "text-brand", bg: "bg-brand-light" },
           ].map(s => (
             <div key={s.label} className={`p-4 rounded-lg border border-line space-y-2 ${s.bg}`}>
               <div className="flex items-center justify-between text-ink-tertiary">
@@ -85,7 +86,7 @@ export function PredictionCenter() {
                 <s.icon className={`w-4 h-4 ${s.accent}`} />
               </div>
               <p className={`font-metric text-2xl font-bold tabular-nums tracking-tight ${s.accent}`}>
-                {s.valueFn()}
+                {s.value}
               </p>
             </div>
           ))}
@@ -102,73 +103,91 @@ export function PredictionCenter() {
           onChange={(v) => setTab(v as Tab)}
         />
 
-        {/* ── Predictions List ────────────────────────────────────── */}
-        <div className="space-y-4">
-          {filtered.map((p, i) => (
-            <motion.div key={p.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
-              <div className="p-6 rounded-lg bg-surface border border-line space-y-4">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <h3 className="text-body font-bold text-ink">{p.title}</h3>
-                    <p className="text-caption mt-1 font-mono">
-                      Astrologer: {p.astrologer.name} · Category: {p.category.toUpperCase()}
-                    </p>
+        {/* ── Predictions List / Empty State ────────────────────────────────────── */}
+        {filtered.length === 0 ? (
+          <div className="text-center py-16 space-y-4 bg-neutral-900/40 border border-neutral-800 rounded-2xl p-8">
+            <Target className="w-10 h-10 text-amber-400 mx-auto opacity-80" />
+            <h3 className="text-base font-bold text-white">No prediction receipts logged yet</h3>
+            <p className="text-xs text-neutral-400 max-w-sm mx-auto font-mono">
+              Connect with a verified astrologer or click "Attach Document" to record a new prediction proof in real time.
+            </p>
+            <div className="flex items-center justify-center gap-3 pt-2">
+              <Button onClick={() => navigate("/app/verified")} className="rounded-xl bg-amber-500 text-black font-bold font-mono text-xs cursor-pointer">
+                <Plus className="w-4 h-4 mr-1" /> Consult Verified Astrologer
+              </Button>
+              <Button onClick={() => setVaultModalOpen(true)} variant="outline" className="rounded-xl border-neutral-700 font-mono text-xs text-neutral-200 cursor-pointer">
+                <Upload className="w-4 h-4 mr-1" /> Attach Proof PDF
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {filtered.map((p, i) => (
+              <motion.div key={p.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
+                <div className="p-6 rounded-lg bg-surface border border-line space-y-4">
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <h3 className="text-body font-bold text-ink">{p.title}</h3>
+                      <p className="text-caption mt-1 font-mono">
+                        Astrologer: {p.astrologer.name} · Category: {p.category.toUpperCase()}
+                      </p>
+                    </div>
+                    {statusBadge(p.status)}
                   </div>
-                  {statusBadge(p.status)}
+
+                  {p.notes && (
+                    <div className="p-3 rounded-md bg-surface-2/60 border border-line/60 text-xs text-ink-secondary flex items-start gap-2.5">
+                      <FileText className="w-4 h-4 text-brand shrink-0 mt-0.5" />
+                      <span>{p.notes}</span>
+                    </div>
+                  )}
+
+                  <div className="flex flex-wrap items-center justify-between pt-3 border-t border-line/60 gap-3 text-xs font-mono">
+                    <div className="flex items-center gap-2 text-ink-tertiary">
+                      <Calendar className="w-3.5 h-3.5" />
+                      Target: {new Date(p.targetDate).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                    </div>
+
+                    <div className="flex flex-wrap items-center gap-3">
+                      <button
+                        onClick={() => setVaultModalOpen(true)}
+                        className="flex items-center gap-1 text-[11px] text-blue-400 hover:text-blue-300 font-bold transition-colors"
+                      >
+                        <Upload className="w-3 h-3 text-blue-400" /> Upload Verification PDF
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          setActiveShareData({
+                            id: p.id,
+                            title: p.title,
+                            category: p.category.toUpperCase(),
+                            targetDate: p.targetDate,
+                            confidence: p.confidence,
+                            astrologerName: p.astrologer.name
+                          })
+                          setShareModalOpen(true)
+                        }}
+                        className="flex items-center gap-1 text-[11px] text-brand hover:text-brand-hover font-bold transition-colors"
+                      >
+                        <Share2 className="w-3 h-3 text-brand" /> Share Proof Card
+                      </button>
+
+                      <button
+                        onClick={() => setConfidenceModalOpen(true)}
+                        className="flex items-center gap-2 hover:opacity-80 transition-opacity cursor-pointer group/conf"
+                        title="Click to view Confidence Engine breakdown"
+                      >
+                        <span className="text-ink-secondary font-bold group-hover/conf:text-gold-bright transition-colors">{p.confidence}% Confidence</span>
+                        <Progress value={p.confidence} className="w-20 h-1.5" color="brand" />
+                      </button>
+                    </div>
+                  </div>
                 </div>
-
-                {p.notes && (
-                  <div className="p-3 rounded-md bg-surface-2/60 border border-line/60 text-xs text-ink-secondary flex items-start gap-2.5">
-                    <FileText className="w-4 h-4 text-brand shrink-0 mt-0.5" />
-                    <span>{p.notes}</span>
-                  </div>
-                )}
-
-                <div className="flex flex-wrap items-center justify-between pt-3 border-t border-line/60 gap-3 text-xs font-mono">
-                  <div className="flex items-center gap-2 text-ink-tertiary">
-                    <Calendar className="w-3.5 h-3.5" />
-                    Target: {new Date(p.targetDate).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
-                  </div>
-
-                  <div className="flex flex-wrap items-center gap-3">
-                    <button
-                      onClick={() => setVaultModalOpen(true)}
-                      className="flex items-center gap-1 text-[11px] text-blue-400 hover:text-blue-300 font-bold transition-colors"
-                    >
-                      <Upload className="w-3 h-3 text-blue-400" /> Upload Verification PDF
-                    </button>
-
-                    <button
-                      onClick={() => {
-                        setActiveShareData({
-                          id: p.id,
-                          title: p.title,
-                          category: p.category.toUpperCase(),
-                          targetDate: p.targetDate,
-                          confidence: p.confidence,
-                          astrologerName: p.astrologer.name
-                        })
-                        setShareModalOpen(true)
-                      }}
-                      className="flex items-center gap-1 text-[11px] text-brand hover:text-brand-hover font-bold transition-colors"
-                    >
-                      <Share2 className="w-3 h-3 text-brand" /> Share Proof Card
-                    </button>
-
-                    <button
-                      onClick={() => setConfidenceModalOpen(true)}
-                      className="flex items-center gap-2 hover:opacity-80 transition-opacity cursor-pointer group/conf"
-                      title="Click to view Confidence Engine breakdown"
-                    >
-                      <span className="text-ink-secondary font-bold group-hover/conf:text-gold-bright transition-colors">{p.confidence}% Confidence</span>
-                      <Progress value={p.confidence} className="w-20 h-1.5" color="brand" />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+              </motion.div>
+            ))}
+          </div>
+        )}
 
       </div>
 

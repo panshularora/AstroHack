@@ -26,6 +26,8 @@ import { Subscription } from "@/pages/Subscription"
 import { Settings } from "@/pages/Settings"
 import { Onboarding } from "@/pages/Onboarding"
 import { LiveConsultationRoom } from "@/pages/LiveConsultationRoom"
+import { DailyToday } from "@/pages/DailyToday"
+import { ShareKundli } from "@/pages/ShareKundli"
 
 export const router = createBrowserRouter([
   { path: "/", element: <Landing /> },
@@ -66,6 +68,8 @@ export const router = createBrowserRouter([
       { path: "astrologer/:id", element: <AstrologerProfile /> },
       { path: "subscription", element: <Subscription /> },
       { path: "settings", element: <Settings /> },
+      { path: "today", element: <DailyToday /> },
+      { path: "share", element: <ShareKundli /> },
     ],
   },
 

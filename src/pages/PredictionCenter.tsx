@@ -55,19 +55,19 @@ export function PredictionCenter() {
               <div className="w-8 h-8 rounded-md bg-surface-2 border border-brand/30 flex items-center justify-center text-brand">
                 <Target className="w-4 h-4 text-brand" />
               </div>
-              <p className="text-xs font-mono font-bold uppercase tracking-widest text-brand">Prediction Proof Engine</p>
+              <p className="text-xs font-mono font-bold uppercase tracking-widest text-brand">My Predictions & Transits</p>
             </div>
-            <h1 className="text-h1 font-display text-ink tracking-tight">Verified Prediction Proofs</h1>
+            <h1 className="text-h1 font-display text-ink tracking-tight">Tracked Predictions</h1>
             <p className="text-sm text-ink-secondary mt-1">
-              Every astrologer prediction is tracked against real-life milestones with immutable document proof (PDF, Visas, Offer Letters).
+              Track your astrologer consultation predictions, timing milestones, and planetary transit windows.
             </p>
           </div>
           <div className="flex items-center gap-2 shrink-0">
             <Button size="sm" variant="outline" className="rounded-md font-mono text-gold-bright border-gold/30" onClick={() => { setActiveShareData(null); setShareModalOpen(true) }}>
-              <Share2 className="w-4 h-4 text-gold-bright" /> Viral Share Card
+              <Share2 className="w-4 h-4 text-gold-bright" /> Share Summary
             </Button>
-            <Button size="sm" className="rounded-md shrink-0 bg-amber-500 text-black font-bold hover:bg-amber-600" onClick={() => setVaultModalOpen(true)}>
-              <Upload className="w-4 h-4 mr-1" /> Attach Document (PDF/Visa)
+            <Button size="sm" className="rounded-md shrink-0 bg-amber-500 text-black font-bold hover:bg-amber-600 cursor-pointer" onClick={() => setVaultModalOpen(true)}>
+              <Upload className="w-4 h-4 mr-1" /> Attach Document
             </Button>
           </div>
         </div>

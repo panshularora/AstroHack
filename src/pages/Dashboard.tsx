@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
-import { ArrowRight, ShieldCheck, FileText, Target, Calendar } from "lucide-react"
+import { ArrowRight, ShieldCheck, FileText, Target, Calendar, Flame } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { Badge } from "@/components/ui/Badge"
 import { Card } from "@/components/ui/Card"
@@ -20,6 +20,24 @@ export function Dashboard() {
     <div className="page-container max-w-7xl pb-28 space-y-8 font-sans">
       {/* Interactive Cosmic Planetary Transit Hero */}
       <CelestialOrbitHero />
+
+      {/* Daily Check-in Streak Widget */}
+      <div className="p-4 rounded-lg bg-surface border border-line flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-white">
+        <div 
+          className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity" 
+          onClick={() => navigate("/app/today")}
+        >
+          <Calendar className="w-5 h-5 text-amber-400" />
+          <span className="font-bold text-sm">Daily Check-in</span>
+        </div>
+        <div className="flex items-center gap-1.5 text-amber-400 font-bold">
+          <Flame className="w-4 h-4" /> 
+          <span>{localStorage.getItem(`astrolive_checkin_streak_${user.id}`) || 0} day streak</span>
+        </div>
+        <Button size="sm" onClick={() => navigate("/app/today")} className="bg-amber-500 text-black hover:bg-amber-400 font-bold rounded-lg px-4 cursor-pointer">
+          View Today's Panchang
+        </Button>
+      </div>
 
       {/* Two Column Grid: Active Predictions & Consultation Memory Logs */}
       <div className="grid lg:grid-cols-12 gap-8">

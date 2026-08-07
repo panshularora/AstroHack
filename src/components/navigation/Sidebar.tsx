@@ -19,15 +19,18 @@ import {
   ChevronRight,
   LifeBuoy,
   PanelLeftClose,
-  PanelLeftOpen
+  PanelLeftOpen,
+  Sun,
+  Share2
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useUser } from "@/context/UserContext"
 
 const primaryNavItems = [
   { path: "/app/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { path: "/app/today", label: "Daily Check-in", icon: Sun, badge: "New", badgeColor: "bg-amber-500/20 text-amber-300 border-amber-500/30" },
   { path: "/app/predictions", label: "Predictions", icon: Target },
-  { path: "/app/companion", label: "AI Companion", icon: Bot, badge: "AI", badgeColor: "bg-cyan-500/20 text-cyan-300 border-cyan-500/30" },
+  { path: "/app/companion", label: "Astro Assistant", icon: Bot, badge: "Help", badgeColor: "bg-amber-500/20 text-amber-300 border-amber-500/30" },
   { path: "/app/match", label: "Kundli Matchmaker", icon: Sparkles, badge: "Live", badgeColor: "bg-amber-500/20 text-amber-300 border-amber-500/30" },
   { path: "/app/memory", label: "Consultations Archive", icon: Database },
   { path: "/app/brief", label: "Daily Horoscope", icon: Calendar },
@@ -35,11 +38,12 @@ const primaryNavItems = [
 
 const secondaryNavItems = [
   { path: "/app/verified", label: "Verified Astrologers", icon: ShieldCheck },
-  { path: "/app/ledger", label: "Prediction Ledger", icon: BookOpen },
-  { path: "/app/relationship", label: "Relationship Synastry", icon: Heart },
+  { path: "/app/ledger", label: "My Predictions", icon: BookOpen },
+  { path: "/app/relationship", label: "Kundli Matching", icon: Heart },
   { path: "/app/journey", label: "Dasha Timeline", icon: Activity },
   { path: "/app/reports", label: "Reports", icon: FileText },
   { path: "/app/sos", label: "Remedies & Peace", icon: LifeBuoy, badge: "Peace", badgeColor: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" },
+  { path: "/app/share", label: "Invite Friends", icon: Share2, badge: "Credits", badgeColor: "bg-cyan-500/20 text-cyan-300 border-cyan-500/30" },
 ]
 
 const utilityNavItems = [

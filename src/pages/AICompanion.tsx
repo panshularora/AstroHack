@@ -132,11 +132,11 @@ export function AICompanion() {
               <div className="w-7 h-7 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400">
                 <Brain className="w-3.5 h-3.5" />
               </div>
-              <p className="text-xs font-mono font-bold uppercase tracking-widest text-amber-400">Cosmic AI Companion</p>
+              <p className="text-xs font-mono font-bold uppercase tracking-widest text-amber-400">Vedic Astrology Assistant</p>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold font-display text-white tracking-tight">AI Twin & Memory Search</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold font-display text-white tracking-tight">Astro Assistant</h1>
             <p className="text-xs sm:text-sm text-[#9CA3AF] mt-1">
-              Ask about past consultation notes, active Dasha transits, remedies, and prediction proof verification.
+              Ask about your Kundli transits, active Dasha periods, daily remedies, and past consultation notes.
             </p>
           </div>
 
@@ -146,7 +146,7 @@ export function AICompanion() {
               className="bg-amber-500 text-black font-bold hover:bg-amber-400 rounded-xl font-mono text-xs gap-1.5 cursor-pointer shadow-md"
               onClick={() => setVaultOpen(true)}
             >
-              <Upload className="w-3.5 h-3.5" /> Attach Life Document (PDF)
+              <Upload className="w-3.5 h-3.5" /> Attach Document
             </Button>
           </div>
         </div>
@@ -171,10 +171,10 @@ export function AICompanion() {
                       "w-8 h-8 rounded-xl flex items-center justify-center font-mono font-bold text-xs shrink-0 shadow-md",
                       msg.role === "user"
                         ? "bg-amber-500 text-black"
-                        : "bg-gradient-to-br from-purple-600 to-blue-600 text-white"
+                        : "bg-gradient-to-br from-amber-600 to-amber-800 text-white"
                     )}
                   >
-                    {msg.role === "user" ? "YOU" : "AI"}
+                    {msg.role === "user" ? "YOU" : "ASTRO"}
                   </div>
 
                   <div className="space-y-2">
@@ -209,7 +209,7 @@ export function AICompanion() {
 
               {isTyping && (
                 <div className="flex items-center gap-2 text-xs font-mono text-amber-400">
-                  <Sparkles className="w-4 h-4 animate-spin" /> AI Twin is searching natal transit engine...
+                  <Sparkles className="w-4 h-4 animate-spin" /> Calculating planetary transits...
                 </div>
               )}
             </div>
@@ -233,14 +233,14 @@ export function AICompanion() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSend()}
-                placeholder="Ask your AI Cosmic Twin anything (e.g. Dasha, remedies, predictions)..."
+                placeholder="Ask about your Kundli, Dasha, remedies, or transits..."
                 className="flex-1 h-11 bg-white/5 border border-white/10 rounded-xl px-4 text-xs text-white placeholder:text-[#9CA3AF] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-amber-400"
               />
               <Button
                 onClick={() => handleSend()}
                 className="h-11 px-5 rounded-xl bg-amber-500 text-black font-bold hover:bg-amber-600 font-mono text-xs shrink-0 shadow-lg cursor-pointer"
               >
-                <Send className="w-4 h-4 mr-1" /> Ask Twin
+                <Send className="w-4 h-4 mr-1" /> Send
               </Button>
             </div>
 

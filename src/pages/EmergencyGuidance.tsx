@@ -1,7 +1,7 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { useNavigate } from "react-router-dom"
-import { Shield, Sparkles, ArrowLeft, CheckCircle2, Flame, Play, Pause } from "lucide-react"
+import { Shield, Sparkles, ArrowLeft, CheckCircle2, Flame, Play, Pause, Share2 } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { Badge } from "@/components/ui/Badge"
 import { useUser } from "@/context/UserContext"
@@ -11,7 +11,89 @@ export function EmergencyGuidance() {
   const { user } = useUser()
 
   const [mantraActive, setMantraActive] = useState(false)
-  const [mantraCount, setMantraCount] = useState(14)
+  
+  // Persistence logic
+  const mantraCountKey = `astrolive_mantra_${user.id}`
+  const mantraDaysKey = `astrolive_mantra_days_${user.id}`
+  const lastMantraDateKey = `astrolive_last_mantra_date_${user.id}`
+  
+  const [mantraCount, setMantraCount] = useState(() => parseInt(localStorage.getItem(mantraCountKey) || "14", 10))
+  const [completedDays, setCompletedDays] = useState<string[]>(() => {
+    try {
+      return JSON.parse(localStorage.getItem(mantraDaysKey) || "[]")
+    } catch {
+      return []
+    }
+  })
+  
+  const todayStr = new Date().toISOString().split("T")[0]
+  const [lastDate, setLastDate] = useState(localStorage.getItem(lastMantraDateKey) || "")
+
+  useEffect(() => {
+    localStorage.setItem(mantraCountKey, mantraCount.toString())
+  }, [mantraCount, mantraCountKey])
+
+  useEffect(() => {
+    localStorage.setItem(mantraDaysKey, JSON.stringify(completedDays))
+  }, [completedDays, mantraDaysKey])
+
+  const isCompletedToday = completedDays.includes(todayStr)
+
+  const handleMantraIncrement = () => {
+    setMantraActive(!mantraActive)
+    if (!mantraActive) {
+      setMantraCount(prev => prev + 1)
+      if (!isCompletedToday) {
+        const newDays = [...completedDays, todayStr]
+        setCompletedDays(newDays)
+        setLastDate(todayStr)
+        localStorage.setItem(lastMantraDateKey, todayStr)
+      }
+    }
+  }
+
+  // Calculate Streak
+  let streak = 0
+  const sortedDays = [...completedDays].sort((a, b) => b.localeCompare(a))
+  
+  if (sortedDays.length > 0) {
+    const today = new Date(todayStr)
+    const firstDate = new Date(sortedDays[0])
+    
+    // Calculate diff in days between today and the most recent entry
+    const diffDays = Math.floor((today.getTime() - firstDate.getTime()) / (1000 * 3600 * 24))
+    
+    if (diffDays <= 1) {
+      // Valid streak active
+      let currentDate = firstDate
+      streak = 1
+      for (let i = 1; i < sortedDays.length; i++) {
+        const prevDate = new Date(sortedDays[i])
+        const gap = Math.floor((currentDate.getTime() - prevDate.getTime()) / (1000 * 3600 * 24))
+        if (gap === 1) {
+          streak++
+          currentDate = prevDate
+        } else {
+          break
+        }
+      }
+    }
+  }
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "My Astrological Streak",
+          text: `I'm on day ${streak} of my Venus Beej Mantra 21-day practice on AstroLive!`
+        })
+      } catch (err) {
+        console.error("Share failed", err)
+      }
+    } else {
+      alert(`I'm on day ${streak} of my Venus Beej Mantra 21-day practice on AstroLive!`)
+    }
+  }
 
   const activeRemedies = [
     {
@@ -20,7 +102,7 @@ export function EmergencyGuidance() {
       name: "Venus Beej Mantra (Om Shum Shukraya Namaha)",
       instructions: "Recite 108 times at sunrise for 21 consecutive days.",
       benefit: "Balances 12th House expenditure & restores emotional harmony",
-      streak: "14 / 21 Days Active",
+      streak: `${streak} / 21 Days Active`,
       status: "Active Practice",
       color: "text-amber-400"
     },
@@ -50,6 +132,13 @@ export function EmergencyGuidance() {
     { name: "Yellow Sapphire (Pukhraj)", planet: "Jupiter", suitability: "98% Suitable", desc: "Strengthens 10th house career lord for your Leo Sun chart." },
     { name: "Emerald (Panna)", planet: "Mercury", suitability: "92% Suitable", desc: "Accelerates decision clarity & contract negotiations." }
   ]
+
+  // Generate 21 days ending today
+  const last21Days = Array.from({ length: 21 }).map((_, i) => {
+    const d = new Date()
+    d.setDate(d.getDate() - (20 - i))
+    return d.toISOString().split("T")[0]
+  })
 
   return (
     <div className="page-container max-w-4xl pb-28 font-sans text-white">
@@ -83,7 +172,15 @@ export function EmergencyGuidance() {
         </div>
 
         {/* Interactive Mantra Chanting Counter */}
-        <div className="p-6 rounded-2xl bg-[#090A0F] border border-white/10 text-center space-y-4 shadow-xl">
+        <div className="p-6 rounded-2xl bg-[#090A0F] border border-white/10 text-center space-y-6 shadow-xl relative">
+          <div className="absolute top-4 right-4">
+             {isCompletedToday ? (
+                <Badge variant="success" size="sm" className="font-mono">Completed Today</Badge>
+             ) : (
+                streak > 0 && <Badge variant="gold" size="sm" className="font-mono">{streak} Day Streak</Badge>
+             )}
+          </div>
+          
           <motion.div
             animate={mantraActive ? { scale: [1, 1.1, 1] } : { scale: 1 }}
             transition={mantraActive ? { duration: 2, repeat: Infinity, ease: "easeInOut" } : {}}
@@ -108,13 +205,42 @@ export function EmergencyGuidance() {
             <Button
               size="sm"
               className="bg-amber-500 text-black font-bold hover:bg-amber-400 rounded-xl font-mono text-xs px-6 cursor-pointer"
-              onClick={() => {
-                setMantraActive(!mantraActive)
-                if (!mantraActive) setMantraCount(prev => prev + 1)
-              }}
+              onClick={handleMantraIncrement}
             >
               {mantraActive ? <><Pause className="w-3.5 h-3.5 mr-1" /> Pause Counter</> : <><Play className="w-3.5 h-3.5 mr-1" /> Begin 108 Chants</>}
             </Button>
+            
+            <Button
+              size="sm"
+              variant="outline"
+              className="rounded-xl font-mono text-xs px-4 cursor-pointer text-white border-white/20 hover:bg-white/10"
+              onClick={handleShare}
+            >
+              <Share2 className="w-3.5 h-3.5 mr-1" /> Share My Streak
+            </Button>
+          </div>
+          
+          {/* Streak Calendar Heatmap */}
+          <div className="pt-4 border-t border-white/10">
+            <p className="text-xs font-mono text-[#9CA3AF] mb-3 text-left">21-Day Practice Heatmap</p>
+            <div className="grid grid-cols-7 gap-2">
+              {last21Days.map((day) => {
+                const isCompleted = completedDays.includes(day)
+                const isToday = day === todayStr
+                return (
+                  <div 
+                    key={day}
+                    title={day}
+                    className={`h-8 rounded-md border flex items-center justify-center text-[10px] font-mono transition-colors
+                      ${isCompleted ? "bg-amber-500/20 border-amber-500/50 text-amber-400" : "bg-white/5 border-white/10 text-white/30"}
+                      ${isToday && !isCompleted ? "animate-pulse border-amber-500/50 bg-amber-500/10" : ""}
+                    `}
+                  >
+                    {new Date(day).getDate()}
+                  </div>
+                )
+              })}
+            </div>
           </div>
         </div>
 

@@ -28,6 +28,10 @@ import { Onboarding } from "@/pages/Onboarding"
 import { LiveConsultationRoom } from "@/pages/LiveConsultationRoom"
 import { DailyToday } from "@/pages/DailyToday"
 import { ShareKundli } from "@/pages/ShareKundli"
+import { NavagrahaLive } from "@/pages/NavagrahaLive"
+import { MuhurtaFinder } from "@/pages/MuhurtaFinder"
+import { TransitTimeline } from "@/pages/TransitTimeline"
+import { YogaReport } from "@/pages/YogaReport"
 
 export const router = createBrowserRouter([
   { path: "/", element: <Landing /> },
@@ -70,6 +74,10 @@ export const router = createBrowserRouter([
       { path: "settings", element: <Settings /> },
       { path: "today", element: <DailyToday /> },
       { path: "share", element: <ShareKundli /> },
+      { path: "grahas", element: <NavagrahaLive /> },
+      { path: "muhurta", element: <MuhurtaFinder /> },
+      { path: "transits", element: <TransitTimeline /> },
+      { path: "yogas", element: <YogaReport /> },
     ],
   },
 

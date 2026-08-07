@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
-import { ArrowRight, ShieldCheck, FileText, Target, Calendar, Flame } from "lucide-react"
+import { ArrowRight, ShieldCheck, FileText, Target, Calendar, Navigation, Globe, Clock, Zap } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { Badge } from "@/components/ui/Badge"
 import { Card } from "@/components/ui/Card"
@@ -21,22 +21,46 @@ export function Dashboard() {
       {/* Interactive Cosmic Planetary Transit Hero */}
       <CelestialOrbitHero />
 
-      {/* Daily Check-in Streak Widget */}
-      <div className="p-4 rounded-lg bg-surface border border-line flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-white">
-        <div 
-          className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity" 
-          onClick={() => navigate("/app/today")}
+      {/* Jyotish Intelligence Quick-Access Strip */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 font-mono">
+        <motion.div
+          whileHover={{ y: -2 }}
+          onClick={() => navigate("/app/transits")}
+          className="p-4 rounded-lg bg-surface border border-line cursor-pointer hover:border-blue-500/40 transition-colors group"
         >
-          <Calendar className="w-5 h-5 text-amber-400" />
-          <span className="font-bold text-sm">Daily Check-in</span>
-        </div>
-        <div className="flex items-center gap-1.5 text-amber-400 font-bold">
-          <Flame className="w-4 h-4" /> 
-          <span>{localStorage.getItem(`astrolive_checkin_streak_${user.id}`) || 0} day streak</span>
-        </div>
-        <Button size="sm" onClick={() => navigate("/app/today")} className="bg-amber-500 text-black hover:bg-amber-400 font-bold rounded-lg px-4 cursor-pointer">
-          View Today's Panchang
-        </Button>
+          <div className="flex items-center gap-2 mb-2">
+            <Navigation className="w-4 h-4 text-blue-400" />
+            <span className="text-[10px] font-bold uppercase tracking-widest text-blue-400">In 12 Days</span>
+          </div>
+          <p className="text-xs font-bold text-white leading-snug">Jupiter crosses your natal Moon</p>
+          <p className="text-[11px] text-neutral-400 mt-1">Major emotional expansion — family & property</p>
+        </motion.div>
+
+        <motion.div
+          whileHover={{ y: -2 }}
+          onClick={() => navigate("/app/grahas")}
+          className="p-4 rounded-lg bg-surface border border-line cursor-pointer hover:border-emerald-500/40 transition-colors group"
+        >
+          <div className="flex items-center gap-2 mb-2">
+            <Globe className="w-4 h-4 text-emerald-400" />
+            <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-400">Live Now</span>
+          </div>
+          <p className="text-xs font-bold text-white leading-snug">Jupiter + Mars in your 10th House</p>
+          <p className="text-[11px] text-neutral-400 mt-1">Career Raj Yoga active — next 23 days</p>
+        </motion.div>
+
+        <motion.div
+          whileHover={{ y: -2 }}
+          onClick={() => navigate("/app/muhurta")}
+          className="p-4 rounded-lg bg-surface border border-line cursor-pointer hover:border-amber-500/40 transition-colors group"
+        >
+          <div className="flex items-center gap-2 mb-2">
+            <Clock className="w-4 h-4 text-amber-400" />
+            <span className="text-[10px] font-bold uppercase tracking-widest text-amber-400">Muhurta</span>
+          </div>
+          <p className="text-xs font-bold text-white leading-snug">Next auspicious window</p>
+          <p className="text-[11px] text-neutral-400 mt-1">Thu 10:22 AM – 12:44 PM · Rohini Nakshatra</p>
+        </motion.div>
       </div>
 
       {/* Two Column Grid: Active Predictions & Consultation Memory Logs */}

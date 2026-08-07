@@ -21,19 +21,30 @@ import {
   PanelLeftClose,
   PanelLeftOpen,
   Sun,
-  Share2
+  Share2,
+  Globe,
+  Clock,
+  Navigation,
+  Zap
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useUser } from "@/context/UserContext"
 
 const primaryNavItems = [
   { path: "/app/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { path: "/app/today", label: "Daily Check-in", icon: Sun, badge: "New", badgeColor: "bg-amber-500/20 text-amber-300 border-amber-500/30" },
+  { path: "/app/today", label: "Today's Panchang", icon: Sun, badge: "Daily", badgeColor: "bg-amber-500/20 text-amber-300 border-amber-500/30" },
   { path: "/app/predictions", label: "Predictions", icon: Target },
-  { path: "/app/companion", label: "Astro Assistant", icon: Bot, badge: "Help", badgeColor: "bg-amber-500/20 text-amber-300 border-amber-500/30" },
-  { path: "/app/match", label: "Kundli Matchmaker", icon: Sparkles, badge: "Live", badgeColor: "bg-amber-500/20 text-amber-300 border-amber-500/30" },
+  { path: "/app/companion", label: "Astro Assistant", icon: Bot },
+  { path: "/app/match", label: "Kundli Matchmaker", icon: Sparkles },
   { path: "/app/memory", label: "Consultations Archive", icon: Database },
   { path: "/app/brief", label: "Daily Horoscope", icon: Calendar },
+]
+
+const jyotishNavItems = [
+  { path: "/app/grahas", label: "Navagraha Live", icon: Globe, badge: "Live", badgeColor: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" },
+  { path: "/app/transits", label: "Transit Timeline", icon: Navigation, badge: "Personal", badgeColor: "bg-blue-500/20 text-blue-400 border-blue-500/30" },
+  { path: "/app/muhurta", label: "Muhurta Finder", icon: Clock },
+  { path: "/app/yogas", label: "Chart Yogas", icon: Zap },
 ]
 
 const secondaryNavItems = [
@@ -42,8 +53,8 @@ const secondaryNavItems = [
   { path: "/app/relationship", label: "Kundli Matching", icon: Heart },
   { path: "/app/journey", label: "Dasha Timeline", icon: Activity },
   { path: "/app/reports", label: "Reports", icon: FileText },
-  { path: "/app/sos", label: "Remedies & Peace", icon: LifeBuoy, badge: "Peace", badgeColor: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" },
-  { path: "/app/share", label: "Invite Friends", icon: Share2, badge: "Credits", badgeColor: "bg-cyan-500/20 text-cyan-300 border-cyan-500/30" },
+  { path: "/app/sos", label: "Remedies & Peace", icon: LifeBuoy },
+  { path: "/app/share", label: "Invite Friends", icon: Share2 },
 ]
 
 const utilityNavItems = [
@@ -133,7 +144,45 @@ export function Sidebar() {
           </div>
         </div>
 
-        {/* Knowledge & Memory */}
+        {/* Jyotish Intelligence */}
+        <div>
+          {!collapsed && (
+            <p className="px-3 mb-2 text-[10px] font-mono font-bold tracking-widest text-neutral-400 uppercase">
+              Jyotish Intelligence
+            </p>
+          )}
+          <div className="space-y-0.5">
+            {jyotishNavItems.map(item => (
+              <NavLink
+                key={item.path}
+                to={item.path}
+                title={collapsed ? item.label : undefined}
+                className={({ isActive }) =>
+                  cn(
+                    "relative flex items-center gap-2.5 px-3 py-2 rounded-xl text-[13px] font-medium transition-colors group",
+                    isActive
+                      ? "bg-neutral-800 text-white font-bold border border-neutral-700 shadow-sm"
+                      : "text-neutral-400 hover:text-white hover:bg-neutral-800/50"
+                  )
+                }
+              >
+                {({ isActive }) => (
+                  <>
+                    <item.icon className={cn("w-4 h-4 shrink-0 transition-colors", isActive ? "text-amber-400" : "text-neutral-400 group-hover:text-white")} strokeWidth={isActive ? 2 : 1.5} />
+                    {!collapsed && <span className="flex-1 truncate">{item.label}</span>}
+                    {!collapsed && item.badge && (
+                      <span className={cn("font-mono text-[9px] font-bold px-1.5 py-0.5 rounded-md border", item.badgeColor)}>
+                        {item.badge}
+                      </span>
+                    )}
+                  </>
+                )}
+              </NavLink>
+            ))}
+          </div>
+        </div>
+
+        {/* Archives & Remedies */}
         <div>
           {!collapsed && (
             <p className="px-3 mb-2 text-[10px] font-mono font-bold tracking-widest text-neutral-400 uppercase">

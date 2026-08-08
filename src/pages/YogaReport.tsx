@@ -1,13 +1,11 @@
 import { motion } from "framer-motion"
-import { Sparkles, Star, ArrowLeft, Zap, Crown, CheckCircle2 } from "lucide-react"
+import { Sparkles, ArrowLeft } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { Button } from "@/components/ui/Button"
 import { Badge } from "@/components/ui/Badge"
-import { useUser } from "@/context/UserContext"
 
 export function YogaReport() {
   const navigate = useNavigate()
-  const { user } = useUser()
 
   const yogas = [
     {

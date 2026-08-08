@@ -27,7 +27,6 @@ export function EmergencyGuidance() {
   })
   
   const todayStr = new Date().toISOString().split("T")[0]
-  const [lastDate, setLastDate] = useState(localStorage.getItem(lastMantraDateKey) || "")
 
   useEffect(() => {
     localStorage.setItem(mantraCountKey, mantraCount.toString())
@@ -46,7 +45,6 @@ export function EmergencyGuidance() {
       if (!isCompletedToday) {
         const newDays = [...completedDays, todayStr]
         setCompletedDays(newDays)
-        setLastDate(todayStr)
         localStorage.setItem(lastMantraDateKey, todayStr)
       }
     }

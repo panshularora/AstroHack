@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { Heart, Plus, Sparkles, TrendingUp, Calendar, Star, FileText } from "lucide-react"
+import { Heart, Plus, Calendar, Star, FileText } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { Badge } from "@/components/ui/Badge"
-import { Progress } from "@/components/ui/Progress"
 import { useUser } from "@/context/UserContext"
-import { useNavigate } from "react-router-dom"
 
 const ashtakoota = [
   { name: "Varna", score: 1, max: 1, desc: "Spiritual compatibility.", status: "green" },
@@ -20,7 +18,6 @@ const ashtakoota = [
 
 export function RelationshipMode() {
   const { user } = useUser()
-  const navigate = useNavigate()
   const [partnerAdded, setPartnerAdded] = useState(false)
   const [partnerName, setPartnerName] = useState("")
   const [dob, setDob] = useState("")

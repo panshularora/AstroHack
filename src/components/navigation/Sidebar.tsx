@@ -29,8 +29,17 @@ import {
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useUser } from "@/context/UserContext"
+import type { ComponentType } from "react"
 
-const primaryNavItems = [
+type NavItem = {
+  path: string
+  label: string
+  icon: ComponentType<{ className?: string; strokeWidth?: number }>
+  badge?: string
+  badgeColor?: string
+}
+
+const primaryNavItems: NavItem[] = [
   { path: "/app/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { path: "/app/today", label: "Today's Panchang", icon: Sun, badge: "Daily", badgeColor: "bg-amber-500/20 text-amber-300 border-amber-500/30" },
   { path: "/app/predictions", label: "Predictions", icon: Target },
@@ -40,14 +49,14 @@ const primaryNavItems = [
   { path: "/app/brief", label: "Daily Horoscope", icon: Calendar },
 ]
 
-const jyotishNavItems = [
+const jyotishNavItems: NavItem[] = [
   { path: "/app/grahas", label: "Navagraha Live", icon: Globe, badge: "Live", badgeColor: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" },
   { path: "/app/transits", label: "Transit Timeline", icon: Navigation, badge: "Personal", badgeColor: "bg-blue-500/20 text-blue-400 border-blue-500/30" },
   { path: "/app/muhurta", label: "Muhurta Finder", icon: Clock },
   { path: "/app/yogas", label: "Chart Yogas", icon: Zap },
 ]
 
-const secondaryNavItems = [
+const secondaryNavItems: NavItem[] = [
   { path: "/app/verified", label: "Verified Astrologers", icon: ShieldCheck },
   { path: "/app/ledger", label: "My Predictions", icon: BookOpen },
   { path: "/app/relationship", label: "Kundli Matching", icon: Heart },
@@ -57,7 +66,7 @@ const secondaryNavItems = [
   { path: "/app/share", label: "Invite Friends", icon: Share2 },
 ]
 
-const utilityNavItems = [
+const utilityNavItems: NavItem[] = [
   { path: "/app/subscription", label: "Subscription", icon: CreditCard },
   { path: "/app/settings", label: "Settings", icon: Settings },
 ]

@@ -1,10 +1,9 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { Briefcase, Plane, Home, User, TrendingUp, Heart, Sparkles, Clock, FileText, ArrowLeft, Calendar, CheckCircle2, Star, X } from "lucide-react"
+import { Briefcase, Plane, Home, User, TrendingUp, Heart, Sparkles, Clock, FileText, ArrowLeft, CheckCircle2, Star, X } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { Button } from "@/components/ui/Button"
 import { Badge } from "@/components/ui/Badge"
-import { useUser } from "@/context/UserContext"
 
 const purposes = [
   { id: 'business', icon: Briefcase, label: 'Start a Business', desc: 'Inauguration & launch dates' },
@@ -19,7 +18,6 @@ const purposes = [
 
 export function MuhurtaFinder() {
   const navigate = useNavigate()
-  const { user } = useUser()
   const [selectedPurpose, setSelectedPurpose] = useState<string | null>(null)
   const [queriesLeft, setQueriesLeft] = useState(3)
 

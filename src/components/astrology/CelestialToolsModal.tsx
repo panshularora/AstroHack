@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { X, Sparkles, Moon, Sun, Heart, Flame, BookOpen, ShieldCheck, ArrowRight } from "lucide-react"
+import { useUser } from "@/context/UserContext"
 
 interface CelestialToolsProps {
   isOpen: boolean

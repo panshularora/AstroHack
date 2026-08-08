@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
-import { ArrowRight, ShieldCheck, FileText, Target, Calendar, Navigation, Globe, Clock, Zap } from "lucide-react"
+import { ArrowRight, ShieldCheck, FileText, Target, Calendar, Navigation, Globe, Clock } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { Badge } from "@/components/ui/Badge"
 import { Card } from "@/components/ui/Card"

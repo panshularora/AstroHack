@@ -1,9 +1,7 @@
 import { useState } from "react"
-import { motion } from "framer-motion"
 import { Copy, Share2, ExternalLink, Users, Gift, ArrowLeft } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { Button } from "@/components/ui/Button"
-import { Badge } from "@/components/ui/Badge"
 import { useUser } from "@/context/UserContext"
 
 export function ShareKundli() {

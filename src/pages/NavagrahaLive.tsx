@@ -1,13 +1,10 @@
 import { motion } from "framer-motion"
-import { Globe, RefreshCw, ArrowLeft, TrendingUp, Star } from "lucide-react"
+import { Globe, RefreshCw, ArrowLeft } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { Button } from "@/components/ui/Button"
-import { Badge } from "@/components/ui/Badge"
-import { useUser } from "@/context/UserContext"
 
 export function NavagrahaLive() {
   const navigate = useNavigate()
-  const { user } = useUser()
   const currentTime = new Date().toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", timeZone: "Asia/Kolkata" })
 
   const planets = [

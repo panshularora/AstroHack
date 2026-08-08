@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { CheckCircle2, Clock, AlertCircle, CalendarClock, XCircle, MoreVertical, Edit3, Upload, ShieldCheck, Target } from "lucide-react"
-import { mockDetailedPredictions, type DetailedPrediction } from "@/lib/mock-data"
+import { CheckCircle2, Clock, MoreVertical, ShieldCheck, Target } from "lucide-react"
+import { mockDetailedPredictions } from "@/lib/mock-data"
 import { Button } from "@/components/ui/Button"
 import { useNavigate } from "react-router-dom"
 import { PredictionProofModal } from "./PredictionProofModal"
@@ -66,13 +66,7 @@ function PredictionCard({
   index: number
   onOpenProof: (id: string) => void
 }) {
-  const navigate = useNavigate()
   const [showMenu, setShowMenu] = useState(false)
-
-  const start = new Date(prediction.consultationDate || Date.now()).getTime()
-  const end = new Date(prediction.targetDate || Date.now() + 864000000).getTime()
-  const now = new Date().getTime()
-  const progress = Math.min(Math.max(((now - start) / (end - start)) * 100, 5), 100)
 
   const getStatusConfig = (status: string) => {
     switch(status) {

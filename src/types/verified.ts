@@ -5,7 +5,9 @@ export type Specialization =
   | 'Relationship Sync'
   | 'Cosmic Counseling'
   | 'Cosmic Astrology'
-  | 'Career Projections';
+  | 'Career Projections'
+  | 'Numerology'
+  | 'KP System';
 
 export type SessionMode = 'audio' | 'video' | 'chat';
 

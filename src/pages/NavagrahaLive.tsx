@@ -1,111 +1,67 @@
-import { motion } from "framer-motion"
-import { Globe, RefreshCw, ArrowLeft } from "lucide-react"
+import { useMemo } from "react"
 import { useNavigate } from "react-router-dom"
 import { Button } from "@/components/ui/Button"
+import { useNatalChart } from "@/context/UserContext"
+import { computeSkyFlags, grahasInNatalHouses, houseAreaLabel, houseEffect, mostSignificantTransit } from "@/lib/vedic"
+import { CosmicField } from "@/components/sky/CosmicField"
+import { NightOrbit } from "@/components/sky/NightOrbit"
+import { computePanchang } from "@/lib/vedic"
+import { useI18n } from "@/lib/i18n"
 
 export function NavagrahaLive() {
   const navigate = useNavigate()
-  const currentTime = new Date().toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", timeZone: "Asia/Kolkata" })
-
-  const planets = [
-    { id: 'sun', name: 'Sun', sanskrit: 'Surya', symbol: '☉', currentSign: 'Cancer', house: 12, houseArea: 'Isolation & Spirituality', dignity: 'neutral', degreePos: '22°14\'', effect: 'Introspective period. Focus on hidden strengths and spiritual growth.' },
-    { id: 'moon', name: 'Moon', sanskrit: 'Chandra', symbol: '☽', currentSign: 'Scorpio', house: 4, houseArea: 'Home & Mother', dignity: 'debilitated', degreePos: '8°33\'', effect: 'Emotional intensity at home. Avoid confrontations with family today.' },
-    { id: 'mars', name: 'Mars', sanskrit: 'Mangal', symbol: '♂', currentSign: 'Taurus', house: 10, houseArea: 'Career & Reputation', dignity: 'neutral', degreePos: '15°51\'', effect: 'Strong drive for career advancement. Excellent for leadership decisions.' },
-    { id: 'mercury', name: 'Mercury', sanskrit: 'Budha', symbol: '☿', currentSign: 'Leo', house: 1, houseArea: 'Self & Personality', dignity: 'neutral', degreePos: '3°22\'', effect: 'Sharp intellect and communication. Ideal for presentations and negotiations.' },
-    { id: 'jupiter', name: 'Jupiter', sanskrit: 'Brihaspati', symbol: '♃', currentSign: 'Taurus', house: 10, houseArea: 'Career & Reputation', dignity: 'neutral', degreePos: '21°07\'', effect: 'Career blessings and wisdom. Excellent period for professional growth.' },
-    { id: 'venus', name: 'Venus', sanskrit: 'Shukra', symbol: '♀', currentSign: 'Virgo', house: 2, houseArea: 'Wealth & Speech', dignity: 'debilitated', degreePos: '12°44\'', effect: 'Watch finances carefully. Avoid luxury spending for the next 18 days.' },
-    { id: 'saturn', name: 'Saturn', sanskrit: 'Shani', symbol: '♄', currentSign: 'Aquarius', house: 7, houseArea: 'Partnership & Marriage', dignity: 'own sign', degreePos: '29°51\'', effect: 'Serious and disciplined partnerships. Long-term commitments strengthened.' },
-    { id: 'rahu', name: 'Rahu', sanskrit: 'Rahu', symbol: '☊', currentSign: 'Pisces', house: 8, houseArea: 'Transformation & Secrets', dignity: 'neutral', degreePos: '16°20\'', effect: 'Hidden opportunities in research, inheritance matters, and occult knowledge.' },
-    { id: 'ketu', name: 'Ketu', sanskrit: 'Ketu', symbol: '☋', currentSign: 'Virgo', house: 2, houseArea: 'Wealth & Speech', dignity: 'neutral', degreePos: '16°20\'', effect: 'Detachment from material wealth. Spiritual clarity around possessions.' },
-  ]
-
-  const getDignityClasses = (dignity: string) => {
-    switch (dignity) {
-      case 'exalted': return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
-      case 'own sign': return 'bg-blue-500/10 text-blue-400 border-blue-500/20'
-      case 'debilitated': return 'bg-red-500/10 text-red-400 border-red-500/20'
-      default: return 'bg-neutral-500/10 text-neutral-400 border-neutral-500/20'
-    }
-  }
+  const natal = useNatalChart()
+  const { t, locale } = useI18n()
+  const hi = locale === "hi"
+  const sky = useMemo(() => grahasInNatalHouses(natal), [natal])
+  const flags = useMemo(() => computeSkyFlags(), [])
+  const panchang = useMemo(() => computePanchang(new Date(), natal.placeName), [natal.placeName])
+  const highlight = mostSignificantTransit(natal, hi)
 
   return (
-    <div className="page-container max-w-5xl pb-28 font-sans">
-      <div className="space-y-10">
-        {/* Header */}
-        <div className="border-b border-line/60 pb-6">
-          <button
-            onClick={() => navigate(-1)}
-            className="flex items-center gap-1.5 font-mono text-[11px] text-ink-tertiary hover:text-ink transition-colors mb-5 group cursor-pointer"
-          >
-            <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
-            Back
-          </button>
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-8 h-8 rounded-md bg-surface-2 border border-brand/30 flex items-center justify-center text-brand">
-              <Globe className="w-4 h-4" />
-            </div>
-            <p className="text-xs font-mono font-bold uppercase tracking-widest text-brand">
-              Navagraha Live Positions
-            </p>
-          </div>
-          <h1 className="text-h1 font-display text-ink tracking-tight">Planetary Command</h1>
-          <p className="text-sm text-ink-secondary mt-1">
-            Current positions of all 9 Grahas in your birth chart — updated as the sky moves.
+    <div className="relative">
+      <CosmicField density={32} />
+      <div className="relative page-container max-w-2xl pb-28">
+        <p className="text-[12px] uppercase tracking-[0.16em] text-zinc-500">{t("grahasKicker")}</p>
+        <h1 className="font-display text-4xl sm:text-6xl text-zinc-50 mt-2 leading-[0.95]">{t("grahasHead")}</h1>
+        <p className="mt-4 text-[15px] text-zinc-400 max-w-lg leading-relaxed">
+          {t("grahasBody", { n: sky.ayanamsa.toFixed(2), sign: natal.lagnaSign })}
+        </p>
+
+        <div className="relative mt-8 h-[240px] sm:h-[300px]">
+          <NightOrbit bodies={sky.bodies} panchang={panchang} />
+        </div>
+
+        {flags.length > 0 && (
+          <p className="mt-6 text-sm text-amber-200/90 leading-relaxed">
+            {flags.map((f) => `${f.name}: ${f.detail}`).join(" · ")}
           </p>
-        </div>
+        )}
 
-        {/* Last Updated Bar */}
-        <div className="p-3 rounded-lg bg-surface-2 border border-line/60 flex items-center justify-between font-mono text-xs">
-          <div className="flex items-center gap-2 text-ink">
-            <RefreshCw className="w-3.5 h-3.5" />
-            Live Planetary Data
-          </div>
-          <div className="text-ink-tertiary">
-            Last updated: {currentTime}
-          </div>
-        </div>
-
-        {/* 9-Planet Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {planets.map((p) => (
-            <motion.div key={p.id} whileHover={{ y: -2 }} className="p-5 rounded-lg bg-surface border border-line space-y-3 flex flex-col">
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono text-ink-tertiary uppercase tracking-widest">{p.sanskrit}</span>
-                <span className={`text-[10px] px-2 py-0.5 rounded border ${getDignityClasses(p.dignity)} capitalize`}>
-                  {p.dignity}
-                </span>
-              </div>
-              
-              <div className="flex items-center gap-2">
-                <span className="text-amber-400 font-display text-lg">{p.symbol}</span>
-                <span className="text-sm font-bold text-ink">{p.name}</span>
-              </div>
-              
-              <div className="text-[11px] font-mono text-ink-secondary">
-                {p.currentSign} · {p.degreePos} · House {p.house}
-              </div>
-              
-              <div className="text-[10px] text-amber-400 font-mono font-bold uppercase">
-                {p.houseArea}
-              </div>
-              
-              <div className="border-t border-line/60 pt-3 mt-auto">
-                <p className="text-xs text-ink-secondary leading-relaxed">{p.effect}</p>
-              </div>
-            </motion.div>
+        <div className="mt-14 space-y-10">
+          {sky.bodies.map((p) => (
+            <article key={p.id}>
+              <p className="text-[12px] uppercase tracking-[0.16em] text-zinc-500">
+                {p.sanskrit} · {p.dignity}
+              </p>
+              <h2 className="mt-1 font-display text-3xl text-zinc-50">
+                {p.symbol} {p.name}
+              </h2>
+              <p className="mt-2 text-sm text-zinc-500">
+                {p.sign} {p.degreeLabel} · {t("houseN", { n: p.house })} · {houseAreaLabel(p.house, hi)}
+              </p>
+              <p className="mt-3 text-[15px] text-zinc-400 leading-relaxed max-w-lg">
+                {houseEffect(p.id, p.house, p.dignity, hi)}
+              </p>
+            </article>
           ))}
         </div>
 
-        {/* Active Transits Summary */}
-        <div className="p-5 rounded-lg bg-surface border border-brand/30 space-y-3">
-          <h2 className="text-body font-bold text-ink">Most Significant Active Transit</h2>
-          <p className="text-sm text-ink-secondary leading-relaxed">
-            Jupiter + Mars conjunct in your 10th House of Career — this transit activates your Leo Ascendant's Raj Yoga. Career recognition and authority peaks over the next 23 days.
-          </p>
-          <Button variant="outline" className="mt-2 w-full sm:w-auto font-mono text-xs" onClick={() => navigate('/app/transits')}>
-            View Full Transit Timeline →
-          </Button>
-        </div>
+        <p className="mt-16 text-[12px] uppercase tracking-[0.16em] text-zinc-500">{t("mostTransit")}</p>
+        <p className="mt-3 text-[15px] text-zinc-300 leading-relaxed max-w-lg">{highlight}</p>
+        <Button className="mt-6" variant="outline" onClick={() => navigate("/app/transits")}>
+          {t("viewTransits")}
+        </Button>
       </div>
     </div>
   )

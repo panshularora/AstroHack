@@ -17,7 +17,7 @@ export function PersonalJournal() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.1 }}
-            className="bg-surface border border-line rounded-lg p-6 md:p-8 relative group hover:border-line-strong transition-colors"
+            className="bg-surface border border-line rounded-none p-6 md:p-8 relative group hover:border-line-strong transition-colors"
           >
             <div className="flex justify-between items-start mb-4">
               <div className="flex items-center gap-3">
@@ -37,7 +37,7 @@ export function PersonalJournal() {
             </div>
 
             {j.type === 'voice' ? (
-              <div className="flex items-center gap-4 bg-white/5 p-4 rounded-lg border border-line-subtle mt-6">
+              <div className="flex items-center gap-4 bg-white/5 p-4 rounded-none border border-line-subtle mt-6">
                 <button className="w-10 h-10 rounded-full bg-brand flex items-center justify-center text-white shrink-0 hover:bg-brand/80 transition-colors shadow-lg cursor-pointer">
                   <Play className="w-4 h-4 ml-0.5" />
                 </button>

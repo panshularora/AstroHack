@@ -28,7 +28,7 @@ export function MilestoneNode({ milestone, index }: { milestone: Milestone, inde
       <motion.div 
         layout
         onClick={() => setExpanded(!expanded)}
-        className="w-full pl-6 md:pl-0 md:w-[calc(50%-2rem)] bg-surface border border-line hover:border-brand/50 rounded-lg p-6 cursor-pointer relative overflow-hidden transition-colors shadow-lg"
+        className="w-full pl-6 md:pl-0 md:w-[calc(50%-2rem)] bg-surface border border-line hover:border-brand/50 rounded-none p-6 cursor-pointer relative overflow-hidden transition-colors shadow-lg"
       >
         <div className="absolute inset-0 bg-gradient-to-br from-brand/5 to-transparent pointer-events-none" />
         

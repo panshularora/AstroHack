@@ -7,7 +7,7 @@ const moods = [
   { id: "hopeful", label: "Hopeful", icon: Sun, color: "text-yellow-400" },
   { id: "motivated", label: "Motivated", icon: Zap, color: "text-gold" },
   { id: "happy", label: "Happy", icon: Smile, color: "text-green-400" },
-  { id: "confused", label: "Confused", icon: Wind, color: "text-purple-400" },
+  { id: "confused", label: "Confused", icon: Wind, color: "text-zinc-400" },
   { id: "stressed", label: "Stressed", icon: CloudRain, color: "text-red-400" },
 ]
 
@@ -31,7 +31,7 @@ export function MoodCheckIn() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
               onClick={() => setSelected(m.id)}
-              className={`p-4 rounded-lg border flex flex-col items-center justify-center gap-3 transition-all cursor-pointer ${
+              className={`p-4 rounded-none border flex flex-col items-center justify-center gap-3 transition-all cursor-pointer ${
                 isSelected 
                   ? "bg-white/10 border-white/30 shadow-[0_0_20px_rgba(255,255,255,0.05)] scale-105" 
                   : "bg-surface border-line-subtle hover:border-line-strong hover:bg-white/5"

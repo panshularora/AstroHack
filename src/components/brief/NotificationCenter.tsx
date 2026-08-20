@@ -18,13 +18,13 @@ export function NotificationCenter() {
   const filtered = activeTab === "All" ? mockBriefNotifications : mockBriefNotifications.filter(n => n.category === activeTab)
 
   return (
-    <div className="bg-surface border border-line rounded-lg p-6 h-full">
+    <div className="bg-surface border border-line rounded-none p-6 h-full">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-2">
           <Bell className="w-5 h-5 text-white" />
           <h3 className="text-lg font-bold text-white">Smart Notifications</h3>
         </div>
-        <span className="text-xs font-bold text-brand bg-brand-light px-2 py-1 rounded-md">2 Unread</span>
+        <span className="text-xs font-bold text-brand bg-brand-light px-2 py-1 rounded-none">2 Unread</span>
       </div>
 
       <div className="flex gap-2 mb-6 overflow-x-auto scrollbar-hide pb-2">
@@ -43,7 +43,7 @@ export function NotificationCenter() {
 
       <div className="space-y-3">
         {filtered.map(notification => (
-          <div key={notification.id} className={`p-4 rounded-lg border transition-colors group ${
+          <div key={notification.id} className={`p-4 rounded-none border transition-colors group ${
             notification.unread ? 'bg-white/5 border-line/60' : 'bg-transparent border-transparent hover:bg-white/5 hover:border-line/60'
           }`}>
             <div className="flex gap-3">
@@ -59,9 +59,9 @@ export function NotificationCenter() {
                   {notification.text}
                 </p>
                 <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <button className="p-1.5 rounded-lg bg-white/5 hover:bg-surface-3 text-green-400" title="Mark as done"><Check className="w-3.5 h-3.5" /></button>
-                  <button className="p-1.5 rounded-lg bg-white/5 hover:bg-surface-3 text-blue-400" title="Snooze"><Clock className="w-3.5 h-3.5" /></button>
-                  <button className="p-1.5 rounded-lg bg-white/5 hover:bg-surface-3 text-[#9CA3AF]" title="Archive"><Archive className="w-3.5 h-3.5" /></button>
+                  <button className="p-1.5 rounded-none bg-white/5 hover:bg-surface-3 text-green-400" title="Mark as done"><Check className="w-3.5 h-3.5" /></button>
+                  <button className="p-1.5 rounded-none bg-white/5 hover:bg-surface-3 text-blue-400" title="Snooze"><Clock className="w-3.5 h-3.5" /></button>
+                  <button className="p-1.5 rounded-none bg-white/5 hover:bg-surface-3 text-[#9CA3AF]" title="Archive"><Archive className="w-3.5 h-3.5" /></button>
                 </div>
               </div>
             </div>

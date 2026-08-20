@@ -24,7 +24,7 @@ export const NavTabs: React.FC<NavTabsProps> = ({ activeTab, onTabChange }) => {
             onClick={() => onTabChange(tab.id)}
             className={`relative px-4 py-2 text-xs sm:text-sm font-mono tracking-wider transition-all duration-300 cursor-pointer focus:outline-none uppercase ${
               isActive
-                ? 'text-amber-400 font-bold scale-105'
+                ? 'text-zinc-300 font-bold scale-105'
                 : 'text-neutral-400 hover:text-white font-normal'
             }`}
           >

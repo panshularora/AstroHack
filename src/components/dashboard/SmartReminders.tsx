@@ -31,7 +31,7 @@ export function SmartReminders({ reminders }: { reminders: Reminder[] }) {
   }
 
   return (
-    <div className="bg-surface border border-line rounded-lg p-6 shadow-xl">
+    <div className="bg-surface border border-line rounded-none p-6 shadow-xl">
       <div className="flex items-center justify-between mb-5">
         <div>
           <h2 className="text-base font-bold text-white">Smart Reminders</h2>
@@ -52,9 +52,9 @@ export function SmartReminders({ reminders }: { reminders: Reminder[] }) {
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, delay: i * 0.08 }}
-            className="flex items-start gap-3 p-3.5 bg-surface-2 hover:bg-surface-2 border border-white/6 hover:border-white/12 rounded-lg cursor-pointer group transition-all"
+            className="flex items-start gap-3 p-3.5 bg-surface-2 hover:bg-surface-2 border border-white/6 hover:border-white/12 rounded-none cursor-pointer group transition-all"
           >
-            <div className={`w-9 h-9 rounded-xl border flex items-center justify-center shrink-0 ${getIconBg(r.iconType, r.priority)}`}>
+            <div className={`w-9 h-9 rounded-none border flex items-center justify-center shrink-0 ${getIconBg(r.iconType, r.priority)}`}>
               {getIcon(r.iconType)}
             </div>
             <div className="flex-1 min-w-0">

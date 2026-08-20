@@ -32,16 +32,16 @@ export function JudgeTourBar() {
 
   return (
     <>
-      <div className="bg-[#090A0F]/90 border border-white/10 rounded-2xl p-4 mb-6 shadow-xl backdrop-blur-xl space-y-3 font-sans">
+      <div className="bg-[#090A0F]/90 border border-white/10 rounded-none p-4 mb-6 shadow-xl backdrop-blur-xl space-y-3 font-sans">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 shrink-0">
+            <div className="w-8 h-8 rounded-none bg-zinc-100/5 border border-zinc-700 flex items-center justify-center text-zinc-300 shrink-0">
               <Compass className="w-4 h-4" />
             </div>
             <div>
               <p className="text-xs font-bold text-white flex items-center gap-2">
                 AstroLive 2.0 Product Walkthrough
-                <span className="font-mono text-[9px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                <span className="font-mono text-[9px] font-bold px-2 py-0.5 rounded-full bg-zinc-100/10 text-zinc-200 border border-zinc-700">
                   Interactive Astrology
                 </span>
               </p>
@@ -54,15 +54,15 @@ export function JudgeTourBar() {
           <div className="flex items-center gap-2 shrink-0 font-mono">
             <button
               onClick={() => setLifestrandOpen(true)}
-              className="px-3.5 py-1.5 bg-amber-500 text-black font-bold rounded-xl text-xs hover:bg-amber-400 transition-all flex items-center gap-1.5 shadow-md cursor-pointer"
+              className="px-3.5 py-1.5 bg-zinc-100 text-black font-bold rounded-none text-xs hover:bg-zinc-200 transition-all flex items-center gap-1.5 shadow-md cursor-pointer"
             >
               <Layers className="w-3.5 h-3.5" /> 3D Kundli Canvas
             </button>
             <button
               onClick={() => setNarrativeOpen(true)}
-              className="px-3.5 py-1.5 bg-white/5 hover:bg-white/10 border border-white/15 text-white font-bold rounded-xl text-xs transition-all flex items-center gap-1.5 cursor-pointer"
+              className="px-3.5 py-1.5 bg-white/5 hover:bg-white/10 border border-white/15 text-white font-bold rounded-none text-xs transition-all flex items-center gap-1.5 cursor-pointer"
             >
-              <FileText className="w-3.5 h-3.5 text-amber-400" /> Executive Pitch
+              <FileText className="w-3.5 h-3.5 text-zinc-300" /> Executive Pitch
             </button>
           </div>
         </div>
@@ -73,44 +73,44 @@ export function JudgeTourBar() {
           
           <button
             onClick={() => setTwinOpen(true)}
-            className="px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg transition-all flex items-center gap-1.5 cursor-pointer"
+            className="px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-none transition-all flex items-center gap-1.5 cursor-pointer"
           >
-            <Cpu className="w-3 h-3 text-amber-400" /> Kundli Identity
+            <Cpu className="w-3 h-3 text-zinc-300" /> Kundli Identity
           </button>
           
           <button
             onClick={() => setSimulatorOpen(true)}
-            className="px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg transition-all flex items-center gap-1.5 cursor-pointer"
+            className="px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-none transition-all flex items-center gap-1.5 cursor-pointer"
           >
             <Activity className="w-3 h-3 text-cyan-400" /> Life Decision Calculator
           </button>
 
           <button
             onClick={() => setConfidenceOpen(true)}
-            className="px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg transition-all flex items-center gap-1.5 cursor-pointer"
+            className="px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-none transition-all flex items-center gap-1.5 cursor-pointer"
           >
-            <Target className="w-3 h-3 text-amber-400" /> Prediction Accuracy
+            <Target className="w-3 h-3 text-zinc-300" /> Prediction Accuracy
           </button>
 
           <button
             onClick={() => setGraphOpen(true)}
-            className="px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg transition-all flex items-center gap-1.5 cursor-pointer"
+            className="px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-none transition-all flex items-center gap-1.5 cursor-pointer"
           >
             <Layers className="w-3 h-3 text-emerald-400" /> Kundli Life Graph
           </button>
 
           <button
             onClick={() => setVaultOpen(true)}
-            className="px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg transition-all flex items-center gap-1.5 cursor-pointer"
+            className="px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-none transition-all flex items-center gap-1.5 cursor-pointer"
           >
             <Shield className="w-3 h-3 text-cyan-400" /> Document Vault
           </button>
 
           <button
             onClick={() => setCoachOpen(true)}
-            className="px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg transition-all flex items-center gap-1.5 cursor-pointer"
+            className="px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-none transition-all flex items-center gap-1.5 cursor-pointer"
           >
-            <Sparkles className="w-3 h-3 text-amber-400" /> AI Astrology Coach
+            <Sparkles className="w-3 h-3 text-zinc-300" /> AI Astrology Coach
           </button>
         </div>
       </div>

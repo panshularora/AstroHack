@@ -59,7 +59,7 @@ export function BriefHeader() {
           </div>
           
           {/* Reflection Sidebar */}
-          <div className="w-full md:w-72 shrink-0 bg-surface-2 border border-line rounded-lg p-6 backdrop-blur-sm">
+          <div className="w-full md:w-72 shrink-0 bg-surface-2 border border-line rounded-none p-6 backdrop-blur-sm">
             <h4 className="text-[10px] font-bold text-brand uppercase tracking-wider mb-3 flex items-center gap-1.5">
               <Sparkles className="w-3 h-3" /> Cosmic Memory Insight
             </h4>

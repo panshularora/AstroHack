@@ -99,7 +99,7 @@ export function DashboardCharts() {
 
         <div className="pt-2 border-t border-white/5 font-mono text-[10px] text-[#9CA3AF] flex justify-between">
           <span>Overall Alignment: 87.6%</span>
-          <span className="text-amber-400 font-bold">Peak Active</span>
+          <span className="text-zinc-300 font-bold">Peak Active</span>
         </div>
       </Card>
     </div>

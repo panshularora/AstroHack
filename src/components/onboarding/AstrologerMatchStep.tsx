@@ -24,10 +24,10 @@ export function AstrologerMatchStep({ onNext }: { onNext: () => void, data?: Onb
             <div className="absolute inset-0 bg-gradient-to-br from-brand/5 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" />
             
             <div className="flex items-center justify-between mb-4">
-              <div className="w-16 h-16 rounded-lg bg-brand/20 flex items-center justify-center text-xl font-bold text-white shadow-inner">
+              <div className="w-16 h-16 rounded-none bg-brand/20 flex items-center justify-center text-xl font-bold text-white shadow-inner">
                 {astrologer.image}
               </div>
-              <div className="flex items-center gap-1 bg-white/5 px-2 py-1 rounded-lg">
+              <div className="flex items-center gap-1 bg-white/5 px-2 py-1 rounded-none">
                 <Star className="w-3 h-3 text-gold fill-gold" />
                 <span className="text-xs font-bold text-white">{astrologer.rating}</span>
               </div>
@@ -38,7 +38,7 @@ export function AstrologerMatchStep({ onNext }: { onNext: () => void, data?: Onb
             </h3>
             <p className="text-xs text-brand font-medium mb-4">{astrologer.specialty}</p>
             
-            <div className="bg-black/40 rounded-xl p-3 mb-6 mt-auto border border-line-subtle">
+            <div className="bg-black/40 rounded-none p-3 mb-6 mt-auto border border-line-subtle">
               <p className="text-xs text-[#9CA3AF] leading-relaxed">
                 "{astrologer.matchReason}"
               </p>

@@ -30,7 +30,7 @@ export function PersonalGoalsStep({ onNext, onBack, data, updateData }: { onNext
             <button
               key={goal}
               onClick={() => toggleGoal(goal)}
-              className={`p-4 rounded-lg border text-left transition-all ${
+              className={`p-4 rounded-none border text-left transition-all ${
                 isSelected 
                   ? 'bg-brand/20 border-brand text-white shadow-[0_0_15px_rgba(139,92,246,0.2)]' 
                   : 'bg-white/5 border-line/60 text-[#9CA3AF] hover:bg-surface-3 hover:text-white'

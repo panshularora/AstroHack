@@ -34,7 +34,7 @@ export function PredictionExtractor() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, height: 0, overflow: 'hidden' }}
-              className="bg-surface border border-line rounded-lg p-6 relative overflow-hidden"
+              className="bg-surface border border-line rounded-none p-6 relative overflow-hidden"
             >
               {editingId === p.id ? (
                 <div className="space-y-4 relative z-10">
@@ -61,8 +61,8 @@ export function PredictionExtractor() {
                 <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 relative z-10">
                   <div className="flex-1">
                     <div className="flex flex-wrap items-center gap-2 mb-3">
-                      <span className="text-[10px] font-bold px-2.5 py-1 bg-brand/20 text-ink-secondary rounded-md uppercase tracking-wider">{p.category}</span>
-                      <span className="text-[10px] font-bold px-2.5 py-1 bg-white/5 text-white/90 rounded-md flex items-center gap-1 uppercase tracking-wider">
+                      <span className="text-[10px] font-bold px-2.5 py-1 bg-brand/20 text-ink-secondary rounded-none uppercase tracking-wider">{p.category}</span>
+                      <span className="text-[10px] font-bold px-2.5 py-1 bg-white/5 text-white/90 rounded-none flex items-center gap-1 uppercase tracking-wider">
                         <Target className="w-3 h-3" /> {p.confidence}% Confidence
                       </span>
                     </div>

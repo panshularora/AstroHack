@@ -12,7 +12,7 @@ export function AccountManagement() {
         <p className="text-[#9CA3AF]">Manage your personal information and subscription status.</p>
       </div>
 
-      <div className="bg-surface border border-line rounded-lg p-8 flex items-center gap-6 relative overflow-hidden">
+      <div className="bg-surface border border-line rounded-none p-8 flex items-center gap-6 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-brand-light rounded-full blur-3xl -z-10" />
         <div className="relative group cursor-pointer">
           <div className="w-24 h-24 rounded-full bg-gradient-to-br from-brand to-blue-500 flex items-center justify-center text-3xl font-bold text-white shadow-lg">
@@ -31,25 +31,25 @@ export function AccountManagement() {
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
-        <div className="bg-surface border border-line rounded-lg p-6">
+        <div className="bg-surface border border-line rounded-none p-6">
           <h4 className="text-sm font-bold text-white mb-6 uppercase tracking-wider">Contact Details</h4>
           <div className="space-y-4">
             <div>
               <label className="text-xs text-[#9CA3AF] flex items-center gap-2 mb-2"><Mail className="w-3 h-3" /> Email Address</label>
-              <input type="email" defaultValue={profile.email} className="w-full bg-surface-2 border border-line rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand transition-colors" />
+              <input type="email" defaultValue={profile.email} className="w-full bg-surface-2 border border-line rounded-none px-4 py-3 text-white focus:outline-none focus:border-brand transition-colors" />
             </div>
             <div>
               <label className="text-xs text-[#9CA3AF] flex items-center gap-2 mb-2"><Phone className="w-3 h-3" /> Phone Number</label>
-              <input type="tel" defaultValue={profile.phone} className="w-full bg-surface-2 border border-line rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand transition-colors" />
+              <input type="tel" defaultValue={profile.phone} className="w-full bg-surface-2 border border-line rounded-none px-4 py-3 text-white focus:outline-none focus:border-brand transition-colors" />
             </div>
             <Button className="w-full">Save Changes</Button>
           </div>
         </div>
 
-        <div className="bg-surface border border-line rounded-lg p-6">
+        <div className="bg-surface border border-line rounded-none p-6">
           <h4 className="text-sm font-bold text-white mb-6 uppercase tracking-wider">Subscription & Billing</h4>
           <div className="space-y-6">
-            <div className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-line-subtle">
+            <div className="flex items-center justify-between p-4 bg-white/5 rounded-none border border-line-subtle">
               <div className="flex items-center gap-3">
                 <Calendar className="w-5 h-5 text-blue-400" />
                 <div>
@@ -58,7 +58,7 @@ export function AccountManagement() {
                 </div>
               </div>
             </div>
-            <div className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-line-subtle">
+            <div className="flex items-center justify-between p-4 bg-white/5 rounded-none border border-line-subtle">
               <div className="flex items-center gap-3">
                 <CreditCard className="w-5 h-5 text-gold" />
                 <div>

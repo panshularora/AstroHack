@@ -43,7 +43,7 @@ const mockNodes: LifestrandNode[] = [
     subtitle: "Mahadasha Alignment",
     date: "2026 - 2028",
     status: "Peak Window",
-    color: "from-amber-500/20 to-amber-700/20 border-amber-400/40 text-amber-300",
+    color: "from-zinc-400/20 to-amber-700/20 border-amber-400/40 text-zinc-200",
     details: "Jupiter transiting 10th house of career & status. Sun-Jupiter 120° trine active."
   },
   {
@@ -75,7 +75,7 @@ export function LifestrandCanvas({ isOpen, onClose }: { isOpen: boolean; onClose
         {/* Top Header Control */}
         <div className="flex items-center justify-between pb-6 border-b border-white/10 shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-300 shadow-lg shadow-cyan-500/10">
+            <div className="w-10 h-10 rounded-none bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-300 shadow-lg shadow-cyan-500/10">
               <Cpu className="w-5 h-5" />
             </div>
             <div>
@@ -92,12 +92,12 @@ export function LifestrandCanvas({ isOpen, onClose }: { isOpen: boolean; onClose
           </div>
 
           {/* Temporal Zoom Selector */}
-          <div className="flex items-center gap-2 bg-white/5 p-1 rounded-xl border border-white/10">
+          <div className="flex items-center gap-2 bg-white/5 p-1 rounded-none border border-white/10">
             {(["3H", "TODAY", "WEEK", "YEAR"] as const).map((z) => (
               <button
                 key={z}
                 onClick={() => setZoomLevel(z)}
-                className={`px-3 py-1 text-xs font-mono font-bold rounded-lg transition-all ${
+                className={`px-3 py-1 text-xs font-mono font-bold rounded-none transition-all ${
                   zoomLevel === z
                     ? "bg-cyan-500/30 text-cyan-300 border border-cyan-400/40 shadow-sm"
                     : "text-[#9CA3AF] hover:text-white"
@@ -110,7 +110,7 @@ export function LifestrandCanvas({ isOpen, onClose }: { isOpen: boolean; onClose
 
           <button
             onClick={onClose}
-            className="w-9 h-9 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-[#9CA3AF] hover:text-white transition-colors"
+            className="w-9 h-9 rounded-none bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-[#9CA3AF] hover:text-white transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -120,7 +120,7 @@ export function LifestrandCanvas({ isOpen, onClose }: { isOpen: boolean; onClose
         <div className="flex-1 grid grid-cols-1 lg:grid-cols-3 gap-6 pt-6 overflow-y-auto min-h-0">
           
           {/* Main 4-Layer Strand Canvas */}
-          <div className="lg:col-span-2 relative flex flex-col justify-around gap-4 bg-gradient-to-b from-white/[0.02] to-transparent p-6 rounded-2xl border border-white/10 overflow-hidden">
+          <div className="lg:col-span-2 relative flex flex-col justify-around gap-4 bg-gradient-to-b from-white/[0.02] to-transparent p-6 rounded-none border border-white/10 overflow-hidden">
             
             {/* Temporal Glowing Cursor Bar */}
             <div className="absolute top-0 bottom-0 left-1/2 w-[2px] bg-gradient-to-b from-transparent via-cyan-400/60 to-transparent pointer-events-none shadow-[0_0_15px_rgba(25,211,243,0.5)]">
@@ -141,7 +141,7 @@ export function LifestrandCanvas({ isOpen, onClose }: { isOpen: boolean; onClose
                 <motion.div
                   whileHover={{ scale: 1.02 }}
                   onClick={() => setSelectedNode(mockNodes[0])}
-                  className={`p-3.5 rounded-xl bg-gradient-to-r ${mockNodes[0].color} border cursor-pointer flex items-center gap-3 shadow-md w-full max-w-sm`}
+                  className={`p-3.5 rounded-none bg-gradient-to-r ${mockNodes[0].color} border cursor-pointer flex items-center gap-3 shadow-md w-full max-w-sm`}
                 >
                   <FileText className="w-5 h-5 text-blue-400 shrink-0" />
                   <div>
@@ -164,7 +164,7 @@ export function LifestrandCanvas({ isOpen, onClose }: { isOpen: boolean; onClose
                 <motion.div
                   whileHover={{ scale: 1.02 }}
                   onClick={() => setSelectedNode(mockNodes[1])}
-                  className={`p-4 rounded-xl bg-gradient-to-r ${mockNodes[1].color} border cursor-pointer flex items-center gap-3 shadow-lg ring-2 ring-gold/30 w-full max-w-md`}
+                  className={`p-4 rounded-none bg-gradient-to-r ${mockNodes[1].color} border cursor-pointer flex items-center gap-3 shadow-lg ring-2 ring-gold/30 w-full max-w-md`}
                 >
                   <Sparkles className="w-5 h-5 text-gold-bright shrink-0" />
                   <div>
@@ -178,21 +178,21 @@ export function LifestrandCanvas({ isOpen, onClose }: { isOpen: boolean; onClose
             {/* Layer 3: TIME */}
             <div className="relative z-10 flex flex-col gap-2">
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-amber-400 font-bold">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-300 font-bold">
                   LAYER 3 — TIME (Cosmic Transits & Dashas)
                 </span>
-                <span className="h-[1px] flex-1 bg-amber-500/20"></span>
+                <span className="h-[1px] flex-1 bg-zinc-100/10"></span>
               </div>
               <div className="flex items-center justify-end gap-4">
                 <motion.div
                   whileHover={{ scale: 1.02 }}
                   onClick={() => setSelectedNode(mockNodes[2])}
-                  className={`p-3.5 rounded-xl bg-gradient-to-r ${mockNodes[2].color} border cursor-pointer flex items-center gap-3 shadow-md w-full max-w-sm`}
+                  className={`p-3.5 rounded-none bg-gradient-to-r ${mockNodes[2].color} border cursor-pointer flex items-center gap-3 shadow-md w-full max-w-sm`}
                 >
-                  <ShieldCheck className="w-5 h-5 text-amber-400 shrink-0" />
+                  <ShieldCheck className="w-5 h-5 text-zinc-300 shrink-0" />
                   <div>
                     <p className="text-xs font-bold text-white">{mockNodes[2].title}</p>
-                    <p className="text-[10px] text-amber-300/80 font-mono">{mockNodes[2].subtitle}</p>
+                    <p className="text-[10px] text-zinc-200/80 font-mono">{mockNodes[2].subtitle}</p>
                   </div>
                 </motion.div>
               </div>
@@ -210,7 +210,7 @@ export function LifestrandCanvas({ isOpen, onClose }: { isOpen: boolean; onClose
                 <motion.div
                   whileHover={{ scale: 1.02 }}
                   onClick={() => setSelectedNode(mockNodes[3])}
-                  className={`p-3.5 rounded-xl bg-gradient-to-r ${mockNodes[3].color} border cursor-pointer flex items-center gap-3 shadow-md w-full max-w-sm`}
+                  className={`p-3.5 rounded-none bg-gradient-to-r ${mockNodes[3].color} border cursor-pointer flex items-center gap-3 shadow-md w-full max-w-sm`}
                 >
                   <Cpu className="w-5 h-5 text-emerald-400 shrink-0" />
                   <div>
@@ -224,7 +224,7 @@ export function LifestrandCanvas({ isOpen, onClose }: { isOpen: boolean; onClose
           </div>
 
           {/* Node Inspector Panel */}
-          <div className="bg-white/5 rounded-2xl border border-white/10 p-5 flex flex-col justify-between">
+          <div className="bg-white/5 rounded-none border border-white/10 p-5 flex flex-col justify-between">
             {selectedNode ? (
               <div className="space-y-4">
                 <div className="flex items-center justify-between pb-3 border-b border-white/10">
@@ -237,7 +237,7 @@ export function LifestrandCanvas({ isOpen, onClose }: { isOpen: boolean; onClose
                 <div>
                   <h3 className="text-base font-bold text-white mb-1">{selectedNode.title}</h3>
                   <p className="text-xs text-cyan-300 font-mono mb-3">{selectedNode.subtitle}</p>
-                  <p className="text-xs text-[#9CA3AF] leading-relaxed bg-black/30 p-3 rounded-xl border border-white/5">
+                  <p className="text-xs text-[#9CA3AF] leading-relaxed bg-black/30 p-3 rounded-none border border-white/5">
                     {selectedNode.details}
                   </p>
                 </div>

@@ -40,7 +40,7 @@ export const THEMES: Record<ThemeId, ThemeConfig> = {
     bgClass: 'bg-[#181512]',
     cardBg: 'bg-[#24201b]/80 border-amber-950/60',
     textPrimary: 'text-amber-100',
-    textSecondary: 'text-amber-300/60',
+    textSecondary: 'text-zinc-200/60',
     accent: 'bg-amber-300',
     glow: 'shadow-[0_0_12px_rgba(252,211,77,0.6)]',
     border: 'border-amber-950/80',

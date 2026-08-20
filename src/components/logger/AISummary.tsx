@@ -17,7 +17,7 @@ export function AISummary() {
         <p className="text-[#9CA3AF]">AstroLive automatically remembers important guidance so you never have to.</p>
       </div>
 
-      <div className="bg-surface border border-line rounded-lg p-6 md:p-8 relative overflow-hidden">
+      <div className="bg-surface border border-line rounded-none p-6 md:p-8 relative overflow-hidden">
         <div className="absolute top-0 right-0 p-6 opacity-10 pointer-events-none">
           <Sparkles className="w-32 h-32" />
         </div>
@@ -52,7 +52,7 @@ export function AISummary() {
               <h4 className="flex items-center gap-2 text-white font-bold mb-4">
                 <Compass className="w-4 h-4 text-gold" /> Important Life Advice
               </h4>
-              <div className="bg-gold/5 border border-gold/10 p-5 rounded-xl text-sm text-white/90 leading-relaxed italic">
+              <div className="bg-gold/5 border border-gold/10 p-5 rounded-none text-sm text-white/90 leading-relaxed italic">
                 "{summary.advice}"
               </div>
             </div>

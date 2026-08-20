@@ -24,7 +24,7 @@ export function ContextPanel() {
   ] as const
 
   return (
-    <div className="p-5 rounded-lg bg-surface border border-line h-full space-y-5">
+    <div className="p-5 rounded-none bg-surface border border-line h-full space-y-5">
       <div className="flex items-center justify-between border-b border-line/60 pb-4">
         <div className="flex items-center gap-2.5">
           <Settings2 className="w-4 h-4 text-brand" />
@@ -42,7 +42,7 @@ export function ContextPanel() {
           <div
             key={key}
             onClick={() => toggle(key)}
-            className="flex items-center justify-between py-2.5 px-3 rounded-md hover:bg-surface-2/60 cursor-pointer transition-soft group"
+            className="flex items-center justify-between py-2.5 px-3 rounded-none hover:bg-surface-2/60 cursor-pointer transition-soft group"
           >
             <div className="min-w-0">
               <p className="text-xs font-medium text-ink group-hover:text-ink truncate">{label}</p>

@@ -19,7 +19,7 @@ export function TransparencyScore() {
         </div>
       </div>
 
-      <div className="bg-surface border border-line rounded-lg p-6 md:p-10">
+      <div className="bg-surface border border-line rounded-none p-6 md:p-10">
         <div className="space-y-6 max-w-3xl">
           {metrics.map((metric, i) => (
             <div key={i}>

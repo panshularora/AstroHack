@@ -8,7 +8,7 @@ export function RelationshipGraph() {
   const [modalOpen, setModalOpen] = useState(false)
 
   const nodes = [
-    { id: "t1", title: "Jupiter 10th House Transit", type: "transit", date: "July 01", icon: Sparkles, color: "border-purple-400 bg-purple-500/20 text-purple-300", glow: "shadow-[0_0_20px_rgba(168,85,247,0.4)]" },
+    { id: "t1", title: "Jupiter 10th House Transit", type: "transit", date: "July 01", icon: Sparkles, color: "border-zinc-700 bg-zinc-800 text-zinc-400", glow: "shadow-[0_0_20px_rgba(168,85,247,0.4)]" },
     { id: "c1", title: "Dr. Sarah Chen Consultation", type: "consultation", date: "July 15", icon: BookOpen, color: "border-brand bg-brand/20 text-ink-secondary", glow: "shadow-[0_0_20px_rgba(107,33,168,0.4)]" },
     { id: "p1", title: "Job Offer Prediction (88%)", type: "prediction", date: "Aug 25 Window", icon: Target, color: "border-gold bg-gold/20 text-gold", glow: "shadow-[0_0_20px_rgba(245,158,11,0.4)]" },
     { id: "r1", title: "Venus Beej Mantra Routine", type: "remedy", date: "Day 11 of 21", icon: Sun, color: "border-emerald-400 bg-emerald-500/20 text-emerald-400", glow: "shadow-[0_0_20px_rgba(16,185,129,0.4)]" },
@@ -37,13 +37,13 @@ export function RelationshipGraph() {
 
         <button
           onClick={() => setModalOpen(true)}
-          className="px-4 py-2 bg-brand/20 hover:bg-brand/30 border border-brand/40 text-ink-secondary rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-md"
+          className="px-4 py-2 bg-brand/20 hover:bg-brand/30 border border-brand/40 text-ink-secondary rounded-none text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-md"
         >
           <Maximize2 className="w-3.5 h-3.5" /> Fullscreen Memory Graph
         </button>
       </div>
 
-      <div className="bg-surface border border-line rounded-lg p-6 md:p-8 relative overflow-hidden">
+      <div className="bg-surface border border-line rounded-none p-6 md:p-8 relative overflow-hidden">
         {/* Interactive Visual Graph Web */}
         <div className="flex flex-col lg:flex-row items-center justify-between gap-6 py-6 border-b border-line/60">
           {nodes.map((n, idx) => {
@@ -56,7 +56,7 @@ export function RelationshipGraph() {
                   onClick={() => setSelectedNode(n.id)}
                   className="flex flex-col items-center cursor-pointer group"
                 >
-                  <div className={`w-16 h-16 rounded-lg border-2 flex items-center justify-center transition-all ${n.color} ${
+                  <div className={`w-16 h-16 rounded-none border-2 flex items-center justify-center transition-all ${n.color} ${
                     isSelected ? `${n.glow} scale-110 border-white ring-4 ring-primary/30` : "opacity-80 hover:opacity-100"
                   }`}>
                     <Icon className="w-7 h-7" />
@@ -82,9 +82,9 @@ export function RelationshipGraph() {
         </div>
 
         {/* Selected Node Cosmic Detail Banner */}
-        <div className="mt-6 p-4 bg-surface-2 border border-line/60 rounded-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="mt-6 p-4 bg-surface-2 border border-line/60 rounded-none flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-brand/20 border border-brand/40 flex items-center justify-center text-brand shrink-0">
+            <div className="w-10 h-10 rounded-none bg-brand/20 border border-brand/40 flex items-center justify-center text-brand shrink-0">
               <Brain className="w-5 h-5" />
             </div>
             <div>
@@ -94,7 +94,7 @@ export function RelationshipGraph() {
             </div>
           </div>
 
-          <div className="p-3 bg-black/40 rounded-xl border border-line/60 text-xs text-ink-secondary font-medium">
+          <div className="p-3 bg-black/40 rounded-none border border-line/60 text-xs text-ink-secondary font-medium">
             <strong className="text-ink font-semibold">Interconnected Impact:</strong> {detailsMap[selectedNode]?.connection}
           </div>
         </div>

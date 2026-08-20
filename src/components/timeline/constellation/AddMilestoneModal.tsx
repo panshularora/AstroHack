@@ -72,7 +72,7 @@ export const AddMilestoneModal: React.FC<AddMilestoneModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-[9999] w-screen h-screen flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fadeIn select-none font-sans">
-      <div className="relative w-full max-w-lg bg-[#090A0F] border border-white/15 rounded-2xl p-6 shadow-2xl text-zinc-100">
+      <div className="relative w-full max-w-lg bg-[#090A0F] border border-white/15 rounded-none p-6 shadow-2xl text-zinc-100">
         <button
           onClick={onClose}
           className="absolute top-5 right-5 p-2 rounded-full text-zinc-400 hover:text-white hover:bg-white/10 transition-colors"
@@ -81,7 +81,7 @@ export const AddMilestoneModal: React.FC<AddMilestoneModalProps> = ({
         </button>
 
         <div className="flex items-center gap-2 mb-6">
-          <Sparkles className="w-5 h-5 text-amber-400" />
+          <Sparkles className="w-5 h-5 text-zinc-300" />
           <h2 className="text-xl font-display font-bold tracking-wide text-white">Add Life Milestone Star</h2>
         </div>
 
@@ -96,7 +96,7 @@ export const AddMilestoneModal: React.FC<AddMilestoneModalProps> = ({
               placeholder="e.g. Launched Startup, World Trip, Moving Abroad"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full bg-white/5 border border-white/15 rounded-xl px-4 py-2.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-amber-400 transition-colors"
+              className="w-full bg-white/5 border border-white/15 rounded-none px-4 py-2.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-amber-400 transition-colors"
             />
           </div>
 
@@ -110,7 +110,7 @@ export const AddMilestoneModal: React.FC<AddMilestoneModalProps> = ({
                 required
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="w-full bg-white/5 border border-white/15 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                className="w-full bg-white/5 border border-white/15 rounded-none px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
               />
             </div>
 
@@ -122,7 +122,7 @@ export const AddMilestoneModal: React.FC<AddMilestoneModalProps> = ({
                 type="text"
                 value={time}
                 onChange={(e) => setTime(e.target.value)}
-                className="w-full bg-white/5 border border-white/15 rounded-xl px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-amber-400"
+                className="w-full bg-white/5 border border-white/15 rounded-none px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-amber-400"
               />
             </div>
           </div>
@@ -140,9 +140,9 @@ export const AddMilestoneModal: React.FC<AddMilestoneModalProps> = ({
                     setCategory(cat.value);
                     setIcon(cat.icon);
                   }}
-                  className={`flex flex-col items-center justify-center p-2 rounded-xl border text-[11px] font-mono transition-all cursor-pointer ${
+                  className={`flex flex-col items-center justify-center p-2 rounded-none border text-[11px] font-mono transition-all cursor-pointer ${
                     category === cat.value
-                      ? 'bg-amber-500/20 border-amber-400 text-amber-300'
+                      ? 'bg-zinc-100/10 border-amber-400 text-zinc-200'
                       : 'bg-white/5 border-white/10 text-zinc-400 hover:border-white/30 hover:text-white'
                   }`}
                 >
@@ -162,7 +162,7 @@ export const AddMilestoneModal: React.FC<AddMilestoneModalProps> = ({
               placeholder="Describe what occurred and how it impacted your journey..."
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="w-full bg-white/5 border border-white/15 rounded-xl px-4 py-2.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-amber-400 transition-colors resize-none"
+              className="w-full bg-white/5 border border-white/15 rounded-none px-4 py-2.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-amber-400 transition-colors resize-none"
             />
           </div>
 
@@ -175,7 +175,7 @@ export const AddMilestoneModal: React.FC<AddMilestoneModalProps> = ({
               placeholder="e.g. Kyoto, Japan or San Francisco"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
-              className="w-full bg-white/5 border border-white/15 rounded-xl px-4 py-2 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-amber-400"
+              className="w-full bg-white/5 border border-white/15 rounded-none px-4 py-2 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-amber-400"
             />
           </div>
 
@@ -183,13 +183,13 @@ export const AddMilestoneModal: React.FC<AddMilestoneModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 rounded-xl text-xs font-mono text-zinc-400 hover:text-white transition-colors cursor-pointer"
+              className="px-4 py-2 rounded-none text-xs font-mono text-zinc-400 hover:text-white transition-colors cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-mono text-xs font-bold transition-all shadow-[0_0_15px_rgba(245,158,11,0.4)] cursor-pointer"
+              className="px-5 py-2.5 rounded-none bg-zinc-100 hover:bg-zinc-200 text-black font-mono text-xs font-bold transition-all shadow-[0_0_15px_rgba(245,158,11,0.4)] cursor-pointer"
             >
               Illuminate Star
             </button>

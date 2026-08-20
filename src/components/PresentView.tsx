@@ -46,7 +46,7 @@ export const PresentView: React.FC<PresentViewProps> = ({
     <div className="w-full max-w-2xl mx-auto px-6 py-4 flex flex-col space-y-8 animate-fadeIn text-neutral-300">
       {/* Temporal Meter Progress */}
       <div className="grid grid-cols-3 gap-3 sm:gap-4 select-none">
-        <div className="p-3.5 rounded-2xl bg-neutral-900/50 border border-neutral-800/60 flex flex-col items-center text-center">
+        <div className="p-3.5 rounded-none bg-neutral-900/50 border border-neutral-800/60 flex flex-col items-center text-center">
           <span className="text-[11px] font-sans-clean uppercase tracking-wider text-neutral-500 font-medium">
             Day Elapsed
           </span>
@@ -61,7 +61,7 @@ export const PresentView: React.FC<PresentViewProps> = ({
           </div>
         </div>
 
-        <div className="p-3.5 rounded-2xl bg-neutral-900/50 border border-neutral-800/60 flex flex-col items-center text-center">
+        <div className="p-3.5 rounded-none bg-neutral-900/50 border border-neutral-800/60 flex flex-col items-center text-center">
           <span className="text-[11px] font-sans-clean uppercase tracking-wider text-neutral-500 font-medium">
             Month Progress
           </span>
@@ -76,7 +76,7 @@ export const PresentView: React.FC<PresentViewProps> = ({
           </div>
         </div>
 
-        <div className="p-3.5 rounded-2xl bg-neutral-900/50 border border-neutral-800/60 flex flex-col items-center text-center">
+        <div className="p-3.5 rounded-none bg-neutral-900/50 border border-neutral-800/60 flex flex-col items-center text-center">
           <span className="text-[11px] font-sans-clean uppercase tracking-wider text-neutral-500 font-medium">
             Year Progress
           </span>
@@ -93,10 +93,10 @@ export const PresentView: React.FC<PresentViewProps> = ({
       </div>
 
       {/* Daily Intention / Focus card */}
-      <div className="p-5 rounded-2xl bg-neutral-900/40 border border-neutral-800/60 flex flex-col space-y-4">
+      <div className="p-5 rounded-none bg-neutral-900/40 border border-neutral-800/60 flex flex-col space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 text-white font-sans-clean font-medium text-sm">
-            <Target className="w-4 h-4 text-amber-400" />
+            <Target className="w-4 h-4 text-zinc-300" />
             <span>Today's Anchor & Intentions</span>
           </div>
           <span className="text-xs text-neutral-500">
@@ -111,12 +111,12 @@ export const PresentView: React.FC<PresentViewProps> = ({
             value={newIntention}
             onChange={(e) => setNewIntention(e.target.value)}
             placeholder="Set an anchor or focus for right now..."
-            className="flex-1 bg-neutral-950/70 border border-neutral-800/80 rounded-xl px-3.5 py-2 text-sm text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-neutral-500 transition-all font-sans-clean"
+            className="flex-1 bg-neutral-950/70 border border-neutral-800/80 rounded-none px-3.5 py-2 text-sm text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-neutral-500 transition-all font-sans-clean"
           />
           <button
             type="submit"
             disabled={!newIntention.trim()}
-            className="p-2 bg-neutral-100 hover:bg-white text-neutral-900 rounded-xl disabled:opacity-30 disabled:hover:bg-neutral-100 cursor-pointer transition-all"
+            className="p-2 bg-neutral-100 hover:bg-white text-neutral-900 rounded-none disabled:opacity-30 disabled:hover:bg-neutral-100 cursor-pointer transition-all"
           >
             <Plus className="w-4 h-4" />
           </button>
@@ -128,10 +128,10 @@ export const PresentView: React.FC<PresentViewProps> = ({
             {presentIntentions.map((entry) => (
               <div
                 key={entry.id}
-                className="flex items-center justify-between p-2.5 rounded-xl bg-neutral-950/40 border border-neutral-800/40 text-xs text-neutral-200"
+                className="flex items-center justify-between p-2.5 rounded-none bg-neutral-950/40 border border-neutral-800/40 text-xs text-neutral-200"
               >
                 <div className="flex items-center gap-2.5">
-                  <div className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-zinc-200" />
                   <span>{entry.content}</span>
                 </div>
                 <span className="text-[10px] text-neutral-500 font-sans-clean">{entry.timeLabel}</span>
@@ -142,7 +142,7 @@ export const PresentView: React.FC<PresentViewProps> = ({
       </div>
 
       {/* Quote Card */}
-      <div className="p-6 rounded-2xl bg-gradient-to-b from-neutral-900/30 to-neutral-900/10 border border-neutral-800/40 flex flex-col items-center text-center space-y-2">
+      <div className="p-6 rounded-none bg-gradient-to-b from-neutral-900/30 to-neutral-900/10 border border-neutral-800/40 flex flex-col items-center text-center space-y-2">
         <Sparkles className="w-4 h-4 text-neutral-500 mb-1" />
         <p className="font-serif-display text-lg sm:text-xl text-neutral-200 italic font-normal leading-relaxed">
           "{quote.text}"

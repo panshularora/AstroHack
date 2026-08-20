@@ -24,7 +24,7 @@ export const FilterModal: React.FC<FilterModalProps> = ({
 }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md font-sans">
-      <div className="relative w-full max-w-lg bg-[#141518] border border-neutral-800 rounded-2xl p-6 shadow-2xl text-neutral-100">
+      <div className="relative w-full max-w-lg bg-[#141518] border border-neutral-800 rounded-none p-6 shadow-2xl text-neutral-100">
         <div className="flex items-center justify-between pb-4 border-b border-neutral-800">
           <div>
             <h2 className="font-serif text-lg font-medium text-amber-100">
@@ -36,7 +36,7 @@ export const FilterModal: React.FC<FilterModalProps> = ({
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-neutral-400 hover:text-white rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer"
+            className="p-1.5 text-neutral-400 hover:text-white rounded-none hover:bg-neutral-800 transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -52,15 +52,15 @@ export const FilterModal: React.FC<FilterModalProps> = ({
                   onSelectFilter(opt.label);
                   onClose();
                 }}
-                className={`w-full text-left p-3.5 rounded-xl border transition-all flex items-center justify-between group cursor-pointer ${
+                className={`w-full text-left p-3.5 rounded-none border transition-all flex items-center justify-between group cursor-pointer ${
                   isSelected
-                    ? 'bg-amber-950/40 border-amber-500/80 text-amber-100'
+                    ? 'bg-amber-950/40 border-zinc-600/80 text-amber-100'
                     : 'bg-neutral-900/60 hover:bg-neutral-800/80 border-neutral-800 text-neutral-300'
                 }`}
               >
                 <div>
                   <div className="flex items-center gap-2 mb-0.5">
-                    <span className="font-serif text-sm font-medium text-neutral-100 group-hover:text-amber-200">
+                    <span className="font-serif text-sm font-medium text-neutral-100 group-hover:text-zinc-200">
                       {opt.label}
                     </span>
                     <span className="font-mono text-[9px] px-1.5 py-0.2 rounded bg-black/60 text-neutral-400 border border-neutral-800">
@@ -73,7 +73,7 @@ export const FilterModal: React.FC<FilterModalProps> = ({
                 </div>
 
                 {isSelected && (
-                  <div className="w-6 h-6 rounded-full bg-amber-500/20 border border-amber-400 flex items-center justify-center text-amber-300 shrink-0">
+                  <div className="w-6 h-6 rounded-full bg-zinc-100/10 border border-amber-400 flex items-center justify-center text-zinc-200 shrink-0">
                     <Check className="w-3.5 h-3.5" />
                   </div>
                 )}

@@ -9,7 +9,7 @@ export function LoggerHero() {
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="relative bg-surface/60 border border-line rounded-lg p-6 md:p-8 mb-12 overflow-hidden backdrop-blur-xl"
+      className="relative bg-surface/60 border border-line rounded-none p-6 md:p-8 mb-12 overflow-hidden backdrop-blur-xl"
     >
       <div className="absolute top-0 right-0 w-64 h-64 bg-green-500/10 rounded-full blur-[80px] pointer-events-none" />
       
@@ -34,9 +34,9 @@ export function LoggerHero() {
           <p className="text-[#9CA3AF] text-sm mb-4">You just took a powerful step in your cosmic journey.</p>
           
           <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 md:gap-4 text-xs font-medium text-[#9CA3AF]">
-            <span className="flex items-center gap-1.5 bg-white/5 px-3 py-1.5 rounded-md"><Clock className="w-3.5 h-3.5" /> {session.duration} mins</span>
-            <span className="flex items-center gap-1.5 bg-white/5 px-3 py-1.5 rounded-md"><Calendar className="w-3.5 h-3.5" /> {new Date(session.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</span>
-            <span className="flex items-center gap-1.5 bg-white/5 px-3 py-1.5 rounded-md text-white font-bold">${session.amountPaid}</span>
+            <span className="flex items-center gap-1.5 bg-white/5 px-3 py-1.5 rounded-none"><Clock className="w-3.5 h-3.5" /> {session.duration} mins</span>
+            <span className="flex items-center gap-1.5 bg-white/5 px-3 py-1.5 rounded-none"><Calendar className="w-3.5 h-3.5" /> {new Date(session.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+            <span className="flex items-center gap-1.5 bg-white/5 px-3 py-1.5 rounded-none text-white font-bold">${session.amountPaid}</span>
           </div>
         </div>
       </div>

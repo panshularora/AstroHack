@@ -16,12 +16,12 @@ export function ReportNarrativeModal({ isOpen, onClose }: ReportNarrativeModalPr
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
-          className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-surface border border-line rounded-lg p-6 sm:p-8 space-y-6 shadow-2xl"
+          className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-surface border border-line rounded-none p-6 sm:p-8 space-y-6 shadow-2xl"
         >
           {/* Header */}
           <div className="flex items-center justify-between border-b border-line/60 pb-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-md bg-brand-light border border-brand/20 flex items-center justify-center text-brand">
+              <div className="w-10 h-10 rounded-none bg-brand-light border border-brand/20 flex items-center justify-center text-brand">
                 <FileText className="w-5 h-5" />
               </div>
               <div>
@@ -31,7 +31,7 @@ export function ReportNarrativeModal({ isOpen, onClose }: ReportNarrativeModalPr
             </div>
             <button
               onClick={onClose}
-              className="p-2 rounded-md hover:bg-surface-2 text-ink-tertiary hover:text-ink transition-colors cursor-pointer"
+              className="p-2 rounded-none hover:bg-surface-2 text-ink-tertiary hover:text-ink transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -40,7 +40,7 @@ export function ReportNarrativeModal({ isOpen, onClose }: ReportNarrativeModalPr
           {/* Paragraphs */}
           <div className="space-y-6 text-sm text-ink-secondary leading-relaxed font-sans">
             {/* Paragraph 1 */}
-            <div className="p-5 rounded-lg bg-surface-2/60 border border-line space-y-2">
+            <div className="p-5 rounded-none bg-surface-2/60 border border-line space-y-2">
               <div className="flex items-center gap-2 text-xs font-mono font-bold text-danger uppercase tracking-wider">
                 <TrendingUp className="w-4 h-4 text-danger rotate-180" /> Paragraph 1 – The Problem
               </div>
@@ -50,7 +50,7 @@ export function ReportNarrativeModal({ isOpen, onClose }: ReportNarrativeModalPr
             </div>
 
             {/* Paragraph 2 */}
-            <div className="p-5 rounded-lg bg-surface-2/60 border border-line space-y-2">
+            <div className="p-5 rounded-none bg-surface-2/60 border border-line space-y-2">
               <div className="flex items-center gap-2 text-xs font-mono font-bold text-brand uppercase tracking-wider">
                 <Sparkles className="w-4 h-4 text-brand" /> Paragraph 2 – What AstroLive 2.0 Built
               </div>
@@ -60,7 +60,7 @@ export function ReportNarrativeModal({ isOpen, onClose }: ReportNarrativeModalPr
             </div>
 
             {/* Paragraph 3 */}
-            <div className="p-5 rounded-lg bg-surface-2/60 border border-line space-y-2">
+            <div className="p-5 rounded-none bg-surface-2/60 border border-line space-y-2">
               <div className="flex items-center gap-2 text-xs font-mono font-bold text-gold-bright uppercase tracking-wider">
                 <Zap className="w-4 h-4 text-gold-bright" /> Paragraph 3 – What We Added and Why It Wins
               </div>
@@ -78,7 +78,7 @@ export function ReportNarrativeModal({ isOpen, onClose }: ReportNarrativeModalPr
             </div>
             <button
               onClick={onClose}
-              className="px-4 py-2 bg-brand text-white rounded-md font-mono font-bold text-xs hover:bg-brand-hover transition-colors cursor-pointer"
+              className="px-4 py-2 bg-brand text-white rounded-none font-mono font-bold text-xs hover:bg-brand-hover transition-colors cursor-pointer"
             >
               Close Executive Pitch
             </button>

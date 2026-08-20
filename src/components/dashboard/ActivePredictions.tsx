@@ -19,9 +19,9 @@ export function ActivePredictions({ predictions }: { predictions: Prediction[] }
             transition={{ duration: 0.4, delay: i * 0.1 }}
             className="flex-none w-[300px] md:w-[360px] snap-start"
           >
-            <div className="bg-surface border border-line rounded-lg p-6 hover:border-line-strong hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full flex flex-col">
+            <div className="bg-surface border border-line rounded-none p-6 hover:border-line-strong hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full flex flex-col">
               <div className="flex justify-between items-start mb-4">
-                <div className="text-xs font-semibold px-2 py-1 bg-brand-light border border-brand/20 text-ink-secondary rounded-md">
+                <div className="text-xs font-semibold px-2 py-1 bg-brand-light border border-brand/20 text-ink-secondary rounded-none">
                   {p.confidenceLevel}% Confidence
                 </div>
                 {p.status === "pending" ? (
@@ -51,8 +51,8 @@ export function ActivePredictions({ predictions }: { predictions: Prediction[] }
                   <div className="h-full bg-gradient-to-r from-brand to-secondary w-2/3 rounded-full" />
                 </div>
                 <div className="grid grid-cols-2 gap-2 pt-2">
-                  <button className="text-xs font-medium py-2 rounded-lg bg-white/5 hover:bg-surface-3 text-white transition-colors cursor-pointer">Update Status</button>
-                  <button className="text-xs font-medium py-2 rounded-lg bg-brand-light hover:bg-brand/20 text-brand transition-colors flex items-center justify-center gap-1 cursor-pointer">Details <ArrowRight className="w-3 h-3" /></button>
+                  <button className="text-xs font-medium py-2 rounded-none bg-white/5 hover:bg-surface-3 text-white transition-colors cursor-pointer">Update Status</button>
+                  <button className="text-xs font-medium py-2 rounded-none bg-brand-light hover:bg-brand/20 text-brand transition-colors flex items-center justify-center gap-1 cursor-pointer">Details <ArrowRight className="w-3 h-3" /></button>
                 </div>
               </div>
             </div>

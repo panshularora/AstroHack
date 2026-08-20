@@ -15,8 +15,8 @@ export function ReportsGenerator() {
 
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
         {reports.map((r, i) => (
-          <div key={i} className="bg-surface border border-line rounded-lg p-6 hover:border-line-strong transition-all group flex flex-col h-full cursor-pointer hover:shadow-lg">
-            <div className="p-3 rounded-lg bg-surface-2 border border-line w-fit mb-5 group-hover:scale-110 transition-transform">
+          <div key={i} className="bg-surface border border-line rounded-none p-6 hover:border-line-strong transition-all group flex flex-col h-full cursor-pointer hover:shadow-lg">
+            <div className="p-3 rounded-none bg-surface-2 border border-line w-fit mb-5 group-hover:scale-110 transition-transform">
               {r.icon}
             </div>
             <h3 className="text-sm font-bold text-white mb-2">{r.title}</h3>

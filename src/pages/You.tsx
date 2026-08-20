@@ -1,122 +1,94 @@
 import { useNavigate } from "react-router-dom"
-import { Share2, Crown, Settings, ChevronRight, ShieldCheck, Target } from "lucide-react"
+import { useState } from "react"
 import { Button } from "@/components/ui/Button"
 import { useLedger } from "@/context/LedgerContext"
 import { PredictionShareCardModal } from "@/components/predictions/PredictionShareCardModal"
-import { useState } from "react"
-import { mockUser } from "@/lib/mock-data"
+import { useNatalChart, useUser } from "@/context/UserContext"
+import { CosmicField } from "@/components/sky/CosmicField"
+import { useI18n } from "@/lib/i18n"
 
 export function You() {
   const navigate = useNavigate()
+  const { user } = useUser()
+  const natal = useNatalChart()
   const { stats, predictions } = useLedger()
   const [shareOpen, setShareOpen] = useState(false)
+  const { t } = useI18n()
 
-  const verified = predictions.filter(p => p.status === "completed")
-  const topAstrologer = verified.length > 0
-    ? verified.reduce((best, p) => {
-        const count = verified.filter(v => v.astrologer.name === p.astrologer.name).length
-        return count > best.count ? { name: p.astrologer.name, count } : best
-      }, { name: verified[0].astrologer.name, count: 0 })
-    : null
-
-  const menuItems = [
-    { label: "AstroLive+ Subscription", path: "/app/subscription", icon: Crown, badge: "PRO" },
-    { label: "Settings", path: "/app/settings", icon: Settings },
-  ]
+  const verified = predictions.filter((p) => p.status === "completed")
+  const topAstrologer =
+    verified.length > 0
+      ? verified.reduce(
+          (best, p) => {
+            const count = verified.filter((v) => v.astrologer.name === p.astrologer.name).length
+            return count > best.count ? { name: p.astrologer.name, count } : best
+          },
+          { name: verified[0].astrologer.name, count: 0 }
+        )
+      : null
 
   return (
-    <div className="page-container max-w-3xl pb-28">
-      <div className="space-y-8">
-        <div className="border-b border-line/60 pb-6">
-          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-brand mb-2">You</p>
-          <h1 className="font-display text-h1 text-ink tracking-tight">Prediction Scorecard</h1>
-          <p className="text-sm text-ink-secondary mt-1">
-            Your verified track record — shareable proof of cosmic guidance that actually worked.
-          </p>
-        </div>
+    <div className="relative">
+      <CosmicField density={28} />
+      <div className="relative page-container max-w-2xl pb-28">
+      <p className="text-[12px] uppercase tracking-[0.16em] text-zinc-500">{t("you")}</p>
+      <h1 className="font-display text-5xl sm:text-6xl text-zinc-50 mt-2 leading-[0.95]">{user.name}</h1>
+      <p className="mt-4 text-[15px] text-zinc-400 leading-relaxed max-w-md">
+        {natal.moonSign} Moon · {natal.lagnaSign} lagna · {user.plan === "free" ? t("payAsYouGo") : user.plan}. {t("wallet")} ₹
+        {user.walletBalance}.
+      </p>
 
-        {/* Scorecard */}
-        <div className="cosmic-hero p-6 rounded-lg border border-brand/30 space-y-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-brand">2026 Scorecard</p>
-              <h2 className="font-display text-2xl text-ink font-bold mt-1">{mockUser.name} Sharma</h2>
-              <p className="text-xs font-mono text-ink-secondary mt-0.5">{mockUser.zodiacSign} · Member since {mockUser.memberSince}</p>
-            </div>
-            <div className="text-right">
-              <p className="font-metric text-4xl font-bold text-gold-bright tabular-nums">{stats.verified}/{stats.total}</p>
-              <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-tertiary">Verified</p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-3 gap-3 font-mono text-center">
-            <div className="p-3 rounded-md bg-white/[0.04] border border-line/60">
-              <p className="text-lg font-bold text-success">{stats.accuracy}%</p>
-              <p className="text-[9px] uppercase tracking-[0.1em] text-ink-tertiary">Accuracy</p>
-            </div>
-            <div className="p-3 rounded-md bg-white/[0.04] border border-line/60">
-              <p className="text-lg font-bold text-brand">{stats.active}</p>
-              <p className="text-[9px] uppercase tracking-[0.1em] text-ink-tertiary">Active</p>
-            </div>
-            <div className="p-3 rounded-md bg-white/[0.04] border border-line/60">
-              <p className="text-lg font-bold text-ink">{stats.needsVerification}</p>
-              <p className="text-[9px] uppercase tracking-[0.1em] text-ink-tertiary">Pending</p>
-            </div>
-          </div>
-
-          {topAstrologer && (
-            <div className="p-4 rounded-md bg-surface/60 border border-line/60 flex items-center gap-3">
-              <ShieldCheck className="w-5 h-5 text-success shrink-0" />
-              <div>
-                <p className="text-xs font-mono text-ink-tertiary uppercase tracking-[0.1em]">Most Accurate Guide</p>
-                <p className="text-sm font-bold text-ink">{topAstrologer.name}</p>
-              </div>
-            </div>
-          )}
-
-          <Button className="w-full rounded-md font-mono" onClick={() => setShareOpen(true)}>
-            <Share2 className="w-4 h-4" /> Share Scorecard
-          </Button>
-        </div>
-
-        {/* Recent verified */}
-        {verified.length > 0 && (
-          <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-tertiary mb-3">Recent Verified</p>
-            <div className="space-y-2">
-              {verified.slice(0, 3).map(p => (
-                <div key={p.id} className="p-4 rounded-lg bg-surface border border-line flex items-center gap-3">
-                  <Target className="w-4 h-4 text-success shrink-0" />
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-ink truncate">{p.title}</p>
-                    <p className="text-xs font-mono text-ink-tertiary">{p.astrologer.name}</p>
-                  </div>
-                  <span className="font-mono text-[10px] text-success font-bold">✓</span>
-                </div>
-              ))}
-            </div>
-          </div>
+      <div className="mt-12">
+        <p className="text-[12px] uppercase tracking-[0.16em] text-zinc-500">{t("whatCameTrue")}</p>
+        <p className="font-display text-5xl text-zinc-50 mt-2">
+          {stats.verified}
+          <span className="text-zinc-500">/{stats.total}</span>
+        </p>
+        <p className="mt-2 text-sm text-zinc-500">
+          {stats.total === 0
+            ? t("nothingDated")
+            : t("closedTrue", { pct: stats.accuracy, n: stats.needsVerification })}
+        </p>
+        {topAstrologer && (
+          <p className="mt-3 text-sm text-zinc-400">{t("mostRight", { name: topAstrologer.name })}</p>
         )}
+        <Button className="mt-6" onClick={() => setShareOpen(true)}>
+          {t("shareRecord")}
+        </Button>
+      </div>
 
-        {/* Account links */}
-        <div className="space-y-1">
-          {menuItems.map(item => (
-            <button
-              key={item.path}
-              onClick={() => navigate(item.path)}
-              className="w-full flex items-center gap-3 p-4 rounded-lg bg-surface border border-line hover:border-brand/30 transition-all group"
-            >
-              <item.icon className="w-4 h-4 text-ink-secondary group-hover:text-brand" />
-              <span className="text-sm font-medium text-ink flex-1 text-left">{item.label}</span>
-              {item.badge && (
-                <span className="font-mono text-[9px] font-bold px-1.5 py-0.5 bg-gold-bright/15 text-gold-bright rounded-sm">
-                  {item.badge}
-                </span>
-              )}
-              <ChevronRight className="w-4 h-4 text-ink-tertiary" />
-            </button>
-          ))}
+      {verified.length > 0 && (
+        <div className="mt-14">
+          <p className="text-[12px] uppercase tracking-[0.16em] text-zinc-500">{t("recentEndings")}</p>
+          <ul className="mt-5 space-y-6">
+            {verified.slice(0, 4).map((p) => (
+              <li key={p.id}>
+                <p className="font-display text-2xl text-zinc-50 leading-snug">{p.title}</p>
+                <p className="text-sm text-zinc-500 mt-1">
+                  {p.astrologer.name} · {t("cameTrue")}
+                </p>
+              </li>
+            ))}
+          </ul>
         </div>
+      )}
+
+      <div className="mt-16 space-y-4">
+        {[
+          { t: t("freeKundli"), d: t("chartDrawnD"), href: "/app/kundli" },
+          { t: t("wallet"), d: t("walletHead"), href: "/app/wallet" },
+          { t: t("offerings"), d: t("offeringsHead"), href: "/app/offerings" },
+          { t: t("jobAsk"), d: t("jobAskD"), href: "/app/companion" },
+          { t: t("puja"), d: t("jobPujaD"), href: "/app/puja" },
+          { t: t("report"), d: t("reportHead"), href: "/app/reports" },
+          { t: t("pricing"), d: t("seePlusFamily"), href: "/app/subscription" },
+          { t: t("invite"), d: t("yourCodeIs", { code: user.inviteCode }), href: "/app/share" },
+        ].map((item) => (
+          <button key={item.href} type="button" onClick={() => navigate(item.href)} className="block text-left group">
+            <p className="font-display text-2xl text-zinc-50 group-hover:italic">{item.t}</p>
+            <p className="text-sm text-zinc-500 mt-0.5">{item.d}</p>
+          </button>
+        ))}
       </div>
 
       <PredictionShareCardModal
@@ -132,6 +104,7 @@ export function You() {
           verifiedDate: new Date().toISOString().split("T")[0],
         }}
       />
+      </div>
     </div>
   )
 }

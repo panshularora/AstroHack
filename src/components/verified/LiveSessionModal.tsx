@@ -122,7 +122,7 @@ export const LiveSessionModal: React.FC<LiveSessionModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 overflow-hidden font-sans">
-      <div className="bg-[#121316] border border-neutral-800 rounded-2xl w-full max-w-5xl h-[92vh] max-h-[850px] flex flex-col overflow-hidden shadow-2xl relative">
+      <div className="bg-[#121316] border border-neutral-800 rounded-none w-full max-w-5xl h-[92vh] max-h-[850px] flex flex-col overflow-hidden shadow-2xl relative">
         
         <div className="px-4 py-3 bg-neutral-950/80 border-b border-neutral-800/80 flex items-center justify-between shrink-0">
           <div className="flex items-center gap-3">
@@ -130,14 +130,14 @@ export const LiveSessionModal: React.FC<LiveSessionModalProps> = ({
               <img
                 src={practitioner.imageUrl}
                 alt={practitioner.name}
-                className="w-10 h-10 rounded-full object-cover grayscale contrast-125 border border-neutral-700"
+                className="astro-face w-10 h-10 rounded-full grayscale contrast-125 border border-neutral-700"
               />
               <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 border border-black" />
             </div>
             <div>
               <div className="flex items-center gap-2">
                 <h3 className="font-serif text-sm sm:text-base font-normal text-white">{practitioner.name}</h3>
-                <span className="font-mono text-[10px] text-amber-300 bg-amber-950/50 border border-amber-800/60 px-1.5 py-0.2 rounded uppercase">
+                <span className="font-mono text-[10px] text-zinc-200 bg-amber-950/50 border border-amber-800/60 px-1.5 py-0.2 rounded uppercase">
                   {practitioner.tag}
                 </span>
               </div>
@@ -148,7 +148,7 @@ export const LiveSessionModal: React.FC<LiveSessionModalProps> = ({
           </div>
 
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2 bg-neutral-900 border border-neutral-800 px-3 py-1 rounded-full font-mono text-xs text-amber-400">
+            <div className="flex items-center gap-2 bg-neutral-900 border border-neutral-800 px-3 py-1 rounded-full font-mono text-xs text-zinc-300">
               <span className="w-2 h-2 rounded-full bg-red-500 animate-ping" />
               <span>{formatTimer(sessionSeconds)}</span>
             </div>
@@ -164,15 +164,15 @@ export const LiveSessionModal: React.FC<LiveSessionModalProps> = ({
 
         <div className="flex-1 flex flex-col md:flex-row overflow-hidden relative">
           <div className="md:w-5/12 bg-black/60 border-r border-neutral-800/80 p-4 flex flex-col justify-between overflow-y-auto">
-            <div className="relative w-full aspect-video sm:aspect-square bg-neutral-900 rounded-xl overflow-hidden border border-neutral-800 flex items-center justify-center group mb-4">
+            <div className="relative w-full aspect-video sm:aspect-square bg-neutral-900 rounded-none overflow-hidden border border-neutral-800 flex items-center justify-center group mb-4">
               {mode === 'video' && !isVideoOff ? (
                 <div className="relative w-full h-full">
                   <img
                     src={practitioner.imageUrl}
                     alt={practitioner.name}
-                    className="w-full h-full object-cover grayscale contrast-125"
+                    className="astro-face w-full h-full grayscale contrast-125"
                   />
-                  <div className="absolute bottom-3 left-3 bg-black/70 backdrop-blur-md px-2.5 py-1 rounded-md border border-neutral-800 text-[10px] font-mono text-white flex items-center gap-1.5">
+                  <div className="absolute bottom-3 left-3 bg-black/70 backdrop-blur-md px-2.5 py-1 rounded-none border border-neutral-800 text-[10px] font-mono text-white flex items-center gap-1.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                     {practitioner.name} (Live Video Feed)
                   </div>
@@ -183,7 +183,7 @@ export const LiveSessionModal: React.FC<LiveSessionModalProps> = ({
                     <img
                       src={practitioner.imageUrl}
                       alt={practitioner.name}
-                      className="w-full h-full object-cover grayscale contrast-125"
+                      className="astro-face w-full h-full grayscale contrast-125"
                     />
                   </div>
                   <div>
@@ -191,17 +191,17 @@ export const LiveSessionModal: React.FC<LiveSessionModalProps> = ({
                     <p className="text-xs text-neutral-400 font-mono">{practitioner.specialty}</p>
                   </div>
                   <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-neutral-800 text-[11px] font-mono text-neutral-300 border border-neutral-700">
-                    <Mic className="w-3 h-3 text-amber-400" />
+                    <Mic className="w-3 h-3 text-zinc-300" />
                     <span>{mode.toUpperCase()} Connected</span>
                   </div>
                 </div>
               )}
             </div>
 
-            <div className="bg-neutral-900/80 border border-neutral-800 rounded-xl p-3.5 space-y-2 mb-4">
+            <div className="bg-neutral-900/80 border border-neutral-800 rounded-none p-3.5 space-y-2 mb-4">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-mono text-amber-300 font-bold uppercase flex items-center gap-1.5">
-                  <Compass className="w-3.5 h-3.5 text-amber-400" /> User Natal Profile
+                <span className="text-xs font-mono text-zinc-200 font-bold uppercase flex items-center gap-1.5">
+                  <Compass className="w-3.5 h-3.5 text-zinc-300" /> User Natal Profile
                 </span>
                 <button
                   onClick={() => setShowBirthDetailsForm(!showBirthDetailsForm)}
@@ -243,7 +243,7 @@ export const LiveSessionModal: React.FC<LiveSessionModalProps> = ({
                   />
                   <button
                     type="submit"
-                    className="w-full bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs py-1.5 rounded cursor-pointer transition-colors"
+                    className="w-full bg-zinc-100 hover:bg-zinc-200 text-black font-bold text-xs py-1.5 rounded cursor-pointer transition-colors"
                   >
                     Save & Recalibrate Chart
                   </button>
@@ -304,14 +304,14 @@ export const LiveSessionModal: React.FC<LiveSessionModalProps> = ({
                   className={`flex flex-col ${msg.sender === 'user' ? 'items-end' : 'items-start'}`}
                 >
                   <div
-                    className={`max-w-[85%] p-3.5 rounded-2xl text-xs leading-relaxed ${
+                    className={`max-w-[85%] p-3.5 rounded-none text-xs leading-relaxed ${
                       msg.sender === 'user'
-                        ? 'bg-amber-500/20 border border-amber-500/30 text-amber-100 rounded-br-none'
+                        ? 'bg-zinc-100/10 border border-zinc-700 text-amber-100 rounded-br-none'
                         : 'bg-neutral-900 border border-neutral-800 text-neutral-200 rounded-bl-none font-sans'
                     }`}
                   >
                     {msg.sender === 'practitioner' && (
-                      <div className="flex items-center gap-1.5 mb-1 text-[10px] font-mono text-amber-400 font-bold">
+                      <div className="flex items-center gap-1.5 mb-1 text-[10px] font-mono text-zinc-300 font-bold">
                         <Sparkles className="w-3 h-3" />
                         <span>{practitioner.name}</span>
                       </div>
@@ -322,7 +322,7 @@ export const LiveSessionModal: React.FC<LiveSessionModalProps> = ({
                 </div>
               ))}
               {isLoading && (
-                <div className="flex items-center gap-2 text-xs font-mono text-amber-400 p-2">
+                <div className="flex items-center gap-2 text-xs font-mono text-zinc-300 p-2">
                   <Sparkles className="w-3.5 h-3.5 animate-spin" />
                   <span>{practitioner.name} is calculating planetary positions...</span>
                 </div>
@@ -343,12 +343,12 @@ export const LiveSessionModal: React.FC<LiveSessionModalProps> = ({
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
                   placeholder={`Ask ${practitioner.name} anything about your transits...`}
-                  className="flex-1 bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-2.5 text-xs text-white placeholder:text-neutral-500 focus:outline-none focus:border-amber-500/50"
+                  className="flex-1 bg-neutral-900 border border-neutral-800 rounded-none px-4 py-2.5 text-xs text-white placeholder:text-neutral-500 focus:outline-none focus:border-zinc-600"
                 />
                 <button
                   type="submit"
                   disabled={!inputText.trim() || isLoading}
-                  className="w-10 h-10 rounded-xl bg-amber-500 hover:bg-amber-400 text-black flex items-center justify-center transition-colors disabled:opacity-50 cursor-pointer shrink-0"
+                  className="w-10 h-10 rounded-none bg-zinc-100 hover:bg-zinc-200 text-black flex items-center justify-center transition-colors disabled:opacity-50 cursor-pointer shrink-0"
                 >
                   <Send className="w-4 h-4" />
                 </button>

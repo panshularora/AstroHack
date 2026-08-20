@@ -42,10 +42,10 @@ export const ReflectionModal: React.FC<ReflectionModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-fadeIn select-none">
-      <div className="w-full max-w-md bg-[#181818] border border-neutral-800 rounded-3xl p-6 shadow-2xl flex flex-col space-y-4 text-neutral-200">
+      <div className="w-full max-w-md bg-[#181818] border border-neutral-800 rounded-none p-6 shadow-2xl flex flex-col space-y-4 text-neutral-200">
         <div className="flex items-center justify-between border-b border-neutral-800/80 pb-3">
           <div className="flex items-center gap-2">
-            <Edit3 className="w-5 h-5 text-amber-400" />
+            <Edit3 className="w-5 h-5 text-zinc-300" />
             <h3 className="font-serif-display text-lg text-white font-medium">
               Log Note ({timeLabel})
             </h3>
@@ -64,7 +64,7 @@ export const ReflectionModal: React.FC<ReflectionModalProps> = ({
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Title (optional)"
-            className="bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2 text-sm text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-neutral-500 font-sans-clean"
+            className="bg-neutral-900 border border-neutral-800 rounded-none px-3.5 py-2 text-sm text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-neutral-500 font-sans-clean"
           />
           <textarea
             value={content}
@@ -72,7 +72,7 @@ export const ReflectionModal: React.FC<ReflectionModalProps> = ({
             placeholder="Write your note or reflection here..."
             rows={4}
             required
-            className="bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2 text-sm text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-neutral-500 font-sans-clean resize-none"
+            className="bg-neutral-900 border border-neutral-800 rounded-none px-3.5 py-2 text-sm text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-neutral-500 font-sans-clean resize-none"
           />
 
           <div className="flex items-center justify-between pt-1">
@@ -83,7 +83,7 @@ export const ReflectionModal: React.FC<ReflectionModalProps> = ({
                 onChange={(e) =>
                   setCategory(e.target.value as 'reflection' | 'intention' | 'memory' | 'milestone')
                 }
-                className="bg-neutral-900 text-xs text-neutral-300 border border-neutral-800 rounded-lg px-2.5 py-1 focus:outline-none"
+                className="bg-neutral-900 text-xs text-neutral-300 border border-neutral-800 rounded-none px-2.5 py-1 focus:outline-none"
               >
                 <option value="reflection">Reflection</option>
                 <option value="intention">Intention</option>
@@ -103,7 +103,7 @@ export const ReflectionModal: React.FC<ReflectionModalProps> = ({
               <button
                 type="submit"
                 disabled={!content.trim()}
-                className="text-xs bg-white text-neutral-900 hover:bg-neutral-200 font-medium px-4 py-2 rounded-xl cursor-pointer disabled:opacity-40 transition-colors"
+                className="text-xs bg-white text-neutral-900 hover:bg-neutral-200 font-medium px-4 py-2 rounded-none cursor-pointer disabled:opacity-40 transition-colors"
               >
                 Save Entry
               </button>

@@ -107,7 +107,7 @@ export const TimeSlider: React.FC<TimeSliderProps> = ({
           onClick={onResetToLive}
           className="mt-1 text-xs font-sans-clean text-neutral-400 hover:text-white transition-colors duration-200 flex items-center gap-1.5 cursor-pointer bg-neutral-900/60 px-2.5 py-1 rounded-full border border-neutral-800"
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
+          <span className="w-1.5 h-1.5 rounded-full bg-zinc-200 animate-ping" />
           <span>Reset to Live Time</span>
         </button>
       )}

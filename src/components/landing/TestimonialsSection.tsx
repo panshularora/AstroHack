@@ -46,7 +46,7 @@ export function TestimonialsSection() {
           {testimonials.map((t, i) => (
             <div
               key={i}
-              className="rounded-md bg-ivory-card border border-ivory-border shadow-sm p-8 flex flex-col"
+              className="rounded-none bg-ivory-card border border-ivory-border shadow-sm p-8 flex flex-col"
             >
               {/* Stars */}
               <div className="flex gap-0.5 mb-4">
@@ -62,7 +62,7 @@ export function TestimonialsSection() {
 
               {/* Author */}
               <div className="flex items-center gap-3 pt-4 border-t border-ivory-border">
-                <div className="w-9 h-9 rounded-md bg-brand-light border border-brand/20 flex items-center justify-center font-mono font-bold text-xs text-brand">
+                <div className="w-9 h-9 rounded-none bg-brand-light border border-brand/20 flex items-center justify-center font-mono font-bold text-xs text-brand">
                   {t.name.charAt(0)}
                 </div>
                 <div>

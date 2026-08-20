@@ -1,13 +1,18 @@
 import { motion } from "framer-motion"
 import { Sparkles, ArrowRight } from "lucide-react"
+import { useNavigate } from "react-router-dom"
 import { Button } from "@/components/ui/Button"
+import { useUser } from "@/context/UserContext"
 
 export function UpgradeBanner() {
+  const navigate = useNavigate()
+  const { user } = useUser()
+  if (user.plan !== "free") return null
   return (
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="relative rounded-lg overflow-hidden bg-gradient-to-br from-brand/20 via-card to-surface border border-brand/30 p-8 md:p-10 mb-12 shadow-[0_0_30px_rgba(107,33,168,0.15)]"
+      className="relative rounded-none overflow-hidden bg-gradient-to-br from-brand/20 via-card to-surface border border-brand/30 p-8 md:p-10 mb-12 shadow-[0_0_30px_rgba(107,33,168,0.15)]"
     >
       <div className="absolute top-0 right-0 w-1/2 h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-lavender/10 via-transparent to-transparent pointer-events-none" />
       
@@ -26,8 +31,11 @@ export function UpgradeBanner() {
         </div>
         
         <div className="flex-shrink-0 w-full md:w-auto">
-          <Button className="w-full md:w-auto h-12 px-8 bg-white text-brand hover:bg-white/90 shadow-[0_0_20px_rgba(255,255,255,0.3)] font-bold">
-            Upgrade for $12/mo <ArrowRight className="w-4 h-4 ml-2" />
+          <Button
+            className="w-full md:w-auto h-12 px-8 bg-white text-brand hover:bg-white/90 shadow-[0_0_20px_rgba(255,255,255,0.3)] font-bold"
+            onClick={() => navigate("/app/subscription")}
+          >
+            Upgrade to Plus <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
         </div>
       </div>

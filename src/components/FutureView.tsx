@@ -47,7 +47,7 @@ export const FutureView: React.FC<FutureViewProps> = ({
   return (
     <div className="w-full max-w-2xl mx-auto px-6 py-4 flex flex-col space-y-6 animate-fadeIn text-neutral-300 select-none">
       {/* Future Goals / Schedule */}
-      <div className="p-5 rounded-2xl bg-neutral-900/40 border border-neutral-800/60 flex flex-col space-y-4">
+      <div className="p-5 rounded-none bg-neutral-900/40 border border-neutral-800/60 flex flex-col space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 text-white font-sans-clean font-medium text-sm">
             <Compass className="w-4 h-4 text-emerald-400" />
@@ -63,7 +63,7 @@ export const FutureView: React.FC<FutureViewProps> = ({
             value={goalText}
             onChange={(e) => setGoalText(e.target.value)}
             placeholder="Plan an upcoming goal or intention..."
-            className="flex-1 w-full bg-neutral-950 border border-neutral-800 rounded-xl px-3.5 py-2 text-sm text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-neutral-500 font-sans-clean"
+            className="flex-1 w-full bg-neutral-950 border border-neutral-800 rounded-none px-3.5 py-2 text-sm text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-neutral-500 font-sans-clean"
           />
           <div className="flex items-center gap-2 w-full sm:w-auto">
             <input
@@ -71,12 +71,12 @@ export const FutureView: React.FC<FutureViewProps> = ({
               value={goalTime}
               onChange={(e) => setGoalTime(e.target.value)}
               placeholder="e.g. 6:00 PM"
-              className="w-24 bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-neutral-200 focus:outline-none text-center font-sans-clean"
+              className="w-24 bg-neutral-950 border border-neutral-800 rounded-none px-3 py-2 text-xs text-neutral-200 focus:outline-none text-center font-sans-clean"
             />
             <button
               type="submit"
               disabled={!goalText.trim()}
-              className="px-4 py-2 bg-white text-neutral-900 hover:bg-neutral-200 font-medium rounded-xl text-xs cursor-pointer disabled:opacity-40 transition-all"
+              className="px-4 py-2 bg-white text-neutral-900 hover:bg-neutral-200 font-medium rounded-none text-xs cursor-pointer disabled:opacity-40 transition-all"
             >
               Add
             </button>
@@ -90,7 +90,7 @@ export const FutureView: React.FC<FutureViewProps> = ({
               <div
                 key={goal.id}
                 onClick={() => onToggleGoal(goal.id)}
-                className={`flex items-center justify-between p-3 rounded-xl border transition-all cursor-pointer ${
+                className={`flex items-center justify-between p-3 rounded-none border transition-all cursor-pointer ${
                   goal.completed
                     ? 'bg-neutral-950/20 border-neutral-800/40 text-neutral-500 line-through'
                     : 'bg-neutral-950/60 border-neutral-800/80 text-neutral-200 hover:border-neutral-700'
@@ -98,7 +98,7 @@ export const FutureView: React.FC<FutureViewProps> = ({
               >
                 <div className="flex items-center gap-3">
                   <div
-                    className={`w-4 h-4 rounded-md border flex items-center justify-center transition-all ${
+                    className={`w-4 h-4 rounded-none border flex items-center justify-center transition-all ${
                       goal.completed
                         ? 'bg-emerald-500 border-emerald-500 text-neutral-950'
                         : 'border-neutral-700 bg-neutral-900'
@@ -120,10 +120,10 @@ export const FutureView: React.FC<FutureViewProps> = ({
       </div>
 
       {/* Time Capsule Section */}
-      <div className="p-5 rounded-2xl bg-neutral-900/40 border border-neutral-800/60 flex flex-col space-y-4">
+      <div className="p-5 rounded-none bg-neutral-900/40 border border-neutral-800/60 flex flex-col space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 text-white font-sans-clean font-medium text-sm">
-            <Lock className="w-4 h-4 text-amber-400" />
+            <Lock className="w-4 h-4 text-zinc-300" />
             <span>Time Capsule (Letter to Future Self)</span>
           </div>
           <button
@@ -139,21 +139,21 @@ export const FutureView: React.FC<FutureViewProps> = ({
         {showCapsuleForm && (
           <form
             onSubmit={handleAddCapsule}
-            className="p-4 rounded-xl bg-neutral-950/80 border border-neutral-800 flex flex-col space-y-3 animate-fadeIn"
+            className="p-4 rounded-none bg-neutral-950/80 border border-neutral-800 flex flex-col space-y-3 animate-fadeIn"
           >
             <input
               type="text"
               value={capsuleTitle}
               onChange={(e) => setCapsuleTitle(e.target.value)}
               placeholder="Capsule Title (e.g. Words for Tomorrow)"
-              className="bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2 text-sm text-neutral-200 placeholder-neutral-600 focus:outline-none"
+              className="bg-neutral-900 border border-neutral-800 rounded-none px-3.5 py-2 text-sm text-neutral-200 placeholder-neutral-600 focus:outline-none"
             />
             <textarea
               value={capsuleMessage}
               onChange={(e) => setCapsuleMessage(e.target.value)}
               placeholder="Write a message to unlock in the future..."
               rows={3}
-              className="bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2 text-sm text-neutral-200 placeholder-neutral-600 focus:outline-none resize-none"
+              className="bg-neutral-900 border border-neutral-800 rounded-none px-3.5 py-2 text-sm text-neutral-200 placeholder-neutral-600 focus:outline-none resize-none"
             />
             <div className="flex items-center justify-between pt-1">
               <div className="flex items-center gap-2">
@@ -161,7 +161,7 @@ export const FutureView: React.FC<FutureViewProps> = ({
                 <select
                   value={capsuleDays}
                   onChange={(e) => setCapsuleDays(Number(e.target.value))}
-                  className="bg-neutral-900 text-xs text-neutral-300 border border-neutral-800 rounded-lg px-2.5 py-1 focus:outline-none"
+                  className="bg-neutral-900 text-xs text-neutral-300 border border-neutral-800 rounded-none px-2.5 py-1 focus:outline-none"
                 >
                   <option value={1}>1 Day</option>
                   <option value={7}>7 Days</option>
@@ -180,7 +180,7 @@ export const FutureView: React.FC<FutureViewProps> = ({
                 <button
                   type="submit"
                   disabled={!capsuleMessage.trim()}
-                  className="text-xs bg-amber-400 text-neutral-950 font-medium px-4 py-1.5 rounded-xl cursor-pointer hover:bg-amber-300 disabled:opacity-40"
+                  className="text-xs bg-zinc-200 text-neutral-950 font-medium px-4 py-1.5 rounded-none cursor-pointer hover:bg-amber-300 disabled:opacity-40"
                 >
                   Seal Letter
                 </button>
@@ -200,14 +200,14 @@ export const FutureView: React.FC<FutureViewProps> = ({
               return (
                 <div
                   key={capsule.id}
-                  className="p-3.5 rounded-xl bg-neutral-950/60 border border-neutral-800/60 flex flex-col space-y-2"
+                  className="p-3.5 rounded-none bg-neutral-950/60 border border-neutral-800/60 flex flex-col space-y-2"
                 >
                   <div className="flex items-center justify-between text-xs">
                     <div className="flex items-center gap-2 font-medium text-neutral-200">
                       {isUnlocked ? (
                         <Unlock className="w-3.5 h-3.5 text-emerald-400" />
                       ) : (
-                        <Lock className="w-3.5 h-3.5 text-amber-400" />
+                        <Lock className="w-3.5 h-3.5 text-zinc-300" />
                       )}
                       <span>{capsule.title}</span>
                     </div>
@@ -217,7 +217,7 @@ export const FutureView: React.FC<FutureViewProps> = ({
                   </div>
 
                   {isUnlocked ? (
-                    <p className="text-xs text-neutral-300 bg-neutral-900/80 p-2.5 rounded-lg border border-neutral-800 font-sans-clean leading-relaxed">
+                    <p className="text-xs text-neutral-300 bg-neutral-900/80 p-2.5 rounded-none border border-neutral-800 font-sans-clean leading-relaxed">
                       "{capsule.message}"
                     </p>
                   ) : (

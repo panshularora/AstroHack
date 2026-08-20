@@ -50,12 +50,12 @@ export function PredictionProofModal({ isOpen, onClose, predictionId }: Predicti
           initial={{ opacity: 0, scale: 0.95, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 15 }}
-          className="relative w-full max-w-3xl bg-surface border border-line rounded-lg p-6 md:p-8 shadow-2xl overflow-hidden max-h-[92vh] flex flex-col"
+          className="relative w-full max-w-3xl bg-surface border border-line rounded-none p-6 md:p-8 shadow-2xl overflow-hidden max-h-[92vh] flex flex-col"
         >
           {/* Header */}
           <div className="flex items-center justify-between border-b border-line/60 pb-4 mb-6 shrink-0">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-tr from-brand to-emerald-500 border border-emerald-500/30 flex items-center justify-center text-white shadow-lg">
+              <div className="w-10 h-10 rounded-none bg-gradient-to-tr from-brand to-emerald-500 border border-emerald-500/30 flex items-center justify-center text-white shadow-lg">
                 <ShieldCheck className="w-5 h-5 text-emerald-400" />
               </div>
               <div>
@@ -87,7 +87,7 @@ export function PredictionProofModal({ isOpen, onClose, predictionId }: Predicti
                     const p = mockPredictions.find(x => x.id === e.target.value)
                     if (p) setSelectedPrediction(p)
                   }}
-                  className="w-full bg-surface-2 border border-line rounded-xl p-3 text-sm text-white outline-none"
+                  className="w-full bg-surface-2 border border-line rounded-none p-3 text-sm text-white outline-none"
                 >
                   {mockPredictions.map(p => (
                     <option key={p.id} value={p.id}>
@@ -98,7 +98,7 @@ export function PredictionProofModal({ isOpen, onClose, predictionId }: Predicti
               </div>
 
               {/* Target Details Card */}
-              <div className="p-4 bg-surface-2 border border-line/60 rounded-lg">
+              <div className="p-4 bg-surface-2 border border-line/60 rounded-none">
                 <div className="flex justify-between items-start mb-2">
                   <div>
                     <span className="text-[10px] font-bold text-brand bg-brand/15 px-2.5 py-0.5 rounded-full border border-brand/30 uppercase">
@@ -126,7 +126,7 @@ export function PredictionProofModal({ isOpen, onClose, predictionId }: Predicti
                       key={o.id}
                       type="button"
                       onClick={() => setOutcome(o.id as any)}
-                      className={`p-3.5 rounded-xl border text-xs font-bold text-center transition-all ${
+                      className={`p-3.5 rounded-none border text-xs font-bold text-center transition-all ${
                         outcome === o.id ? o.color : "bg-white/5 border-line/60 text-[#9CA3AF]"
                       }`}
                     >
@@ -143,7 +143,7 @@ export function PredictionProofModal({ isOpen, onClose, predictionId }: Predicti
                   value={proofNote}
                   onChange={e => setProofNote(e.target.value)}
                   placeholder="Describe what happened, exact dates, and outcome details..."
-                  className="w-full bg-black/40 border border-line rounded-xl p-3 text-xs text-white placeholder:text-[#6B7280] outline-none min-h-[90px]"
+                  className="w-full bg-black/40 border border-line rounded-none p-3 text-xs text-white placeholder:text-[#6B7280] outline-none min-h-[90px]"
                 />
               </div>
 
@@ -162,7 +162,7 @@ export function PredictionProofModal({ isOpen, onClose, predictionId }: Predicti
 
                 <div className="space-y-2">
                   {attachedProof.map((file, idx) => (
-                    <div key={idx} className="p-3 bg-surface-2 border border-line/60 rounded-xl flex items-center justify-between text-xs text-white">
+                    <div key={idx} className="p-3 bg-surface-2 border border-line/60 rounded-none flex items-center justify-between text-xs text-white">
                       <div className="flex items-center gap-2">
                         <FileText className="w-4 h-4 text-emerald-400" />
                         <span className="font-mono">{file}</span>
@@ -180,7 +180,7 @@ export function PredictionProofModal({ isOpen, onClose, predictionId }: Predicti
                 <button
                   onClick={handleSubmitProof}
                   disabled={isVerifying}
-                  className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-xl text-xs transition-all shadow-[0_0_20px_rgba(34,197,94,0.4)] flex items-center gap-2 cursor-pointer"
+                  className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-none text-xs transition-all shadow-[0_0_20px_rgba(34,197,94,0.4)] flex items-center gap-2 cursor-pointer"
                 >
                   {isVerifying ? "Verifying Evidence..." : "Submit Verification Proof"} <ArrowRight className="w-4 h-4" />
                 </button>
@@ -204,12 +204,12 @@ export function PredictionProofModal({ isOpen, onClose, predictionId }: Predicti
               </div>
 
               <div className="grid grid-cols-2 gap-4 max-w-md mx-auto text-left">
-                <div className="p-4 bg-surface-2 border border-line/60 rounded-lg">
+                <div className="p-4 bg-surface-2 border border-line/60 rounded-none">
                   <p className="text-[10px] text-[#9CA3AF] font-bold uppercase">Updated Astrologer Accuracy</p>
                   <p className="text-2xl font-bold text-green-400 mt-1">{astrologer.accuracy}%</p>
                   <p className="text-[10px] text-green-400 mt-0.5">+1% Increased</p>
                 </div>
-                <div className="p-4 bg-surface-2 border border-line/60 rounded-lg">
+                <div className="p-4 bg-surface-2 border border-line/60 rounded-none">
                   <p className="text-[10px] text-[#9CA3AF] font-bold uppercase">Updated Trust Score</p>
                   <p className="text-2xl font-bold text-gold mt-1">{astrologer.trustScore} / 100</p>
                   <p className="text-[10px] text-gold mt-0.5">+1 Trust Point</p>
@@ -218,7 +218,7 @@ export function PredictionProofModal({ isOpen, onClose, predictionId }: Predicti
 
               <button
                 onClick={() => { setVerifiedSuccess(false); onClose(); }}
-                className="px-8 py-3.5 bg-brand hover:bg-brand/90 text-white font-bold rounded-xl text-xs transition-colors shadow-lg"
+                className="px-8 py-3.5 bg-brand hover:bg-brand/90 text-white font-bold rounded-none text-xs transition-colors shadow-lg"
               >
                 Return to Prediction Center
               </button>

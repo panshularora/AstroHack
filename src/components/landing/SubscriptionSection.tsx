@@ -21,7 +21,7 @@ export function SubscriptionSection() {
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="p-8 rounded-lg bg-surface border border-line flex flex-col"
+            className="p-8 rounded-none bg-surface border border-line flex flex-col"
           >
             <h3 className="text-2xl font-bold mb-2">Basic</h3>
             <div className="text-4xl font-bold mb-6">Free</div>
@@ -40,7 +40,7 @@ export function SubscriptionSection() {
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="relative p-8 rounded-lg bg-gradient-to-b from-surface to-surface/50 border border-brand/50 shadow-[0_0_30px_rgba(107,33,168,0.2)] flex flex-col"
+            className="relative p-8 rounded-none bg-gradient-to-b from-surface to-surface/50 border border-brand/50 shadow-[0_0_30px_rgba(107,33,168,0.2)] flex flex-col"
           >
             <div className="absolute top-0 right-8 -translate-y-1/2 bg-brand text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
               Most Popular

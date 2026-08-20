@@ -1,32 +1,48 @@
-# React + TypeScript + Vite
+# AstroLive
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Talk to an astrologer, save what they predicted with a date, and later mark whether it came true. That result is a public page anyone can open.
 
-Currently, two official plugins are available:
+**Live:** https://astro-hack-six.vercel.app  
+**Code:** https://github.com/panshularora/AstroHack  
+**Submission:** [AstroHack_Submission.docx](./AstroHack_Submission.docx)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Demo: `arjun.sharma@example.com` / `cosmic2026`  
+Public card (no login): https://astro-hack-six.vercel.app/p/proof-dp2?from=ARJUN  
+Board: https://astro-hack-six.vercel.app/board
 
-## React Compiler
+## Run locally
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+# API (port 8787)
+cd server
+npm install
+npx tsx index.ts
 
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+# Web (port 5174)
+cd ..
+npm install
+npm run dev -- --host 127.0.0.1 --port 5174
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Open http://127.0.0.1:5174/
+
+Demo: `arjun.sharma@example.com` / `cosmic2026`
+
+## Judge path
+
+1. `/` — USP and **Why this** (virality, habit, revenue, USP).
+2. `/board` — experts ranked by dated results.
+3. `/p/proof-dp2?from=ARJUN` — public proof, no login.
+4. Log in → Home → **Results** → Did this happen?
+5. Talk now → chat → **Save this line with a date**.
+6. `/app/share` — invite code. Both get ₹50 when a new account uses it.
+
+## Documents
+
+- **`AstroHack_Submission.docx`** — document to submit (problem, AstroLive teardown, what we built, every surface, impact, metrics, how to evaluate).
+- [REPORT.md](./REPORT.md) — short justifying notes.
+- `AstroHack_Report.docx` — short Word version of those notes.
+
+## Stack
+
+Vite + React + TypeScript + Tailwind. Hono API + SQLite. Vedic math on-device (`src/lib/vedic`). Checkout and entitlements on the server only.

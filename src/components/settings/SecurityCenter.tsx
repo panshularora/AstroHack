@@ -13,9 +13,9 @@ export function SecurityCenter() {
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
-        <div className="bg-surface border border-line rounded-lg p-6 flex flex-col justify-between hover:border-line-strong transition-colors">
+        <div className="bg-surface border border-line rounded-none p-6 flex flex-col justify-between hover:border-line-strong transition-colors">
           <div>
-            <div className="w-12 h-12 bg-brand/20 rounded-lg flex items-center justify-center mb-4 shadow-inner">
+            <div className="w-12 h-12 bg-brand/20 rounded-none flex items-center justify-center mb-4 shadow-inner">
               <Key className="w-6 h-6 text-brand" />
             </div>
             <h3 className="text-lg font-bold text-white mb-2">Password</h3>
@@ -24,9 +24,9 @@ export function SecurityCenter() {
           <Button variant="outline" className="w-full border-line-strong">Change Password</Button>
         </div>
 
-        <div className="bg-surface border border-line rounded-lg p-6 flex flex-col justify-between hover:border-line-strong transition-colors">
+        <div className="bg-surface border border-line rounded-none p-6 flex flex-col justify-between hover:border-line-strong transition-colors">
           <div>
-            <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4 shadow-inner">
+            <div className="w-12 h-12 bg-blue-500/20 rounded-none flex items-center justify-center mb-4 shadow-inner">
               <Fingerprint className="w-6 h-6 text-blue-400" />
             </div>
             <h3 className="text-lg font-bold text-white mb-2">Two-Factor Authentication</h3>
@@ -36,14 +36,14 @@ export function SecurityCenter() {
         </div>
       </div>
 
-      <div className="bg-surface border border-line rounded-lg p-6 md:p-8">
+      <div className="bg-surface border border-line rounded-none p-6 md:p-8">
         <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
           <ShieldCheck className="w-5 h-5 text-green-400" /> Active Sessions
         </h3>
         
         <div className="space-y-4">
           {activeSessions.map((session) => (
-            <div key={session.id} className="flex items-center justify-between p-4 bg-white/5 rounded-lg border border-line-subtle hover:bg-surface-3 transition-colors">
+            <div key={session.id} className="flex items-center justify-between p-4 bg-white/5 rounded-none border border-line-subtle hover:bg-surface-3 transition-colors">
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-full bg-black/40 flex items-center justify-center border border-line-subtle">
                   {session.device.includes("MacBook") ? <Laptop className="w-5 h-5 text-white" /> : <Smartphone className="w-5 h-5 text-white" />}
@@ -57,7 +57,7 @@ export function SecurityCenter() {
                 </div>
               </div>
               {!session.current && (
-                <button className="text-xs font-bold text-red-400 hover:text-red-300 transition-colors px-3 py-1.5 bg-red-500/10 rounded-lg">Revoke</button>
+                <button className="text-xs font-bold text-red-400 hover:text-red-300 transition-colors px-3 py-1.5 bg-red-500/10 rounded-none">Revoke</button>
               )}
             </div>
           ))}

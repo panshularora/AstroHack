@@ -18,7 +18,7 @@ export function CapabilitiesSection() {
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
         {capabilities.map((cap, i) => (
           <div key={i} className="text-center group">
-            <div className="w-14 h-14 mx-auto bg-white/5 rounded-lg flex items-center justify-center mb-5 border border-line shadow-inner group-hover:bg-surface-3 transition-colors">
+            <div className="w-14 h-14 mx-auto bg-white/5 rounded-none flex items-center justify-center mb-5 border border-line shadow-inner group-hover:bg-surface-3 transition-colors">
               {cap.icon}
             </div>
             <h3 className="text-sm font-bold text-white mb-2">{cap.title}</h3>

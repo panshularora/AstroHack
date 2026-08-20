@@ -41,7 +41,7 @@ export function Topbar() {
           </button>
           
           <div className="flex items-center gap-2.5 cursor-pointer" onClick={() => navigate("/app/dashboard")}>
-            <div className="w-7 h-7 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400">
+            <div className="w-7 h-7 rounded-none bg-zinc-100/10 border border-zinc-700 flex items-center justify-center text-zinc-300">
               <Compass className="w-4 h-4" />
             </div>
             <span className="text-sm font-bold text-white tracking-tight">AstroLive 2.0</span>
@@ -50,8 +50,8 @@ export function Topbar() {
 
         {/* Center Live Telemetry Bar */}
         <div className="hidden md:flex items-center gap-3 px-3 py-1 bg-white/[0.03] border border-white/[0.08] rounded-full text-[11px] font-mono">
-          <div className="flex items-center gap-1.5 text-amber-400">
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
+          <div className="flex items-center gap-1.5 text-zinc-300">
+            <span className="w-1.5 h-1.5 rounded-full bg-zinc-200 animate-ping" />
             <span className="font-bold">{user.transitPlanet} {user.transitHouse}</span>
           </div>
           <span className="text-white/20">|</span>
@@ -63,13 +63,13 @@ export function Topbar() {
 
         {/* Right Search & Profile */}
         <div className="flex items-center gap-2.5">
-          <div className="hidden sm:flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded-xl text-xs text-[#9CA3AF] cursor-pointer hover:bg-white/10 transition-colors">
+          <div className="hidden sm:flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded-none text-xs text-[#9CA3AF] cursor-pointer hover:bg-white/10 transition-colors">
             <Search className="w-3.5 h-3.5" />
             <span>Search transits, predictions...</span>
             <kbd className="text-[9px] font-mono bg-white/10 px-1.5 py-0.5 rounded text-white/70">⌘K</kbd>
           </div>
 
-          <button onClick={() => navigate("/app/you")} className="w-7 h-7 rounded-lg bg-amber-500 text-black flex items-center justify-center text-[11px] font-mono font-bold shadow-md cursor-pointer" title={user.name}>
+          <button onClick={() => navigate("/app/you")} className="w-7 h-7 rounded-none bg-zinc-100 text-black flex items-center justify-center text-[11px] font-mono font-bold shadow-md cursor-pointer" title={user.name}>
             {initials}
           </button>
         </div>
@@ -89,12 +89,12 @@ export function Topbar() {
                 {mobileNavItems.map(item => (
                   <NavLink key={item.path} to={item.path} onClick={() => setIsOpen(false)}
                     className={({ isActive }) => cn(
-                      "flex items-center gap-3 rounded-xl px-3 py-2.5 text-xs font-medium transition-all",
+                      "flex items-center gap-3 rounded-none px-3 py-2.5 text-xs font-medium transition-all",
                       isActive ? "bg-white/10 text-white font-bold border border-white/15" : "text-[#9CA3AF] hover:bg-white/5 hover:text-white"
                     )}>
                     {({ isActive }) => (
                       <>
-                        <item.icon className={cn("w-4 h-4", isActive ? "text-amber-400" : "text-[#9CA3AF]")} />
+                        <item.icon className={cn("w-4 h-4", isActive ? "text-zinc-300" : "text-[#9CA3AF]")} />
                         <span>{item.label}</span>
                       </>
                     )}

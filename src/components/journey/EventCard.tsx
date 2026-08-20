@@ -9,7 +9,7 @@ export function EventCard({ event }: { event: JourneyEvent }) {
       case 'Verified Outcome': return <ShieldCheck className="w-4 h-4 text-green-400" />
       case 'Remedy': return <Sun className="w-4 h-4 text-gold" />
       case 'Journal Entry': return <Book className="w-4 h-4 text-pink-400" />
-      case 'AI Reflection': return <Brain className="w-4 h-4 text-purple-400" />
+      case 'AI Reflection': return <Brain className="w-4 h-4 text-zinc-400" />
     }
   }
 
@@ -23,7 +23,7 @@ export function EventCard({ event }: { event: JourneyEvent }) {
   }
 
   return (
-    <div className="flex items-start gap-4 p-4 rounded-xl border border-line-subtle bg-black/40 hover:bg-white/5 transition-colors">
+    <div className="flex items-start gap-4 p-4 rounded-none border border-line-subtle bg-black/40 hover:bg-white/5 transition-colors">
       <div className="mt-1">{getIcon()}</div>
       <div className="flex-1">
         <div className="flex justify-between items-start mb-1">

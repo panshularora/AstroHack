@@ -19,16 +19,16 @@ export const PractitionerCard: React.FC<PractitionerCardProps> = ({
   };
 
   return (
-    <div className="group relative bg-[#141518]/95 hover:bg-[#191b1f] border border-neutral-800/90 hover:border-neutral-700/80 rounded-2xl p-3.5 flex flex-col transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-black/60 font-sans">
+    <div className="group relative bg-[#141518]/95 hover:bg-[#191b1f] border border-neutral-800/90 hover:border-neutral-700/80 rounded-none p-3.5 flex flex-col transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-black/60 font-sans">
       {/* Clean Portrait Image Container - Navigates to Astrologer Profile Page */}
       <div 
         onClick={handleCardClick}
-        className="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-neutral-900 cursor-pointer mb-3 border border-neutral-800 group-hover:border-neutral-700/60 transition-colors"
+        className="relative w-full aspect-[4/5] rounded-none overflow-hidden bg-neutral-900 cursor-pointer mb-3 border border-neutral-800 group-hover:border-neutral-700/60 transition-colors"
       >
         <img
           src={practitioner.imageUrl}
           alt={practitioner.name}
-          className="w-full h-full object-cover grayscale contrast-125 brightness-95 group-hover:scale-105 transition-transform duration-500 ease-out"
+          className="astro-face w-full h-full grayscale contrast-125 brightness-95 group-hover:scale-105 transition-transform duration-500 ease-out"
           loading="lazy"
         />
       </div>
@@ -43,18 +43,18 @@ export const PractitionerCard: React.FC<PractitionerCardProps> = ({
             {practitioner.isOnline && (
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" title="Live Now" />
             )}
-            <h3 className="font-serif text-sm md:text-base font-normal text-neutral-100 group-hover:text-amber-200 transition-colors truncate">
+            <h3 className="font-serif text-sm md:text-base font-normal text-neutral-100 group-hover:text-zinc-200 transition-colors truncate">
               {practitioner.name}
             </h3>
           </div>
-          <span className="font-mono text-[9px] font-bold text-amber-300 bg-amber-500/10 px-1.5 py-0.5 rounded border border-amber-500/20 uppercase shrink-0">
+          <span className="font-mono text-[9px] font-bold text-zinc-200 bg-zinc-100/5 px-1.5 py-0.5 rounded border border-zinc-700 uppercase shrink-0">
             {practitioner.tag}
           </span>
         </div>
 
         <div className="flex items-center justify-between text-xs text-neutral-400 font-light">
           <span className="truncate">{practitioner.specialty}</span>
-          <span className="font-mono font-bold text-amber-400 text-xs shrink-0 ml-1">
+          <span className="font-mono font-bold text-zinc-300 text-xs shrink-0 ml-1">
             ₹{practitioner.ratePerMin}/min
           </span>
         </div>
@@ -72,7 +72,7 @@ export const PractitionerCard: React.FC<PractitionerCardProps> = ({
             e.stopPropagation();
             onStartSession(practitioner, 'audio');
           }}
-          className="flex flex-col items-center justify-center py-1.5 px-1 rounded-lg bg-neutral-900/80 hover:bg-amber-950/40 text-neutral-400 hover:text-amber-200 border border-neutral-800 hover:border-amber-800/50 transition-all cursor-pointer group/btn"
+          className="flex flex-col items-center justify-center py-1.5 px-1 rounded-none bg-neutral-900/80 hover:bg-amber-950/40 text-neutral-400 hover:text-zinc-200 border border-neutral-800 hover:border-amber-800/50 transition-all cursor-pointer group/btn"
           title="Start Audio Consultation"
         >
           <div className="w-3.5 h-3.5 rounded-full border-1.5 border-current flex items-center justify-center mb-0.5 group-hover/btn:scale-110 transition-transform">
@@ -86,7 +86,7 @@ export const PractitionerCard: React.FC<PractitionerCardProps> = ({
             e.stopPropagation();
             onStartSession(practitioner, 'video');
           }}
-          className="flex flex-col items-center justify-center py-1.5 px-1 rounded-md bg-neutral-900/80 hover:bg-amber-950/40 text-neutral-400 hover:text-amber-200 border border-neutral-800 hover:border-amber-800/50 transition-all cursor-pointer group/btn"
+          className="flex flex-col items-center justify-center py-1.5 px-1 rounded-none bg-neutral-900/80 hover:bg-amber-950/40 text-neutral-400 hover:text-zinc-200 border border-neutral-800 hover:border-amber-800/50 transition-all cursor-pointer group/btn"
           title="Start Video Consultation"
         >
           <div className="w-0 h-0 border-y-[4px] border-y-transparent border-l-[7px] border-l-current my-1 mb-1 group-hover/btn:scale-110 transition-transform" />
@@ -98,7 +98,7 @@ export const PractitionerCard: React.FC<PractitionerCardProps> = ({
             e.stopPropagation();
             onStartSession(practitioner, 'chat');
           }}
-          className="flex flex-col items-center justify-center py-1.5 px-1 rounded-lg bg-neutral-900/80 hover:bg-amber-950/40 text-neutral-400 hover:text-amber-200 border border-neutral-800 hover:border-amber-800/50 transition-all cursor-pointer group/btn"
+          className="flex flex-col items-center justify-center py-1.5 px-1 rounded-none bg-neutral-900/80 hover:bg-amber-950/40 text-neutral-400 hover:text-zinc-200 border border-neutral-800 hover:border-amber-800/50 transition-all cursor-pointer group/btn"
           title="Start Live Chat Consultation"
         >
           <div className="w-3.5 h-[2px] bg-current my-1.5 mb-1 group-hover/btn:scale-110 transition-transform rounded-full" />

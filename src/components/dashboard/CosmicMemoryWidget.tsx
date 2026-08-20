@@ -45,7 +45,7 @@ export function CosmicMemoryWidget() {
   const navigate = useNavigate()
 
   return (
-    <div className="bg-surface border border-line rounded-lg p-6 shadow-xl">
+    <div className="bg-surface border border-line rounded-none p-6 shadow-xl">
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-full bg-emerald-500/15 border border-emerald-500/25 flex items-center justify-center">
@@ -71,10 +71,10 @@ export function CosmicMemoryWidget() {
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.4, delay: i * 0.1 }}
-            className="flex gap-3 p-3 bg-surface-2 hover:bg-surface-2 border border-white/6 hover:border-white/12 rounded-lg cursor-pointer transition-all group"
+            className="flex gap-3 p-3 bg-surface-2 hover:bg-surface-2 border border-white/6 hover:border-white/12 rounded-none cursor-pointer transition-all group"
             onClick={() => navigate("/app/memory")}
           >
-            <div className={`w-9 h-9 rounded-xl border flex items-center justify-center shrink-0 ${m.iconBg}`}>
+            <div className={`w-9 h-9 rounded-none border flex items-center justify-center shrink-0 ${m.iconBg}`}>
               <m.icon className={`w-4 h-4 ${m.iconColor}`} />
             </div>
             <div className="flex-1 min-w-0">
@@ -96,7 +96,7 @@ export function CosmicMemoryWidget() {
 
       <button
         onClick={() => navigate("/app/memory")}
-        className="mt-4 w-full flex items-center justify-center gap-2 py-2.5 bg-surface-2 hover:bg-surface-2 border border-line/60 rounded-xl text-xs font-bold text-[#9CA3AF] hover:text-white transition-all"
+        className="mt-4 w-full flex items-center justify-center gap-2 py-2.5 bg-surface-2 hover:bg-surface-2 border border-line/60 rounded-none text-xs font-bold text-[#9CA3AF] hover:text-white transition-all"
       >
         <BookOpen className="w-3.5 h-3.5" /> Explore Full Memory Archive
       </button>

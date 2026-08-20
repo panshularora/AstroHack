@@ -10,17 +10,27 @@ import { Badge } from "@/components/ui/Badge"
 import { Progress } from "@/components/ui/Progress"
 import { Tabs } from "@/components/ui/Tabs"
 import { useLedger } from "@/context/LedgerContext"
+import { useUser } from "@/context/UserContext"
+import { VerificationModal } from "@/components/ledger/VerificationModal"
+import { OutcomeProofModal } from "@/components/predictions/OutcomeProofModal"
+import { LogPredictionModal } from "@/components/predictions/LogPredictionModal"
+import { getProof, proofFromPrediction, saveProof, type ProofRecord } from "@/lib/proof"
+import type { DetailedPrediction } from "@/lib/mock-data"
 
 type Tab = "active" | "verified" | "all"
 
 export function PredictionCenter() {
   const navigate = useNavigate()
-  const { predictions, stats } = useLedger()
+  const { user } = useUser()
+  const { predictions, stats, verifyPrediction, addPrediction } = useLedger()
   const [tab, setTab] = useState<Tab>("active")
   const [shareModalOpen, setShareModalOpen] = useState(false)
   const [activeShareData, setActiveShareData] = useState<any>(null)
   const [confidenceModalOpen, setConfidenceModalOpen] = useState(false)
   const [vaultModalOpen, setVaultModalOpen] = useState(false)
+  const [verifyTarget, setVerifyTarget] = useState<DetailedPrediction | null>(null)
+  const [proof, setProof] = useState<ProofRecord | null>(null)
+  const [logOpen, setLogOpen] = useState(false)
 
   const filtered = predictions.filter(p => {
     if (tab === "active") return p.status === "pending" || p.status === "in_progress"
@@ -52,7 +62,7 @@ export function PredictionCenter() {
               ← Back to Dashboard
             </button>
             <div className="flex items-center gap-3 mb-2">
-              <div className="w-8 h-8 rounded-md bg-surface-2 border border-brand/30 flex items-center justify-center text-brand">
+              <div className="w-8 h-8 rounded-none bg-surface-2 border border-brand/30 flex items-center justify-center text-brand">
                 <Target className="w-4 h-4 text-brand" />
               </div>
               <p className="text-xs font-mono font-bold uppercase tracking-widest text-brand">My Predictions & Transits</p>
@@ -63,10 +73,13 @@ export function PredictionCenter() {
             </p>
           </div>
           <div className="flex items-center gap-2 shrink-0">
-            <Button size="sm" variant="outline" className="rounded-md font-mono text-gold-bright border-gold/30" onClick={() => { setActiveShareData(null); setShareModalOpen(true) }}>
+            <Button size="sm" variant="outline" className="rounded-none font-mono text-gold-bright border-gold/30" onClick={() => { setActiveShareData(null); setShareModalOpen(true) }}>
               <Share2 className="w-4 h-4 text-gold-bright" /> Share Summary
             </Button>
-            <Button size="sm" className="rounded-md shrink-0 bg-amber-500 text-black font-bold hover:bg-amber-600 cursor-pointer" onClick={() => setVaultModalOpen(true)}>
+            <Button size="sm" variant="outline" onClick={() => setLogOpen(true)}>
+              <Plus className="w-4 h-4 mr-1" /> Log prediction
+            </Button>
+            <Button size="sm" className="rounded-none shrink-0 bg-zinc-100 text-black font-bold hover:bg-zinc-300 cursor-pointer" onClick={() => setVaultModalOpen(true)}>
               <Upload className="w-4 h-4 mr-1" /> Attach Document
             </Button>
           </div>
@@ -80,7 +93,7 @@ export function PredictionCenter() {
             { icon: Clock,       label: "Active Windows",   value: stats.active,   accent: "text-warning",    bg: "bg-[rgba(245,158,11,0.12)]" },
             { icon: TrendingUp,  label: "Overall Accuracy", value: `${stats.accuracy}%`, accent: "text-brand", bg: "bg-brand-light" },
           ].map(s => (
-            <div key={s.label} className={`p-4 rounded-lg border border-line space-y-2 ${s.bg}`}>
+            <div key={s.label} className={`p-4 rounded-none border border-line space-y-2 ${s.bg}`}>
               <div className="flex items-center justify-between text-ink-tertiary">
                 <span className="text-[10px] uppercase font-mono font-bold tracking-wider">{s.label}</span>
                 <s.icon className={`w-4 h-4 ${s.accent}`} />
@@ -105,17 +118,17 @@ export function PredictionCenter() {
 
         {/* ── Predictions List / Empty State ────────────────────────────────────── */}
         {filtered.length === 0 ? (
-          <div className="text-center py-16 space-y-4 bg-neutral-900/40 border border-neutral-800 rounded-2xl p-8">
-            <Target className="w-10 h-10 text-amber-400 mx-auto opacity-80" />
+          <div className="text-center py-16 space-y-4 bg-neutral-900/40 border border-neutral-800 rounded-none p-8">
+            <Target className="w-10 h-10 text-zinc-300 mx-auto opacity-80" />
             <h3 className="text-base font-bold text-white">No prediction receipts logged yet</h3>
             <p className="text-xs text-neutral-400 max-w-sm mx-auto font-mono">
               Connect with a verified astrologer or click "Attach Document" to record a new prediction proof in real time.
             </p>
             <div className="flex items-center justify-center gap-3 pt-2">
-              <Button onClick={() => navigate("/app/verified")} className="rounded-xl bg-amber-500 text-black font-bold font-mono text-xs cursor-pointer">
+              <Button onClick={() => navigate("/app/verified")} className="rounded-none bg-zinc-100 text-black font-bold font-mono text-xs cursor-pointer">
                 <Plus className="w-4 h-4 mr-1" /> Consult Verified Astrologer
               </Button>
-              <Button onClick={() => setVaultModalOpen(true)} variant="outline" className="rounded-xl border-neutral-700 font-mono text-xs text-neutral-200 cursor-pointer">
+              <Button onClick={() => setVaultModalOpen(true)} variant="outline" className="rounded-none border-neutral-700 font-mono text-xs text-neutral-200 cursor-pointer">
                 <Upload className="w-4 h-4 mr-1" /> Attach Proof PDF
               </Button>
             </div>
@@ -124,7 +137,7 @@ export function PredictionCenter() {
           <div className="space-y-4">
             {filtered.map((p, i) => (
               <motion.div key={p.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
-                <div className="p-6 rounded-lg bg-surface border border-line space-y-4">
+                <div className="p-6 rounded-none bg-surface border border-line space-y-4">
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <h3 className="text-body font-bold text-ink">{p.title}</h3>
@@ -136,7 +149,7 @@ export function PredictionCenter() {
                   </div>
 
                   {p.notes && (
-                    <div className="p-3 rounded-md bg-surface-2/60 border border-line/60 text-xs text-ink-secondary flex items-start gap-2.5">
+                    <div className="p-3 rounded-none bg-surface-2/60 border border-line/60 text-xs text-ink-secondary flex items-start gap-2.5">
                       <FileText className="w-4 h-4 text-brand shrink-0 mt-0.5" />
                       <span>{p.notes}</span>
                     </div>
@@ -149,6 +162,32 @@ export function PredictionCenter() {
                     </div>
 
                     <div className="flex flex-wrap items-center gap-3">
+                      {(p.status === "pending" || p.status === "in_progress") && (
+                        <button
+                          type="button"
+                          onClick={() => setVerifyTarget(p)}
+                          className="flex items-center gap-1 text-[11px] text-emerald-400 hover:text-emerald-300 font-bold"
+                        >
+                          <CheckCircle2 className="w-3 h-3" /> Verify Now
+                        </button>
+                      )}
+                      {(p.status === "completed" || p.status === "failed") && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const existing = getProof(p.id)
+                            if (existing) setProof(existing)
+                            else {
+                              const rec = proofFromPrediction(p, user.name, p.outcome || "yes", p.notes)
+                              saveProof(rec)
+                              setProof(rec)
+                            }
+                          }}
+                          className="flex items-center gap-1 text-[11px] text-emerald-400 font-bold"
+                        >
+                          Open proof card
+                        </button>
+                      )}
                       <button
                         onClick={() => setVaultModalOpen(true)}
                         className="flex items-center gap-1 text-[11px] text-blue-400 hover:text-blue-300 font-bold transition-colors"
@@ -206,6 +245,22 @@ export function PredictionCenter() {
         isOpen={vaultModalOpen}
         onClose={() => setVaultModalOpen(false)}
       />
+
+      <VerificationModal
+        isOpen={!!verifyTarget}
+        onClose={() => setVerifyTarget(null)}
+        prediction={verifyTarget}
+        onConfirm={(outcome, note, evidenceName) => {
+          if (!verifyTarget) return
+          verifyPrediction(verifyTarget.id, outcome, note)
+          const rec = proofFromPrediction(verifyTarget, user.name, outcome, note, evidenceName)
+          saveProof(rec)
+          setProof(rec)
+          setVerifyTarget(null)
+        }}
+      />
+      <OutcomeProofModal isOpen={!!proof} onClose={() => setProof(null)} proof={proof} />
+      <LogPredictionModal open={logOpen} onClose={() => setLogOpen(false)} onSave={addPrediction} />
     </div>
   )
 }

@@ -18,20 +18,20 @@ export function MemoryManagement() {
         <p className="text-[#9CA3AF]">You are in complete control of what the AI Companion remembers.</p>
       </div>
 
-      <div className="bg-surface border border-line rounded-lg p-8">
+      <div className="bg-surface border border-line rounded-none p-8">
         <div className="flex items-center justify-between mb-8">
           <div>
             <h3 className="text-lg font-bold text-white">Total Cosmic Memory</h3>
             <p className="text-sm text-[#9CA3AF]">Used: {memoryUsage.totalStorage}</p>
           </div>
-          <button className="px-4 py-2 bg-red-500/10 text-red-400 text-sm font-bold rounded-xl border border-red-500/20 hover:bg-red-500/20 transition-colors flex items-center gap-2">
+          <button className="px-4 py-2 bg-red-500/10 text-red-400 text-sm font-bold rounded-none border border-red-500/20 hover:bg-red-500/20 transition-colors flex items-center gap-2">
             <Trash2 className="w-4 h-4" /> Clear All Memory
           </button>
         </div>
 
         <div className="space-y-4">
           {categories.map((cat, i) => (
-            <div key={i} className="flex items-center justify-between p-4 bg-white/5 border border-line-subtle rounded-lg group hover:border-line/60 transition-colors">
+            <div key={i} className="flex items-center justify-between p-4 bg-white/5 border border-line-subtle rounded-none group hover:border-line/60 transition-colors">
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-full bg-black/40 flex items-center justify-center border border-line-subtle">
                   {cat.icon}
@@ -42,14 +42,14 @@ export function MemoryManagement() {
                 </div>
               </div>
               <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                <button className="px-3 py-1.5 text-xs font-bold text-white bg-white/10 rounded-lg hover:bg-white/20 transition-colors">Review</button>
-                <button className="px-3 py-1.5 text-xs font-bold text-red-400 bg-red-500/10 rounded-lg hover:bg-red-500/20 border border-red-500/20 transition-colors">Delete</button>
+                <button className="px-3 py-1.5 text-xs font-bold text-white bg-white/10 rounded-none hover:bg-white/20 transition-colors">Review</button>
+                <button className="px-3 py-1.5 text-xs font-bold text-red-400 bg-red-500/10 rounded-none hover:bg-red-500/20 border border-red-500/20 transition-colors">Delete</button>
               </div>
             </div>
           ))}
         </div>
         
-        <div className="mt-8 p-4 bg-brand-light border border-brand/20 rounded-xl flex gap-3">
+        <div className="mt-8 p-4 bg-brand-light border border-brand/20 rounded-none flex gap-3">
           <MessageSquare className="w-5 h-5 text-brand shrink-0" />
           <p className="text-sm text-white/90 leading-relaxed">
             <strong>How memory works:</strong> The AI Companion uses these records to provide highly personalized daily briefs and context-aware advice during chats. Deleting records will permanently remove them from the AI's awareness.

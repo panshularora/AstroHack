@@ -21,9 +21,9 @@ export function VerifiedPredictions() {
 
       <div className="space-y-4">
         {mockAnonymizedPredictions.map(prediction => (
-          <div key={prediction.id} className="bg-surface border border-line rounded-lg p-6 md:p-8 hover:border-line-strong transition-colors">
+          <div key={prediction.id} className="bg-surface border border-line rounded-none p-6 md:p-8 hover:border-line-strong transition-colors">
             <div className="flex flex-wrap items-center gap-3 mb-5">
-              <span className="px-2.5 py-1 rounded-md bg-white/5 text-[#9CA3AF] text-[10px] font-bold uppercase tracking-wider">{prediction.category}</span>
+              <span className="px-2.5 py-1 rounded-none bg-white/5 text-[#9CA3AF] text-[10px] font-bold uppercase tracking-wider">{prediction.category}</span>
               <span className="text-sm text-white/20">•</span>
               <span className="text-sm text-[#9CA3AF]">Expected: {prediction.timeframe}</span>
               <span className="text-sm text-white/20">•</span>
@@ -34,7 +34,7 @@ export function VerifiedPredictions() {
               </div>
             </div>
 
-            <div className="flex items-start gap-4 bg-green-400/5 rounded-lg p-5 border border-green-400/10">
+            <div className="flex items-start gap-4 bg-green-400/5 rounded-none p-5 border border-green-400/10">
               <CheckCircle2 className="w-5 h-5 text-green-400 shrink-0 mt-0.5" />
               <div>
                 <p className="text-white text-base leading-relaxed mb-2 font-medium">"{prediction.outcome}"</p>

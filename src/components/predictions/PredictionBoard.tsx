@@ -24,7 +24,7 @@ export function PredictionBoard() {
 
   if (!isDemo && (!predictionsToDisplay || predictionsToDisplay.length === 0)) {
     return (
-      <div className="p-12 rounded-2xl bg-neutral-900/40 border border-neutral-800 text-center space-y-4 mb-16 font-sans">
+      <div className="p-12 rounded-none bg-neutral-900/40 border border-neutral-800 text-center space-y-4 mb-16 font-sans">
         <Target className="w-10 h-10 text-neutral-600 mx-auto" />
         <h3 className="text-lg font-bold text-white">No Predictions Logged Yet</h3>
         <p className="text-xs text-neutral-400 max-w-md mx-auto">
@@ -32,7 +32,7 @@ export function PredictionBoard() {
         </p>
         <Button
           onClick={() => navigate("/app/match")}
-          className="bg-amber-500 hover:bg-amber-400 text-black font-semibold text-xs px-5 py-2 cursor-pointer mt-2"
+          className="bg-zinc-100 hover:bg-zinc-200 text-black font-semibold text-xs px-5 py-2 cursor-pointer mt-2"
         >
           Consult Astrologer
         </Button>
@@ -73,7 +73,7 @@ function PredictionCard({
       case 'completed':
       case 'Verified': return { color: 'text-green-400', bg: 'bg-green-400/20', border: 'border-green-400/30', icon: CheckCircle2, label: 'Verified' }
       case 'pending':
-      case 'Active Window': return { color: 'text-amber-400', bg: 'bg-amber-400/20', border: 'border-amber-400/30', icon: Clock, label: 'Active Window' }
+      case 'Active Window': return { color: 'text-zinc-300', bg: 'bg-zinc-200/20', border: 'border-amber-400/30', icon: Clock, label: 'Active Window' }
       default: return { color: 'text-neutral-400', bg: 'bg-neutral-800', border: 'border-neutral-700', icon: Clock, label: status || 'Active' }
     }
   }
@@ -86,15 +86,15 @@ function PredictionCard({
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.08 }}
-      className={`bg-neutral-900/60 border ${config.border} rounded-2xl p-6 relative group transition-all`}
+      className={`bg-neutral-900/60 border ${config.border} rounded-none p-6 relative group transition-all`}
     >
       <div className="flex justify-between items-start mb-4">
         <div>
           <div className="flex flex-wrap items-center gap-2 mb-2">
-            <span className={`text-[10px] font-bold px-2 py-0.5 ${config.bg} ${config.color} rounded-md uppercase tracking-wider flex items-center gap-1`}>
+            <span className={`text-[10px] font-bold px-2 py-0.5 ${config.bg} ${config.color} rounded-none uppercase tracking-wider flex items-center gap-1`}>
               <StatusIcon className="w-3 h-3" /> {config.label}
             </span>
-            <span className="text-[10px] font-bold px-2 py-0.5 bg-neutral-800 text-neutral-400 rounded-md uppercase tracking-wider">
+            <span className="text-[10px] font-bold px-2 py-0.5 bg-neutral-800 text-neutral-400 rounded-none uppercase tracking-wider">
               {prediction.category}
             </span>
           </div>
@@ -103,7 +103,7 @@ function PredictionCard({
           <div className="flex items-center gap-2 text-xs font-mono text-neutral-400">
             <span>{prediction.astrologerName || prediction.astrologer?.name || "Verified Astrologer"}</span>
             <span>•</span>
-            <span className="text-amber-400 font-bold">{prediction.confidence}% Alignment</span>
+            <span className="text-zinc-300 font-bold">{prediction.confidence}% Alignment</span>
           </div>
         </div>
 
@@ -121,7 +121,7 @@ function PredictionCard({
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                className="absolute right-0 top-10 w-52 bg-neutral-900 border border-neutral-800 rounded-xl shadow-2xl z-20 overflow-hidden"
+                className="absolute right-0 top-10 w-52 bg-neutral-900 border border-neutral-800 rounded-none shadow-2xl z-20 overflow-hidden"
               >
                 <div className="py-1">
                   <button onClick={() => { setShowMenu(false); onOpenProof(prediction.id); }} className="w-full text-left px-4 py-2 text-xs font-medium text-white hover:bg-neutral-800 flex items-center gap-2 transition-colors cursor-pointer">

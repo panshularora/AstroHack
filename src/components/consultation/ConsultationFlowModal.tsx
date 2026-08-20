@@ -144,7 +144,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
           initial={{ opacity: 0, scale: 0.95, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 15 }}
-          className="relative w-full max-w-4xl bg-surface border border-line rounded-lg p-6 md:p-8 shadow-2xl overflow-hidden max-h-[92vh] flex flex-col"
+          className="relative w-full max-w-4xl bg-surface border border-line rounded-none p-6 md:p-8 shadow-2xl overflow-hidden max-h-[92vh] flex flex-col"
         >
           {/* Header */}
           <div className="flex items-center justify-between border-b border-line/60 pb-4 mb-6 shrink-0">
@@ -183,7 +183,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                         key={m.id}
                         type="button"
                         onClick={() => setMode(m.id as any)}
-                        className={`p-4 rounded-lg border text-center transition-all ${isActive ? m.color : "bg-white/5 border-line/60 text-[#9CA3AF]"}`}
+                        className={`p-4 rounded-none border text-center transition-all ${isActive ? m.color : "bg-white/5 border-line/60 text-[#9CA3AF]"}`}
                       >
                         <Icon className="w-6 h-6 mx-auto mb-2" />
                         <span className="font-bold text-xs block text-white">{m.label}</span>
@@ -202,7 +202,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                       key={d}
                       type="button"
                       onClick={() => setDuration(d)}
-                      className={`p-3 rounded-lg border text-center transition-all ${
+                      className={`p-3 rounded-none border text-center transition-all ${
                         duration === d ? "bg-brand/20 border-brand text-white font-bold" : "bg-white/5 border-line/60 text-[#9CA3AF]"
                       }`}
                     >
@@ -221,7 +221,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                       key={s}
                       type="button"
                       onClick={() => setSlot(s)}
-                      className={`p-3 rounded-xl border text-xs font-medium text-left transition-all ${
+                      className={`p-3 rounded-none border text-xs font-medium text-left transition-all ${
                         slot === s ? "bg-brand/20 border-brand text-white" : "bg-white/5 border-line/60 text-[#9CA3AF]"
                       }`}
                     >
@@ -236,7 +236,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                 <select
                   value={topic}
                   onChange={e => setTopic(e.target.value)}
-                  className="w-full bg-surface-2 border border-line rounded-xl p-3 text-sm text-white outline-none"
+                  className="w-full bg-surface-2 border border-line rounded-none p-3 text-sm text-white outline-none"
                 >
                   <option value="Career Growth & Transits">Career Growth & Jupiter Transit</option>
                   <option value="Solar Return & Synastry">Solar Return & Synastry Reading</option>
@@ -252,7 +252,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                 </div>
                 <button
                   onClick={() => setStep("payment")}
-                  className="px-6 py-3 bg-brand hover:bg-brand/90 text-white font-bold rounded-xl text-sm transition-all shadow-[0_0_20px_rgba(107,33,168,0.4)] flex items-center gap-2"
+                  className="px-6 py-3 bg-brand hover:bg-brand/90 text-white font-bold rounded-none text-sm transition-all shadow-[0_0_20px_rgba(107,33,168,0.4)] flex items-center gap-2"
                 >
                   Proceed to Payment <ArrowRight className="w-4 h-4" />
                 </button>
@@ -263,7 +263,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
           {/* ── STEP 2: Payment ─────────────────────────────────────────── */}
           {step === "payment" && (
             <div className="space-y-6 overflow-y-auto pr-1">
-              <div className="p-4 bg-surface-2 border border-line rounded-lg">
+              <div className="p-4 bg-surface-2 border border-line rounded-none">
                 <p className="text-xs font-bold text-[#9CA3AF] uppercase tracking-wider mb-3">Order Summary</p>
                 <div className="flex justify-between text-sm py-1 border-b border-line-subtle">
                   <span className="text-white">{astrologer.name} ({duration} min {mode})</span>
@@ -289,7 +289,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                     <div
                       key={p.id}
                       onClick={() => setPaymentMethod(p.id)}
-                      className={`p-4 rounded-xl border cursor-pointer flex items-center justify-between transition-all ${
+                      className={`p-4 rounded-none border cursor-pointer flex items-center justify-between transition-all ${
                         paymentMethod === p.id ? "bg-brand/15 border-brand text-white" : "bg-white/5 border-line/60 text-[#9CA3AF]"
                       }`}
                     >
@@ -307,7 +307,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                 <button onClick={() => setStep("select")} className="text-xs text-[#9CA3AF] hover:text-white">← Back</button>
                 <button
                   onClick={() => setStep("waiting")}
-                  className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-xl text-sm transition-all shadow-[0_0_20px_rgba(34,197,94,0.4)] flex items-center gap-2"
+                  className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-none text-sm transition-all shadow-[0_0_20px_rgba(34,197,94,0.4)] flex items-center gap-2"
                 >
                   Confirm & Join Waiting Room <ArrowRight className="w-4 h-4" />
                 </button>
@@ -339,7 +339,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
 
               <button
                 onClick={() => setStep("session")}
-                className="px-8 py-4 bg-brand hover:bg-brand/90 text-white font-bold rounded-lg text-base transition-all shadow-[0_0_30px_rgba(107,33,168,0.6)] animate-pulse"
+                className="px-8 py-4 bg-brand hover:bg-brand/90 text-white font-bold rounded-none text-base transition-all shadow-[0_0_30px_rgba(107,33,168,0.6)] animate-pulse"
               >
                 Enter Live {mode === "chat" ? "Chat" : mode === "voice" ? "Call" : "Video"} Room
               </button>
@@ -350,20 +350,20 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
           {step === "session" && (
             <div className="flex flex-col h-[520px]">
               {/* Session Control Bar */}
-              <div className="flex items-center justify-between p-3 bg-surface-2 border border-line rounded-lg mb-4 shrink-0">
+              <div className="flex items-center justify-between p-3 bg-surface-2 border border-line rounded-none mb-4 shrink-0">
                 <div className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse" />
                   <span className="text-xs font-bold text-white uppercase tracking-wider">Live {mode.toUpperCase()} Session</span>
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-mono font-bold text-gold bg-gold/10 px-3 py-1 rounded-lg border border-gold/20">
+                  <span className="text-sm font-mono font-bold text-gold bg-gold/10 px-3 py-1 rounded-none border border-gold/20">
                     ⏱ {Math.floor(sessionTime / 60)}:{String(sessionTime % 60).padStart(2, "0")}
                   </span>
                   
                   <button
                     onClick={() => setShowNotes(!showNotes)}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1 ${
+                    className={`px-3 py-1.5 rounded-none text-xs font-bold transition-all flex items-center gap-1 ${
                       showNotes ? "bg-brand text-white" : "bg-white/10 text-[#9CA3AF] hover:text-white"
                     }`}
                   >
@@ -373,7 +373,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
 
                 <button
                   onClick={handleEndSession}
-                  className="px-3.5 py-1.5 bg-red-500/20 hover:bg-red-500/30 border border-red-500/40 text-red-400 rounded-xl text-xs font-bold transition-colors shadow-sm"
+                  className="px-3.5 py-1.5 bg-red-500/20 hover:bg-red-500/30 border border-red-500/40 text-red-400 rounded-none text-xs font-bold transition-colors shadow-sm"
                 >
                   End & Save Session
                 </button>
@@ -382,7 +382,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
               {/* Main Session Content Grid */}
               <div className="flex-1 grid grid-cols-1 md:grid-cols-12 gap-4 min-h-0">
                 {/* Mode Media Area */}
-                <div className={`${showNotes ? "md:col-span-8" : "md:col-span-12"} flex flex-col min-h-0 bg-surface-2 border border-line/60 rounded-lg p-4 relative`}>
+                <div className={`${showNotes ? "md:col-span-8" : "md:col-span-12"} flex flex-col min-h-0 bg-surface-2 border border-line/60 rounded-none p-4 relative`}>
                   
                   {/* CHAT MODE */}
                   {mode === "chat" && (
@@ -390,12 +390,12 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                       <div className="flex-1 overflow-y-auto space-y-3 pr-1">
                         {messages.map((m, i) => (
                           <div key={i} className={`flex ${m.sender === "user" ? "justify-end" : "justify-start"}`}>
-                            <div className={`max-w-[80%] p-3.5 rounded-lg text-xs leading-relaxed ${
+                            <div className={`max-w-[80%] p-3.5 rounded-none text-xs leading-relaxed ${
                               m.sender === "user" ? "bg-brand text-white rounded-tr-none shadow-md" : "bg-surface-2 text-white/90 border border-line rounded-tl-none"
                             }`}>
                               <p>{m.text}</p>
                               {m.attachment && (
-                                <div className="mt-2 p-2 bg-black/30 rounded-lg flex items-center gap-2 border border-line text-[10px] text-ink-secondary">
+                                <div className="mt-2 p-2 bg-black/30 rounded-none flex items-center gap-2 border border-line text-[10px] text-ink-secondary">
                                   <FileText className="w-3.5 h-3.5 text-brand" /> {m.attachment}
                                 </div>
                               )}
@@ -404,7 +404,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                           </div>
                         ))}
                         {isTyping && (
-                          <div className="flex items-center gap-2 text-xs text-[#9CA3AF] p-2 bg-white/5 rounded-xl w-fit">
+                          <div className="flex items-center gap-2 text-xs text-[#9CA3AF] p-2 bg-white/5 rounded-none w-fit">
                             <span className="w-1.5 h-1.5 rounded-full bg-brand animate-bounce" />
                             <span>{astrologer.name} is typing...</span>
                           </div>
@@ -417,7 +417,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                           type="button"
                           onClick={handleFileUpload}
                           title="Attach Document/Chart"
-                          className="p-2.5 bg-white/5 hover:bg-surface-3 border border-line rounded-xl text-[#9CA3AF] hover:text-white transition-colors"
+                          className="p-2.5 bg-white/5 hover:bg-surface-3 border border-line rounded-none text-[#9CA3AF] hover:text-white transition-colors"
                         >
                           <Paperclip className="w-4 h-4" />
                         </button>
@@ -427,9 +427,9 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                           onChange={e => setInputText(e.target.value)}
                           onKeyDown={e => e.key === "Enter" && handleSendMessage()}
                           placeholder="Type your question or reflection..."
-                          className="flex-1 bg-surface-2 border border-line rounded-xl px-4 py-2 text-xs text-white placeholder:text-[#6B7280] outline-none"
+                          className="flex-1 bg-surface-2 border border-line rounded-none px-4 py-2 text-xs text-white placeholder:text-[#6B7280] outline-none"
                         />
-                        <button onClick={handleSendMessage} className="px-4 py-2 bg-brand rounded-xl text-white font-bold text-xs flex items-center gap-1.5">
+                        <button onClick={handleSendMessage} className="px-4 py-2 bg-brand rounded-none text-white font-bold text-xs flex items-center gap-1.5">
                           <Send className="w-3.5 h-3.5" /> Send
                         </button>
                       </div>
@@ -490,15 +490,15 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                       {/* Video Grid */}
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 flex-1 min-h-0">
                         {/* Astrologer Stream */}
-                        <div className="relative bg-black/60 rounded-xl overflow-hidden border border-line flex items-center justify-center">
+                        <div className="relative bg-black/60 rounded-none overflow-hidden border border-line flex items-center justify-center">
                           <img src={astrologer.avatar} alt={astrologer.name} className="w-full h-full object-cover opacity-90" />
-                          <div className="absolute bottom-3 left-3 bg-black/60 px-3 py-1 rounded-lg text-xs font-bold text-white backdrop-blur-md">
+                          <div className="absolute bottom-3 left-3 bg-black/60 px-3 py-1 rounded-none text-xs font-bold text-white backdrop-blur-md">
                             {astrologer.name} (Live)
                           </div>
                         </div>
 
                         {/* User Selfie Stream */}
-                        <div className="relative bg-black/60 rounded-xl overflow-hidden border border-line flex items-center justify-center">
+                        <div className="relative bg-black/60 rounded-none overflow-hidden border border-line flex items-center justify-center">
                           {isCameraOff ? (
                             <div className="text-center p-4">
                               <CameraOff className="w-8 h-8 text-[#9CA3AF] mx-auto mb-2" />
@@ -514,7 +514,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                               </div>
                             </div>
                           )}
-                          <div className="absolute bottom-3 left-3 bg-black/60 px-3 py-1 rounded-lg text-xs font-bold text-white backdrop-blur-md">
+                          <div className="absolute bottom-3 left-3 bg-black/60 px-3 py-1 rounded-none text-xs font-bold text-white backdrop-blur-md">
                             You
                           </div>
                         </div>
@@ -546,7 +546,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
 
                 {/* Live Notes Panel Sideover */}
                 {showNotes && (
-                  <div className="md:col-span-4 flex flex-col bg-surface-2 border border-line rounded-lg p-4 min-h-0">
+                  <div className="md:col-span-4 flex flex-col bg-surface-2 border border-line rounded-none p-4 min-h-0">
                     <div className="flex items-center gap-2 mb-3">
                       <FileText className="w-4 h-4 text-gold" />
                       <h4 className="text-xs font-bold text-white uppercase tracking-wider">Live Session Notes</h4>
@@ -555,7 +555,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                       value={userNotes}
                       onChange={e => setUserNotes(e.target.value)}
                       placeholder="Jot down key points during the consultation. These will be saved into Cosmic Memory..."
-                      className="flex-1 bg-black/40 border border-line rounded-xl p-3 text-xs text-white placeholder:text-[#6B7280] outline-none resize-none"
+                      className="flex-1 bg-black/40 border border-line rounded-none p-3 text-xs text-white placeholder:text-[#6B7280] outline-none resize-none"
                     />
                     <p className="text-[10px] text-[#9CA3AF] mt-2 italic">Notes automatically sync to your session log.</p>
                   </div>
@@ -601,7 +601,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
               </div>
 
               <div className="space-y-3">
-                <div className="p-4 bg-brand-light border border-brand/20 rounded-lg">
+                <div className="p-4 bg-brand-light border border-brand/20 rounded-none">
                   <div className="flex items-center gap-2 mb-2">
                     <Sparkles className="w-4 h-4 text-brand" />
                     <span className="text-xs font-bold text-brand uppercase">Extracted Prediction</span>
@@ -609,7 +609,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
                   <p className="text-xs text-white font-medium">Job Offer in Tech Sector (88% confidence) · Window: Late August</p>
                 </div>
 
-                <div className="p-4 bg-gold/10 border border-gold/20 rounded-lg">
+                <div className="p-4 bg-gold/10 border border-gold/20 rounded-none">
                   <div className="flex items-center gap-2 mb-2">
                     <Sun className="w-4 h-4 text-gold" />
                     <span className="text-xs font-bold text-gold uppercase">Active Remedy Assigned</span>
@@ -620,7 +620,7 @@ export function ConsultationFlowModal({ isOpen, onClose, astrologer, initialMode
 
               <button
                 onClick={handleFinish}
-                className="w-full py-3.5 bg-brand hover:bg-brand/90 text-white font-bold rounded-xl text-sm transition-all shadow-[0_0_20px_rgba(107,33,168,0.4)] flex items-center justify-center gap-2"
+                className="w-full py-3.5 bg-brand hover:bg-brand/90 text-white font-bold rounded-none text-sm transition-all shadow-[0_0_20px_rgba(107,33,168,0.4)] flex items-center justify-center gap-2"
               >
                 View Session Log & Memory Archive <ArrowRight className="w-4 h-4" />
               </button>

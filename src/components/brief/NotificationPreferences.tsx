@@ -8,7 +8,7 @@ export function NotificationPreferences() {
   ]
 
   return (
-    <div className="bg-surface border border-line rounded-lg p-6 md:p-8 mb-16">
+    <div className="bg-surface border border-line rounded-none p-6 md:p-8 mb-16">
       <div className="flex items-center gap-2 mb-8">
         <Settings className="w-5 h-5 text-white" />
         <h2 className="text-xl font-bold text-white">Daily Brief Preferences</h2>
@@ -16,9 +16,9 @@ export function NotificationPreferences() {
 
       <div className="grid md:grid-cols-3 gap-6">
         {preferences.map((pref, i) => (
-          <div key={i} className="p-4 rounded-lg bg-surface-2 border border-line flex items-center justify-between group cursor-pointer hover:bg-surface-3 transition-colors">
+          <div key={i} className="p-4 rounded-none bg-surface-2 border border-line flex items-center justify-between group cursor-pointer hover:bg-surface-3 transition-colors">
             <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-black/40 border border-line-subtle">
+              <div className="p-2 rounded-none bg-black/40 border border-line-subtle">
                 {pref.icon}
               </div>
               <div>

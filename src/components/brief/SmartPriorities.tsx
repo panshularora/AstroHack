@@ -29,8 +29,8 @@ export function SmartPriorities() {
 
       <div className="grid md:grid-cols-3 gap-6">
         {mockSmartPriorities.map((priority) => (
-          <div key={priority.id} className={`bg-gradient-to-br ${getGradient(priority.type)} bg-surface border rounded-lg p-6 flex flex-col hover:-translate-y-1 transition-transform duration-300`}>
-            <div className="w-10 h-10 rounded-lg bg-black/40 border border-line-subtle flex items-center justify-center mb-4 shadow-inner">
+          <div key={priority.id} className={`bg-gradient-to-br ${getGradient(priority.type)} bg-surface border rounded-none p-6 flex flex-col hover:-translate-y-1 transition-transform duration-300`}>
+            <div className="w-10 h-10 rounded-none bg-black/40 border border-line-subtle flex items-center justify-center mb-4 shadow-inner">
               {getIcon(priority.type)}
             </div>
             <h3 className="text-base font-bold text-white mb-2 leading-snug">{priority.title}</h3>

@@ -21,12 +21,12 @@ export function CelestialToolsModal({ isOpen, onClose, initialTab = "panchang" }
           initial={{ opacity: 0, scale: 0.95, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 15 }}
-          className="relative w-full max-w-4xl bg-surface border border-line rounded-lg p-6 md:p-8 shadow-2xl overflow-hidden max-h-[90vh] flex flex-col"
+          className="relative w-full max-w-4xl bg-surface border border-line rounded-none p-6 md:p-8 shadow-2xl overflow-hidden max-h-[90vh] flex flex-col"
         >
           {/* Header */}
           <div className="flex items-center justify-between border-b border-line/60 pb-5 mb-6">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-brand/20 border border-brand/30 flex items-center justify-center text-brand">
+              <div className="w-10 h-10 rounded-none bg-brand/20 border border-brand/30 flex items-center justify-center text-brand">
                 <Sparkles className="w-5 h-5" />
               </div>
               <div>
@@ -45,7 +45,7 @@ export function CelestialToolsModal({ isOpen, onClose, initialTab = "panchang" }
           {/* Navigation Tabs */}
           <div className="flex gap-2 border-b border-line/60 pb-4 mb-6 overflow-x-auto">
             {[
-              { id: "panchang", label: "Today's Panchang", icon: Sun, color: "text-amber-400" },
+              { id: "panchang", label: "Today's Panchang", icon: Sun, color: "text-zinc-300" },
               { id: "kundli", label: "Free Kundli & Chart", icon: BookOpen, color: "text-brand" },
               { id: "match", label: "Kundli Match (36 Guna)", icon: Heart, color: "text-pink-400" },
               { id: "pooja", label: "Book a Remedial Pooja", icon: Flame, color: "text-gold" },
@@ -56,7 +56,7 @@ export function CelestialToolsModal({ isOpen, onClose, initialTab = "panchang" }
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as any)}
-                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all shrink-0 ${
+                  className={`flex items-center gap-2 px-4 py-2.5 rounded-none text-xs font-bold transition-all shrink-0 ${
                     isActive
                       ? "bg-white/10 text-white border border-line-strong shadow-md"
                       : "text-[#9CA3AF] hover:text-white hover:bg-white/5"
@@ -86,7 +86,7 @@ function PanchangView() {
   const panchangData = [
     { label: "Tithi", val: "Shukla Paksha Dashami (until 4:18 PM)", icon: Moon, color: "text-blue-400" },
     { label: "Nakshatra", val: "Rohini (until 8:42 PM)", icon: Sparkles, color: "text-gold" },
-    { label: "Yoga", val: "Shukla Yoga (all day)", icon: Sun, color: "text-amber-400" },
+    { label: "Yoga", val: "Shukla Yoga (all day)", icon: Sun, color: "text-zinc-300" },
     { label: "Karana", val: "Taitila (until 4:18 PM)", icon: ShieldCheck, color: "text-green-400" },
     { label: "Rahu Kalam", val: "1:45 PM – 3:20 PM (Avoid new beginnings)", icon: Moon, color: "text-red-400" },
     { label: "Abhijit Muhurat", val: "11:54 AM – 12:46 PM (Highly auspicious)", icon: Sun, color: "text-emerald-400" },
@@ -94,7 +94,7 @@ function PanchangView() {
 
   return (
     <div className="space-y-6">
-      <div className="bg-gradient-to-r from-amber-500/10 via-primary/10 to-surface p-5 rounded-lg border border-amber-500/20">
+      <div className="bg-gradient-to-r from-zinc-400/10 via-primary/10 to-surface p-5 rounded-none border border-zinc-700">
         <div className="flex justify-between items-start mb-2">
           <div>
             <h3 className="text-lg font-bold text-white">Daily Vedic Panchang</h3>
@@ -102,7 +102,7 @@ function PanchangView() {
               {new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" })} · New Delhi, India
             </p>
           </div>
-          <span className="text-[10px] font-bold px-2.5 py-1 bg-amber-400/15 border border-amber-400/30 text-amber-400 rounded-full">
+          <span className="text-[10px] font-bold px-2.5 py-1 bg-zinc-200/15 border border-amber-400/30 text-zinc-300 rounded-full">
             Auspicious Energy
           </span>
         </div>
@@ -112,8 +112,8 @@ function PanchangView() {
         {panchangData.map((item) => {
           const Icon = item.icon
           return (
-            <div key={item.label} className="p-4 bg-surface-2 border border-line/60 rounded-lg flex items-start gap-3">
-              <div className="w-9 h-9 rounded-xl bg-white/5 flex items-center justify-center shrink-0">
+            <div key={item.label} className="p-4 bg-surface-2 border border-line/60 rounded-none flex items-start gap-3">
+              <div className="w-9 h-9 rounded-none bg-white/5 flex items-center justify-center shrink-0">
                 <Icon className={`w-4 h-4 ${item.color}`} />
               </div>
               <div>
@@ -132,28 +132,28 @@ function KundliView() {
   const { user } = useUser()
   return (
     <div className="space-y-6">
-      <div className="p-5 bg-brand-light border border-brand/20 rounded-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="p-5 bg-brand-light border border-brand/20 rounded-none flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h3 className="text-lg font-bold text-white">{user.name}'s Kundli & Birth Chart</h3>
           <p className="text-xs text-[#9CA3AF]">Vedic (Lahiri) · {user.dob} · {user.timeOfBirth} · {user.placeOfBirth}</p>
         </div>
-        <button className="px-4 py-2 bg-brand/20 hover:bg-brand/30 text-ink-secondary border border-brand/30 rounded-xl text-xs font-bold transition-colors">
+        <button className="px-4 py-2 bg-brand/20 hover:bg-brand/30 text-ink-secondary border border-brand/30 rounded-none text-xs font-bold transition-colors">
           Download PDF Chart
         </button>
       </div>
 
       <div className="grid md:grid-cols-3 gap-4">
-        <div className="p-4 bg-surface-2 border border-line/60 rounded-lg">
+        <div className="p-4 bg-surface-2 border border-line/60 rounded-none">
           <p className="text-xs text-[#9CA3AF] font-bold uppercase mb-2">Lagna (Ascendant)</p>
           <p className="text-xl font-bold text-white">{user.ascendant}</p>
           <p className="text-xs text-brand mt-1">Natal Ascendant · Strong Determination</p>
         </div>
-        <div className="p-4 bg-surface-2 border border-line/60 rounded-lg">
+        <div className="p-4 bg-surface-2 border border-line/60 rounded-none">
           <p className="text-xs text-[#9CA3AF] font-bold uppercase mb-2">Rashi (Sun/Moon Sign)</p>
           <p className="text-xl font-bold text-gold">{user.sunSign}</p>
           <p className="text-xs text-gold mt-1">Natal Sun · Core Power</p>
         </div>
-        <div className="p-4 bg-surface-2 border border-line/60 rounded-lg">
+        <div className="p-4 bg-surface-2 border border-line/60 rounded-none">
           <p className="text-xs text-[#9CA3AF] font-bold uppercase mb-2">Current Mahadasha</p>
           <p className="text-xl font-bold text-emerald-400">{user.activeDasha}</p>
           <p className="text-xs text-emerald-400 mt-1">Active Epoch · High Alignment</p>
@@ -166,7 +166,7 @@ function KundliView() {
 function KundliMatchView() {
   return (
     <div className="space-y-6">
-      <div className="p-5 bg-pink-500/10 border border-pink-500/20 rounded-lg">
+      <div className="p-5 bg-pink-500/10 border border-pink-500/20 rounded-none">
         <div className="flex justify-between items-center mb-3">
           <h3 className="text-lg font-bold text-white">Ashta Koota 36-Guna Compatibility</h3>
           <span className="text-xs font-bold text-pink-400 bg-pink-500/20 px-3 py-1 rounded-full border border-pink-500/30">
@@ -187,7 +187,7 @@ function KundliMatchView() {
           ["Bhakoot", "7 / 7", "Financial Prosperity"],
           ["Nadi", "3 / 8", "Genetic Compatibility"],
         ].map(([title, val, desc]) => (
-          <div key={title} className="p-3 bg-surface-2 border border-line/60 rounded-xl">
+          <div key={title} className="p-3 bg-surface-2 border border-line/60 rounded-none">
             <p className="text-[10px] text-[#9CA3AF] font-bold uppercase">{title}</p>
             <p className="text-base font-bold text-white mt-0.5">{val}</p>
             <p className="text-[10px] text-[#6B7280]">{desc}</p>
@@ -212,7 +212,7 @@ function PoojaBookingView({ onClose }: { onClose: () => void }) {
       </p>
 
       {poojas.map((p) => (
-        <div key={p.name} className="p-4 bg-surface-2 border border-line rounded-lg flex items-center justify-between gap-4">
+        <div key={p.name} className="p-4 bg-surface-2 border border-line rounded-none flex items-center justify-between gap-4">
           <div>
             <h4 className="font-bold text-white text-sm flex items-center gap-2">
               <Flame className="w-4 h-4 text-gold" /> {p.name}
@@ -224,7 +224,7 @@ function PoojaBookingView({ onClose }: { onClose: () => void }) {
             <p className="text-lg font-bold text-white mb-2">{p.price}</p>
             <button
               onClick={() => { alert(`Booking initiated for ${p.name}`); onClose(); }}
-              className="px-4 py-2 bg-gold text-navy hover:bg-gold/90 rounded-xl text-xs font-bold transition-colors flex items-center gap-1"
+              className="px-4 py-2 bg-gold text-navy hover:bg-gold/90 rounded-none text-xs font-bold transition-colors flex items-center gap-1"
             >
               Book Pooja <ArrowRight className="w-3 h-3" />
             </button>

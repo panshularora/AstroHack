@@ -26,7 +26,7 @@ export const TimelineScrubber: React.FC<TimelineScrubberProps> = ({
     <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-4xl z-30 flex items-center gap-4 bg-[#090A0F]/85 border border-white/10 rounded-full px-6 py-3 backdrop-blur-md shadow-2xl font-sans">
       <button
         onClick={onTogglePlay}
-        className="p-2.5 rounded-full bg-amber-500 hover:bg-amber-400 text-black font-bold transition-all active:scale-95 cursor-pointer shrink-0"
+        className="p-2.5 rounded-full bg-zinc-100 hover:bg-zinc-200 text-black font-bold transition-all active:scale-95 cursor-pointer shrink-0"
         title={isPlaying ? 'Pause Timeline' : 'Play Timeline Evolution'}
       >
         {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 ml-0.5" />}
@@ -36,7 +36,7 @@ export const TimelineScrubber: React.FC<TimelineScrubberProps> = ({
         <div className="absolute top-1/2 left-0 right-0 h-[2px] bg-white/20 -translate-y-1/2" />
         
         <div
-          className="absolute top-1/2 left-0 h-[2px] bg-gradient-to-r from-amber-500 to-amber-300 -translate-y-1/2 transition-all duration-150"
+          className="absolute top-1/2 left-0 h-[2px] bg-gradient-to-r from-zinc-400 to-amber-300 -translate-y-1/2 transition-all duration-150"
           style={{
             width: `${((currentYear - minYear) / (maxYear - minYear)) * 100}%`,
           }}
@@ -58,8 +58,8 @@ export const TimelineScrubber: React.FC<TimelineScrubberProps> = ({
             left: `${((currentYear - minYear) / (maxYear - minYear)) * 100}%`,
           }}
         >
-          <div className="w-4 h-4 rounded-full bg-amber-400 border-2 border-black shadow-[0_0_12px_rgba(245,158,11,0.9)]" />
-          <span className="text-[10px] font-mono text-amber-400 mt-1 font-bold tracking-wider">
+          <div className="w-4 h-4 rounded-full bg-zinc-200 border-2 border-black shadow-[0_0_12px_rgba(245,158,11,0.9)]" />
+          <span className="text-[10px] font-mono text-zinc-300 mt-1 font-bold tracking-wider">
             {Math.floor(currentYear)}
           </span>
         </div>
@@ -71,7 +71,7 @@ export const TimelineScrubber: React.FC<TimelineScrubberProps> = ({
               <button
                 onClick={() => onYearChange(year)}
                 className={`hover:text-white transition-colors cursor-pointer ${
-                  Math.floor(currentYear) === year ? 'text-amber-400 font-bold' : ''
+                  Math.floor(currentYear) === year ? 'text-zinc-300 font-bold' : ''
                 }`}
               >
                 {year}

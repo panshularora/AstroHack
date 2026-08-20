@@ -51,7 +51,7 @@ export function AIIntroStep({ onNext, data }: { onNext: () => void, data: Onboar
                 <div className="w-8 h-8 rounded-full bg-brand/20 flex items-center justify-center shrink-0">
                   <Brain className="w-4 h-4 text-brand" />
                 </div>
-                <div className="bg-surface-2 border border-line rounded-lg rounded-tl-none p-4 text-white text-sm leading-relaxed">
+                <div className="bg-surface-2 border border-line rounded-none rounded-tl-none p-4 text-white text-sm leading-relaxed">
                   {msg.text}
                 </div>
               </motion.div>

@@ -2,7 +2,7 @@ import { Flag } from 'lucide-react'
 
 export function MilestonesList({ milestones }: { milestones: any[] }) {
   return (
-    <div className="bg-surface border border-line rounded-lg p-6 shadow-xl">
+    <div className="bg-surface border border-line rounded-none p-6 shadow-xl">
       <div className="flex items-center gap-2 mb-8">
         <Flag className="w-5 h-5 text-gold" />
         <h3 className="text-lg font-bold text-white">Major Milestones</h3>
@@ -15,7 +15,7 @@ export function MilestonesList({ milestones }: { milestones: any[] }) {
               <div className="w-2 h-2 bg-brand rounded-full" />
             </div>
             
-            <div className="w-[calc(100%-3rem)] md:w-[calc(50%-2rem)] p-4 rounded-lg bg-surface-2 border border-line hover:bg-surface-3 transition-colors">
+            <div className="w-[calc(100%-3rem)] md:w-[calc(50%-2rem)] p-4 rounded-none bg-surface-2 border border-line hover:bg-surface-3 transition-colors">
               <div className="text-brand text-xs font-bold mb-1">{m.date}</div>
               <h4 className="text-white font-bold mb-1">{m.title}</h4>
               <p className="text-xs text-[#9CA3AF] leading-relaxed">{m.desc}</p>

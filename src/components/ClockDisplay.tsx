@@ -28,7 +28,7 @@ export const ClockDisplay: React.FC<ClockDisplayProps> = ({
       >
         <span
           className={`font-serif-clock text-6xl sm:text-7xl md:text-8xl lg:text-9xl tracking-tight text-neutral-100 transition-colors duration-300 ${
-            isScrubbing ? 'text-amber-200/90' : 'hover:text-white'
+            isScrubbing ? 'text-zinc-200/90' : 'hover:text-white'
           }`}
           style={{ fontVariantNumeric: 'tabular-nums' }}
         >
@@ -38,7 +38,7 @@ export const ClockDisplay: React.FC<ClockDisplayProps> = ({
 
       {/* Subtle indicator if scrubbing */}
       {isScrubbing && (
-        <span className="mt-2 text-xs font-sans-clean uppercase tracking-widest text-amber-300/80 bg-amber-950/40 px-3 py-0.5 rounded-full border border-amber-800/40 animate-pulse">
+        <span className="mt-2 text-xs font-sans-clean uppercase tracking-widest text-zinc-200/80 bg-amber-950/40 px-3 py-0.5 rounded-full border border-amber-800/40 animate-pulse">
           Temporal Offset Active
         </span>
       )}

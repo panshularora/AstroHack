@@ -22,7 +22,7 @@ function AstrologerCard({ astrologer, index }: { astrologer: VerifiedAstrologer,
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1 }}
-      className="bg-surface border border-line rounded-lg p-6 relative group hover:border-line-strong transition-all cursor-pointer hover:shadow-[0_0_30px_rgba(255,255,255,0.02)] flex flex-col h-full"
+      className="bg-surface border border-line rounded-none p-6 relative group hover:border-line-strong transition-all cursor-pointer hover:shadow-[0_0_30px_rgba(255,255,255,0.02)] flex flex-col h-full"
       onClick={() => navigate(`/app/astrologer/${astrologer.id}`)}
     >
       <div className="absolute top-6 right-6">
@@ -43,19 +43,19 @@ function AstrologerCard({ astrologer, index }: { astrologer: VerifiedAstrologer,
         </div>
         <div>
           <h3 className="text-xl font-bold text-white mb-1 group-hover:text-brand transition-colors">{astrologer.name}</h3>
-          <span className="text-xs text-brand font-bold bg-brand-light px-2 py-1 rounded-md">{astrologer.badge}</span>
+          <span className="text-xs text-brand font-bold bg-brand-light px-2 py-1 rounded-none">{astrologer.badge}</span>
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-4 mb-6">
-        <div className="bg-white/5 rounded-lg p-3 text-center">
+        <div className="bg-white/5 rounded-none p-3 text-center">
           <div className="text-[#9CA3AF] text-[10px] font-bold uppercase tracking-wider mb-1">Accuracy</div>
           <div className="text-xl font-bold text-white">{astrologer.accuracy}%</div>
           <p className="font-mono text-[9px] text-ink-tertiary mt-0.5 uppercase tracking-[0.1em]">
             of {astrologer.consultationCount} tracked predictions
           </p>
         </div>
-        <div className="bg-white/5 rounded-lg p-3 text-center">
+        <div className="bg-white/5 rounded-none p-3 text-center">
           <div className="text-[#9CA3AF] text-[10px] font-bold uppercase tracking-wider mb-1">Trust Score</div>
           <div className="text-xl font-bold text-brand">{astrologer.trustScore}</div>
         </div>
@@ -82,7 +82,7 @@ function AstrologerCard({ astrologer, index }: { astrologer: VerifiedAstrologer,
 
       <div className="flex flex-wrap gap-2 mb-6">
         {astrologer.specialization.slice(0, 3).map(spec => (
-          <span key={spec} className="text-[10px] font-bold px-2 py-1 bg-white/5 text-[#9CA3AF] rounded-md uppercase tracking-wider border border-line">{spec}</span>
+          <span key={spec} className="text-[10px] font-bold px-2 py-1 bg-white/5 text-[#9CA3AF] rounded-none uppercase tracking-wider border border-line">{spec}</span>
         ))}
       </div>
 

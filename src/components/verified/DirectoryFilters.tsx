@@ -2,7 +2,7 @@ import { Filter, Search, ChevronDown } from "lucide-react"
 
 export function DirectoryFilters() {
   return (
-    <div className="sticky top-20 z-40 bg-background/80 backdrop-blur-xl border-y border-line/60 py-4 mb-10 -mx-4 px-4 md:mx-0 md:px-0 md:rounded-lg md:border-x">
+    <div className="sticky top-20 z-40 bg-background/80 backdrop-blur-xl border-y border-line/60 py-4 mb-10 -mx-4 px-4 md:mx-0 md:px-0 md:rounded-none md:border-x">
       <div className="flex flex-col md:flex-row items-center justify-between gap-4">
         
         {/* Search */}

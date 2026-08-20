@@ -18,7 +18,7 @@ export function InteractiveJourney() {
       <div className="flex flex-col items-center gap-4">
         {steps.map((step, i) => (
           <div key={i} className="flex flex-col items-center">
-            <div className="w-64 bg-surface border border-line rounded-lg p-4 flex flex-col items-center text-center shadow-lg hover:border-line-strong transition-colors">
+            <div className="w-64 bg-surface border border-line rounded-none p-4 flex flex-col items-center text-center shadow-lg hover:border-line-strong transition-colors">
               <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center mb-3 shadow-inner">
                 {step.icon}
               </div>

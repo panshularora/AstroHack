@@ -41,7 +41,7 @@ export function AIDecisionSimulatorModal({ isOpen, onClose }: AIDecisionSimulato
         title: "Option B: Stay at Current Firm & Request Promotion",
         score: 64,
         badge: "Moderate Friction Window",
-        badgeColor: "bg-amber-500/20 text-amber-300 border-amber-500/30",
+        badgeColor: "bg-zinc-100/10 text-zinc-200 border-zinc-700",
         transitImpact: "Saturn return placement creates continued friction in current management structure.",
         memoryEvidence: "Guruji Vikram Sharma noted mid-level delays in current firm's structural hierarchy.",
         predictions: ["Career advancement delayed past Q4"],
@@ -125,7 +125,7 @@ export function AIDecisionSimulatorModal({ isOpen, onClose }: AIDecisionSimulato
           title: `Option B: Maintain Current Status Quo`,
           score: 58,
           badge: "Stagnant Transit",
-          badgeColor: "bg-amber-500/20 text-amber-300 border-amber-500/30",
+          badgeColor: "bg-zinc-100/10 text-zinc-200 border-zinc-700",
           transitImpact: "Passing up the transit aperture delays momentum.",
           memoryEvidence: `Delaying choices misses the 120° Sun trine.`,
           predictions: ["Delayed outcome"],
@@ -151,17 +151,17 @@ export function AIDecisionSimulatorModal({ isOpen, onClose }: AIDecisionSimulato
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 10 }}
           transition={{ duration: 0.2, ease: "easeOut" }}
-          className="relative w-full max-w-5xl bg-[#090A0F] border border-white/10 rounded-2xl p-6 md:p-8 shadow-2xl overflow-hidden max-h-[92vh] flex flex-col"
+          className="relative w-full max-w-5xl bg-[#090A0F] border border-white/10 rounded-none p-6 md:p-8 shadow-2xl overflow-hidden max-h-[92vh] flex flex-col"
         >
           {/* Header */}
           <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-6 shrink-0">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400 shadow-lg">
+              <div className="w-10 h-10 rounded-none bg-zinc-100/10 border border-amber-400/40 flex items-center justify-center text-zinc-300 shadow-lg">
                 <Brain className="w-5 h-5" />
               </div>
               <div>
                 <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                  AI Decision Simulator <Scale className="w-4 h-4 text-amber-400" />
+                  AI Decision Simulator <Scale className="w-4 h-4 text-zinc-300" />
                 </h2>
                 <p className="text-xs font-mono text-[#9CA3AF]">
                   Side-by-side life choice simulation powered by Arjun's Cosmic Memory & Transits
@@ -171,7 +171,7 @@ export function AIDecisionSimulatorModal({ isOpen, onClose }: AIDecisionSimulato
 
             <button
               onClick={onClose}
-              className="w-8 h-8 rounded-xl bg-white/5 hover:bg-white/10 flex items-center justify-center text-[#9CA3AF] hover:text-white cursor-pointer"
+              className="w-8 h-8 rounded-none bg-white/5 hover:bg-white/10 flex items-center justify-center text-[#9CA3AF] hover:text-white cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
@@ -184,12 +184,12 @@ export function AIDecisionSimulatorModal({ isOpen, onClose }: AIDecisionSimulato
               value={customInput}
               onChange={e => setCustomInput(e.target.value)}
               placeholder="Type any custom life decision (e.g., 'Relocate to London' or 'Launch AI Startup')..."
-              className="flex-1 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white placeholder-[#9CA3AF] focus:outline-none focus:border-amber-500/50 font-sans"
+              className="flex-1 px-4 py-2.5 rounded-none bg-white/5 border border-white/10 text-xs text-white placeholder-[#9CA3AF] focus:outline-none focus:border-zinc-600 font-sans"
             />
             <button
               type="submit"
               disabled={isSimulating || !customInput.trim()}
-              className="px-5 py-2.5 bg-amber-500 text-black font-bold hover:bg-amber-400 rounded-xl text-xs flex items-center gap-1.5 transition-all disabled:opacity-50 cursor-pointer shadow-md shrink-0 font-mono"
+              className="px-5 py-2.5 bg-zinc-100 text-black font-bold hover:bg-zinc-200 rounded-none text-xs flex items-center gap-1.5 transition-all disabled:opacity-50 cursor-pointer shadow-md shrink-0 font-mono"
             >
               <Plus className="w-4 h-4" /> Simulate Decision
             </button>
@@ -202,9 +202,9 @@ export function AIDecisionSimulatorModal({ isOpen, onClose }: AIDecisionSimulato
                 <button
                   key={idx}
                   onClick={() => setSelectedPreset(idx)}
-                  className={`px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
+                  className={`px-3.5 py-1.5 rounded-none text-xs font-mono font-bold transition-all cursor-pointer ${
                     selectedPreset === idx
-                      ? "bg-amber-500 text-black shadow-md"
+                      ? "bg-zinc-100 text-black shadow-md"
                       : "bg-white/5 border border-white/10 text-[#9CA3AF] hover:text-white"
                   }`}
                 >
@@ -216,9 +216,9 @@ export function AIDecisionSimulatorModal({ isOpen, onClose }: AIDecisionSimulato
             <button
               onClick={handleSimulateNew}
               disabled={isSimulating}
-              className="px-3.5 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-xl text-xs font-mono font-bold transition-colors flex items-center gap-1.5 cursor-pointer"
+              className="px-3.5 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-none text-xs font-mono font-bold transition-colors flex items-center gap-1.5 cursor-pointer"
             >
-              <RefreshCw className={`w-3.5 h-3.5 ${isSimulating ? "animate-spin text-amber-400" : ""}`} />
+              <RefreshCw className={`w-3.5 h-3.5 ${isSimulating ? "animate-spin text-zinc-300" : ""}`} />
               {isSimulating ? "Calculating Transits..." : "Recalculate Transits"}
             </button>
           </div>
@@ -227,7 +227,7 @@ export function AIDecisionSimulatorModal({ isOpen, onClose }: AIDecisionSimulato
           <div className="flex-1 overflow-y-auto pr-1">
             <div className="grid md:grid-cols-2 gap-6 relative">
               {/* Option A */}
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-6 relative flex flex-col justify-between hover:border-emerald-500/40 transition-all">
+              <div className="bg-white/5 border border-white/10 rounded-none p-6 relative flex flex-col justify-between hover:border-emerald-500/40 transition-all">
                 <div className="space-y-4">
                   <div className="flex justify-between items-start">
                     <span className={`text-[10px] font-mono font-bold uppercase tracking-wider px-3 py-1 rounded-full border ${currentScenario.optionA.badgeColor}`}>
@@ -241,12 +241,12 @@ export function AIDecisionSimulatorModal({ isOpen, onClose }: AIDecisionSimulato
 
                   <h3 className="text-lg font-bold text-white leading-snug">{currentScenario.optionA.title}</h3>
 
-                  <div className="p-3.5 bg-white/5 rounded-xl border border-white/5 space-y-1">
-                    <span className="text-[10px] text-amber-400 font-mono font-bold uppercase tracking-wider block">Planetary Transit Alignment</span>
+                  <div className="p-3.5 bg-white/5 rounded-none border border-white/5 space-y-1">
+                    <span className="text-[10px] text-zinc-300 font-mono font-bold uppercase tracking-wider block">Planetary Transit Alignment</span>
                     <p className="text-xs text-white/90 leading-relaxed">{currentScenario.optionA.transitImpact}</p>
                   </div>
 
-                  <div className="p-3.5 bg-white/5 rounded-xl border border-white/5 space-y-1">
+                  <div className="p-3.5 bg-white/5 rounded-none border border-white/5 space-y-1">
                     <span className="text-[10px] text-cyan-400 font-mono font-bold uppercase tracking-wider block">Cosmic Memory Evidence</span>
                     <p className="text-xs text-white/90 leading-relaxed italic">"{currentScenario.optionA.memoryEvidence}"</p>
                   </div>
@@ -279,7 +279,7 @@ export function AIDecisionSimulatorModal({ isOpen, onClose }: AIDecisionSimulato
               </div>
 
               {/* Option B */}
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-6 relative flex flex-col justify-between hover:border-amber-500/40 transition-all">
+              <div className="bg-white/5 border border-white/10 rounded-none p-6 relative flex flex-col justify-between hover:border-zinc-700 transition-all">
                 <div className="space-y-4">
                   <div className="flex justify-between items-start">
                     <span className={`text-[10px] font-mono font-bold uppercase tracking-wider px-3 py-1 rounded-full border ${currentScenario.optionB.badgeColor}`}>
@@ -293,12 +293,12 @@ export function AIDecisionSimulatorModal({ isOpen, onClose }: AIDecisionSimulato
 
                   <h3 className="text-lg font-bold text-white leading-snug">{currentScenario.optionB.title}</h3>
 
-                  <div className="p-3.5 bg-white/5 rounded-xl border border-white/5 space-y-1">
-                    <span className="text-[10px] text-amber-400 font-mono font-bold uppercase tracking-wider block">Planetary Transit Alignment</span>
+                  <div className="p-3.5 bg-white/5 rounded-none border border-white/5 space-y-1">
+                    <span className="text-[10px] text-zinc-300 font-mono font-bold uppercase tracking-wider block">Planetary Transit Alignment</span>
                     <p className="text-xs text-white/90 leading-relaxed">{currentScenario.optionB.transitImpact}</p>
                   </div>
 
-                  <div className="p-3.5 bg-white/5 rounded-xl border border-white/5 space-y-1">
+                  <div className="p-3.5 bg-white/5 rounded-none border border-white/5 space-y-1">
                     <span className="text-[10px] text-cyan-400 font-mono font-bold uppercase tracking-wider block">Cosmic Memory Evidence</span>
                     <p className="text-xs text-white/90 leading-relaxed italic">"{currentScenario.optionB.memoryEvidence}"</p>
                   </div>
@@ -324,8 +324,8 @@ export function AIDecisionSimulatorModal({ isOpen, onClose }: AIDecisionSimulato
                   </div>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-white/10 bg-amber-500/10 -mx-6 -mb-6 p-4 rounded-b-2xl">
-                  <span className="text-[10px] font-mono font-bold text-amber-400 uppercase tracking-wider block mb-1">Recommended Action</span>
+                <div className="mt-6 pt-4 border-t border-white/10 bg-zinc-100/5 -mx-6 -mb-6 p-4 rounded-b-2xl">
+                  <span className="text-[10px] font-mono font-bold text-zinc-300 uppercase tracking-wider block mb-1">Recommended Action</span>
                   <p className="text-xs font-bold text-white">{currentScenario.optionB.recommendedAction}</p>
                 </div>
               </div>
@@ -337,7 +337,7 @@ export function AIDecisionSimulatorModal({ isOpen, onClose }: AIDecisionSimulato
             <span>Simulated using Arjun's Lahiri Chart, Jupiter Transits & Past 14 Sessions</span>
             <button
               onClick={onClose}
-              className="px-6 py-2 bg-amber-500 text-black font-bold rounded-xl text-xs transition-colors shadow-md flex items-center gap-1.5 cursor-pointer"
+              className="px-6 py-2 bg-zinc-100 text-black font-bold rounded-none text-xs transition-colors shadow-md flex items-center gap-1.5 cursor-pointer"
             >
               Apply Simulation Insights <ArrowRight className="w-4 h-4" />
             </button>

@@ -25,7 +25,7 @@ export function RecentConsultations({ consultations }: { consultations: Consulta
 
   return (
     <>
-      <div className="bg-surface border border-line rounded-lg p-6 shadow-xl h-full flex flex-col">
+      <div className="bg-surface border border-line rounded-none p-6 shadow-xl h-full flex flex-col">
         <div className="flex items-center justify-between mb-6">
           <div>
             <h2 className="text-base font-bold text-white">Recent Consultations</h2>
@@ -46,7 +46,7 @@ export function RecentConsultations({ consultations }: { consultations: Consulta
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: i * 0.1 }}
-              className="bg-surface-2 border border-line/60 rounded-lg p-5 flex flex-col hover:border-line-strong hover:shadow-lg transition-all group"
+              className="bg-surface-2 border border-line/60 rounded-none p-5 flex flex-col hover:border-line-strong hover:shadow-lg transition-all group"
             >
               <div className="flex justify-between items-start mb-4">
                 <div className="flex items-center gap-3">
@@ -70,7 +70,7 @@ export function RecentConsultations({ consultations }: { consultations: Consulta
                 </div>
               </div>
               
-              <div className="bg-surface-2 rounded-xl p-3 mb-5 border border-line-subtle">
+              <div className="bg-surface-2 rounded-none p-3 mb-5 border border-line-subtle">
                 <span className="text-[10px] text-[#9CA3AF] uppercase tracking-wider font-bold">Topic Discussed</span>
                 <p className="text-xs text-white/90 font-medium mt-0.5">{c.topic}</p>
               </div>

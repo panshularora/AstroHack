@@ -38,7 +38,7 @@ export function StepUrgency({ urgency, onSelect, onNext, onBack }: StepUrgencyPr
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
               onClick={() => onSelect(u.id)}
-              className={`p-6 rounded-lg border flex items-center text-left transition-all cursor-pointer ${
+              className={`p-6 rounded-none border flex items-center text-left transition-all cursor-pointer ${
                 isSelected 
                   ? "bg-brand/20 border-brand shadow-[0_0_20px_rgba(107,33,168,0.3)]" 
                   : "bg-surface border-line/60 hover:border-line-strong hover:bg-white/5"

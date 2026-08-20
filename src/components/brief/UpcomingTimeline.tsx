@@ -8,7 +8,7 @@ export function UpcomingTimeline() {
   ]
 
   return (
-    <div className="bg-surface border border-line rounded-lg p-6 md:p-8 h-full">
+    <div className="bg-surface border border-line rounded-none p-6 md:p-8 h-full">
       <h3 className="text-lg font-bold text-white mb-8">Upcoming Events</h3>
       
       <div className="relative pl-6 border-l-2 border-line/60 space-y-8">

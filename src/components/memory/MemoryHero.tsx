@@ -29,7 +29,7 @@ export function MemoryHero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-surface border border-line rounded-lg p-5"
+          className="bg-surface border border-line rounded-none p-5"
         >
           <div className="flex items-center gap-2 text-[#9CA3AF] mb-2 font-medium">
             <CalendarCheck className="w-4 h-4 text-brand" /> Consultations
@@ -41,7 +41,7 @@ export function MemoryHero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-surface border border-line rounded-lg p-5"
+          className="bg-surface border border-line rounded-none p-5"
         >
           <div className="flex items-center gap-2 text-[#9CA3AF] mb-2 font-medium">
             <Target className="w-4 h-4 text-secondary" /> Predictions Won
@@ -53,7 +53,7 @@ export function MemoryHero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-surface border border-line rounded-lg p-5"
+          className="bg-surface border border-line rounded-none p-5"
         >
           <div className="flex items-center gap-2 text-[#9CA3AF] mb-2 font-medium">
             <Moon className="w-4 h-4 text-ink-secondary" /> Active Remedies
@@ -65,7 +65,7 @@ export function MemoryHero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="bg-surface border border-line rounded-lg p-5 relative overflow-hidden"
+          className="bg-surface border border-line rounded-none p-5 relative overflow-hidden"
         >
           <div className="absolute top-0 right-0 w-24 h-24 bg-gold/10 rounded-full blur-2xl" />
           <div className="flex items-center gap-2 text-[#9CA3AF] mb-2 font-medium relative z-10">

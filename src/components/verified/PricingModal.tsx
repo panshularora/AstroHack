@@ -24,11 +24,11 @@ export const PricingModal: React.FC<PricingModalProps> = ({ onClose }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md font-sans">
-      <div className="relative w-full max-w-xl bg-[#141518] border border-neutral-800 rounded-2xl p-6 sm:p-8 shadow-2xl text-neutral-100 max-h-[85vh] overflow-y-auto">
+      <div className="relative w-full max-w-xl bg-[#141518] border border-neutral-800 rounded-none p-6 sm:p-8 shadow-2xl text-neutral-100 max-h-[85vh] overflow-y-auto">
         
         <div className="flex items-center justify-between pb-4 border-b border-neutral-800">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
+            <div className="w-8 h-8 rounded-full bg-zinc-100/5 border border-zinc-700 flex items-center justify-center text-zinc-300">
               <CreditCard className="w-4 h-4" />
             </div>
             <div>
@@ -42,23 +42,23 @@ export const PricingModal: React.FC<PricingModalProps> = ({ onClose }) => {
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-neutral-400 hover:text-white rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer"
+            className="p-1.5 text-neutral-400 hover:text-white rounded-none hover:bg-neutral-800 transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Wallet Balance Display */}
-        <div className="mt-6 p-4 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-between">
+        <div className="mt-6 p-4 rounded-none bg-neutral-900 border border-neutral-800 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-lg bg-amber-500/10 text-amber-400">
+            <div className="p-2.5 rounded-none bg-zinc-100/5 text-zinc-300">
               <Wallet className="w-5 h-5" />
             </div>
             <div>
               <span className="text-[11px] font-mono text-neutral-400 uppercase tracking-wider block">
                 Your Current Wallet Balance
               </span>
-              <span className="font-serif text-xl font-normal text-amber-200">
+              <span className="font-serif text-xl font-normal text-zinc-200">
                 ₹{walletBalance.toFixed(2)} INR
               </span>
             </div>
@@ -69,7 +69,7 @@ export const PricingModal: React.FC<PricingModalProps> = ({ onClose }) => {
         </div>
 
         {addedSuccess && (
-          <div className="mt-3 p-3 bg-emerald-950/60 border border-emerald-800 rounded-lg text-emerald-200 text-xs text-center font-mono">
+          <div className="mt-3 p-3 bg-emerald-950/60 border border-emerald-800 rounded-none text-emerald-200 text-xs text-center font-mono">
             ✓ Credits loaded successfully into your AstroLive wallet!
           </div>
         )}
@@ -88,14 +88,14 @@ export const PricingModal: React.FC<PricingModalProps> = ({ onClose }) => {
               <div
                 key={pkg.id}
                 onClick={() => setSelectedPkg(pkg.id)}
-                className={`p-4 rounded-xl border transition-all cursor-pointer flex items-center justify-between relative ${
+                className={`p-4 rounded-none border transition-all cursor-pointer flex items-center justify-between relative ${
                   isSelected
-                    ? 'bg-amber-950/40 border-amber-500/80'
+                    ? 'bg-amber-950/40 border-zinc-600/80'
                     : 'bg-neutral-900/60 hover:bg-neutral-800/80 border-neutral-800'
                 }`}
               >
                 {pkg.popular && (
-                  <span className="absolute -top-2.5 right-4 text-[9px] font-mono bg-amber-500 text-black px-2 py-0.5 rounded-full font-bold">
+                  <span className="absolute -top-2.5 right-4 text-[9px] font-mono bg-zinc-100 text-black px-2 py-0.5 rounded-full font-bold">
                     MOST POPULAR
                   </span>
                 )}
@@ -105,7 +105,7 @@ export const PricingModal: React.FC<PricingModalProps> = ({ onClose }) => {
                     <h4 className="font-serif text-sm text-neutral-100 font-medium">
                       {pkg.name}
                     </h4>
-                    <span className="text-xs text-amber-300 font-mono">
+                    <span className="text-xs text-zinc-200 font-mono">
                       {pkg.bonus}
                     </span>
                   </div>
@@ -123,7 +123,7 @@ export const PricingModal: React.FC<PricingModalProps> = ({ onClose }) => {
                       e.stopPropagation();
                       handleAddFunds(pkgAmount);
                     }}
-                    className="px-3 py-1.5 bg-amber-500 hover:bg-amber-400 text-black text-xs font-mono font-medium rounded-lg transition-colors cursor-pointer"
+                    className="px-3 py-1.5 bg-zinc-100 hover:bg-zinc-200 text-black text-xs font-mono font-medium rounded-none transition-colors cursor-pointer"
                   >
                     Add ₹{pkgAmount}
                   </button>

@@ -1,601 +1,396 @@
-import { useState, useEffect, useMemo, useRef } from 'react';
-import {
-  ArrowRight,
-  Sparkles,
-  Orbit,
-  Star,
-  Cpu,
-  ShieldCheck,
-  Zap,
-  Activity,
-  HelpCircle,
-  ChevronDown,
-} from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ClockDisplay } from '../components/landing/chrono/ClockDisplay';
-import { TimeSlider } from '../components/landing/chrono/TimeSlider';
-import { NavTabs } from '../components/landing/chrono/NavTabs';
-import { HeaderToolbar } from '../components/landing/chrono/HeaderToolbar';
-import { PresentView } from '../components/landing/chrono/PresentView';
-import { PastView } from '../components/landing/chrono/PastView';
-import { FutureView } from '../components/landing/chrono/FutureView';
-import { SoundModal } from '../components/landing/chrono/SoundModal';
-import { ThemeModal } from '../components/landing/chrono/ThemeModal';
-import { ReflectionModal } from '../components/landing/chrono/ReflectionModal';
-import type {
-  NavTab,
-  TimeFormat,
-  ReflectionEntry,
-  TimeCapsule,
-  FutureGoal,
-  ThemeId,
-  AmbientSoundType,
-} from '../types/chrono';
-import {
-  getDayProgress,
-  getDateFromDayProgress,
-  formatDateString,
-  formatTime,
-} from '../utils/chrono/time';
-import { THEMES } from '../utils/chrono/themes';
-import { playAmbientSound, setAmbientVolume } from '../utils/chrono/audio';
+import { useEffect, useMemo, useRef, useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion"
+import { Menu, Search, Video, X } from "lucide-react"
+import gsap from "gsap"
+import { useGSAP } from "@gsap/react"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { Button } from "@/components/ui/Button"
+import { CosmicField } from "@/components/sky/CosmicField"
+import { NightOrbit } from "@/components/sky/NightOrbit"
+import { Magnetic } from "@/components/motion/Magnetic"
+import { RevealImage } from "@/components/motion/RevealImage"
+import { PRACTITIONERS } from "@/data/practitioners"
+import { computeGrahas, computePanchang } from "@/lib/vedic"
+import { ThemeToggle } from "@/components/site/ThemeToggle"
+import { useCommandMenu } from "@/components/command/CommandMenu"
+import { FaqList } from "@/components/ui/FaqList"
+import { LAST_UPDATED } from "@/lib/site"
+import { useUser } from "@/context/UserContext"
+import { captureInvite } from "@/lib/utm"
+import { SmoothScroll } from "@/components/motion/SmoothScroll"
+import { KineticWords } from "@/components/motion/KineticWords"
+import { ProofPaper } from "@/components/ledger/ProofPaper"
+import { HowStory } from "@/components/landing/HowStory"
+import { TapeTicker } from "@/components/landing/TapeTicker"
+import { LangToggle } from "@/components/site/LangToggle"
+import { FAQ_BY_LOCALE, useI18n } from "@/lib/i18n"
 
-const FAQS = [
-  {
-    q: 'How does AstroLive calculate real-time planetary transits?',
-    a: 'AstroLive uses mathematical Sidereal Lahiri Ayanamsha algorithms synced with astronomical ephemeris data to render exact degrees, nakshatra padas, and dasha periods.',
-  },
-  {
-    q: 'What is the 3D Constellation Life Journey map?',
-    a: 'The 3D Constellation map allows you to visualize major life events, memories, and spiritual milestones as interactive glowing star nodes linked across space and time.',
-  },
-  {
-    q: 'Can I match with verified astrologers and log consultation records?',
-    a: 'Yes! AstroLive includes AstroVerified match algorithms, consultation logging, and AI-powered prediction trackers for complete confidence.',
-  },
-];
+gsap.registerPlugin(useGSAP, ScrollTrigger)
+
+const ease = [0.22, 1, 0.36, 1] as const
 
 export function Landing() {
-  const navigate = useNavigate();
-  const [realTime, setRealTime] = useState<Date>(new Date());
-  const [isLive, setIsLive] = useState<boolean>(true);
-  const [sliderProgress, setSliderProgress] = useState<number>(() => getDayProgress(new Date()));
-
-  const [activeTab, setActiveTab] = useState<NavTab>('present');
-  const [zenMode, setZenMode] = useState<boolean>(false);
-  const [timeFormat, setTimeFormat] = useState<TimeFormat>('12h');
-  const [showSeconds, setShowSeconds] = useState<boolean>(false);
-  const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
-
-  const [activeTheme, setActiveTheme] = useState<ThemeId>('obsidian');
-  const [ambientSound, setAmbientSound] = useState<AmbientSoundType>('none');
-  const [soundVolume, setSoundVolume] = useState<number>(0.3);
-
-  const [showSoundModal, setShowSoundModal] = useState<boolean>(false);
-  const [showThemeModal, setShowThemeModal] = useState<boolean>(false);
-  const [showReflectionModal, setShowReflectionModal] = useState<boolean>(false);
-
-  // Scroll animation visibility observer states
-  const [visibleSections, setVisibleSections] = useState<Record<string, boolean>>({});
-  const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
-
-  const registerRef = (id: string) => (el: HTMLElement | null) => {
-    sectionRefs.current[id] = el;
-  };
+  const navigate = useNavigate()
+  const reduce = useReducedMotion()
+  const online = PRACTITIONERS.filter((a) => a.isOnline)
+  const sky = useMemo(() => computePanchang(new Date(), "New Delhi, India"), [])
+  const bodies = useMemo(() => computeGrahas(new Date()).bodies, [])
+  const faces = online.slice(0, 5)
+  const { openMenu } = useCommandMenu()
+  const [menuOpen, setMenuOpen] = useState(false)
+  const { isAuthed } = useUser()
+  const { t, locale } = useI18n()
+  const goApp = (path: string) => navigate(isAuthed ? path : `/login?next=${encodeURIComponent(path)}`)
+  const proofSec = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({ target: proofSec, offset: ["start end", "end start"] })
+  const paperY = useTransform(scrollYProgress, [0, 1], [48, -36])
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setVisibleSections((prev) => ({ ...prev, [entry.target.id]: true }));
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
+    captureInvite()
+  }, [])
 
-    Object.values(sectionRefs.current).forEach((el) => {
-      if (el) observer.observe(el);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  const [reflections, setReflections] = useState<ReflectionEntry[]>(() => {
-    try {
-      const saved = localStorage.getItem('chrono_reflections');
-      return saved ? JSON.parse(saved) : [];
-    } catch {
-      return [];
-    }
-  });
-
-  const [timeCapsules, setTimeCapsules] = useState<TimeCapsule[]>(() => {
-    try {
-      const saved = localStorage.getItem('chrono_capsules');
-      return saved ? JSON.parse(saved) : [];
-    } catch {
-      return [];
-    }
-  });
-
-  const [futureGoals, setFutureGoals] = useState<FutureGoal[]>(() => {
-    try {
-      const saved = localStorage.getItem('chrono_goals');
-      return saved
-        ? JSON.parse(saved)
-        : [
-            { id: '1', title: 'Sunset Meditation & Quiet Reflection', timeLabel: '07:30 PM', completed: false, timestamp: Date.now() },
-            { id: '2', title: 'Kundli Verification & Daily Alignment', timeLabel: '09:30 PM', completed: false, timestamp: Date.now() },
-          ];
-    } catch {
-      return [];
-    }
-  });
-
-  useEffect(() => {
-    localStorage.setItem('chrono_reflections', JSON.stringify(reflections));
-  }, [reflections]);
-
-  useEffect(() => {
-    localStorage.setItem('chrono_capsules', JSON.stringify(timeCapsules));
-  }, [timeCapsules]);
-
-  useEffect(() => {
-    localStorage.setItem('chrono_goals', JSON.stringify(futureGoals));
-  }, [futureGoals]);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      const now = new Date();
-      setRealTime(now);
-      if (isLive) {
-        setSliderProgress(getDayProgress(now));
-      }
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [isLive]);
-
-  // Tab switching smoothly moves the timeline slider line!
-  const handleTabChange = (tab: NavTab) => {
-    setActiveTab(tab);
-    if (tab === 'past') {
-      setIsLive(false);
-      setSliderProgress(22); // Glides line back to Past
-    } else if (tab === 'present') {
-      setIsLive(true);
-      setSliderProgress(getDayProgress(realTime)); // Glides line to Present live time
-    } else if (tab === 'future') {
-      setIsLive(false);
-      setSliderProgress(85); // Glides line forward to Future
-    }
-  };
-
-  const displayDate = useMemo(() => {
-    if (isLive) return realTime;
-    return getDateFromDayProgress(sliderProgress, realTime);
-  }, [isLive, sliderProgress, realTime]);
-
-  const themeConfig = THEMES[activeTheme] || THEMES.obsidian;
-
-  const handleSliderChange = (newProgress: number) => {
-    setIsLive(false);
-    setSliderProgress(newProgress);
-  };
-
-  const handleResetToLive = () => {
-    setIsLive(true);
-    setSliderProgress(getDayProgress(realTime));
-    setActiveTab('present');
-  };
-
-  const handleToggleFormat = () => {
-    if (timeFormat === '12h' && !showSeconds) {
-      setShowSeconds(true);
-    } else if (timeFormat === '12h' && showSeconds) {
-      setTimeFormat('24h');
-      setShowSeconds(false);
-    } else {
-      setTimeFormat('12h');
-      setShowSeconds(false);
-    }
-  };
-
-  const handleSoundChange = (type: AmbientSoundType) => {
-    setAmbientSound(type);
-    playAmbientSound(type, soundVolume);
-  };
-
-  const handleVolumeChange = (vol: number) => {
-    setSoundVolume(vol);
-    setAmbientVolume(vol);
-  };
-
-  const handleSaveReflection = (entry: Omit<ReflectionEntry, 'id' | 'createdAt'>) => {
-    const newEntry: ReflectionEntry = {
-      ...entry,
-      id: Date.now().toString(),
-      createdAt: Date.now(),
-    };
-    setReflections((prev) => [newEntry, ...prev]);
-  };
-
-  const handleAddIntention = (content: string) => {
-    const timeLabel = formatTime(displayDate, timeFormat);
-    handleSaveReflection({
-      title: 'Daily Anchor',
-      content,
-      category: 'intention',
-      tab: 'present',
-      timeLabel,
-      timestamp: displayDate.getTime(),
-    });
-  };
-
-  const handleAddCapsule = (title: string, message: string, unlockTimestamp: number) => {
-    const newCapsule: TimeCapsule = {
-      id: Date.now().toString(),
-      createdTimestamp: Date.now(),
-      unlockTimestamp,
-      title,
-      message,
-      isUnlocked: false,
-    };
-    setTimeCapsules((prev) => [newCapsule, ...prev]);
-  };
-
-  const handleAddGoal = (title: string, timeLabel: string) => {
-    const newGoal: FutureGoal = {
-      id: Date.now().toString(),
-      title,
-      timeLabel,
-      completed: false,
-      timestamp: Date.now(),
-    };
-    setFutureGoals((prev) => [...prev, newGoal]);
-  };
-
-  const handleToggleGoal = (id: string) => {
-    setFutureGoals((prev) =>
-      prev.map((g) => (g.id === id ? { ...g, completed: !g.completed } : g))
-    );
-  };
+  useGSAP(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+    gsap.from(".hero-orbit", {
+      opacity: 0,
+      y: 28,
+      duration: 1.05,
+      delay: 0.18,
+      ease: "power3.out",
+    })
+  })
 
   return (
-    <div
-      className={`min-h-screen w-full ${themeConfig.bgClass} text-neutral-100 flex flex-col justify-between transition-colors duration-500 overflow-x-hidden font-sans selection:bg-neutral-800 selection:text-white relative`}
-    >
-      {/* Dynamic Animated Ambient Background Glows */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-30">
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-1/4 left-1/5 w-96 h-96 rounded-full bg-amber-500/10 blur-[130px]"
-        />
-        <motion.div
-          animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.4, 0.2, 0.4],
-          }}
-          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-          className="absolute bottom-1/3 right-1/4 w-[450px] h-[450px] rounded-full bg-cyan-500/10 blur-[150px]"
-        />
-      </div>
-
-      <div className="relative z-10 flex flex-col min-h-screen">
-        {/* Header Toolbar */}
-        <HeaderToolbar
-          zenMode={zenMode}
-          onToggleZenMode={() => setZenMode(!zenMode)}
-          ambientSound={ambientSound}
-          onOpenSoundModal={() => setShowSoundModal(true)}
-          onOpenReflectionModal={() => setShowReflectionModal(true)}
-          onOpenThemeModal={() => setShowThemeModal(true)}
-          activeTheme={activeTheme}
-          formattedDate={formatDateString(displayDate)}
-        />
-
-        {/* Pristine Minimal Hero Section */}
-        <main className="min-h-[80vh] flex flex-col items-center justify-center my-auto w-full max-w-4xl mx-auto px-4 py-8">
-          <ClockDisplay
-            displayDate={displayDate}
-            timeFormat={timeFormat}
-            showSeconds={showSeconds}
-            onToggleFormat={handleToggleFormat}
-            isScrubbing={!isLive}
-          />
-
-          {/* Interactive Moving Timeline Line */}
-          <TimeSlider
-            progress={sliderProgress}
-            onChange={handleSliderChange}
-            isLive={isLive}
-            onResetToLive={handleResetToLive}
-          />
-
-          {/* Dynamic Animated Nav Tabs (Past / Present / Future) */}
-          <NavTabs activeTab={activeTab} onTabChange={handleTabChange} />
-
-          {!zenMode && (
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeTab}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.3 }}
-                className="w-full mt-6"
-              >
-                {activeTab === 'present' && (
-                  <PresentView
-                    currentDate={displayDate}
-                    reflections={reflections}
-                    onAddIntention={handleAddIntention}
-                  />
-                )}
-                {activeTab === 'past' && (
-                  <PastView
-                    currentDate={displayDate}
-                    reflections={reflections}
-                    onAddReflection={handleSaveReflection}
-                  />
-                )}
-                {activeTab === 'future' && (
-                  <FutureView
-                    currentDate={displayDate}
-                    timeCapsules={timeCapsules}
-                    futureGoals={futureGoals}
-                    onAddCapsule={handleAddCapsule}
-                    onAddGoal={handleAddGoal}
-                    onToggleGoal={handleToggleGoal}
-                  />
-                )}
-              </motion.div>
-            </AnimatePresence>
-          )}
-        </main>
-
-        {/* ABOUT ASTROLIVE & ENTER SECTION */}
-        <section
-          id="about-astrolive"
-          ref={registerRef('about-astrolive')}
-          className={`w-full max-w-4xl mx-auto px-6 py-20 border-t border-neutral-900/80 transition-all duration-1000 transform ${
-            visibleSections['about-astrolive']
-              ? 'opacity-100 translate-y-0'
-              : 'opacity-0 translate-y-12'
-          }`}
-        >
-          {/* About Headline */}
-          <div className="text-center space-y-3 mb-14">
-            <span className="text-[11px] font-mono tracking-widest text-amber-400 uppercase font-bold bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">
-              ✦ ABOUT ASTROLIVE
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-serif text-white font-normal mt-3">
-              Real-Time Vedic Astrology & Planetary Intelligence
-            </h2>
-            <p className="text-xs sm:text-sm text-neutral-400 max-w-2xl mx-auto font-sans leading-relaxed">
-              AstroLive bridges millenia of authentic Vedic astronomical calculations with cutting-edge 3D interactive constellation timelines and real-time planetary transits.
-            </p>
-          </div>
-
-          {/* 3 Core Feature Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-14">
-            <motion.div
-              whileHover={{ scale: 1.03, y: -6 }}
-              className="p-6 rounded-2xl bg-neutral-900/40 border border-neutral-800/60 flex flex-col space-y-3 hover:border-amber-500/50 hover:shadow-[0_0_30px_rgba(245,158,11,0.2)] transition-all duration-300 cursor-pointer"
-            >
-              <Orbit className="w-6 h-6 text-amber-400" />
-              <h3 className="font-serif text-lg text-white font-bold">Vedic Kundli Engine</h3>
-              <p className="text-xs text-neutral-400 leading-relaxed font-sans">
-                Authentic Lahiri Ayanamsha mathematical calculations for planetary degrees, Dasha periods, and house placements.
-              </p>
-            </motion.div>
-
-            <motion.div
-              whileHover={{ scale: 1.03, y: -6 }}
-              className="p-6 rounded-2xl bg-neutral-900/40 border border-neutral-800/60 flex flex-col space-y-3 hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(6,182,212,0.2)] transition-all duration-300 cursor-pointer"
-            >
-              <Star className="w-6 h-6 text-cyan-400" />
-              <h3 className="font-serif text-lg text-white font-bold">3D Life Constellation</h3>
-              <p className="text-xs text-neutral-400 leading-relaxed font-sans">
-                Visualize your life journey, key memories, and milestones as interactive glowing star nodes linked in 3D space.
-              </p>
-            </motion.div>
-
-            <motion.div
-              whileHover={{ scale: 1.03, y: -6 }}
-              className="p-6 rounded-2xl bg-neutral-900/40 border border-neutral-800/60 flex flex-col space-y-3 hover:border-emerald-500/50 hover:shadow-[0_0_30px_rgba(16,185,129,0.2)] transition-all duration-300 cursor-pointer"
-            >
-              <Cpu className="w-6 h-6 text-emerald-400" />
-              <h3 className="font-serif text-lg text-white font-bold">AI Cosmic Intelligence</h3>
-              <p className="text-xs text-neutral-400 leading-relaxed font-sans">
-                Personalized daily briefs, smart astrologer verification matching, and instant consultation record keeping.
-              </p>
-            </motion.div>
-          </div>
-
-          {/* Integrated Seamless CTA Section */}
-          <div className="relative py-12 px-4 text-center flex flex-col items-center space-y-5 my-6">
-            <div className="absolute inset-0 bg-gradient-to-r from-amber-500/0 via-amber-500/10 to-amber-500/0 blur-2xl pointer-events-none -z-10" />
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs font-mono">
-              <Sparkles className="w-4 h-4 text-amber-400 animate-pulse" />
-              <span>Celestial Transits Live</span>
-            </div>
-
-            <h3 className="text-2xl sm:text-3xl md:text-4xl font-serif text-white font-normal tracking-tight">
-              Step Into Your Celestial Alignment
-            </h3>
-
-            <p className="text-xs sm:text-sm text-neutral-400 max-w-xl font-sans leading-relaxed">
-              Experience your live Kundli chart, planetary dasha transits, and interactive life journey timeline now.
-            </p>
-
-            <div className="pt-2">
-              <motion.button
-                whileHover={{ scale: 1.06 }}
-                whileTap={{ scale: 0.96 }}
-                onClick={() => navigate('/login')}
-                className="flex items-center gap-2 px-8 py-3.5 rounded-full bg-amber-500 hover:bg-amber-400 text-black font-bold text-sm shadow-xl shadow-amber-500/20 transition-all cursor-pointer"
-              >
-                <span>Enter AstroLive</span>
-                <ArrowRight className="w-4 h-4" />
-              </motion.button>
-            </div>
-          </div>
-        </section>
-
-        {/* HIGH TRUST ADVANTAGE */}
-        <section
-          id="trust-advantage"
-          ref={registerRef('trust-advantage')}
-          className={`w-full max-w-4xl mx-auto px-6 py-20 border-t border-neutral-900 transition-all duration-1000 transform ${
-            visibleSections['trust-advantage']
-              ? 'opacity-100 translate-y-0'
-              : 'opacity-0 translate-y-12'
-          }`}
-        >
-          <div className="text-center space-y-2 mb-12">
-            <span className="text-[11px] font-mono tracking-widest text-amber-400 uppercase font-bold bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">
-              ✦ HIGH TRUST PLATFORM
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-serif text-white font-normal mt-2">
-              Why AstroLive is Built Different
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-6 rounded-2xl bg-neutral-900/30 border border-neutral-800/60 flex flex-col space-y-3 hover:border-amber-500/40 hover:-translate-y-1.5 transition-all duration-300">
-              <ShieldCheck className="w-6 h-6 text-amber-400" />
-              <h4 className="text-sm font-bold text-white font-serif">Mathematical Ephemeris Accuracy</h4>
-              <p className="text-xs text-neutral-400 leading-relaxed font-sans">
-                No generic random horoscopes. AstroLive calculates exact planetary degrees using NASA JPL synced astronomical algorithms.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-neutral-900/30 border border-neutral-800/60 flex flex-col space-y-3 hover:border-cyan-500/40 hover:-translate-y-1.5 transition-all duration-300">
-              <Zap className="w-6 h-6 text-cyan-400" />
-              <h4 className="text-sm font-bold text-white font-serif">Real-Time Dasha Engine</h4>
-              <p className="text-xs text-neutral-400 leading-relaxed font-sans">
-                Track Mahadasha, Antardasha, and Paryantardasha timelines live with high-precision time scrubbing.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-neutral-900/30 border border-neutral-800/60 flex flex-col space-y-3 hover:border-emerald-500/40 hover:-translate-y-1.5 transition-all duration-300">
-              <Activity className="w-6 h-6 text-emerald-400" />
-              <h4 className="text-sm font-bold text-white font-serif">Local Privacy Control</h4>
-              <p className="text-xs text-neutral-400 leading-relaxed font-sans">
-                Your birth chart data and personal notes are stored locally and securely, giving you 100% control over your privacy.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* FREQUENTLY ASKED QUESTIONS */}
-        <section
-          id="faq-section"
-          ref={registerRef('faq-section')}
-          className={`w-full max-w-3xl mx-auto px-6 py-20 border-t border-neutral-900 transition-all duration-1000 transform ${
-            visibleSections['faq-section']
-              ? 'opacity-100 translate-y-0'
-              : 'opacity-0 translate-y-12'
-          }`}
-        >
-          <div className="text-center space-y-2 mb-10">
-            <div className="flex items-center justify-center gap-1.5 text-neutral-400">
-              <HelpCircle className="w-4 h-4 text-amber-400" />
-              <span className="text-[11px] font-mono tracking-widest text-amber-400 uppercase font-bold">
-                FREQUENTLY ASKED QUESTIONS
-              </span>
-            </div>
-            <h2 className="text-2xl font-serif text-white font-normal">
-              Everything You Need to Know
-            </h2>
-          </div>
-
-          <div className="space-y-3">
-            {FAQS.map((faq, idx) => (
-              <div
-                key={idx}
-                onClick={() => setExpandedFaq(expandedFaq === idx ? null : idx)}
-                className="p-4 rounded-xl bg-neutral-900/40 border border-neutral-800/80 cursor-pointer hover:border-neutral-700 transition-all"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-white font-sans">{faq.q}</span>
-                  <ChevronDown
-                    className={`w-4 h-4 text-neutral-400 transition-transform duration-300 ${
-                      expandedFaq === idx ? 'rotate-180 text-amber-400' : ''
-                    }`}
-                  />
-                </div>
-                {expandedFaq === idx && (
-                  <p className="text-xs text-neutral-400 mt-2.5 pt-2 border-t border-neutral-800/60 leading-relaxed font-sans">
-                    {faq.a}
-                  </p>
-                )}
+    <SmoothScroll>
+      <div className="min-h-screen bg-zinc-950 text-zinc-100 overflow-x-hidden">
+        <header className="sticky top-0 z-50 bg-zinc-950/80 backdrop-blur-md">
+          <div className="max-w-6xl mx-auto px-5 h-16 flex items-center gap-3">
+            <button type="button" onClick={() => navigate("/")} className="flex items-center gap-2.5 shrink-0">
+              <span className="font-display text-xl italic text-zinc-50">{t("brand")}</span>
+            </button>
+            <nav className="hidden lg:flex items-center gap-6 text-[13px] text-zinc-400">
+              <a href="#experts" className="link-draw">{t("experts")}</a>
+              <a href="#how" className="link-draw">{t("theLoop")}</a>
+              <button type="button" className="link-draw" onClick={() => navigate("/horoscope")}>{t("horoscope")}</button>
+              <button type="button" className="link-draw" onClick={() => navigate("/match")}>{t("matching")}</button>
+              <a href="#pricing" className="link-draw">{t("pricing")}</a>
+            </nav>
+            <div className="ml-auto flex items-center gap-2 shrink-0">
+              <div className="hidden md:flex items-center gap-1">
+                <LangToggle compact />
+                <button
+                  type="button"
+                  onClick={openMenu}
+                  aria-label="Search the site"
+                  className="p-2 rounded-full text-zinc-400 hover:text-zinc-100"
+                >
+                  <Search className="w-4 h-4" />
+                </button>
+                <ThemeToggle />
               </div>
+              {isAuthed && (
+                <Button size="sm" variant="outline" onClick={() => goApp("/app/dashboard")}>
+                  {t("openApp")}
+                </Button>
+              )}
+              {!isAuthed && (
+                <Button variant="outline" size="sm" className="hidden sm:inline-flex" onClick={() => navigate("/signup")}>
+                  {t("getStarted")}
+                </Button>
+              )}
+              <Link
+                to="/login"
+                className="inline-flex items-center justify-center h-8 px-4 text-xs font-medium rounded-full bg-zinc-100 text-zinc-950 hover:bg-white shrink-0"
+              >
+                {t("login")}
+              </Link>
+              <button
+                type="button"
+                className="md:hidden p-2 text-zinc-300"
+                aria-label="Open menu"
+                onClick={() => setMenuOpen(true)}
+              >
+                <Menu className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+        </header>
+
+        {menuOpen && (
+          <div className="fixed inset-0 z-[80] md:hidden">
+            <button type="button" className="absolute inset-0 bg-black/60" aria-label="Close menu" onClick={() => setMenuOpen(false)} />
+            <div className="absolute top-0 right-0 h-full w-[min(100%,18rem)] bg-zinc-950 p-6 flex flex-col gap-4">
+              <button type="button" className="self-end p-2" onClick={() => setMenuOpen(false)} aria-label="Close">
+                <X className="w-5 h-5" />
+              </button>
+              <div className="flex items-center gap-2">
+                <LangToggle compact />
+                <ThemeToggle />
+              </div>
+              {[
+                [t("experts"), "#experts"],
+                [t("theLoop"), "#how"],
+                [t("horoscope"), "/horoscope"],
+                [t("matching"), "/match"],
+                [t("pricing"), "#pricing"],
+              ].map(([label, href]) => (
+                href.startsWith("#") ? (
+                  <a key={href} href={href} onClick={() => setMenuOpen(false)} className="text-lg text-zinc-200">
+                    {label}
+                  </a>
+                ) : (
+                  <button
+                    key={href}
+                    type="button"
+                    className="text-lg text-zinc-200 text-left"
+                    onClick={() => {
+                      setMenuOpen(false)
+                      navigate(href)
+                    }}
+                  >
+                    {label}
+                  </button>
+                )
+              ))}
+              <Button onClick={() => { setMenuOpen(false); navigate("/login") }}>{t("login")}</Button>
+              <Button variant="outline" onClick={() => { setMenuOpen(false); navigate("/signup") }}>{t("getStarted")}</Button>
+            </div>
+          </div>
+        )}
+
+        <section className="relative min-h-[100dvh] flex items-end lg:items-center overflow-hidden">
+          <CosmicField density={72} />
+          <div className="relative max-w-6xl mx-auto px-5 pb-16 pt-10 w-full grid lg:grid-cols-12 gap-8 items-end">
+            <div className="lg:col-span-6 relative z-10">
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease }}
+                className="text-[13px] text-zinc-300 inline-flex items-center gap-2"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse-glow" />
+                {online.length} {t("onlineNow")} · {t("moonIn", { sign: sky.moonSign })} · {sky.tithi}
+              </motion.p>
+              <h1 className="mt-5 font-display text-[3.4rem] sm:text-7xl lg:text-[5.4rem] text-zinc-50 leading-[0.86] max-w-xl">
+                <KineticWords key={`n-${locale}`} text={t("namedDate")} />
+                <span className="block mt-3">
+                  <KineticWords key={`k-${locale}`} text={t("keptCard")} italic delay={0.28} className="text-zinc-200" />
+                </span>
+              </h1>
+              <motion.p
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.72, ease }}
+                className="mt-7 text-[17px] text-zinc-400 max-w-md leading-relaxed"
+              >
+                {t("heroBody")}
+              </motion.p>
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55, delay: 0.86, ease }}
+                className="mt-9 flex flex-wrap items-center gap-3"
+              >
+                <Magnetic>
+                  <Button size="lg" onClick={() => goApp("/app/consult")}>
+                    <Video className="w-4 h-4" /> {t("talkNow")}
+                  </Button>
+                </Magnetic>
+                <Magnetic>
+                  <Button size="lg" variant="outline" onClick={() => navigate("/login")}>
+                    {t("login")}
+                  </Button>
+                </Magnetic>
+                <Magnetic>
+                  <Button size="lg" variant="ghost" onClick={() => navigate("/?story=1")}>
+                    {t("playStory")}
+                  </Button>
+                </Magnetic>
+                <button type="button" className="link-draw text-sm text-zinc-400" onClick={() => navigate("/p/proof-dp2?from=ARJUN")}>
+                  {t("openCard")}
+                </button>
+              </motion.div>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 1, ease }}
+                className="mt-10 text-sm text-zinc-500"
+              >
+                {t("fromRate", { n: Math.min(...online.map((a) => a.ratePerMin)) })} · {sky.nakshatra}
+                <span className="block mt-1 text-zinc-400">{t("firstUserPerkBody")}</span>
+              </motion.p>
+            </div>
+
+            <div className="hero-orbit lg:col-span-6 relative h-[420px] sm:h-[560px]">
+              {faces[0] && (
+                <button
+                  type="button"
+                  onClick={() => goApp(`/app/room/${faces[0].id}?mode=video`)}
+                  className="absolute left-0 bottom-0 z-10 w-[58%] text-left"
+                >
+                  <RevealImage src={faces[0].imageUrl} className="aspect-[3/4] rounded-[28px]" />
+                  <span className="absolute top-4 left-4 text-[10px] uppercase tracking-[0.16em] text-emerald-200">{t("live")}</span>
+                </button>
+              )}
+              <div className="absolute right-[-6%] top-[-4%] w-[78%] h-full">
+                <NightOrbit bodies={bodies} panchang={sky} />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <TapeTicker />
+
+        <HowStory />
+
+        <section id="experts" className="py-8">
+          <div className="max-w-6xl mx-auto px-5 mb-10 flex items-end justify-between gap-6">
+            <div>
+              <p className="text-[12px] tracking-[0.18em] uppercase text-zinc-500">{online.length} {t("onlineNow")}</p>
+              <h2 className="mt-2 font-display text-5xl text-zinc-50">{t("whoIsOnNow")}</h2>
+            </div>
+            <Button variant="ghost" onClick={() => goApp("/app/consult")}>
+              {t("seeAll")}
+            </Button>
+          </div>
+          <div className="max-w-6xl mx-auto px-5 flex gap-4 overflow-x-auto no-scrollbar pb-6">
+            {online.slice(0, 7).map((a, i) => (
+              <motion.button
+                key={a.id}
+                type="button"
+                onClick={() => goApp(`/app/room/${a.id}?mode=video`)}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.04, duration: 0.45, ease }}
+                className="lift-face shrink-0 w-[200px] sm:w-[230px] text-left group"
+              >
+                <div className="relative">
+                  <RevealImage src={a.imageUrl} alt={a.name} className="w-full aspect-[3/4] rounded-[24px]" delay={i * 0.04} />
+                  <span className="absolute top-3 left-3 text-[10px] uppercase tracking-wider text-emerald-200">{t("live")}</span>
+                </div>
+                <p className="mt-3 text-[15px] text-zinc-50">{a.name}</p>
+                <p className="text-sm text-zinc-500">
+                  {a.specialty} · ₹{a.ratePerMin}/min
+                </p>
+              </motion.button>
             ))}
           </div>
         </section>
 
-        {/* FOOTER */}
-        <footer className="w-full border-t border-neutral-900 bg-black/60 py-10 px-6 font-sans">
-          <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-neutral-400 text-xs">
-            <div className="flex items-center gap-2">
-              <span className="text-amber-400 font-bold text-sm">✦</span>
-              <span className="font-serif font-bold text-white text-sm">ASTROLIVE</span>
-              <span className="text-neutral-600">•</span>
-              <span>Vedic Astrology & Planetary Transits OS</span>
-            </div>
+        <section className="max-w-6xl mx-auto px-5 py-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+          <button type="button" onClick={() => navigate("/horoscope")} className="text-left group">
+            <p className="text-[12px] uppercase tracking-[0.16em] text-zinc-500">{t("dailyRashi")}</p>
+            <p className="mt-2 font-display text-3xl text-zinc-50 group-hover:italic">{t("horoscope")}</p>
+          </button>
+          <button type="button" onClick={() => navigate("/match")} className="text-left group">
+            <p className="text-[12px] uppercase tracking-[0.16em] text-zinc-500">{t("gunaMilan")}</p>
+            <p className="mt-2 font-display text-3xl text-zinc-50 group-hover:italic">{t("matching")}</p>
+          </button>
+          <button type="button" onClick={() => navigate("/kundli")} className="text-left group">
+            <p className="text-[12px] uppercase tracking-[0.16em] text-zinc-500">{t("freeKundli")}</p>
+            <p className="mt-2 font-display text-3xl text-zinc-50 group-hover:italic">{t("freeKundli")}</p>
+          </button>
+          <button type="button" onClick={() => navigate("/panchang")} className="text-left group">
+            <p className="text-[12px] uppercase tracking-[0.16em] text-zinc-500">{t("panchang")}</p>
+            <p className="mt-2 font-display text-3xl text-zinc-50 group-hover:italic">{t("panchangHead")}</p>
+          </button>
+        </section>
 
-            <div className="flex items-center gap-6 text-neutral-400 font-mono text-[11px]">
-              <button onClick={() => navigate('/login')} className="hover:text-white transition-colors cursor-pointer">
-                Login / Signup
-              </button>
-              <button onClick={() => navigate('/app/dashboard')} className="hover:text-white transition-colors cursor-pointer">
-                Dashboard
-              </button>
-              <button onClick={() => navigate('/timeline')} className="hover:text-white transition-colors cursor-pointer">
-                3D Timeline
+        <section id="proof" ref={proofSec} className="relative py-32 overflow-hidden">
+          <CosmicField density={36} />
+          <div className="relative max-w-6xl mx-auto px-5 grid lg:grid-cols-12 gap-12 items-center">
+            <div className="lg:col-span-5">
+              <p className="text-[12px] tracking-[0.18em] uppercase text-zinc-500">{t("theDifference")}</p>
+              <h2 className="mt-3 font-display text-5xl sm:text-6xl text-zinc-50 leading-[1.02] max-w-md">
+                {t("holdPrediction")}
+              </h2>
+              <p className="mt-5 text-[15px] text-zinc-400 max-w-sm leading-relaxed">{t("proofBody")}</p>
+              <button
+                type="button"
+                className="mt-6 text-sm text-zinc-300 hover:text-white"
+                onClick={() => navigate("/p/proof-dp2?from=ARJUN")}
+              >
+                {t("openRealCard")}
               </button>
             </div>
-
-            <span className="text-neutral-600 text-[11px] font-mono">
-              © {new Date().getFullYear()} AstroLive. All rights reserved.
-            </span>
+            <motion.div style={reduce ? undefined : { y: paperY }} className="lg:col-span-7">
+              <ProofPaper
+                kicker="Came true · 16 May 2026"
+                title="A bonus from an investment will arrive."
+                body="Predicted by Dr. Sundeep Kochar, who was 94% sure. Arjun marked yes when the letter came."
+                footer="This page does not need an account. Move the paper. It tilts like stock."
+                stamp="yes"
+              />
+            </motion.div>
           </div>
+        </section>
+
+        <section id="why" className="max-w-6xl mx-auto px-5 py-28">
+          <p className="text-[12px] tracking-[0.18em] uppercase text-zinc-500">{t("whyThis")}</p>
+          <h2 className="mt-3 font-display text-5xl sm:text-6xl text-zinc-50 leading-[1.02] max-w-xl">
+            {t("whyHead")}
+          </h2>
+          <div className="mt-14 grid lg:grid-cols-12 gap-12">
+            <button type="button" onClick={() => navigate("/tape")} className="lg:col-span-6 text-left group">
+              <p className="font-display text-3xl text-zinc-50 group-hover:italic">{t("missesStay")}</p>
+              <p className="mt-3 text-[15px] text-zinc-400 leading-relaxed max-w-sm">{t("inviteBoth")}</p>
+            </button>
+            <button type="button" onClick={() => navigate("/board")} className="lg:col-span-6 text-left group">
+              <p className="font-display text-3xl text-zinc-50 group-hover:italic">{t("rankedDates")}</p>
+              <p className="mt-3 text-[15px] text-zinc-400 leading-relaxed max-w-sm">{t("boardBody")}</p>
+            </button>
+          </div>
+        </section>
+
+        <section id="pricing" className="max-w-6xl mx-auto px-5 py-24">
+          <h2 className="font-display text-5xl text-zinc-50">{t("talkReady")}</h2>
+          <div className="mt-12 grid lg:grid-cols-12 gap-10 items-start">
+            <div className="lg:col-span-7">
+              <p className="text-[12px] uppercase tracking-[0.16em] text-emerald-400">{t("firstUserPerk")}</p>
+              <p className="mt-2 font-display text-3xl text-zinc-50 leading-snug">{t("firstUserPerkBody")}</p>
+              <p className="font-display text-7xl text-zinc-50 mt-8">₹10</p>
+              <p className="mt-1 text-zinc-400">{t("payAsYouGo")}</p>
+              <p className="mt-6 text-[15px] text-zinc-400 max-w-md leading-relaxed">{t("payGoBody")}</p>
+              <p className="mt-8 text-sm text-zinc-500">
+                {t("planFree")} ₹0 · {t("planPlus")} ₹499 · {t("planFamily")} ₹999
+              </p>
+            </div>
+            <div className="lg:col-span-5 flex flex-col gap-3">
+              <Button size="lg" onClick={() => navigate("/signup")}>
+                {t("createFree")}
+              </Button>
+              <Button size="lg" variant="outline" onClick={() => navigate("/app/dashboard")}>
+                {t("tryDemo")}
+              </Button>
+              <button
+                type="button"
+                className="text-sm text-zinc-500 hover:text-zinc-200 text-left px-1"
+                onClick={() => navigate("/app/subscription")}
+              >
+                {t("seePlusFamily")}
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section id="faq" className="max-w-6xl mx-auto px-5 py-24">
+          <h2 className="font-display text-5xl text-zinc-50 mb-10">{t("faq")}</h2>
+          <FaqList items={FAQ_BY_LOCALE[locale]} />
+        </section>
+
+        <footer className="px-5 py-10 text-xs text-zinc-600 flex flex-col sm:flex-row justify-between gap-2 max-w-6xl mx-auto">
+          <p className="text-zinc-400">{t("brand")}</p>
+          <p>{t("lastUpdatedLabel", { date: LAST_UPDATED })}</p>
+          <p className="flex gap-4">
+            <Link to="/terms" className="hover:text-zinc-300">{t("terms")}</Link>
+            <Link to="/privacy" className="hover:text-zinc-300">{t("privacy")}</Link>
+            <Link to="/tape" className="hover:text-zinc-300">{t("tape")}</Link>
+            <Link to="/report" className="hover:text-zinc-300">{t("report")}</Link>
+          </p>
         </footer>
       </div>
-
-      {/* Modals */}
-      <SoundModal
-        isOpen={showSoundModal}
-        onClose={() => setShowSoundModal(false)}
-        activeSound={ambientSound}
-        onSelectSound={handleSoundChange}
-        volume={soundVolume}
-        onVolumeChange={handleVolumeChange}
-      />
-
-      <ThemeModal
-        isOpen={showThemeModal}
-        onClose={() => setShowThemeModal(false)}
-        activeTheme={activeTheme}
-        onSelectTheme={(theme) => setActiveTheme(theme)}
-      />
-
-      <ReflectionModal
-        isOpen={showReflectionModal}
-        onClose={() => setShowReflectionModal(false)}
-        activeTab={activeTab}
-        timeLabel={formatTime(displayDate, timeFormat)}
-        onSave={handleSaveReflection}
-      />
-    </div>
-  );
+    </SmoothScroll>
+  )
 }

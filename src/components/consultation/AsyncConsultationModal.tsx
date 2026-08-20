@@ -36,12 +36,12 @@ export function AsyncConsultationModal({ isOpen, onClose }: AsyncConsultationMod
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
-          className="relative w-full max-w-lg bg-surface border border-line rounded-lg p-6 sm:p-8 space-y-6 shadow-2xl overflow-hidden"
+          className="relative w-full max-w-lg bg-surface border border-line rounded-none p-6 sm:p-8 space-y-6 shadow-2xl overflow-hidden"
         >
           {/* Header */}
           <div className="flex items-center justify-between border-b border-line/60 pb-4">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-md bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+              <div className="w-8 h-8 rounded-none bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
                 <Zap className="w-4 h-4" />
               </div>
               <div>
@@ -54,7 +54,7 @@ export function AsyncConsultationModal({ isOpen, onClose }: AsyncConsultationMod
             </div>
             <button
               onClick={onClose}
-              className="p-1.5 rounded-md hover:bg-surface-2 text-ink-tertiary hover:text-ink transition-colors cursor-pointer"
+              className="p-1.5 rounded-none hover:bg-surface-2 text-ink-tertiary hover:text-ink transition-colors cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
@@ -81,7 +81,7 @@ export function AsyncConsultationModal({ isOpen, onClose }: AsyncConsultationMod
                     <div
                       key={a.id}
                       onClick={() => setSelectedAstrologer(a.id)}
-                      className={`p-2.5 rounded-md border cursor-pointer transition-all flex items-center gap-2.5 ${
+                      className={`p-2.5 rounded-none border cursor-pointer transition-all flex items-center gap-2.5 ${
                         selectedAstrologer === a.id
                           ? "border-brand bg-surface-2 text-ink shadow-xs"
                           : "border-line bg-surface/50 text-ink-tertiary hover:border-line-strong"
@@ -110,7 +110,7 @@ export function AsyncConsultationModal({ isOpen, onClose }: AsyncConsultationMod
                   value={question}
                   onChange={e => setQuestion(e.target.value)}
                   placeholder="e.g. Will my tech executive job offer materialize before August 25?"
-                  className="w-full rounded-md bg-surface-2 border border-line p-3 text-xs text-ink placeholder:text-ink-tertiary focus:outline-none focus:ring-1 focus:ring-brand font-sans"
+                  className="w-full rounded-none bg-surface-2 border border-line p-3 text-xs text-ink placeholder:text-ink-tertiary focus:outline-none focus:ring-1 focus:ring-brand font-sans"
                 />
                 
                 <div className="flex items-center justify-between pt-1">
@@ -119,7 +119,7 @@ export function AsyncConsultationModal({ isOpen, onClose }: AsyncConsultationMod
                       setIsRecording(!isRecording)
                       if (!isRecording && !question) setQuestion("Audio message recorded: 0:42 sec preview")
                     }}
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono border transition-colors ${
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-none text-xs font-mono border transition-colors ${
                       isRecording ? "border-danger bg-danger-light text-danger" : "border-line bg-surface-2 text-ink-secondary hover:text-ink"
                     }`}
                   >
@@ -134,12 +134,12 @@ export function AsyncConsultationModal({ isOpen, onClose }: AsyncConsultationMod
               </div>
 
               {/* Price & Submit */}
-              <div className="p-4 rounded-md bg-surface-2/60 border border-line flex items-center justify-between font-mono">
+              <div className="p-4 rounded-none bg-surface-2/60 border border-line flex items-center justify-between font-mono">
                 <div>
                   <span className="text-[10px] text-ink-tertiary block uppercase">Async Pricing</span>
                   <span className="text-lg font-bold text-ink">₹49 <span className="text-xs font-normal text-ink-tertiary">flat rate</span></span>
                 </div>
-                <Button size="sm" className="rounded-md font-mono font-bold gap-2" onClick={handleSubmit} disabled={!question.trim()}>
+                <Button size="sm" className="rounded-none font-mono font-bold gap-2" onClick={handleSubmit} disabled={!question.trim()}>
                   <Send className="w-3.5 h-3.5" /> Pay ₹49 & Send Question
                 </Button>
               </div>

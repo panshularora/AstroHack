@@ -46,7 +46,7 @@ export function DemoStorySection() {
               transition={{ delay: i * 0.1 }}
               className="flex gap-6 py-8 border-b border-ivory-border last:border-b-0"
             >
-              <div className="w-12 h-12 rounded-md bg-brand-light border border-brand/20 flex items-center justify-center shrink-0">
+              <div className="w-12 h-12 rounded-none bg-brand-light border border-brand/20 flex items-center justify-center shrink-0">
                 <s.icon className="w-5 h-5 text-brand" />
               </div>
               <div>

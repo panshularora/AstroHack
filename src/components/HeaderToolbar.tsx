@@ -91,7 +91,7 @@ export const HeaderToolbar: React.FC<HeaderToolbarProps> = ({
           className="flex items-center gap-1 text-xs font-sans-clean text-neutral-400 hover:text-white bg-neutral-900/60 hover:bg-neutral-800/80 px-2.5 py-1.5 rounded-full border border-neutral-800/80 transition-all cursor-pointer"
           title="Toggle Pure Minimal View"
         >
-          <Sparkles className="w-3.5 h-3.5 text-amber-400/80" />
+          <Sparkles className="w-3.5 h-3.5 text-zinc-300/80" />
           <span className="hidden sm:inline">Zen View</span>
         </button>
       </div>

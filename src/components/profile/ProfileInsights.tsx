@@ -12,7 +12,7 @@ export function ProfileInsights() {
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
-        <div className="bg-brand-light border border-brand/20 rounded-lg p-6 md:p-8 hover:bg-brand/20 transition-colors shadow-inner">
+        <div className="bg-brand-light border border-brand/20 rounded-none p-6 md:p-8 hover:bg-brand/20 transition-colors shadow-inner">
           <TrendingUp className="w-8 h-8 text-brand mb-6" />
           <h4 className="text-lg font-bold text-white mb-3">Exceptional Career Guidance</h4>
           <p className="text-[#9CA3AF] text-sm leading-relaxed">
@@ -20,7 +20,7 @@ export function ProfileInsights() {
           </p>
         </div>
 
-        <div className="bg-gold/10 border border-gold/20 rounded-lg p-6 md:p-8 hover:bg-gold/20 transition-colors shadow-inner">
+        <div className="bg-gold/10 border border-gold/20 rounded-none p-6 md:p-8 hover:bg-gold/20 transition-colors shadow-inner">
           <Users className="w-8 h-8 text-gold mb-6" />
           <h4 className="text-lg font-bold text-white mb-3">High Retention Rate</h4>
           <p className="text-[#9CA3AF] text-sm leading-relaxed">

@@ -1,16 +1,21 @@
 import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { useNavigate, Link } from "react-router-dom"
-import { Eye, EyeOff, Mail, Lock, Zap, ArrowRight, Loader2 } from "lucide-react"
+import { motion } from "framer-motion"
+import { useNavigate, Link, useSearchParams } from "react-router-dom"
+import { Eye, EyeOff, Mail, Lock, ArrowRight, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { useUser } from "@/context/UserContext"
+import { FormError } from "@/components/ui/FormStatus"
+import { useI18n } from "@/lib/i18n"
 
 export function LoginPage() {
   const navigate = useNavigate()
-  const { loginUser, resetToDemo } = useUser()
+  const [params] = useSearchParams()
+  const { loginUser } = useUser()
+  const { t } = useI18n()
+  const afterLogin = params.get("next") || "/app/dashboard"
 
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState("arjun.sharma@example.com")
+  const [password, setPassword] = useState("cosmic2026")
   const [showPw, setShowPw] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
@@ -21,31 +26,32 @@ export function LoginPage() {
     setError("")
 
     if (!email || !password) {
-      setError("Please enter your email and password.")
+      setError(t("fillEmailPw"))
       return
     }
 
     setLoading(true)
-    await new Promise(r => setTimeout(r, 600))
+    await new Promise((r) => setTimeout(r, 600))
 
-    const success = loginUser(email, password)
+    const success = await loginUser(email, password)
     setLoading(false)
 
     if (success) {
-      navigate("/app/dashboard")
+      navigate(afterLogin.startsWith("/") ? afterLogin : "/app/dashboard")
     } else {
-      setError("Account not found or password incorrect. Please check your credentials or create a new account.")
+      setError(t("badLogin"))
     }
   }
 
-  const handleDemo = () => {
+  const handleDemo = async () => {
     setEmail("arjun.sharma@example.com")
     setPassword("cosmic2026")
     setDemoHint(true)
-    resetToDemo()
-    setTimeout(() => {
-      navigate("/app/dashboard")
-    }, 500)
+    setLoading(true)
+    const ok = await loginUser("arjun.sharma@example.com", "cosmic2026")
+    setLoading(false)
+    if (ok) navigate(afterLogin.startsWith("/") ? afterLogin : "/app/dashboard")
+    else setError(t("demoNeedsApi"))
   }
 
   return (
@@ -57,96 +63,92 @@ export function LoginPage() {
       transition={{ duration: 0.3 }}
       className="font-sans"
     >
-      <div className="mb-6">
-        <h2 className="text-2xl font-bold font-display tracking-tight text-ink mb-1">Welcome back</h2>
-        <p className="text-xs text-ink-secondary">Sign in to access your personal Kundli and transits.</p>
+      <div className="mb-8">
+        <h2 className="font-display text-4xl text-zinc-50 leading-tight">{t("welcomeBack")}</h2>
+        <p className="text-sm text-zinc-400 mt-2">{t("signInToSee")}</p>
       </div>
 
-      {/* Demo Account Button */}
       <button
         type="button"
         onClick={handleDemo}
         disabled={loading}
-        className="w-full mb-5 flex items-center gap-3 bg-surface-2 border border-brand/30 hover:border-brand rounded-md p-3.5 text-left group transition-all cursor-pointer"
+        className="w-full mb-5 flex items-center gap-3 hover:bg-zinc-900/60 rounded-full p-3.5 text-left group transition-colors duration-200 cursor-pointer"
       >
-        <div className="w-8 h-8 rounded-md bg-brand-light border border-brand/20 flex items-center justify-center shrink-0">
-          <Zap className="w-4 h-4 text-brand" />
+        <div className="w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center shrink-0">
+          <span className="text-[11px] font-medium">Demo</span>
         </div>
         <div className="flex-1">
-          <p className="font-bold text-ink text-xs font-mono">Explore Arjun's Demo Field</p>
-          <p className="text-[11px] text-ink-secondary">Instant demo account access with sample predictions</p>
+          <p className="text-sm text-zinc-100">{t("tryDemoAs")}</p>
+          <p className="text-[11px] text-ink-secondary">{t("sampleChats")}</p>
         </div>
         <ArrowRight className="w-4 h-4 text-brand group-hover:translate-x-1 transition-transform" />
       </button>
 
       <div className="flex items-center gap-3 mb-5">
         <div className="flex-1 h-px bg-line" />
-        <span className="text-xs font-mono text-ink-secondary uppercase tracking-wider">or sign in with email</span>
+        <span className="text-xs text-zinc-500">{t("orEmail")}</span>
         <div className="flex-1 h-px bg-line" />
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Email */}
         <div>
-          <label className="block text-xs font-mono font-medium text-ink-secondary mb-1.5">Email address</label>
+          <label className="block text-sm text-zinc-400 mb-1.5">{t("email")}</label>
           <div className="relative">
             <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-ink-tertiary" />
             <input
               type="email"
               value={email}
-              onChange={e => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
-              className="w-full h-10 bg-surface-2 border border-line rounded-md pl-9 pr-3.5 text-xs text-ink placeholder:text-ink-tertiary focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand font-sans"
+              className="w-full h-11 bg-white/[0.04] border border-white/10 rounded-full pl-9 pr-3.5 text-sm text-zinc-100 placeholder:text-zinc-600 focus-visible:outline-none focus-visible:border-zinc-400 font-sans"
             />
           </div>
         </div>
 
-        {/* Password */}
         <div>
           <div className="flex justify-between mb-1.5">
-            <label className="text-xs font-mono font-medium text-ink-secondary">Password</label>
-            <Link to="/forgot-password" className="text-xs text-gold-bright hover:underline font-mono">Forgot password?</Link>
+            <label className="text-sm text-zinc-400">{t("password")}</label>
+            <Link to="/forgot-password" className="text-xs text-zinc-400 hover:text-zinc-100">
+              {t("forgot")}
+            </Link>
           </div>
           <div className="relative">
             <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-ink-tertiary" />
             <input
               type={showPw ? "text" : "password"}
               value={password}
-              onChange={e => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
-              className="w-full h-10 bg-surface-2 border border-line rounded-md pl-9 pr-9 text-xs text-ink placeholder:text-ink-tertiary focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand font-sans"
+              className="w-full h-11 bg-white/[0.04] border border-white/10 rounded-full pl-9 pr-9 text-sm text-zinc-100 placeholder:text-zinc-600 focus-visible:outline-none focus-visible:border-zinc-400 font-sans"
+              aria-invalid={Boolean(error)}
             />
-            <button type="button" onClick={() => setShowPw(!showPw)} className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-tertiary hover:text-ink cursor-pointer">
+            <button
+              type="button"
+              onClick={() => setShowPw(!showPw)}
+              aria-label={showPw ? t("hidePassword") : t("showPassword")}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-tertiary hover:text-ink cursor-pointer"
+            >
               {showPw ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
             </button>
           </div>
         </div>
 
-        <AnimatePresence>
-          {error && (
-            <motion.p initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="text-xs text-danger font-mono leading-relaxed">
-              {error}
-            </motion.p>
-          )}
-          {demoHint && (
-            <motion.p initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} className="text-xs text-gold-bright font-mono flex items-center gap-2">
-              <Zap className="w-3.5 h-3.5 text-amber-400 animate-pulse" /> Loading demo account...
-            </motion.p>
-          )}
-        </AnimatePresence>
+        <FormError message={error} />
+        {demoHint && <p className="text-xs text-zinc-400 flex items-center gap-2">{t("loadingDemo")}</p>}
 
-        <Button type="submit" disabled={loading} className="w-full rounded-md cursor-pointer" size="md">
-          {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Sign In"}
+        <Button type="submit" disabled={loading} className="w-full cursor-pointer" size="md">
+          {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : t("signIn")}
         </Button>
       </form>
 
       <div className="mt-6 pt-4 border-t border-line/60 text-center">
         <p className="text-xs text-ink-secondary">
-          Don't have an account?{" "}
-          <Link to="/signup" className="text-gold-bright font-bold hover:underline ml-1">
-            Create one free
+          {t("noAccount")}{" "}
+          <Link to="/signup" className="text-zinc-100 hover:underline ml-1">
+            {t("createOneFree")}
           </Link>
         </p>
+        <p className="text-[11px] text-zinc-500 mt-3">{t("welcomeOnSignup")}</p>
       </div>
     </motion.div>
   )

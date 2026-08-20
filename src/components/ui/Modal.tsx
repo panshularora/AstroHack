@@ -37,14 +37,14 @@ export function Modal({ open, onClose, children, className, showClose = true }: 
             exit={{ opacity: 0, scale: 0.96, y: 12 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             className={cn(
-              "relative z-10 w-full max-w-lg rounded-lg border border-line bg-surface shadow-2xl",
+              "relative z-10 w-full max-w-lg bg-zinc-900",
               className
             )}
           >
             {showClose && (
               <button
                 onClick={onClose}
-                className="absolute right-4 top-4 w-8 h-8 rounded-lg flex items-center justify-center text-ink-tertiary hover:text-ink hover:bg-surface-2 transition-all duration-200"
+                className="absolute right-4 top-4 w-8 h-8 rounded-none flex items-center justify-center text-ink-tertiary hover:text-ink hover:bg-surface-2 transition-all duration-200"
               >
                 <X className="w-4 h-4" />
               </button>

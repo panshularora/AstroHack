@@ -8,7 +8,7 @@ export function MemoryViewer() {
   ]
 
   return (
-    <div className="bg-surface border border-line rounded-lg p-6 md:p-8 h-full">
+    <div className="bg-surface border border-line rounded-none p-6 md:p-8 h-full">
       <div className="flex items-center gap-2 mb-6">
         <Brain className="w-5 h-5 text-secondary" />
         <h3 className="text-lg font-bold text-white">Active Working Memory</h3>
@@ -19,10 +19,10 @@ export function MemoryViewer() {
 
       <div className="space-y-3">
         {memories.map(mem => (
-          <div key={mem.id} className="p-4 rounded-lg bg-surface-2 border border-line hover:border-line-strong transition-colors group">
+          <div key={mem.id} className="p-4 rounded-none bg-surface-2 border border-line hover:border-line-strong transition-colors group">
             <div className="flex justify-between items-start mb-2">
               <div className="flex items-center gap-2">
-                <div className="p-1.5 rounded-lg bg-black/50 border border-line-subtle shadow-inner">
+                <div className="p-1.5 rounded-none bg-black/50 border border-line-subtle shadow-inner">
                   {mem.icon}
                 </div>
                 <h4 className="text-sm font-bold text-white">{mem.title}</h4>

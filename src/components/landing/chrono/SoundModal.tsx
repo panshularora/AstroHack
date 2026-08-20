@@ -32,7 +32,7 @@ export const SoundModal: React.FC<SoundModalProps> = ({
       id: 'tick',
       name: 'Soft Tick',
       desc: 'Gentle mechanical clock cadence',
-      icon: <Disc className="w-5 h-5 text-amber-400" />,
+      icon: <Disc className="w-5 h-5 text-zinc-300" />,
     },
     {
       id: 'rain',
@@ -50,21 +50,21 @@ export const SoundModal: React.FC<SoundModalProps> = ({
       id: 'brown',
       name: 'Warm Brown Noise',
       desc: 'Deep soothing background masking',
-      icon: <Waves className="w-5 h-5 text-amber-500" />,
+      icon: <Waves className="w-5 h-5 text-zinc-100" />,
     },
   ];
 
   return (
     <div className="fixed inset-0 z-[9999] w-screen h-screen flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fadeIn select-none font-sans">
-      <div className="w-full max-w-md bg-[#090A0F] border border-white/10 rounded-2xl p-6 shadow-2xl flex flex-col space-y-5 text-neutral-200">
+      <div className="w-full max-w-md bg-[#090A0F] border border-white/10 rounded-none p-6 shadow-2xl flex flex-col space-y-5 text-neutral-200">
         <div className="flex items-center justify-between border-b border-white/10 pb-3">
           <div className="flex items-center gap-2">
-            <Volume2 className="w-5 h-5 text-amber-400" />
+            <Volume2 className="w-5 h-5 text-zinc-300" />
             <h3 className="font-display text-lg text-white font-bold">Ambient Soundscape</h3>
           </div>
           <button
             onClick={onClose}
-            className="p-1 rounded-xl text-neutral-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+            className="p-1 rounded-none text-neutral-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -82,7 +82,7 @@ export const SoundModal: React.FC<SoundModalProps> = ({
             step="0.05"
             value={volume}
             onChange={(e) => onVolumeChange(parseFloat(e.target.value))}
-            className="w-full h-1.5 bg-neutral-800 rounded-lg appearance-none cursor-pointer accent-amber-400"
+            className="w-full h-1.5 bg-neutral-800 rounded-none appearance-none cursor-pointer accent-amber-400"
           />
         </div>
 
@@ -93,14 +93,14 @@ export const SoundModal: React.FC<SoundModalProps> = ({
               <button
                 key={sound.id}
                 onClick={() => onSelectSound(sound.id)}
-                className={`w-full flex items-center justify-between p-3.5 rounded-xl border transition-all text-left cursor-pointer ${
+                className={`w-full flex items-center justify-between p-3.5 rounded-none border transition-all text-left cursor-pointer ${
                   isSelected
-                    ? 'bg-amber-500/10 border-amber-500/40 text-white shadow-[0_0_12px_rgba(245,158,11,0.2)]'
+                    ? 'bg-zinc-100/5 border-zinc-700 text-white shadow-[0_0_12px_rgba(245,158,11,0.2)]'
                     : 'bg-white/5 border-white/10 text-neutral-400 hover:bg-white/10 hover:text-neutral-200'
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-xl bg-black border border-white/10">
+                  <div className="p-2 rounded-none bg-black border border-white/10">
                     {sound.icon}
                   </div>
                   <div className="flex flex-col">
@@ -109,7 +109,7 @@ export const SoundModal: React.FC<SoundModalProps> = ({
                   </div>
                 </div>
                 {isSelected && (
-                  <span className="w-2 h-2 rounded-full bg-amber-400 shadow-[0_0_8px_rgba(245,158,11,0.8)]" />
+                  <span className="w-2 h-2 rounded-full bg-zinc-200 shadow-[0_0_8px_rgba(245,158,11,0.8)]" />
                 )}
               </button>
             );
@@ -118,7 +118,7 @@ export const SoundModal: React.FC<SoundModalProps> = ({
 
         <button
           onClick={onClose}
-          className="w-full py-2.5 bg-amber-500 text-black font-bold hover:bg-amber-400 rounded-xl font-mono text-xs transition-colors cursor-pointer"
+          className="w-full py-2.5 bg-zinc-100 text-black font-bold hover:bg-zinc-200 rounded-none font-mono text-xs transition-colors cursor-pointer"
         >
           Done
         </button>

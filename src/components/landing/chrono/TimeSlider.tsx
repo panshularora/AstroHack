@@ -83,7 +83,7 @@ export const TimeSlider: React.FC<TimeSliderProps> = ({
         <div className="w-full h-[1.5px] bg-neutral-800/80 relative overflow-visible">
           {/* Pure Plain Gold Progress Line */}
           <div
-            className={`absolute top-0 left-0 h-[2px] -top-[0.25px] bg-amber-400 shadow-[0_0_12px_rgba(245,158,11,0.8)] ${
+            className={`absolute top-0 left-0 h-[2px] -top-[0.25px] bg-zinc-200 shadow-[0_0_12px_rgba(245,158,11,0.8)] ${
               isDragging ? 'transition-none' : 'transition-all duration-700 ease-in-out'
             }`}
             style={{ width: `${progress}%` }}
@@ -94,9 +94,9 @@ export const TimeSlider: React.FC<TimeSliderProps> = ({
       {!isLive && (
         <button
           onClick={onResetToLive}
-          className="mt-2 text-xs font-mono text-amber-400 hover:text-amber-300 transition-all duration-300 flex items-center gap-1.5 cursor-pointer bg-amber-500/10 hover:bg-amber-500/20 px-3.5 py-1.5 rounded-full border border-amber-500/30 animate-pulse shadow-md"
+          className="mt-2 text-xs font-mono text-zinc-300 hover:text-zinc-200 transition-all duration-300 flex items-center gap-1.5 cursor-pointer bg-zinc-100/5 hover:bg-zinc-100/10 px-3.5 py-1.5 rounded-full border border-zinc-700 animate-pulse shadow-md"
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
+          <span className="w-1.5 h-1.5 rounded-full bg-zinc-200 animate-ping" />
           <span>Reset to Live Time</span>
         </button>
       )}

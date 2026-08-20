@@ -11,7 +11,7 @@ export function DeepReviews() {
 
       <div className="grid md:grid-cols-2 gap-6">
         {mockDeepReviews.map(review => (
-          <div key={review.id} className="bg-surface border border-line rounded-lg p-6 md:p-8 hover:border-line-strong transition-colors relative">
+          <div key={review.id} className="bg-surface border border-line rounded-none p-6 md:p-8 hover:border-line-strong transition-colors relative">
             <Quote className="absolute top-6 right-6 w-8 h-8 text-white/5" />
             
             <div className="flex justify-between items-start mb-6">
@@ -24,7 +24,7 @@ export function DeepReviews() {
               </div>
               <div className="flex flex-col items-end gap-2">
                 {review.badges.map(badge => (
-                  <span key={badge} className="px-2 py-1 bg-brand-light border border-brand/20 text-brand text-[10px] font-bold uppercase tracking-wider rounded-md flex items-center gap-1.5">
+                  <span key={badge} className="px-2 py-1 bg-brand-light border border-brand/20 text-brand text-[10px] font-bold uppercase tracking-wider rounded-none flex items-center gap-1.5">
                     <ShieldCheck className="w-3.5 h-3.5" /> {badge}
                   </span>
                 ))}
@@ -42,7 +42,7 @@ export function DeepReviews() {
                 <p className="text-sm text-white/90 leading-relaxed">"{review.experience}"</p>
               </div>
 
-              <div className="bg-green-400/5 border border-green-400/10 rounded-lg p-4">
+              <div className="bg-green-400/5 border border-green-400/10 rounded-none p-4">
                 <span className="text-[10px] text-green-400 uppercase font-bold tracking-wider mb-2 block">Verified Outcome</span>
                 <p className="text-sm text-white leading-relaxed font-medium">"{review.outcome}"</p>
               </div>

@@ -16,20 +16,20 @@ interface TabsProps {
 
 export function Tabs({ items, value, onChange, className, layoutId = "tabs" }: TabsProps) {
   return (
-    <div className={cn("inline-flex items-center gap-0.5 rounded-lg bg-surface-2 p-1 border border-line shadow-xs", className)}>
+    <div className={cn("inline-flex items-center gap-0.5 rounded-none bg-surface-2 p-1 border border-line shadow-xs", className)}>
       {items.map(item => (
         <button
           key={item.value}
           onClick={() => onChange(item.value)}
           className={cn(
-            "relative px-3 py-1.5 text-[13px] font-medium rounded-md transition-colors duration-200",
+            "relative px-3 py-1.5 text-[13px] font-medium rounded-none transition-colors duration-200",
             value === item.value ? "text-ink" : "text-ink-tertiary hover:text-ink-secondary"
           )}
         >
           {value === item.value && (
             <motion.div
               layoutId={layoutId}
-              className="absolute inset-0 bg-surface rounded-md shadow-sm"
+              className="absolute inset-0 bg-surface rounded-none shadow-sm"
               transition={{ type: "spring", bounce: 0.15, duration: 0.4 }}
             />
           )}

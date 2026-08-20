@@ -3,7 +3,7 @@ import { Activity } from 'lucide-react'
 
 export function EmotionalTrendsChart({ data }: { data: any[] }) {
   return (
-    <div className="bg-surface border border-line rounded-lg p-6 h-full flex flex-col shadow-xl">
+    <div className="bg-surface border border-line rounded-none p-6 h-full flex flex-col shadow-xl">
       <div className="flex items-center gap-2 mb-6">
         <Activity className="w-5 h-5 text-blue-400" />
         <h3 className="text-lg font-bold text-white">Emotional Resonance</h3>

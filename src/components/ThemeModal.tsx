@@ -20,10 +20,10 @@ export const ThemeModal: React.FC<ThemeModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-fadeIn select-none">
-      <div className="w-full max-w-md bg-[#181818] border border-neutral-800 rounded-3xl p-6 shadow-2xl flex flex-col space-y-5 text-neutral-200">
+      <div className="w-full max-w-md bg-[#181818] border border-neutral-800 rounded-none p-6 shadow-2xl flex flex-col space-y-5 text-neutral-200">
         <div className="flex items-center justify-between border-b border-neutral-800/80 pb-3">
           <div className="flex items-center gap-2">
-            <Palette className="w-5 h-5 text-amber-400" />
+            <Palette className="w-5 h-5 text-zinc-300" />
             <h3 className="font-serif-display text-lg text-white font-medium">Aesthetic Theme</h3>
           </div>
           <button
@@ -41,7 +41,7 @@ export const ThemeModal: React.FC<ThemeModalProps> = ({
               <button
                 key={theme.id}
                 onClick={() => onSelectTheme(theme.id)}
-                className={`w-full flex items-center justify-between p-3.5 rounded-2xl border transition-all text-left cursor-pointer ${
+                className={`w-full flex items-center justify-between p-3.5 rounded-none border transition-all text-left cursor-pointer ${
                   isSelected
                     ? 'bg-neutral-800/80 border-neutral-600 text-white shadow-[0_0_12px_rgba(255,255,255,0.1)]'
                     : 'bg-neutral-900/60 border-neutral-800/80 text-neutral-400 hover:bg-neutral-800/40 hover:text-neutral-200'
@@ -61,7 +61,7 @@ export const ThemeModal: React.FC<ThemeModalProps> = ({
 
         <button
           onClick={onClose}
-          className="w-full py-2.5 bg-white text-neutral-900 hover:bg-neutral-200 rounded-xl font-sans-clean font-medium text-sm transition-colors cursor-pointer"
+          className="w-full py-2.5 bg-white text-neutral-900 hover:bg-neutral-200 rounded-none font-sans-clean font-medium text-sm transition-colors cursor-pointer"
         >
           Apply Theme
         </button>

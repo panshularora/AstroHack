@@ -33,7 +33,7 @@ export function FirstBriefStep({ onNext, data }: { onNext: () => void, data: Onb
           </div>
 
           <div className="space-y-4">
-            <div className="p-4 bg-white/5 border border-line-subtle rounded-lg">
+            <div className="p-4 bg-white/5 border border-line-subtle rounded-none">
               <div className="flex items-center gap-2 text-brand font-bold text-sm mb-2">
                 <Sparkles className="w-4 h-4" /> Today's Focus
               </div>
@@ -43,13 +43,13 @@ export function FirstBriefStep({ onNext, data }: { onNext: () => void, data: Onb
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              <div className="p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
+              <div className="p-4 bg-green-500/10 border border-green-500/20 rounded-none">
                 <div className="flex items-center gap-2 text-green-400 font-bold text-xs mb-1 uppercase tracking-wider">
                   <Target className="w-3 h-3" /> Opportunity
                 </div>
                 <p className="text-sm text-white font-medium">Clear communication around 2 PM.</p>
               </div>
-              <div className="p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
+              <div className="p-4 bg-blue-500/10 border border-blue-500/20 rounded-none">
                 <div className="flex items-center gap-2 text-blue-400 font-bold text-xs mb-1 uppercase tracking-wider">
                   <AlertCircle className="w-3 h-3" /> Reminder
                 </div>

@@ -6,7 +6,7 @@ export function CompanionHeader() {
     <div className="flex items-center justify-between gap-6 mb-8 pb-6 border-b border-line/60">
       <div className="flex items-center gap-3.5">
         <div className="relative shrink-0">
-          <div className="w-10 h-10 rounded-md bg-surface-2 border border-brand/30 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-none bg-surface-2 border border-brand/30 flex items-center justify-center">
             <Sparkles className="w-5 h-5 text-brand" />
           </div>
           <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-success border-2 border-canvas" />
@@ -19,7 +19,7 @@ export function CompanionHeader() {
         </div>
       </div>
 
-      <div className="flex items-center gap-6 bg-surface-2 border border-line rounded-lg px-5 py-3 shrink-0 font-mono">
+      <div className="flex items-center gap-6 bg-surface-2 border border-line rounded-none px-5 py-3 shrink-0 font-mono">
         <div>
           <p className="text-[9px] text-ink-tertiary uppercase tracking-[0.12em] mb-0.5">Cosmic Streak</p>
           <p className="text-sm font-bold text-ink">{mockDailyCheckIn.streak} Days</p>

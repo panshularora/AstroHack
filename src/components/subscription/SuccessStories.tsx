@@ -11,7 +11,7 @@ export function SuccessStories() {
 
       <div className="grid md:grid-cols-2 gap-8">
         {mockSuccessStories.map(story => (
-          <div key={story.id} className="bg-surface-2 border border-line rounded-lg p-8 relative hover:bg-surface-3 transition-colors">
+          <div key={story.id} className="bg-surface-2 border border-line rounded-none p-8 relative hover:bg-surface-3 transition-colors">
             <Quote className="absolute top-8 right-8 w-8 h-8 text-white/10" />
             <div className="flex items-center gap-4 mb-6">
               <div className="w-12 h-12 rounded-full bg-gradient-to-br from-brand to-blue-500 flex items-center justify-center text-white font-bold text-lg shadow-inner">

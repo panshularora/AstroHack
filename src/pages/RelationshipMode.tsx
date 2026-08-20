@@ -62,7 +62,7 @@ export function RelationshipMode() {
         <div className="border-b border-line/60 pb-6 flex items-start justify-between">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <div className="w-8 h-8 rounded-md bg-surface-2 border border-brand/30 flex items-center justify-center text-brand">
+              <div className="w-8 h-8 rounded-none bg-surface-2 border border-brand/30 flex items-center justify-center text-brand">
                 <Heart className="w-4 h-4 text-brand" />
               </div>
               <p className="text-xs font-mono font-bold uppercase tracking-widest text-brand">Kundli Matching & Synastry</p>
@@ -71,31 +71,31 @@ export function RelationshipMode() {
             <p className="text-sm text-ink-secondary mt-1">36-Guna Ashtakoota analysis for marriage and partnership compatibility.</p>
           </div>
           {!partnerAdded && (
-            <Button variant="outline" size="sm" className="rounded-md font-mono shrink-0" onClick={() => document.getElementById('partner-name')?.focus()}>
+            <Button variant="outline" size="sm" className="rounded-none font-mono shrink-0" onClick={() => document.getElementById('partner-name')?.focus()}>
               <Plus className="w-4 h-4" /> Add Partner Kundli
             </Button>
           )}
         </div>
 
         {!partnerAdded ? (
-          <div className="p-6 rounded-lg bg-surface border border-line space-y-4">
+          <div className="p-6 rounded-none bg-surface border border-line space-y-4">
             <h3 className="text-body font-bold text-ink">Enter Partner Details</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1">
                 <label className="text-xs font-bold text-ink-secondary">Partner Name</label>
-                <input id="partner-name" type="text" className="w-full bg-surface-2 border border-line rounded-md px-3 py-2 text-sm text-ink outline-none focus:border-brand transition-colors" value={partnerName} onChange={e => setPartnerName(e.target.value)} placeholder="e.g. Meera Verma" />
+                <input id="partner-name" type="text" className="w-full bg-surface-2 border border-line rounded-none px-3 py-2 text-sm text-ink outline-none focus:border-brand transition-colors" value={partnerName} onChange={e => setPartnerName(e.target.value)} placeholder="e.g. Meera Verma" />
               </div>
               <div className="space-y-1">
                 <label className="text-xs font-bold text-ink-secondary">Date of Birth</label>
-                <input type="date" className="w-full bg-surface-2 border border-line rounded-md px-3 py-2 text-sm text-ink outline-none focus:border-brand transition-colors" value={dob} onChange={e => setDob(e.target.value)} />
+                <input type="date" className="w-full bg-surface-2 border border-line rounded-none px-3 py-2 text-sm text-ink outline-none focus:border-brand transition-colors" value={dob} onChange={e => setDob(e.target.value)} />
               </div>
               <div className="space-y-1">
                 <label className="text-xs font-bold text-ink-secondary">Time of Birth</label>
-                <input type="time" className="w-full bg-surface-2 border border-line rounded-md px-3 py-2 text-sm text-ink outline-none focus:border-brand transition-colors" value={tob} onChange={e => setTob(e.target.value)} />
+                <input type="time" className="w-full bg-surface-2 border border-line rounded-none px-3 py-2 text-sm text-ink outline-none focus:border-brand transition-colors" value={tob} onChange={e => setTob(e.target.value)} />
               </div>
               <div className="space-y-1">
                 <label className="text-xs font-bold text-ink-secondary">Place of Birth</label>
-                <input type="text" className="w-full bg-surface-2 border border-line rounded-md px-3 py-2 text-sm text-ink outline-none focus:border-brand transition-colors" value={pob} onChange={e => setPob(e.target.value)} placeholder="e.g. New Delhi, India" />
+                <input type="text" className="w-full bg-surface-2 border border-line rounded-none px-3 py-2 text-sm text-ink outline-none focus:border-brand transition-colors" value={pob} onChange={e => setPob(e.target.value)} placeholder="e.g. New Delhi, India" />
               </div>
             </div>
             <Button onClick={handleCalculate} disabled={!partnerName} className="mt-4 w-full sm:w-auto">
@@ -105,7 +105,7 @@ export function RelationshipMode() {
         ) : (
           <>
             {/* Ashtakoota Breakdown */}
-            <div className="p-6 rounded-lg bg-surface border border-line space-y-6">
+            <div className="p-6 rounded-none bg-surface border border-line space-y-6">
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-line/60 pb-6">
                 <div>
                   <h3 className="text-h2 font-display text-ink">31 / 36 Gunas</h3>
@@ -116,7 +116,7 @@ export function RelationshipMode() {
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                 {ashtakoota.map(item => (
-                  <div key={item.name} className="p-3 rounded-md border border-line/60 bg-surface-2/30 flex items-start justify-between gap-3">
+                  <div key={item.name} className="p-3 rounded-none border border-line/60 bg-surface-2/30 flex items-start justify-between gap-3">
                     <div className="flex items-start gap-2.5">
                       <div className={`w-2 h-2 rounded-full mt-1.5 shrink-0 ${item.status === 'green' ? 'bg-[#10b981]' : item.status === 'amber' ? 'bg-[#f59e0b]' : 'bg-[#ef4444]'}`} />
                       <div>
@@ -135,11 +135,11 @@ export function RelationshipMode() {
               <h3 className="text-body font-bold text-ink">Auspicious Marriage Windows</h3>
               <p className="text-sm text-ink-secondary">Venus & Jupiter conjunct in 7th house — highly auspicious for Vivaha Muhurta.</p>
               <div className="grid sm:grid-cols-2 gap-3">
-                <div className="p-4 rounded-md border border-brand/30 bg-surface flex items-center justify-between gap-4">
+                <div className="p-4 rounded-none border border-brand/30 bg-surface flex items-center justify-between gap-4">
                   <Badge variant="gold" className="font-mono">Oct 15–Nov 5, 2026</Badge>
                   <Star className="w-4 h-4 text-brand opacity-60" />
                 </div>
-                <div className="p-4 rounded-md border border-brand/30 bg-surface flex items-center justify-between gap-4">
+                <div className="p-4 rounded-none border border-brand/30 bg-surface flex items-center justify-between gap-4">
                   <Badge variant="gold" className="font-mono">Feb 12–Mar 8, 2027</Badge>
                   <Star className="w-4 h-4 text-brand opacity-60" />
                 </div>
@@ -147,9 +147,9 @@ export function RelationshipMode() {
             </div>
 
             {/* Download PDF Report */}
-            <div className="p-6 rounded-lg bg-surface border border-line flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="p-6 rounded-none bg-surface border border-line flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-md bg-surface-2 border border-line flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-none bg-surface-2 border border-line flex items-center justify-center shrink-0">
                   <FileText className="w-5 h-5 text-ink-secondary" />
                 </div>
                 <div>
@@ -168,9 +168,9 @@ export function RelationshipMode() {
               <div className="space-y-3 font-sans">
                 {milestones.map((m, i) => (
                   <motion.div key={i} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
-                    <div className="p-4 rounded-lg bg-surface border border-line flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div className="p-4 rounded-none bg-surface border border-line flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                       <div className="flex items-start gap-3.5">
-                        <div className="w-8 h-8 mt-0.5 sm:mt-0 rounded-md bg-surface-2 border border-brand/20 flex items-center justify-center text-brand shrink-0">
+                        <div className="w-8 h-8 mt-0.5 sm:mt-0 rounded-none bg-surface-2 border border-brand/20 flex items-center justify-center text-brand shrink-0">
                           <Calendar className="w-4 h-4 text-brand" />
                         </div>
                         <div>

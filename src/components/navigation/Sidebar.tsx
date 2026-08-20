@@ -41,7 +41,7 @@ type NavItem = {
 
 const primaryNavItems: NavItem[] = [
   { path: "/app/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { path: "/app/today", label: "Today's Panchang", icon: Sun, badge: "Daily", badgeColor: "bg-amber-500/20 text-amber-300 border-amber-500/30" },
+  { path: "/app/today", label: "Today's Panchang", icon: Sun, badge: "Daily", badgeColor: "bg-zinc-100/10 text-zinc-200 border-zinc-700" },
   { path: "/app/predictions", label: "Predictions", icon: Target },
   { path: "/app/companion", label: "Astro Assistant", icon: Bot },
   { path: "/app/match", label: "Kundli Matchmaker", icon: Sparkles },
@@ -88,14 +88,14 @@ export function Sidebar() {
       {/* Brand Header */}
       <div className="px-4 py-4 border-b border-neutral-800 flex items-center justify-between">
         <Link to="/app/dashboard" className="flex items-center gap-3 group overflow-hidden">
-          <div className="w-8 h-8 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 shrink-0 group-hover:scale-105 transition-transform">
-            <Compass className="w-4 h-4 text-amber-400" />
+          <div className="w-8 h-8 rounded-none bg-zinc-100/5 border border-zinc-700 flex items-center justify-center text-zinc-300 shrink-0 group-hover:scale-105 transition-transform">
+            <Compass className="w-4 h-4 text-zinc-300" />
           </div>
           {!collapsed && (
             <div className="flex flex-col whitespace-nowrap">
               <span className="text-sm font-bold tracking-tight text-white flex items-center gap-1.5">
                 AstroLive
-                <span className="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                <span className="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded bg-zinc-100/10 text-zinc-200 border border-zinc-700">
                   2.0
                 </span>
               </span>
@@ -106,7 +106,7 @@ export function Sidebar() {
 
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="p-1 rounded-lg hover:bg-neutral-800 text-neutral-400 hover:text-white transition-colors cursor-pointer"
+          className="p-1 rounded-none hover:bg-neutral-800 text-neutral-400 hover:text-white transition-colors cursor-pointer"
           title={collapsed ? "Expand Sidebar" : "Collapse Sidebar"}
         >
           {collapsed ? <PanelLeftOpen className="w-4 h-4" /> : <PanelLeftClose className="w-4 h-4" />}
@@ -130,7 +130,7 @@ export function Sidebar() {
                 title={collapsed ? item.label : undefined}
                 className={({ isActive }) =>
                   cn(
-                    "relative flex items-center gap-2.5 px-3 py-2 rounded-xl text-[13px] font-medium transition-colors group",
+                    "relative flex items-center gap-2.5 px-3 py-2 rounded-none text-[13px] font-medium transition-colors group",
                     isActive
                       ? "bg-neutral-800 text-white font-bold border border-neutral-700 shadow-sm"
                       : "text-neutral-400 hover:text-white hover:bg-neutral-800/50"
@@ -139,10 +139,10 @@ export function Sidebar() {
               >
                 {({ isActive }) => (
                   <>
-                    <item.icon className={cn("w-4 h-4 shrink-0 transition-colors", isActive ? "text-amber-400" : "text-neutral-400 group-hover:text-white")} strokeWidth={isActive ? 2 : 1.5} />
+                    <item.icon className={cn("w-4 h-4 shrink-0 transition-colors", isActive ? "text-zinc-300" : "text-neutral-400 group-hover:text-white")} strokeWidth={isActive ? 2 : 1.5} />
                     {!collapsed && <span className="flex-1 truncate">{item.label}</span>}
                     {!collapsed && item.badge && (
-                      <span className={cn("font-mono text-[9px] font-bold px-1.5 py-0.5 rounded-md border", item.badgeColor)}>
+                      <span className={cn("font-mono text-[9px] font-bold px-1.5 py-0.5 rounded-none border", item.badgeColor)}>
                         {item.badge}
                       </span>
                     )}
@@ -168,7 +168,7 @@ export function Sidebar() {
                 title={collapsed ? item.label : undefined}
                 className={({ isActive }) =>
                   cn(
-                    "relative flex items-center gap-2.5 px-3 py-2 rounded-xl text-[13px] font-medium transition-colors group",
+                    "relative flex items-center gap-2.5 px-3 py-2 rounded-none text-[13px] font-medium transition-colors group",
                     isActive
                       ? "bg-neutral-800 text-white font-bold border border-neutral-700 shadow-sm"
                       : "text-neutral-400 hover:text-white hover:bg-neutral-800/50"
@@ -177,10 +177,10 @@ export function Sidebar() {
               >
                 {({ isActive }) => (
                   <>
-                    <item.icon className={cn("w-4 h-4 shrink-0 transition-colors", isActive ? "text-amber-400" : "text-neutral-400 group-hover:text-white")} strokeWidth={isActive ? 2 : 1.5} />
+                    <item.icon className={cn("w-4 h-4 shrink-0 transition-colors", isActive ? "text-zinc-300" : "text-neutral-400 group-hover:text-white")} strokeWidth={isActive ? 2 : 1.5} />
                     {!collapsed && <span className="flex-1 truncate">{item.label}</span>}
                     {!collapsed && item.badge && (
-                      <span className={cn("font-mono text-[9px] font-bold px-1.5 py-0.5 rounded-md border", item.badgeColor)}>
+                      <span className={cn("font-mono text-[9px] font-bold px-1.5 py-0.5 rounded-none border", item.badgeColor)}>
                         {item.badge}
                       </span>
                     )}
@@ -206,7 +206,7 @@ export function Sidebar() {
                 title={collapsed ? item.label : undefined}
                 className={({ isActive }) =>
                   cn(
-                    "relative flex items-center gap-2.5 px-3 py-2 rounded-xl text-[13px] font-medium transition-colors group",
+                    "relative flex items-center gap-2.5 px-3 py-2 rounded-none text-[13px] font-medium transition-colors group",
                     isActive
                       ? "bg-neutral-800 text-white font-bold border border-neutral-700 shadow-sm"
                       : "text-neutral-400 hover:text-white hover:bg-neutral-800/50"
@@ -215,10 +215,10 @@ export function Sidebar() {
               >
                 {({ isActive }) => (
                   <>
-                    <item.icon className={cn("w-4 h-4 shrink-0 transition-colors", isActive ? "text-amber-400" : "text-neutral-400 group-hover:text-white")} strokeWidth={isActive ? 2 : 1.5} />
+                    <item.icon className={cn("w-4 h-4 shrink-0 transition-colors", isActive ? "text-zinc-300" : "text-neutral-400 group-hover:text-white")} strokeWidth={isActive ? 2 : 1.5} />
                     {!collapsed && <span className="flex-1 truncate">{item.label}</span>}
                     {!collapsed && item.badge && (
-                      <span className={cn("font-mono text-[9px] font-bold px-1.5 py-0.5 rounded-md border", item.badgeColor)}>
+                      <span className={cn("font-mono text-[9px] font-bold px-1.5 py-0.5 rounded-none border", item.badgeColor)}>
                         {item.badge}
                       </span>
                     )}
@@ -244,7 +244,7 @@ export function Sidebar() {
                 title={collapsed ? item.label : undefined}
                 className={({ isActive }) =>
                   cn(
-                    "relative flex items-center gap-2.5 px-3 py-2 rounded-xl text-[13px] font-medium transition-colors group",
+                    "relative flex items-center gap-2.5 px-3 py-2 rounded-none text-[13px] font-medium transition-colors group",
                     isActive
                       ? "bg-neutral-800 text-white font-bold border border-neutral-700 shadow-sm"
                       : "text-neutral-400 hover:text-white hover:bg-neutral-800/50"
@@ -253,7 +253,7 @@ export function Sidebar() {
               >
                 {({ isActive }) => (
                   <>
-                    <item.icon className={cn("w-4 h-4 shrink-0 transition-colors", isActive ? "text-amber-400" : "text-neutral-400 group-hover:text-white")} strokeWidth={isActive ? 2 : 1.5} />
+                    <item.icon className={cn("w-4 h-4 shrink-0 transition-colors", isActive ? "text-zinc-300" : "text-neutral-400 group-hover:text-white")} strokeWidth={isActive ? 2 : 1.5} />
                     {!collapsed && <span className="flex-1 truncate">{item.label}</span>}
                   </>
                 )}
@@ -268,15 +268,15 @@ export function Sidebar() {
         <button
           onClick={() => navigate("/app/you")}
           title={collapsed ? displayName : undefined}
-          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 transition-colors group cursor-pointer overflow-hidden"
+          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-none bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 transition-colors group cursor-pointer overflow-hidden"
         >
-          <div className="w-8 h-8 rounded-lg bg-amber-500 text-black flex items-center justify-center text-xs font-bold shrink-0 font-mono shadow-sm">
+          <div className="w-8 h-8 rounded-none bg-zinc-100 text-black flex items-center justify-center text-xs font-bold shrink-0 font-mono shadow-sm">
             {initials}
           </div>
           {!collapsed && (
             <div className="text-left flex-1 min-w-0">
               <p className="text-xs font-bold text-white truncate">{displayName}</p>
-              <p className="text-[10px] font-mono text-amber-400 truncate">
+              <p className="text-[10px] font-mono text-zinc-300 truncate">
                 {user.sunSign} Sun · {user.ascendant}
               </p>
             </div>

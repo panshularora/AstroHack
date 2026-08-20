@@ -19,7 +19,7 @@ export const ClockDisplay: React.FC<ClockDisplayProps> = ({
       </span>
 
       {isScrubbing && (
-        <span className="mt-3 text-[11px] font-mono tracking-widest text-amber-300/80 bg-amber-950/40 px-3.5 py-0.5 rounded-full border border-amber-800/40 animate-pulse">
+        <span className="mt-3 text-[11px] font-mono tracking-widest text-zinc-200/80 bg-amber-950/40 px-3.5 py-0.5 rounded-full border border-amber-800/40 animate-pulse">
           Temporal Offset Active
         </span>
       )}

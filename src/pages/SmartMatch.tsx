@@ -59,10 +59,10 @@ export function SmartMatch() {
           <Button
             size="sm"
             variant="outline"
-            className="rounded-xl border-amber-500/30 text-amber-300 font-mono text-xs hover:bg-amber-500/10 cursor-pointer"
+            className="rounded-none border-zinc-700 text-zinc-200 font-mono text-xs hover:bg-zinc-100/5 cursor-pointer"
             onClick={() => setAsyncModalOpen(true)}
           >
-            <Zap className="w-3.5 h-3.5 text-amber-400 mr-1" /> Ask Async Query (₹300)
+            <Zap className="w-3.5 h-3.5 text-zinc-300 mr-1" /> Ask Async Query (₹300)
           </Button>
         </div>
       </div>
@@ -71,7 +71,7 @@ export function SmartMatch() {
       <div className="grid grid-cols-3 gap-4 mb-8">
         {["1. Select Focus", "2. Session Depth", "3. Verified Matches"].map((label, idx) => (
           <div key={label} className="flex-1 space-y-1.5">
-            <div className={cn("h-1 rounded-full transition-all duration-300", idx <= step ? "bg-amber-500" : "bg-white/10")} />
+            <div className={cn("h-1 rounded-full transition-all duration-300", idx <= step ? "bg-zinc-100" : "bg-white/10")} />
             <p className={cn("text-[11px] font-mono font-semibold", idx <= step ? "text-white" : "text-[#9CA3AF]")}>{label}</p>
           </div>
         ))}
@@ -96,17 +96,17 @@ export function SmartMatch() {
                       key={c.id}
                       onClick={() => setConcern(c.id)}
                       className={cn(
-                        "p-5 rounded-2xl border cursor-pointer transition-all duration-150 relative space-y-3",
+                        "p-5 rounded-none border cursor-pointer transition-all duration-150 relative space-y-3",
                         isSelected
-                          ? "border-amber-500 bg-white/10 text-white shadow-xl"
+                          ? "border-zinc-600 bg-white/10 text-white shadow-xl"
                           : "border-white/10 bg-[#090A0F]/80 text-[#9CA3AF] hover:border-white/20 hover:text-white"
                       )}
                     >
                       <div className="flex items-center justify-between">
-                        <div className={cn("w-9 h-9 rounded-xl flex items-center justify-center border", isSelected ? "bg-amber-500/20 border-amber-400 text-amber-300" : "bg-white/5 border-white/10 text-[#9CA3AF]")}>
+                        <div className={cn("w-9 h-9 rounded-none flex items-center justify-center border", isSelected ? "bg-zinc-100/10 border-amber-400 text-zinc-200" : "bg-white/5 border-white/10 text-[#9CA3AF]")}>
                           <IconComp className="w-5 h-5" />
                         </div>
-                        {isSelected && <CheckCircle2 className="w-4 h-4 text-amber-400" />}
+                        {isSelected && <CheckCircle2 className="w-4 h-4 text-zinc-300" />}
                       </div>
                       <div>
                         <p className="text-sm font-bold text-white">{c.label}</p>
@@ -132,9 +132,9 @@ export function SmartMatch() {
                     key={b.id}
                     onClick={() => setBudget(b.id)}
                     className={cn(
-                      "p-5 rounded-2xl border cursor-pointer transition-all duration-150 flex items-center justify-between",
+                      "p-5 rounded-none border cursor-pointer transition-all duration-150 flex items-center justify-between",
                       budget === b.id
-                        ? "border-amber-500 bg-white/10 text-white shadow-xl"
+                        ? "border-zinc-600 bg-white/10 text-white shadow-xl"
                         : "border-white/10 bg-[#090A0F]/80 text-[#9CA3AF] hover:border-white/20 hover:text-white"
                     )}
                   >
@@ -142,7 +142,7 @@ export function SmartMatch() {
                       <p className="text-sm font-bold text-white font-mono">{b.label}</p>
                       <p className="text-xs font-mono text-[#9CA3AF] mt-0.5">{b.detail}</p>
                     </div>
-                    {budget === b.id && <CheckCircle2 className="w-5 h-5 text-amber-400 shrink-0" />}
+                    {budget === b.id && <CheckCircle2 className="w-5 h-5 text-zinc-300 shrink-0" />}
                   </div>
                 ))}
               </div>
@@ -158,16 +158,16 @@ export function SmartMatch() {
 
               <div className="space-y-4">
                 {matches.map((a) => (
-                  <div key={a.id} className="p-5 rounded-2xl bg-[#090A0F] border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                  <div key={a.id} className="p-5 rounded-none bg-[#090A0F] border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div className="flex items-center gap-4">
-                      <img src={a.avatar} alt={a.name} className="w-14 h-14 rounded-2xl object-cover border border-amber-500/30" />
+                      <img src={a.avatar} alt={a.name} className="astro-face w-14 h-14 rounded-none border border-zinc-700" />
                       <div>
                         <h3 className="text-sm font-bold text-white">{a.name}</h3>
-                        <p className="text-xs font-mono text-amber-400">{Array.isArray(a.specialties) ? a.specialties.join(" · ") : "Vedic Astrology"}</p>
+                        <p className="text-xs font-mono text-zinc-300">{Array.isArray(a.specialties) ? a.specialties.join(" · ") : "Vedic Astrology"}</p>
                         <p className="text-[11px] font-mono text-[#9CA3AF] mt-0.5">{a.yearsExperience || 10} Years Exp · {a.rating} ★ ({a.consultationCount || 100} reviews)</p>
                       </div>
                     </div>
-                    <Button size="sm" className="bg-amber-500 text-black font-bold hover:bg-amber-400 rounded-xl font-mono text-xs" onClick={() => navigate(`/app/astrologer/${a.id}`)}>
+                    <Button size="sm" className="bg-zinc-100 text-black font-bold hover:bg-zinc-200 rounded-none font-mono text-xs" onClick={() => navigate(`/app/astrologer/${a.id}`)}>
                       Book Session
                     </Button>
                   </div>
@@ -185,7 +185,7 @@ export function SmartMatch() {
           size="sm"
           onClick={() => setStep(prev => prev - 1)}
           disabled={step === 0}
-          className="rounded-xl border-white/10 text-white font-mono text-xs"
+          className="rounded-none border-white/10 text-white font-mono text-xs"
         >
           Previous Step
         </Button>
@@ -194,7 +194,7 @@ export function SmartMatch() {
           <Button
             size="sm"
             onClick={() => setStep(prev => prev + 1)}
-            className="bg-amber-500 text-black font-bold hover:bg-amber-400 rounded-xl font-mono text-xs"
+            className="bg-zinc-100 text-black font-bold hover:bg-zinc-200 rounded-none font-mono text-xs"
           >
             Next Step <ArrowRight className="w-3.5 h-3.5 ml-1" />
           </Button>
@@ -202,7 +202,7 @@ export function SmartMatch() {
           <Button
             size="sm"
             onClick={() => navigate("/app/dashboard")}
-            className="bg-amber-500 text-black font-bold hover:bg-amber-400 rounded-xl font-mono text-xs"
+            className="bg-zinc-100 text-black font-bold hover:bg-zinc-200 rounded-none font-mono text-xs"
           >
             Return to Dashboard
           </Button>

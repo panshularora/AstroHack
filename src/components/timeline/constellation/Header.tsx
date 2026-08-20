@@ -18,7 +18,7 @@ export const Header: React.FC<HeaderProps> = ({
     <header className="absolute top-0 left-0 right-0 z-30 flex items-center justify-between px-6 py-5 pointer-events-none font-sans">
       <div className="pointer-events-auto flex items-center space-x-2">
         <h1 className="text-xl font-display font-bold tracking-wide text-white flex items-center gap-2">
-          <span className="text-amber-400 text-lg font-mono">✦</span>
+          <span className="text-zinc-300 text-lg font-mono">✦</span>
           AstroLive Timeline
         </h1>
       </div>
@@ -33,7 +33,7 @@ export const Header: React.FC<HeaderProps> = ({
         <button
           onClick={onGenerateReading}
           disabled={isGeneratingReading}
-          className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs font-mono border border-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.3)] backdrop-blur-md transition-all active:scale-95 disabled:opacity-50 cursor-pointer"
+          className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-100 hover:bg-zinc-200 text-black font-bold text-xs font-mono border border-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.3)] backdrop-blur-md transition-all active:scale-95 disabled:opacity-50 cursor-pointer"
           title="Generate AI Celestial Reading"
         >
           <Sparkles className={`w-3.5 h-3.5 ${isGeneratingReading ? 'animate-spin' : ''}`} />
@@ -45,13 +45,13 @@ export const Header: React.FC<HeaderProps> = ({
           className="flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white/10 hover:bg-white/20 text-xs font-mono text-zinc-200 border border-white/15 backdrop-blur-md transition-all active:scale-95 cursor-pointer"
           title="Add New Milestone Star"
         >
-          <Plus className="w-3.5 h-3.5 text-amber-400" />
+          <Plus className="w-3.5 h-3.5 text-zinc-300" />
           <span className="hidden sm:inline">Add Star</span>
         </button>
 
         <button
           onClick={onOpenMenu}
-          className="p-2.5 rounded-xl text-zinc-300 hover:text-white bg-black/60 hover:bg-zinc-800 border border-white/10 backdrop-blur-md transition-all active:scale-95 cursor-pointer"
+          className="p-2.5 rounded-none text-zinc-300 hover:text-white bg-black/60 hover:bg-zinc-800 border border-white/10 backdrop-blur-md transition-all active:scale-95 cursor-pointer"
           aria-label="Open menu"
         >
           <Menu className="w-5 h-5" />

@@ -27,6 +27,7 @@ export interface Practitioner {
   isOnline: boolean;
   featuredQuote?: string;
   techniques?: string[];
+  languages?: Array<"en" | "hi">;
 }
 
 export interface UserBirthDetails {

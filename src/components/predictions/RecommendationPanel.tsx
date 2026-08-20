@@ -10,7 +10,7 @@ export function RecommendationPanel() {
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-r from-brand/20 via-[#1a1b26] to-secondary/20 border border-brand/30 rounded-lg p-8 md:p-12 flex flex-col lg:flex-row items-center justify-between gap-8 relative overflow-hidden shadow-[0_0_30px_rgba(124,58,237,0.1)]"
+        className="bg-gradient-to-r from-brand/20 via-[#1a1b26] to-secondary/20 border border-brand/30 rounded-none p-8 md:p-12 flex flex-col lg:flex-row items-center justify-between gap-8 relative overflow-hidden shadow-[0_0_30px_rgba(124,58,237,0.1)]"
       >
         <div className="absolute top-0 right-1/4 w-48 h-48 bg-brand/20 rounded-full blur-3xl pointer-events-none" />
         

@@ -48,7 +48,7 @@ export function BirthDetailsStep({
                   type="date"
                   value={dob}
                   onChange={e => setDob(e.target.value)}
-                  className="w-full bg-black/40 border border-line rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand transition-colors text-sm [&::-webkit-calendar-picker-indicator]:invert" 
+                  className="w-full bg-black/40 border border-line rounded-none px-4 py-3 text-white focus:outline-none focus:border-brand transition-colors text-sm [&::-webkit-calendar-picker-indicator]:invert" 
                   required
                 />
               </div>
@@ -60,7 +60,7 @@ export function BirthDetailsStep({
                   type="time" 
                   value={birthTime}
                   onChange={e => setBirthTime(e.target.value)}
-                  className="w-full bg-black/40 border border-line rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand transition-colors text-sm [&::-webkit-calendar-picker-indicator]:invert" 
+                  className="w-full bg-black/40 border border-line rounded-none px-4 py-3 text-white focus:outline-none focus:border-brand transition-colors text-sm [&::-webkit-calendar-picker-indicator]:invert" 
                   required
                 />
                 <p className="text-[10px] text-[#9CA3AF] mt-1">If unsure, estimate as close as possible.</p>
@@ -78,7 +78,7 @@ export function BirthDetailsStep({
                   value={birthPlace}
                   onChange={e => setBirthPlace(e.target.value)}
                   placeholder="Search city, e.g. New Delhi, India"
-                  className="w-full bg-black/40 border border-line rounded-xl pl-10 pr-4 py-3 text-white focus:outline-none focus:border-brand transition-colors text-sm" 
+                  className="w-full bg-black/40 border border-line rounded-none pl-10 pr-4 py-3 text-white focus:outline-none focus:border-brand transition-colors text-sm" 
                   required
                 />
               </div>
@@ -90,7 +90,7 @@ export function BirthDetailsStep({
                 <select
                   value={system}
                   onChange={e => setSystem(e.target.value)}
-                  className="w-full bg-black/40 border border-line rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand transition-colors text-sm appearance-none"
+                  className="w-full bg-black/40 border border-line rounded-none px-4 py-3 text-white focus:outline-none focus:border-brand transition-colors text-sm appearance-none"
                 >
                   <option value="vedic">Vedic (Lahiri)</option>
                   <option value="western">Western</option>
@@ -102,7 +102,7 @@ export function BirthDetailsStep({
                 <select
                   value={gender}
                   onChange={e => setGender(e.target.value)}
-                  className="w-full bg-black/40 border border-line rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand transition-colors text-sm appearance-none"
+                  className="w-full bg-black/40 border border-line rounded-none px-4 py-3 text-white focus:outline-none focus:border-brand transition-colors text-sm appearance-none"
                 >
                   <option value="male">Male</option>
                   <option value="female">Female</option>

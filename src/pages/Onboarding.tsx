@@ -1,26 +1,27 @@
-import { useState, useEffect } from "react"
+import { useMemo, useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useNavigate } from "react-router-dom"
-import { ArrowRight, ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { cn } from "@/lib/utils"
-import { useUser } from "@/context/UserContext"
+import { useUser, calculateZodiac } from "@/context/UserContext"
+import { CosmicField } from "@/components/sky/CosmicField"
+import { NightOrbit } from "@/components/sky/NightOrbit"
+import { SkyIntro } from "@/components/motion/SkyIntro"
+import { LangToggle } from "@/components/site/LangToggle"
+import { useI18n } from "@/lib/i18n"
+import { computeNatal, computePanchang } from "@/lib/vedic"
 
-const steps = ["Birth Details", "Interests", "Goals", "Ready"]
-const interests = ["Career", "Relationships", "Health", "Finance", "Spirituality", "Education"]
-const goals = ["Daily guidance", "Track predictions", "Find astrologer", "Remedy tracking", "Life planning", "AI companion"]
+const INTENTION_IDS = ["career", "marriage", "health", "money", "family", "peace"] as const
 
 export function Onboarding() {
   const navigate = useNavigate()
   const { user, updateProfile } = useUser()
-
-  const [step, setStep] = useState(0)
-
+  const { t } = useI18n()
+  const [step, setStep] = useState<"intro" | "birth" | "ready">("intro")
   const [dob, setDob] = useState(() => user.dob || "1998-05-15")
   const [timeOfBirth, setTimeOfBirth] = useState(() => user.timeOfBirth || "08:30")
   const [placeOfBirth, setPlaceOfBirth] = useState(() => user.placeOfBirth || "New Delhi, India")
-  const [selectedInterests, setSelectedInterests] = useState<string[]>([])
-  const [selectedGoals, setSelectedGoals] = useState<string[]>([])
+  const [intentions, setIntentions] = useState<string[]>(user.intentions || [])
 
   useEffect(() => {
     if (user.dob) setDob(user.dob)
@@ -28,194 +29,131 @@ export function Onboarding() {
     if (user.placeOfBirth) setPlaceOfBirth(user.placeOfBirth)
   }, [user.dob, user.timeOfBirth, user.placeOfBirth])
 
-  const toggle = (arr: string[], setArr: (v: string[]) => void, val: string) => {
-    setArr(arr.includes(val) ? arr.filter(v => v !== val) : [...arr, val])
+  const natal = calculateZodiac(dob, timeOfBirth, placeOfBirth)
+  const chart = useMemo(() => computeNatal(dob, timeOfBirth, placeOfBirth), [dob, timeOfBirth, placeOfBirth])
+  const sky = useMemo(() => computePanchang(new Date(), placeOfBirth), [placeOfBirth])
+  const first = (user.name || "You").split(" ")[0]
+  const field =
+    "w-full h-11 rounded-full bg-white/5 border border-white/10 px-4 text-sm text-white focus-visible:outline-none focus-visible:border-zinc-400"
+
+  const finish = () => {
+    updateProfile({
+      dob,
+      timeOfBirth,
+      placeOfBirth: placeOfBirth || "New Delhi, India",
+      intentions,
+      onboardingComplete: true,
+      starterDismissed: false,
+    })
+    navigate("/app/dashboard?enter=1")
   }
 
-  const handleNext = () => {
-    if (step === 0) {
-      updateProfile({
-        dob,
-        timeOfBirth,
-        placeOfBirth: placeOfBirth || "New Delhi, India",
-      })
-    }
-
-    if (step < steps.length - 1) {
-      setStep(step + 1)
-    } else {
-      updateProfile({
-        dob,
-        timeOfBirth,
-        placeOfBirth: placeOfBirth || "New Delhi, India",
-      })
-      navigate("/app/dashboard")
-    }
+  const intentionLabel = (id: string) => {
+    if (id === "career") return t("career")
+    if (id === "marriage") return t("marriage")
+    if (id === "health") return t("health")
+    if (id === "money") return t("money")
+    if (id === "family") return t("family")
+    return t("peaceOfMind")
   }
 
-  const handleBack = () => {
-    if (step > 0) setStep(step - 1)
+  if (step === "intro") {
+    return <SkyIntro mode="story" onDone={() => setStep("birth")} />
   }
 
   return (
-    <div className="min-h-screen bg-[#0A0A0C] text-white flex flex-col items-center justify-center p-6 font-sans">
-      <div className="w-full max-w-md">
-        {/* Simple Step Progress */}
-        <div className="text-center mb-6">
-          <span className="text-xs text-neutral-400 font-mono">
-            Step {step + 1} of {steps.length}
-          </span>
+    <div className="relative min-h-[100dvh] bg-zinc-950 text-zinc-100">
+      <CosmicField density={48} />
+      <div className="relative max-w-lg mx-auto px-5 py-12">
+        <div className="flex items-center justify-between">
+          <p className="font-display italic text-xl text-zinc-50">{t("brand")}</p>
+          <LangToggle compact />
         </div>
+        <p className="mt-10 text-[12px] uppercase tracking-[0.16em] text-zinc-500">
+          {step === "birth" ? t("onboardingChart") : t("onboardingReady")}
+        </p>
 
-        {/* Clean Minimal Card Container */}
-        <div className="p-8 rounded-2xl bg-neutral-900/90 border border-neutral-800 shadow-xl">
-          <AnimatePresence mode="wait">
+        <AnimatePresence mode="wait">
+          {step === "birth" ? (
             <motion.div
-              key={step}
-              initial={{ opacity: 0, y: 8 }}
+              key="birth"
+              initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: 0.32 }}
             >
-              {/* STEP 0: BIRTH DETAILS */}
-              {step === 0 && (
-                <div className="space-y-5">
-                  <div className="mb-6">
-                    <h1 className="text-2xl font-bold text-white mb-1">Your birth details</h1>
-                    <p className="text-sm text-neutral-400">This powers your cosmic chart.</p>
-                  </div>
-
-                  <div className="space-y-4">
-                    {/* Date of Birth */}
-                    <div>
-                      <label className="block text-xs font-medium text-neutral-300 mb-1.5">
-                        Date of birth
-                      </label>
-                      <input
-                        type="date"
-                        value={dob}
-                        onChange={(e) => setDob(e.target.value)}
-                        className="w-full h-11 bg-black/50 border border-neutral-800 rounded-xl px-3.5 text-sm text-white font-mono focus:outline-none focus:border-amber-500/60 transition-colors [color-scheme:dark] cursor-pointer"
-                      />
-                    </div>
-
-                    {/* Time of Birth */}
-                    <div>
-                      <label className="block text-xs font-medium text-neutral-300 mb-1.5">
-                        Time of birth
-                      </label>
-                      <input
-                        type="time"
-                        value={timeOfBirth}
-                        onChange={(e) => setTimeOfBirth(e.target.value)}
-                        className="w-full h-11 bg-black/50 border border-neutral-800 rounded-xl px-3.5 text-sm text-white font-mono focus:outline-none focus:border-amber-500/60 transition-colors [color-scheme:dark] cursor-pointer"
-                      />
-                    </div>
-
-                    {/* Place of Birth */}
-                    <div>
-                      <label className="block text-xs font-medium text-neutral-300 mb-1.5">
-                        Place of birth
-                      </label>
-                      <input
-                        type="text"
-                        value={placeOfBirth}
-                        onChange={(e) => setPlaceOfBirth(e.target.value)}
-                        placeholder="City, Country"
-                        className="w-full h-11 bg-black/50 border border-neutral-800 rounded-xl px-3.5 text-sm text-white font-sans focus:outline-none focus:border-amber-500/60 transition-colors placeholder:text-neutral-600"
-                      />
-                    </div>
-                  </div>
+              <h1 className="mt-2 font-display text-4xl sm:text-5xl text-zinc-50 leading-[0.95]">
+                {t("onboardingBirthHead")} <span className="italic text-zinc-300">{t("onboardingBirthItal")}</span>
+              </h1>
+              <div className="mt-8 space-y-4">
+                <div>
+                  <label className="block text-sm text-zinc-400 mb-1.5">{t("dateOfBirth")}</label>
+                  <input type="date" value={dob} onChange={(e) => setDob(e.target.value)} className={field} />
                 </div>
-              )}
-
-              {/* STEP 1: INTERESTS */}
-              {step === 1 && (
-                <div className="space-y-4">
-                  <div className="mb-6">
-                    <h1 className="text-2xl font-bold text-white mb-1">What matters to you?</h1>
-                    <p className="text-sm text-neutral-400">Select areas for cosmic guidance.</p>
-                  </div>
-                  <div className="grid grid-cols-2 gap-2.5">
-                    {interests.map(item => (
-                      <button
-                        key={item}
-                        type="button"
-                        onClick={() => toggle(selectedInterests, setSelectedInterests, item)}
-                        className={cn(
-                          "p-3 rounded-xl border text-sm font-medium transition-colors text-left cursor-pointer",
-                          selectedInterests.includes(item)
-                            ? "border-amber-500 bg-amber-500/10 text-amber-400"
-                            : "border-neutral-800 bg-black/30 text-neutral-300 hover:bg-neutral-800/50"
-                        )}
-                      >
-                        {item}
-                      </button>
-                    ))}
-                  </div>
+                <div>
+                  <label className="block text-sm text-zinc-400 mb-1.5">{t("birthTime")}</label>
+                  <input type="time" value={timeOfBirth} onChange={(e) => setTimeOfBirth(e.target.value)} className={field} />
                 </div>
-              )}
-
-              {/* STEP 2: GOALS */}
-              {step === 2 && (
-                <div className="space-y-4">
-                  <div className="mb-6">
-                    <h1 className="text-2xl font-bold text-white mb-1">Your goals</h1>
-                    <p className="text-sm text-neutral-400">What do you want from AstroLive?</p>
-                  </div>
-                  <div className="grid grid-cols-2 gap-2.5">
-                    {goals.map(item => (
-                      <button
-                        key={item}
-                        type="button"
-                        onClick={() => toggle(selectedGoals, setSelectedGoals, item)}
-                        className={cn(
-                          "p-3 rounded-xl border text-sm font-medium transition-colors text-left cursor-pointer",
-                          selectedGoals.includes(item)
-                            ? "border-amber-500 bg-amber-500/10 text-amber-400"
-                            : "border-neutral-800 bg-black/30 text-neutral-300 hover:bg-neutral-800/50"
-                        )}
-                      >
-                        {item}
-                      </button>
-                    ))}
-                  </div>
+                <div>
+                  <label className="block text-sm text-zinc-400 mb-1.5">{t("birthPlace")}</label>
+                  <input value={placeOfBirth} onChange={(e) => setPlaceOfBirth(e.target.value)} className={field} />
                 </div>
-              )}
-
-              {/* STEP 3: READY */}
-              {step === 3 && (
-                <div className="text-center py-6 space-y-3">
-                  <h1 className="text-2xl font-bold text-white">You're all set!</h1>
-                  <p className="text-sm text-neutral-400">Your cosmic journey begins now.</p>
-                </div>
-              )}
-            </motion.div>
-          </AnimatePresence>
-
-          {/* Clean Navigation */}
-          <div className="flex items-center justify-between mt-8 pt-4 border-t border-neutral-800">
-            {step > 0 ? (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={handleBack}
-                className="text-xs text-neutral-400 hover:text-white cursor-pointer"
-              >
-                <ArrowLeft className="w-3.5 h-3.5 mr-1" /> Back
+              </div>
+              <p className="mt-5 text-sm text-zinc-500">{t("careAbout")}</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {INTENTION_IDS.map((item) => {
+                  const label = intentionLabel(item)
+                  const on = intentions.includes(item)
+                  return (
+                    <button
+                      key={item}
+                      type="button"
+                      onClick={() =>
+                        setIntentions((prev) => (on ? prev.filter((x) => x !== item) : [...prev, item]))
+                      }
+                      className={cn(
+                        "h-9 px-4 rounded-full text-sm",
+                        on ? "bg-zinc-100 text-zinc-950" : "text-zinc-400 hover:text-zinc-100"
+                      )}
+                    >
+                      {label}
+                    </button>
+                  )
+                })}
+              </div>
+              <Button className="mt-8" size="lg" onClick={() => setStep("ready")}>
+                {t("drawChart")}
               </Button>
-            ) : <div />}
-
-            <Button
-              size="sm"
-              onClick={handleNext}
-              className="bg-amber-500 hover:bg-amber-400 text-black font-semibold text-xs rounded-xl px-5 py-2 cursor-pointer transition-colors"
+            </motion.div>
+          ) : (
+            <motion.div
+              key="ready"
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.32 }}
             >
-              <span>{step === 3 ? "Enter dashboard" : "Continue"}</span>
-              <ArrowRight className="w-3.5 h-3.5 ml-1" />
-            </Button>
-          </div>
-        </div>
+              <h1 className="mt-2 font-display text-4xl sm:text-5xl text-zinc-50 leading-[0.95]">
+                {t("snapshotHello", { name: first })}
+              </h1>
+              <p className="mt-6 font-display text-3xl text-zinc-100">
+                {natal.sunSign} Sun · {natal.moonSign} Moon · {natal.ascendant} lagna
+              </p>
+              <p className="mt-3 text-[15px] text-zinc-400 leading-relaxed">{t("snapshotLine")}</p>
+              <div className="mt-8 -mx-4 overflow-hidden">
+                <NightOrbit bodies={chart.bodies} panchang={sky} />
+              </div>
+              <div className="mt-4 flex flex-wrap gap-3">
+                <Button size="lg" onClick={finish}>
+                  {t("openSky")}
+                </Button>
+                <button type="button" className="text-sm text-zinc-500" onClick={() => setStep("birth")}>
+                  {t("editBirth")}
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   )

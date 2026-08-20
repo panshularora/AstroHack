@@ -91,7 +91,7 @@ export const mockAstrologers: Astrologer[] = [
     specialties: ["Vedic Astrology", "Career", "Kundli Prashna"],
     rating: 4.95,
     trustScore: 98,
-    avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704d",
+    avatar: "/astrologers/10.jpg",
     languages: ["Hindi", "English", "Marathi"],
     verifiedAccuracy: 96,
     consultationCount: 4250,
@@ -107,7 +107,7 @@ export const mockAstrologers: Astrologer[] = [
     specialties: ["KP Astrology", "Kundli Match", "Vastu Shastra"],
     rating: 4.88,
     trustScore: 94,
-    avatar: "https://i.pravatar.cc/150?u=a042581f4e29026705d",
+    avatar: "/astrologers/02.jpg",
     languages: ["Hindi", "English", "Punjabi"],
     verifiedAccuracy: 92,
     consultationCount: 3840,
@@ -123,7 +123,7 @@ export const mockAstrologers: Astrologer[] = [
     specialties: ["Numerology", "Finance & Wealth", "Tarot Reading"],
     rating: 4.98,
     trustScore: 99,
-    avatar: "https://i.pravatar.cc/150?u=a042581f4e29026706d",
+    avatar: "/astrologers/11.jpg",
     languages: ["English", "Gujarati", "Hindi"],
     verifiedAccuracy: 97,
     consultationCount: 5100,
@@ -139,7 +139,7 @@ export const mockAstrologers: Astrologer[] = [
     specialties: ["Nadi Astrology", "Lal Kitab Remedies", "Mahadasha"],
     rating: 4.92,
     trustScore: 96,
-    avatar: "https://i.pravatar.cc/150?u=a042581f4e29026707d",
+    avatar: "/astrologers/01.jpg",
     languages: ["Hindi", "English", "Kannada"],
     verifiedAccuracy: 95,
     consultationCount: 2950,
@@ -465,14 +465,18 @@ export interface DetailedPrediction {
   confidence: number
   status: "pending" | "in_progress" | "completed" | "delayed" | "extended" | "failed"
   notes?: string
+  outcome?: "yes" | "partial" | "no"
+  closedAt?: string
+  evidenceNote?: string
+  evidenceName?: string
 }
 
 export const mockDetailedPredictions: DetailedPrediction[] = [
   {
     id: "dp1",
-    title: "Job Offer in Tech Sector",
+    title: "A job offer will land in the tech sector",
     category: "career",
-    astrologer: { name: "Acharya Ananya Sharma", avatar: "" },
+    astrologer: { name: "Acharya Indu Prakash", avatar: "" },
     consultationDate: "2026-07-15T10:00:00Z",
     targetDate: "2026-07-28T10:00:00Z",
     confidence: 88,
@@ -480,25 +484,25 @@ export const mockDetailedPredictions: DetailedPrediction[] = [
   },
   {
     id: "dp2",
-    title: "Financial Investment Bonus",
+    title: "A bonus from an investment will arrive",
     category: "finance",
-    astrologer: { name: "Dr. Priya Patel", avatar: "" },
+    astrologer: { name: "Dr. Sundeep Kochar", avatar: "" },
     consultationDate: "2026-05-02T10:00:00Z",
     targetDate: "2026-05-15T10:00:00Z",
     confidence: 94,
     status: "completed",
-    notes: "Verified: Received investment returns bonus on May 15!"
+    notes: "You received the investment bonus on 15 May."
   },
   {
     id: "dp3",
-    title: "Harmonious Synastry Alignment",
+    title: "The relationship will feel easier and more aligned",
     category: "relationship",
-    astrologer: { name: "Pandit Rajesh Kumar", avatar: "" },
+    astrologer: { name: "Pt. Ajai Bhambi", avatar: "" },
     consultationDate: "2026-06-10T10:00:00Z",
     targetDate: "2026-09-15T10:00:00Z",
     confidence: 82,
     status: "in_progress",
-    notes: "Relationship milestones tracking smoothly."
+    notes: "You noted that the relationship milestones are tracking."
   }
 ]
 

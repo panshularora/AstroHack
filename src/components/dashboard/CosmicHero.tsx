@@ -18,7 +18,7 @@ export function CosmicHero({ brief }: { brief: CosmicBrief }) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="mb-8 bg-gradient-to-br from-surface via-card to-primary/5 border border-line rounded-lg p-6 md:p-8 relative overflow-hidden shadow-2xl"
+      className="mb-8 bg-gradient-to-br from-surface via-card to-primary/5 border border-line rounded-none p-6 md:p-8 relative overflow-hidden shadow-2xl"
     >
       {/* Background glow */}
       <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-brand/8 rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/4" />
@@ -32,7 +32,7 @@ export function CosmicHero({ brief }: { brief: CosmicBrief }) {
               <Star className="w-4 h-4 text-gold" />
             </div>
             <span className="text-sm font-bold text-gold uppercase tracking-wider">Today's Daily Brief</span>
-            <span className="ml-auto text-xs text-[#9CA3AF] bg-white/5 px-2 py-1 rounded-md">
+            <span className="ml-auto text-xs text-[#9CA3AF] bg-white/5 px-2 py-1 rounded-none">
               {new Date().toLocaleDateString("en-US", { month: "short", day: "numeric" })}
             </span>
           </div>
@@ -40,17 +40,17 @@ export function CosmicHero({ brief }: { brief: CosmicBrief }) {
           <p className="text-white/90 text-base leading-relaxed mb-6">{brief.summary}</p>
 
           <div className="grid sm:grid-cols-2 gap-3 mb-6">
-            <div className="bg-brand-light border border-brand/20 rounded-lg p-4 group hover:bg-brand/15 transition-colors cursor-pointer">
+            <div className="bg-brand-light border border-brand/20 rounded-none p-4 group hover:bg-brand/15 transition-colors cursor-pointer">
               <div className="flex items-center gap-2 mb-2">
                 <Zap className="w-3.5 h-3.5 text-brand" />
                 <span className="text-xs font-bold text-brand uppercase tracking-wider">Today's Opportunity</span>
               </div>
               <p className="text-sm text-white">Assert your leadership. The Jupiter trine favors bold, decisive action in career meetings.</p>
             </div>
-            <div className="bg-amber-500/10 border border-amber-500/20 rounded-lg p-4 group hover:bg-amber-500/15 transition-colors cursor-pointer">
+            <div className="bg-zinc-100/5 border border-zinc-700 rounded-none p-4 group hover:bg-zinc-100/10 transition-colors cursor-pointer">
               <div className="flex items-center gap-2 mb-2">
-                <ShieldAlert className="w-3.5 h-3.5 text-amber-400" />
-                <span className="text-xs font-bold text-amber-400 uppercase tracking-wider">Watch Out</span>
+                <ShieldAlert className="w-3.5 h-3.5 text-zinc-300" />
+                <span className="text-xs font-bold text-zinc-300 uppercase tracking-wider">Watch Out</span>
               </div>
               <p className="text-sm text-white">Avoid financial impulsiveness. Wait until after Mercury's direct station (Aug 4) for investments.</p>
             </div>
@@ -59,7 +59,7 @@ export function CosmicHero({ brief }: { brief: CosmicBrief }) {
           {/* Active remedy tracker */}
           <div
             onClick={() => navigate("/app/memory")}
-            className="flex items-center gap-4 p-4 bg-white/5 hover:bg-surface-2 border border-line rounded-lg cursor-pointer group transition-all"
+            className="flex items-center gap-4 p-4 bg-white/5 hover:bg-surface-2 border border-line rounded-none cursor-pointer group transition-all"
           >
             <div className="w-10 h-10 rounded-full bg-green-500/20 border border-green-500/30 flex items-center justify-center shrink-0">
               <Sun className="w-5 h-5 text-green-400" />
@@ -86,7 +86,7 @@ export function CosmicHero({ brief }: { brief: CosmicBrief }) {
         {/* Right: Planet widgets + energy score */}
         <div className="flex flex-col gap-4">
           {/* Cosmic energy score */}
-          <div className="bg-surface-2 border border-line rounded-lg p-5 text-center">
+          <div className="bg-surface-2 border border-line rounded-none p-5 text-center">
             <p className="text-xs text-[#9CA3AF] font-bold uppercase tracking-wider mb-3">Cosmic Energy Score</p>
             <div className="relative w-24 h-24 mx-auto mb-3">
               <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
@@ -118,7 +118,7 @@ export function CosmicHero({ brief }: { brief: CosmicBrief }) {
           </div>
 
           {/* Active transits */}
-          <div className="bg-surface-2 border border-line rounded-lg p-4">
+          <div className="bg-surface-2 border border-line rounded-none p-4">
             <p className="text-xs text-[#9CA3AF] font-bold uppercase tracking-wider mb-3">Active Transits</p>
             <div className="space-y-2">
               {planets.map(p => (
@@ -135,7 +135,7 @@ export function CosmicHero({ brief }: { brief: CosmicBrief }) {
 
           <button
             onClick={() => navigate("/app/brief")}
-            className="flex items-center justify-center gap-2 py-3 bg-brand-light border border-brand/30 text-brand rounded-lg text-sm font-bold hover:bg-brand/20 transition-colors"
+            className="flex items-center justify-center gap-2 py-3 bg-brand-light border border-brand/30 text-brand rounded-none text-sm font-bold hover:bg-brand/20 transition-colors"
           >
             Read Full Brief <ArrowRight className="w-4 h-4" />
           </button>

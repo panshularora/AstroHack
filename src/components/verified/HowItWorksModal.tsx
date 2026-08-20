@@ -8,11 +8,11 @@ interface HowItWorksModalProps {
 export const HowItWorksModal: React.FC<HowItWorksModalProps> = ({ onClose }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md font-sans">
-      <div className="relative w-full max-w-2xl bg-[#141518] border border-neutral-800 rounded-2xl p-6 sm:p-8 shadow-2xl text-neutral-100 max-h-[85vh] overflow-y-auto">
+      <div className="relative w-full max-w-2xl bg-[#141518] border border-neutral-800 rounded-none p-6 sm:p-8 shadow-2xl text-neutral-100 max-h-[85vh] overflow-y-auto">
         
         <div className="flex items-center justify-between pb-4 border-b border-neutral-800">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
+            <div className="w-8 h-8 rounded-full bg-zinc-100/5 border border-zinc-700 flex items-center justify-center text-zinc-300">
               <ShieldCheck className="w-4 h-4" />
             </div>
             <div>
@@ -26,7 +26,7 @@ export const HowItWorksModal: React.FC<HowItWorksModalProps> = ({ onClose }) => 
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-neutral-400 hover:text-white rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer"
+            className="p-1.5 text-neutral-400 hover:text-white rounded-none hover:bg-neutral-800 transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -35,7 +35,7 @@ export const HowItWorksModal: React.FC<HowItWorksModalProps> = ({ onClose }) => 
         <div className="mt-6 space-y-6 text-xs sm:text-sm text-neutral-300 font-light leading-relaxed">
           {/* Step 1 */}
           <div className="flex gap-4 items-start">
-            <div className="w-8 h-8 rounded-xl bg-neutral-900 border border-neutral-700 flex items-center justify-center text-amber-300 font-mono text-xs shrink-0 font-bold">
+            <div className="w-8 h-8 rounded-none bg-neutral-900 border border-neutral-700 flex items-center justify-center text-zinc-200 font-mono text-xs shrink-0 font-bold">
               01
             </div>
             <div>
@@ -50,7 +50,7 @@ export const HowItWorksModal: React.FC<HowItWorksModalProps> = ({ onClose }) => 
 
           {/* Step 2 */}
           <div className="flex gap-4 items-start">
-            <div className="w-8 h-8 rounded-xl bg-neutral-900 border border-neutral-700 flex items-center justify-center text-amber-300 font-mono text-xs shrink-0 font-bold">
+            <div className="w-8 h-8 rounded-none bg-neutral-900 border border-neutral-700 flex items-center justify-center text-zinc-200 font-mono text-xs shrink-0 font-bold">
               02
             </div>
             <div>
@@ -65,7 +65,7 @@ export const HowItWorksModal: React.FC<HowItWorksModalProps> = ({ onClose }) => 
 
           {/* Step 3 */}
           <div className="flex gap-4 items-start">
-            <div className="w-8 h-8 rounded-xl bg-neutral-900 border border-neutral-700 flex items-center justify-center text-amber-300 font-mono text-xs shrink-0 font-bold">
+            <div className="w-8 h-8 rounded-none bg-neutral-900 border border-neutral-700 flex items-center justify-center text-zinc-200 font-mono text-xs shrink-0 font-bold">
               03
             </div>
             <div>
@@ -79,8 +79,8 @@ export const HowItWorksModal: React.FC<HowItWorksModalProps> = ({ onClose }) => 
           </div>
 
           {/* Guarantee Banner */}
-          <div className="p-4 rounded-xl bg-amber-950/20 border border-amber-800/40 text-amber-200 text-xs flex items-center gap-3">
-            <Sparkles className="w-5 h-5 text-amber-400 shrink-0" />
+          <div className="p-4 rounded-none bg-amber-950/20 border border-amber-800/40 text-zinc-200 text-xs flex items-center gap-3">
+            <Sparkles className="w-5 h-5 text-zinc-300 shrink-0" />
             <span>
               <strong>100% Satisfaction Guarantee:</strong> If your session does not deliver absolute clarity or alignment, your credits are refunded immediately.
             </span>

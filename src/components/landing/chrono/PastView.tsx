@@ -47,7 +47,7 @@ export const PastView: React.FC<PastViewProps> = ({
     <div className="w-full max-w-2xl mx-auto px-6 py-4 flex flex-col space-y-6 animate-fadeIn text-neutral-300 select-none font-sans">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2 text-white font-bold font-mono text-xs">
-          <History className="w-4 h-4 text-amber-400" />
+          <History className="w-4 h-4 text-zinc-300" />
           <span>Timeline Reflections & Past Logs</span>
         </div>
         <button
@@ -62,7 +62,7 @@ export const PastView: React.FC<PastViewProps> = ({
       {showAddForm && (
         <form
           onSubmit={handleSubmit}
-          className="p-5 rounded-2xl bg-neutral-900/60 border border-neutral-800 flex flex-col space-y-3 animate-fadeIn font-mono text-xs"
+          className="p-5 rounded-none bg-neutral-900/60 border border-neutral-800 flex flex-col space-y-3 animate-fadeIn font-mono text-xs"
         >
           <div className="text-xs text-neutral-400 font-medium">
             Log a memory or milestone for {currentDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
@@ -72,14 +72,14 @@ export const PastView: React.FC<PastViewProps> = ({
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Title / Moment name (optional)"
-            className="bg-black/40 border border-neutral-800 rounded-xl px-3.5 py-2 text-xs text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-amber-400"
+            className="bg-black/40 border border-neutral-800 rounded-none px-3.5 py-2 text-xs text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-amber-400"
           />
           <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder="What happened or what did you learn at this time?"
             rows={3}
-            className="bg-black/40 border border-neutral-800 rounded-xl px-3.5 py-2 text-xs text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-amber-400 resize-none"
+            className="bg-black/40 border border-neutral-800 rounded-none px-3.5 py-2 text-xs text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-amber-400 resize-none"
           />
           <div className="flex items-center justify-between pt-1">
             <div className="flex items-center gap-2">
@@ -87,7 +87,7 @@ export const PastView: React.FC<PastViewProps> = ({
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value as 'reflection' | 'memory' | 'milestone')}
-                className="bg-black text-xs text-neutral-300 border border-neutral-800 rounded-lg px-2.5 py-1 focus:outline-none font-mono"
+                className="bg-black text-xs text-neutral-300 border border-neutral-800 rounded-none px-2.5 py-1 focus:outline-none font-mono"
               >
                 <option value="reflection">Reflection</option>
                 <option value="memory">Memory</option>
@@ -105,7 +105,7 @@ export const PastView: React.FC<PastViewProps> = ({
               <button
                 type="submit"
                 disabled={!content.trim()}
-                className="text-xs bg-amber-500 text-black font-bold hover:bg-amber-400 px-4 py-1.5 rounded-xl cursor-pointer disabled:opacity-40"
+                className="text-xs bg-zinc-100 text-black font-bold hover:bg-zinc-200 px-4 py-1.5 rounded-none cursor-pointer disabled:opacity-40"
               >
                 Save
               </button>
@@ -119,11 +119,11 @@ export const PastView: React.FC<PastViewProps> = ({
           {pastEntries.map((entry) => (
             <div
               key={entry.id}
-              className="p-4 rounded-2xl bg-neutral-900/60 border border-neutral-800 flex flex-col space-y-2 hover:border-neutral-700 transition-all"
+              className="p-4 rounded-none bg-neutral-900/60 border border-neutral-800 flex flex-col space-y-2 hover:border-neutral-700 transition-all"
             >
               <div className="flex items-center justify-between text-xs">
                 <span className="font-bold text-neutral-200 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-zinc-200" />
                   {entry.title || 'Past Reflection'}
                 </span>
                 <span className="text-neutral-500">{entry.timeLabel}</span>
@@ -132,7 +132,7 @@ export const PastView: React.FC<PastViewProps> = ({
                 {entry.content}
               </p>
               <div className="flex items-center justify-between pt-1">
-                <span className="text-[10px] uppercase tracking-wider text-neutral-500 bg-black/40 px-2 py-0.5 rounded-md border border-neutral-800">
+                <span className="text-[10px] uppercase tracking-wider text-neutral-500 bg-black/40 px-2 py-0.5 rounded-none border border-neutral-800">
                   {entry.category}
                 </span>
               </div>
@@ -140,8 +140,8 @@ export const PastView: React.FC<PastViewProps> = ({
           ))}
         </div>
       ) : (
-        <div className="p-8 rounded-2xl bg-neutral-900/40 border border-neutral-800 flex flex-col items-center text-center space-y-3">
-          <BookOpen className="w-6 h-6 text-amber-400 opacity-60" />
+        <div className="p-8 rounded-none bg-neutral-900/40 border border-neutral-800 flex flex-col items-center text-center space-y-3">
+          <BookOpen className="w-6 h-6 text-zinc-300 opacity-60" />
           <div className="flex flex-col space-y-1">
             <span className="font-display text-base text-neutral-300">No past logs for this timestamp</span>
             <span className="text-xs font-mono text-neutral-500 max-w-sm">
@@ -151,8 +151,8 @@ export const PastView: React.FC<PastViewProps> = ({
         </div>
       )}
 
-      <div className="p-4 rounded-2xl bg-neutral-900/30 border border-neutral-800/60 flex items-start gap-3">
-        <Sparkles className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+      <div className="p-4 rounded-none bg-neutral-900/30 border border-neutral-800/60 flex items-start gap-3">
+        <Sparkles className="w-4 h-4 text-zinc-300 shrink-0 mt-0.5" />
         <div className="text-xs text-neutral-400 font-mono leading-relaxed">
           <span className="text-neutral-200 font-bold">Temporal Wisdom: </span>
           Looking back allows us to measure growth. Every minute spent reflecting turns experience into wisdom.

@@ -22,7 +22,7 @@ export function AuthStep({ onNext, onBack, updateData }: { onNext: () => void, o
   return (
     <div className="flex-1 flex flex-col p-6 max-w-md mx-auto w-full relative min-h-screen justify-center font-sans">
       <div className="bg-[#090A0F] border border-white/10 rounded-[32px] p-8 relative overflow-hidden shadow-2xl">
-        <div className="absolute inset-0 bg-gradient-to-br from-amber-500/10 to-cyan-500/10 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-br from-zinc-400/10 to-cyan-500/10 pointer-events-none" />
         
         <div className="relative z-10 space-y-6">
           <div className="text-center">
@@ -33,14 +33,14 @@ export function AuthStep({ onNext, onBack, updateData }: { onNext: () => void, o
           <form onSubmit={handleSubmit} className="space-y-4 font-mono text-xs">
             <div>
               <label className="text-xs font-bold text-[#9CA3AF] uppercase tracking-wider mb-2 flex items-center gap-2">
-                <User className="w-3.5 h-3.5 text-amber-400" /> Full Name
+                <User className="w-3.5 h-3.5 text-zinc-300" /> Full Name
               </label>
               <input 
                 type="text" 
                 value={name}
                 onChange={e => setName(e.target.value)}
                 placeholder="Enter your full name..."
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-400 transition-colors text-xs" 
+                className="w-full bg-white/5 border border-white/10 rounded-none px-4 py-3 text-white focus:outline-none focus:border-amber-400 transition-colors text-xs" 
                 required
               />
             </div>
@@ -53,7 +53,7 @@ export function AuthStep({ onNext, onBack, updateData }: { onNext: () => void, o
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 placeholder="your.email@example.com"
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-400 transition-colors text-xs" 
+                className="w-full bg-white/5 border border-white/10 rounded-none px-4 py-3 text-white focus:outline-none focus:border-amber-400 transition-colors text-xs" 
                 required
               />
             </div>
@@ -66,12 +66,12 @@ export function AuthStep({ onNext, onBack, updateData }: { onNext: () => void, o
                 value={phone}
                 onChange={e => setPhone(e.target.value)}
                 placeholder="+1 (555) 000-0000"
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-400 transition-colors text-xs" 
+                className="w-full bg-white/5 border border-white/10 rounded-none px-4 py-3 text-white focus:outline-none focus:border-amber-400 transition-colors text-xs" 
               />
             </div>
             
             <div className="pt-2">
-              <Button type="submit" className="w-full group font-bold bg-amber-500 text-black hover:bg-amber-400 rounded-xl text-xs py-3">
+              <Button type="submit" className="w-full group font-bold bg-zinc-100 text-black hover:bg-zinc-200 rounded-none text-xs py-3">
                 Continue to Birth Details <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
             </div>

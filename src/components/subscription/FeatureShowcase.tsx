@@ -14,8 +14,8 @@ export function FeatureShowcase() {
     <div className="mb-24 relative">
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {features.map((feature, i) => (
-          <div key={i} className="bg-surface/80 backdrop-blur-sm border border-line rounded-lg p-8 hover:bg-white/5 hover:border-line-strong transition-all group shadow-xl hover:shadow-2xl hover:shadow-primary/5">
-            <div className="w-12 h-12 rounded-lg bg-surface-2 border border-line flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-inner">
+          <div key={i} className="bg-surface/80 backdrop-blur-sm border border-line rounded-none p-8 hover:bg-white/5 hover:border-line-strong transition-all group shadow-xl hover:shadow-2xl hover:shadow-primary/5">
+            <div className="w-12 h-12 rounded-none bg-surface-2 border border-line flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-inner">
               {feature.icon}
             </div>
             <h3 className="text-lg font-bold text-white mb-3">{feature.title}</h3>

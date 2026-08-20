@@ -52,7 +52,7 @@ export function CoreFeatures() {
         </div>
 
         {/* Feature grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-line rounded-xl overflow-hidden border border-line">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-line rounded-none overflow-hidden border border-line">
           {features.map((feature, i) => (
             <motion.div
               key={feature.title}
@@ -62,7 +62,7 @@ export function CoreFeatures() {
               transition={{ duration: 0.4, delay: i * 0.05 }}
               className="bg-surface p-8 hover:bg-surface-2/50 transition-colors"
             >
-              <div className="w-10 h-10 rounded-lg bg-surface-2 border border-line flex items-center justify-center mb-5">
+              <div className="w-10 h-10 rounded-none bg-surface-2 border border-line flex items-center justify-center mb-5">
                 <feature.icon className="w-5 h-5 text-brand" />
               </div>
               <h3 className="text-base font-semibold text-ink mb-2">{feature.title}</h3>

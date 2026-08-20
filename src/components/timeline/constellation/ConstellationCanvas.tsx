@@ -252,21 +252,21 @@ export const ConstellationCanvas: React.FC<ConstellationCanvasProps> = ({
               <div
                 className={`absolute inset-0 rounded-full transition-all duration-300 ${
                   isSelected
-                    ? 'w-16 h-16 -left-4 -top-4 bg-amber-400/30 blur-md animate-pulse'
-                    : 'w-10 h-10 -left-1 -top-1 bg-white/10 blur-sm group-hover:bg-amber-400/20'
+                    ? 'w-16 h-16 -left-4 -top-4 bg-zinc-200/30 blur-md animate-pulse'
+                    : 'w-10 h-10 -left-1 -top-1 bg-white/10 blur-sm group-hover:bg-zinc-200/20'
                 }`}
               />
 
               <div
                 className={`relative flex items-center justify-center rounded-full transition-transform duration-200 ${
                   isSelected
-                    ? 'w-9 h-9 bg-black border-2 border-amber-400 text-amber-300 shadow-[0_0_20px_rgba(245,158,11,0.9)] scale-110'
+                    ? 'w-9 h-9 bg-black border-2 border-amber-400 text-zinc-200 shadow-[0_0_20px_rgba(245,158,11,0.9)] scale-110'
                     : isConnectSource
-                    ? 'w-8 h-8 bg-amber-950 border-2 border-amber-400 text-amber-200 shadow-[0_0_15px_rgba(245,158,11,0.8)]'
+                    ? 'w-8 h-8 bg-amber-950 border-2 border-amber-400 text-zinc-200 shadow-[0_0_15px_rgba(245,158,11,0.8)]'
                     : 'w-7 h-7 bg-zinc-950/90 border border-white/40 text-zinc-200 group-hover:border-amber-400 group-hover:scale-105'
                 }`}
               >
-                <span className="text-amber-300 drop-shadow-[0_0_6px_rgba(245,158,11,0.8)]">
+                <span className="text-zinc-200 drop-shadow-[0_0_6px_rgba(245,158,11,0.8)]">
                   ✦
                 </span>
               </div>
@@ -282,12 +282,12 @@ export const ConstellationCanvas: React.FC<ConstellationCanvasProps> = ({
 
               {isSelected && (
                 <div
-                  className="absolute bottom-12 left-1/2 -translate-x-1/2 w-72 bg-[#090A0F]/95 border border-white/20 rounded-2xl p-4 shadow-[0_0_30px_rgba(0,0,0,0.8)] backdrop-blur-xl z-50 text-left pointer-events-auto animate-fadeIn"
+                  className="absolute bottom-12 left-1/2 -translate-x-1/2 w-72 bg-[#090A0F]/95 border border-white/20 rounded-none p-4 shadow-[0_0_30px_rgba(0,0,0,0.8)] backdrop-blur-xl z-50 text-left pointer-events-auto animate-fadeIn"
                   onClick={(e) => e.stopPropagation()}
                 >
                   <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-[#090A0F] border-r border-b border-white/20 rotate-45" />
 
-                  <div className="text-[10px] font-mono tracking-widest text-amber-400 font-bold uppercase mb-1.5 flex items-center justify-between">
+                  <div className="text-[10px] font-mono tracking-widest text-zinc-300 font-bold uppercase mb-1.5 flex items-center justify-between">
                     <span>{m.timestampDisplay || `${m.date.toUpperCase()} - 12:00:00`}</span>
                   </div>
 
@@ -297,7 +297,7 @@ export const ConstellationCanvas: React.FC<ConstellationCanvasProps> = ({
 
                   {m.location && (
                     <div className="text-[10px] font-mono text-cyan-300 flex items-center gap-1">
-                      <span>📍</span> {m.location}
+                      {m.location}
                     </div>
                   )}
                 </div>

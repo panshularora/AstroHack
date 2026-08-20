@@ -9,8 +9,8 @@ export function BriefRecommendations() {
       </h2>
 
       <div className="grid md:grid-cols-2 gap-6">
-        <div className="bg-surface border border-line rounded-lg p-6 md:p-8 flex flex-col items-start hover:border-line-strong transition-colors">
-          <div className="w-12 h-12 rounded-xl bg-brand/20 flex items-center justify-center mb-5">
+        <div className="bg-surface border border-line rounded-none p-6 md:p-8 flex flex-col items-start hover:border-line-strong transition-colors">
+          <div className="w-12 h-12 rounded-none bg-brand/20 flex items-center justify-center mb-5">
             <Users className="w-6 h-6 text-brand" />
           </div>
           <h3 className="text-lg font-bold text-white mb-3">Explore Dr. Alara Vance</h3>
@@ -22,8 +22,8 @@ export function BriefRecommendations() {
           </Button>
         </div>
 
-        <div className="bg-surface border border-line rounded-lg p-6 md:p-8 flex flex-col items-start hover:border-line-strong transition-colors">
-          <div className="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center mb-5">
+        <div className="bg-surface border border-line rounded-none p-6 md:p-8 flex flex-col items-start hover:border-line-strong transition-colors">
+          <div className="w-12 h-12 rounded-none bg-blue-500/20 flex items-center justify-center mb-5">
             <Video className="w-6 h-6 text-blue-400" />
           </div>
           <h3 className="text-lg font-bold text-white mb-3">Follow-up with Dr. Sarah</h3>

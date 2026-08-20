@@ -32,14 +32,9 @@ export function DashboardHeader({ userName }: { userName: string }) {
       >
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <motion.div
-              animate={{ rotate: [0, 15, -10, 0] }}
-              transition={{ duration: 2, delay: 0.5 }}
-            >
-              ✨
-            </motion.div>
-            <span className="text-[#9CA3AF] text-sm font-medium">
-              {new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
+            <span className="w-1.5 h-1.5 bg-emerald-400 animate-pulse-glow" />
+            <span className="text-zinc-500 text-sm font-medium">
+              {new Date().toLocaleDateString("en-IN", { weekday: "long", month: "long", day: "numeric" })}
             </span>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
@@ -51,25 +46,25 @@ export function DashboardHeader({ userName }: { userName: string }) {
         <div className="flex flex-wrap items-center gap-3 shrink-0">
           <button
             onClick={() => openTools("panchang")}
-            className="flex items-center gap-2 px-4 py-2.5 bg-amber-500/10 border border-amber-500/30 text-amber-400 rounded-xl text-sm font-bold hover:bg-amber-500/20 transition-colors"
+            className="flex items-center gap-2 px-4 py-2.5 bg-zinc-100/5 border border-zinc-700 text-zinc-300 rounded-none text-sm font-bold hover:bg-zinc-100/10 transition-colors"
           >
-            <Sun className="w-4 h-4 text-amber-400" /> Today's Panchang
+            <Sun className="w-4 h-4 text-zinc-300" /> Today's Panchang
           </button>
           <button
             onClick={() => navigate("/app/companion")}
-            className="flex items-center gap-2 px-4 py-2.5 bg-brand-light border border-brand/30 text-brand rounded-xl text-sm font-bold hover:bg-brand/20 transition-colors"
+            className="flex items-center gap-2 px-4 py-2.5 bg-brand-light border border-brand/30 text-brand rounded-none text-sm font-bold hover:bg-brand/20 transition-colors"
           >
             <Brain className="w-4 h-4" /> Ask AI
           </button>
           <button
             onClick={() => navigate("/app/match")}
-            className="flex items-center gap-2 px-4 py-2.5 bg-surface-2 border border-line text-white rounded-xl text-sm font-bold hover:bg-surface-3 transition-colors"
+            className="flex items-center gap-2 px-4 py-2.5 bg-surface-2 border border-line text-white rounded-none text-sm font-bold hover:bg-surface-3 transition-colors"
           >
             <Sparkles className="w-4 h-4" /> Book Session
           </button>
           <button
             onClick={() => navigate("/app/journey")}
-            className="hidden md:flex items-center gap-2 px-4 py-2.5 bg-surface-2 border border-line text-white rounded-xl text-sm font-bold hover:bg-surface-3 transition-colors"
+            className="hidden md:flex items-center gap-2 px-4 py-2.5 bg-surface-2 border border-line text-white rounded-none text-sm font-bold hover:bg-surface-3 transition-colors"
           >
             <TrendingUp className="w-4 h-4" /> Life Journey <ArrowRight className="w-3 h-3" />
           </button>

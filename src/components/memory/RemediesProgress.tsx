@@ -23,7 +23,7 @@ export function RemediesProgress() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: i * 0.1 }}
-            className={`bg-surface border ${r.status === 'completed' ? 'border-green-500/30' : 'border-line/60'} rounded-lg p-6 md:p-8 relative overflow-hidden group`}
+            className={`bg-surface border ${r.status === 'completed' ? 'border-green-500/30' : 'border-line/60'} rounded-none p-6 md:p-8 relative overflow-hidden group`}
           >
             {r.status === 'completed' && (
               <div className="absolute top-0 right-0 w-32 h-32 bg-green-500/10 rounded-full blur-3xl pointer-events-none" />
@@ -38,7 +38,7 @@ export function RemediesProgress() {
                 <h3 className="text-lg font-bold text-white leading-tight">{r.title}</h3>
               </div>
               <div className="flex flex-col items-end shrink-0 ml-4">
-                <div className="flex items-center gap-1.5 text-gold font-bold bg-gold/10 px-2 py-1 rounded-md mb-1.5 border border-gold/20">
+                <div className="flex items-center gap-1.5 text-gold font-bold bg-gold/10 px-2 py-1 rounded-none mb-1.5 border border-gold/20">
                   <Flame className="w-3.5 h-3.5 fill-gold" /> {r.streak} Days
                 </div>
                 <span className="text-[10px] text-[#9CA3AF] uppercase font-bold tracking-wider">{r.status === 'completed' ? 'Done for now' : 'Due'}</span>

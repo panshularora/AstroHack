@@ -23,7 +23,7 @@ export const HeaderToolbar: React.FC<HeaderToolbarProps> = ({
       {/* Left: Star Icon + Date */}
       <div className="flex items-center gap-3">
         <span
-          className="text-amber-400 font-bold text-lg leading-none cursor-pointer hover:scale-110 transition-transform"
+          className="text-zinc-300 font-bold text-lg leading-none cursor-pointer hover:scale-110 transition-transform"
           onClick={() => navigate('/login')}
           title="AstroLive Login"
         >
@@ -40,7 +40,7 @@ export const HeaderToolbar: React.FC<HeaderToolbarProps> = ({
       <div className="flex items-center">
         <button
           onClick={() => navigate('/login')}
-          className="flex items-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs px-4.5 py-2 rounded-full shadow-lg hover:scale-105 transition-all cursor-pointer"
+          className="flex items-center gap-1.5 bg-zinc-100 hover:bg-zinc-200 text-black font-bold text-xs px-4.5 py-2 rounded-full shadow-lg hover:scale-105 transition-all cursor-pointer"
         >
           <span>Enter AstroLive</span>
           <ArrowRight className="w-3.5 h-3.5" />

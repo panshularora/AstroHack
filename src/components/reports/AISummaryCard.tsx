@@ -2,7 +2,7 @@ import { Sparkles } from 'lucide-react'
 
 export function AISummaryCard({ summary, period }: { summary: string, period: string }) {
   return (
-    <div className="bg-surface border border-line rounded-lg p-8 relative overflow-hidden group shadow-2xl">
+    <div className="bg-surface border border-line rounded-none p-8 relative overflow-hidden group shadow-2xl">
       <div className="absolute inset-0 bg-gradient-to-br from-brand/20 via-blue-500/10 to-transparent pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity duration-1000" />
       
       <div className="relative z-10">

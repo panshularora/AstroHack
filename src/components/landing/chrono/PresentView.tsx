@@ -106,11 +106,11 @@ export const PresentView: React.FC<PresentViewProps> = () => {
 
   return (
     <div className="w-full max-w-xl mx-auto px-4 py-4 flex flex-col items-center justify-center animate-fadeIn text-neutral-300 font-sans">
-      <div className="relative w-full p-6 sm:p-7 rounded-2xl bg-neutral-900/40 border border-neutral-800/60 flex flex-col items-center text-center space-y-3 shadow-xl backdrop-blur-md hover:border-amber-500/30 transition-all group">
+      <div className="relative w-full p-6 sm:p-7 rounded-none bg-neutral-900/40 border border-neutral-800/60 flex flex-col items-center text-center space-y-3 shadow-xl backdrop-blur-md hover:border-zinc-700 transition-all group">
         {/* Language Badge & Refresh Button */}
         <div className="w-full flex items-center justify-between">
-          <div className="flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-widest text-amber-400 font-bold bg-amber-500/10 px-2.5 py-0.5 rounded-full border border-amber-500/20">
-            <Sparkles className="w-3 h-3 text-amber-400" />
+          <div className="flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-widest text-zinc-300 font-bold bg-zinc-100/5 px-2.5 py-0.5 rounded-full border border-zinc-700">
+            <Sparkles className="w-3 h-3 text-zinc-300" />
             <span>{currentQuote.lang} Wisdom</span>
           </div>
 
@@ -131,7 +131,7 @@ export const PresentView: React.FC<PresentViewProps> = () => {
 
         {/* Transliteration for Sanskrit */}
         {currentQuote.transliteration && (
-          <p className="text-xs font-serif text-amber-200/80 italic font-light">
+          <p className="text-xs font-serif text-zinc-200/80 italic font-light">
             {currentQuote.transliteration}
           </p>
         )}

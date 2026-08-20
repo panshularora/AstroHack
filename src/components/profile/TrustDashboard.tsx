@@ -14,7 +14,7 @@ export function TrustDashboard() {
 
       <div className="grid lg:grid-cols-2 gap-6">
         {/* Accuracy Trend */}
-        <div className="bg-surface border border-line rounded-lg p-6 md:p-8 hover:border-line-strong transition-colors">
+        <div className="bg-surface border border-line rounded-none p-6 md:p-8 hover:border-line-strong transition-colors">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-2">
               <Activity className="w-5 h-5 text-brand" />
@@ -43,7 +43,7 @@ export function TrustDashboard() {
         </div>
 
         {/* Satisfaction */}
-        <div className="bg-surface border border-line rounded-lg p-6 md:p-8 hover:border-line-strong transition-colors">
+        <div className="bg-surface border border-line rounded-none p-6 md:p-8 hover:border-line-strong transition-colors">
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center gap-2">
               <Star className="w-5 h-5 text-gold fill-gold/20" />

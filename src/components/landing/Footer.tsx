@@ -29,7 +29,7 @@ export function Footer() {
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-4">
-              <div className="w-7 h-7 rounded-lg bg-ink flex items-center justify-center text-white text-xs font-bold">
+              <div className="w-7 h-7 rounded-none bg-ink flex items-center justify-center text-white text-xs font-bold">
                 A
               </div>
               <span className="text-[15px] font-semibold tracking-tight">AstroLive</span>

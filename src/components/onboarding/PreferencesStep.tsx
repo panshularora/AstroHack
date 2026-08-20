@@ -50,7 +50,7 @@ export function PreferencesStep({
                 key={l}
                 type="button"
                 onClick={() => setLang(l.toLowerCase())}
-                className={`px-5 py-2.5 rounded-xl border text-xs font-bold transition-all ${
+                className={`px-5 py-2.5 rounded-none border text-xs font-bold transition-all ${
                   lang === l.toLowerCase()
                     ? 'bg-brand/20 border-brand text-white shadow-[0_0_15px_rgba(107,33,168,0.3)]'
                     : 'bg-white/5 border-line/60 text-[#9CA3AF] hover:bg-surface-3 hover:text-white'
@@ -80,7 +80,7 @@ export function PreferencesStep({
                   key={item.id}
                   type="button"
                   onClick={() => setMode(item.id)}
-                  className={`p-4 rounded-lg border text-center transition-all ${
+                  className={`p-4 rounded-none border text-center transition-all ${
                     isActive
                       ? `${item.activeBorder} text-white`
                       : 'bg-white/5 border-line/60 text-[#9CA3AF] hover:bg-surface-3 hover:text-white'
@@ -111,7 +111,7 @@ export function PreferencesStep({
                 <div
                   key={n.key}
                   onClick={() => toggleNotif(n.key as keyof typeof notifications)}
-                  className={`p-3.5 rounded-lg border cursor-pointer transition-all flex items-start justify-between gap-2 ${
+                  className={`p-3.5 rounded-none border cursor-pointer transition-all flex items-start justify-between gap-2 ${
                     isChecked
                       ? 'bg-brand-light border-brand/30 text-white'
                       : 'bg-surface-2 border-line/60 text-[#9CA3AF]'

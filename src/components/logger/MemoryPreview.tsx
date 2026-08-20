@@ -31,7 +31,7 @@ export function MemoryPreview() {
             <div className="absolute left-[-3.35rem] md:left-[-3.35rem] w-4 h-4 bg-brand/30 rounded-full flex items-center justify-center shrink-0 z-10 shadow-[0_0_15px_rgba(124,58,237,0.6)] backdrop-blur-md border border-brand/50">
               <div className="w-2 h-2 bg-brand rounded-full animate-pulse" />
             </div>
-            <div className="bg-brand-light border border-brand/20 rounded-lg p-4 md:p-5 w-full shadow-[0_0_20px_rgba(124,58,237,0.1)]">
+            <div className="bg-brand-light border border-brand/20 rounded-none p-4 md:p-5 w-full shadow-[0_0_20px_rgba(124,58,237,0.1)]">
               <p className="text-xs text-brand font-bold uppercase tracking-wider mb-1">Today</p>
               <h4 className="text-base font-bold text-white mb-1">Career Transition Guidance</h4>
               <p className="text-xs text-ink-secondary">2 Predictions • 2 Remedies • Audio Note</p>

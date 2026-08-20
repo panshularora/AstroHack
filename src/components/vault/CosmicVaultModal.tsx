@@ -53,12 +53,12 @@ export function CosmicVaultModal({ isOpen, onClose }: CosmicVaultModalProps) {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 12 }}
           transition={{ duration: 0.2, ease: "easeOut" }}
-          className="relative w-full max-w-3xl my-auto bg-[#090A0F] border border-white/10 rounded-2xl p-6 sm:p-8 space-y-6 shadow-2xl overflow-hidden"
+          className="relative w-full max-w-3xl my-auto bg-[#090A0F] border border-white/10 rounded-none p-6 sm:p-8 space-y-6 shadow-2xl overflow-hidden"
         >
           {/* Header */}
           <div className="flex items-center justify-between border-b border-white/10 pb-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-300 shadow-md">
+              <div className="w-10 h-10 rounded-none bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-300 shadow-md">
                 <Folder className="w-5 h-5" />
               </div>
               <div>
@@ -73,7 +73,7 @@ export function CosmicVaultModal({ isOpen, onClose }: CosmicVaultModalProps) {
             </div>
             <button
               onClick={onClose}
-              className="p-2 rounded-xl hover:bg-white/10 text-[#9CA3AF] hover:text-white transition-colors cursor-pointer"
+              className="p-2 rounded-none hover:bg-white/10 text-[#9CA3AF] hover:text-white transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -91,14 +91,14 @@ export function CosmicVaultModal({ isOpen, onClose }: CosmicVaultModalProps) {
           {/* Upload Drop Zone */}
           <div 
             onClick={() => fileInputRef.current?.click()}
-            className="p-8 rounded-2xl border-2 border-dashed border-amber-500/40 bg-amber-500/5 text-center space-y-3 font-mono cursor-pointer hover:border-amber-400 hover:bg-amber-500/10 transition-all"
+            className="p-8 rounded-none border-2 border-dashed border-zinc-700 bg-zinc-100/5 text-center space-y-3 font-mono cursor-pointer hover:border-amber-400 hover:bg-zinc-100/5 transition-all"
           >
-            <Upload className="w-8 h-8 text-amber-400 mx-auto" />
+            <Upload className="w-8 h-8 text-zinc-300 mx-auto" />
             <div>
               <p className="text-sm font-bold text-white">Click to Select Real Document (PDF / Image)</p>
               <p className="text-xs text-[#9CA3AF] mt-1">Offer Letters, Visas, Kundli Milans, Property Deeds, Contracts</p>
             </div>
-            <Button size="sm" className="rounded-xl font-mono bg-amber-500 text-black font-bold hover:bg-amber-400 cursor-pointer mt-2" disabled={uploading}>
+            <Button size="sm" className="rounded-none font-mono bg-zinc-100 text-black font-bold hover:bg-zinc-200 cursor-pointer mt-2" disabled={uploading}>
               {uploading ? "Encrypting & Attaching File..." : "Choose File from Computer"}
             </Button>
           </div>
@@ -112,9 +112,9 @@ export function CosmicVaultModal({ isOpen, onClose }: CosmicVaultModalProps) {
 
             <div className="space-y-2.5 max-h-[300px] overflow-y-auto pr-1">
               {documents.map(doc => (
-                <div key={doc.id} className="p-4 rounded-xl bg-white/5 border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div key={doc.id} className="p-4 rounded-none bg-white/5 border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div className="flex items-center gap-3 min-w-0">
-                    <div className="w-9 h-9 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center shrink-0 text-cyan-300">
+                    <div className="w-9 h-9 rounded-none bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center shrink-0 text-cyan-300">
                       <FileText className="w-4.5 h-4.5" />
                     </div>
                     <div className="min-w-0">
@@ -125,14 +125,14 @@ export function CosmicVaultModal({ isOpen, onClose }: CosmicVaultModalProps) {
 
                   <div className="sm:text-right shrink-0 space-y-1">
                     <div className="flex items-center gap-1.5 sm:justify-end">
-                      <LinkIcon className="w-3 h-3 text-amber-400 shrink-0" />
-                      <span className="text-xs font-bold text-amber-300">{doc.linkedPrediction}</span>
+                      <LinkIcon className="w-3 h-3 text-zinc-300 shrink-0" />
+                      <span className="text-xs font-bold text-zinc-200">{doc.linkedPrediction}</span>
                     </div>
                     <div className="flex items-center gap-1 sm:justify-end text-[10px]">
                       {doc.verified ? (
                         <span className="text-emerald-400 flex items-center gap-1 font-bold"><ShieldCheck className="w-3.5 h-3.5 text-emerald-400" /> Verified Proof</span>
                       ) : (
-                        <span className="text-amber-400 font-bold">Pending Verification</span>
+                        <span className="text-zinc-300 font-bold">Pending Verification</span>
                       )}
                     </div>
                   </div>
@@ -143,8 +143,8 @@ export function CosmicVaultModal({ isOpen, onClose }: CosmicVaultModalProps) {
 
           {/* Footer */}
           <div className="pt-4 border-t border-white/10 flex items-center justify-between font-mono text-xs text-[#9CA3AF]">
-            <span className="flex items-center gap-1.5"><Sparkles className="w-3.5 h-3.5 text-amber-400" /> 256-Bit Encrypted Vault</span>
-            <Button size="sm" variant="outline" className="rounded-xl font-mono border-white/20 text-white cursor-pointer" onClick={onClose}>
+            <span className="flex items-center gap-1.5"><Sparkles className="w-3.5 h-3.5 text-zinc-300" /> 256-Bit Encrypted Vault</span>
+            <Button size="sm" variant="outline" className="rounded-none font-mono border-white/20 text-white cursor-pointer" onClick={onClose}>
               Close Vault
             </Button>
           </div>

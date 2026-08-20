@@ -19,7 +19,7 @@ export function InteractiveTourOverlay({ onComplete }: { onComplete: () => void 
       animate={{ opacity: 1 }} 
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
     >
-      <div className="bg-surface border border-line rounded-lg p-8 max-w-md w-full relative overflow-hidden text-center shadow-2xl">
+      <div className="bg-surface border border-line rounded-none p-8 max-w-md w-full relative overflow-hidden text-center shadow-2xl">
         <div className="absolute inset-0 bg-gradient-to-br from-brand/10 to-blue-500/10 pointer-events-none" />
         
         <AnimatePresence mode="wait">

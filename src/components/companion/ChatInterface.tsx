@@ -51,7 +51,7 @@ In your July 15 session, **Dr. Sarah Chen** predicted a tech offer window openin
   }
 
   return (
-    <div className="flex flex-col h-[600px] bg-surface border border-line rounded-lg overflow-hidden relative">
+    <div className="flex flex-col h-[600px] bg-surface border border-line rounded-none overflow-hidden relative">
       {/* Proactive Alert Banner */}
       <div className="p-3 bg-brand-light border-b border-brand/20 flex items-center justify-between text-xs px-6">
         <div className="flex items-center gap-2">
@@ -74,11 +74,11 @@ In your July 15 session, **Dr. Sarah Chen** predicted a tech offer window openin
             >
               <div className="shrink-0 mt-1">
                 {msg.role === 'assistant' ? (
-                  <div className="w-8 h-8 rounded-md bg-brand-light border border-brand/30 flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-none bg-brand-light border border-brand/30 flex items-center justify-center">
                     <Sparkles className="w-4 h-4 text-brand" />
                   </div>
                 ) : (
-                  <div className="w-8 h-8 rounded-md bg-surface-2 border border-line flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-none bg-surface-2 border border-line flex items-center justify-center">
                     <User className="w-4 h-4 text-white/70" />
                   </div>
                 )}
@@ -87,8 +87,8 @@ In your July 15 session, **Dr. Sarah Chen** predicted a tech offer window openin
               <div className="flex flex-col gap-2">
                 <div className={`p-4 text-sm leading-relaxed ${
                   msg.role === 'user' 
-                    ? 'bg-brand text-white rounded-lg rounded-tr-sm' 
-                    : 'bg-surface-2 border border-line rounded-lg rounded-tl-sm'
+                    ? 'bg-brand text-white rounded-none rounded-tr-sm' 
+                    : 'bg-surface-2 border border-line rounded-none rounded-tl-sm'
                 }`}>
                   <div className="prose prose-sm max-w-none prose-invert prose-p:leading-relaxed prose-strong:text-gold-bright prose-p:text-ink/90">
                     <ReactMarkdown
@@ -105,7 +105,7 @@ In your July 15 session, **Dr. Sarah Chen** predicted a tech offer window openin
                 {msg.citations && (
                   <div className="flex flex-wrap gap-2">
                     {msg.citations.map((cite, idx) => (
-                      <div key={idx} className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-surface-2 border border-line text-[10px] font-bold uppercase tracking-wider text-ink-tertiary cursor-pointer hover:bg-surface-3 transition-colors">
+                      <div key={idx} className="flex items-center gap-1.5 px-2.5 py-1 rounded-none bg-surface-2 border border-line text-[10px] font-bold uppercase tracking-wider text-ink-tertiary cursor-pointer hover:bg-surface-3 transition-colors">
                         {getCitationIcon(cite.type)}
                         {cite.title}
                       </div>
@@ -121,7 +121,7 @@ In your July 15 session, **Dr. Sarah Chen** predicted a tech offer window openin
         </AnimatePresence>
 
         {isTyping && (
-          <div className="flex items-center gap-2 text-xs text-ink-tertiary p-3 bg-surface-2 rounded-md w-fit border border-line">
+          <div className="flex items-center gap-2 text-xs text-ink-tertiary p-3 bg-surface-2 rounded-none w-fit border border-line">
             <Sparkles className="w-4 h-4 text-brand animate-spin" />
             <span>AI Companion is reading your Cosmic Memory...</span>
           </div>
@@ -135,7 +135,7 @@ In your July 15 session, **Dr. Sarah Chen** predicted a tech offer window openin
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask about your career window, Dr. Sarah's reading, or active remedies..."
-            className="w-full bg-surface-2 border border-line rounded-md py-4 pl-4 pr-12 text-sm text-white placeholder:text-ink-tertiary/70 focus:outline-none focus:border-brand/50 transition-colors resize-none overflow-hidden min-h-[56px] max-h-[150px]"
+            className="w-full bg-surface-2 border border-line rounded-none py-4 pl-4 pr-12 text-sm text-white placeholder:text-ink-tertiary/70 focus:outline-none focus:border-brand/50 transition-colors resize-none overflow-hidden min-h-[56px] max-h-[150px]"
             rows={1}
             onKeyDown={(e) => {
               if (e.key === 'Enter' && !e.shiftKey) {
@@ -146,7 +146,7 @@ In your July 15 session, **Dr. Sarah Chen** predicted a tech offer window openin
           />
           <button
             onClick={handleSend}
-            className="absolute right-2 bottom-2 w-10 h-10 rounded-md bg-brand hover:bg-brand-hover text-white flex items-center justify-center transition-soft shadow-lg cursor-pointer"
+            className="absolute right-2 bottom-2 w-10 h-10 rounded-none bg-brand hover:bg-brand-hover text-white flex items-center justify-center transition-soft shadow-lg cursor-pointer"
           >
             <Send className="w-4 h-4" />
           </button>

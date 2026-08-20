@@ -18,7 +18,7 @@ export function PlanComparison() {
         <p className="text-[#9CA3AF]">See how AstroLive+ supercharges your experience.</p>
       </div>
 
-      <div className="bg-surface border border-line rounded-lg overflow-hidden shadow-2xl">
+      <div className="bg-surface border border-line rounded-none overflow-hidden shadow-2xl">
         <div className="grid grid-cols-3 p-6 border-b border-line/60 bg-white/5 backdrop-blur-sm">
           <div className="font-bold text-white uppercase tracking-wider text-xs">Capability</div>
           <div className="font-bold text-white text-center uppercase tracking-wider text-xs">Free Plan</div>

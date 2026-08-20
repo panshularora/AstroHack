@@ -64,7 +64,7 @@ export function FeatureSlidesStep({ onNext, onBack }: { onNext: () => void, onBa
             className="w-full"
           >
             <div className={`bg-gradient-to-b ${slides[slide].color} border rounded-[40px] p-12 md:p-20 text-center relative overflow-hidden backdrop-blur-sm`}>
-              <div className="w-24 h-24 mx-auto bg-black/40 rounded-lg flex items-center justify-center mb-8 border border-line-subtle shadow-xl backdrop-blur-md">
+              <div className="w-24 h-24 mx-auto bg-black/40 rounded-none flex items-center justify-center mb-8 border border-line-subtle shadow-xl backdrop-blur-md">
                 {slides[slide].icon}
               </div>
               <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 tracking-tight">{slides[slide].title}</h2>

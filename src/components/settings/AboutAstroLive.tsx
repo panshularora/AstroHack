@@ -8,10 +8,10 @@ export function AboutAstroLive() {
         <p className="text-[#9CA3AF]">Version and support information.</p>
       </div>
 
-      <div className="bg-surface border border-line rounded-lg p-8 flex flex-col items-center text-center relative overflow-hidden">
+      <div className="bg-surface border border-line rounded-none p-8 flex flex-col items-center text-center relative overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-brand-light rounded-full blur-3xl -z-10" />
         
-        <div className="w-16 h-16 bg-surface-2 border border-line rounded-lg flex items-center justify-center mb-4 relative shadow-inner">
+        <div className="w-16 h-16 bg-surface-2 border border-line rounded-none flex items-center justify-center mb-4 relative shadow-inner">
           <Heart className="w-8 h-8 text-brand absolute" />
         </div>
         <h3 className="text-xl font-bold text-white mb-1">AstroLive 2.0</h3>
@@ -22,21 +22,21 @@ export function AboutAstroLive() {
       </div>
 
       <div className="grid md:grid-cols-2 gap-4">
-        <button className="flex items-center justify-between p-4 bg-surface border border-line rounded-lg hover:bg-white/5 transition-colors">
+        <button className="flex items-center justify-between p-4 bg-surface border border-line rounded-none hover:bg-white/5 transition-colors">
           <div className="flex items-center gap-3">
             <Info className="w-5 h-5 text-blue-400" />
             <span className="font-bold text-white">Terms of Service</span>
           </div>
           <ExternalLink className="w-4 h-4 text-[#9CA3AF]" />
         </button>
-        <button className="flex items-center justify-between p-4 bg-surface border border-line rounded-lg hover:bg-white/5 transition-colors">
+        <button className="flex items-center justify-between p-4 bg-surface border border-line rounded-none hover:bg-white/5 transition-colors">
           <div className="flex items-center gap-3">
             <ShieldCheck className="w-5 h-5 text-green-400" />
             <span className="font-bold text-white">Privacy Policy</span>
           </div>
           <ExternalLink className="w-4 h-4 text-[#9CA3AF]" />
         </button>
-        <button className="flex items-center justify-between p-4 bg-surface border border-line rounded-lg hover:bg-white/5 transition-colors md:col-span-2">
+        <button className="flex items-center justify-between p-4 bg-surface border border-line rounded-none hover:bg-white/5 transition-colors md:col-span-2">
           <div className="flex items-center gap-3">
             <MessageCircle className="w-5 h-5 text-brand" />
             <span className="font-bold text-white">Help Center & Support</span>

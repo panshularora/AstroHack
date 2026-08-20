@@ -40,12 +40,12 @@ export function PredictionConfidenceModal({
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 10 }}
           transition={{ duration: 0.2, ease: "easeOut" }}
-          className="relative w-full max-w-xl bg-[#090A0F] border border-white/10 rounded-2xl p-6 sm:p-8 space-y-6 shadow-2xl overflow-hidden"
+          className="relative w-full max-w-xl bg-[#090A0F] border border-white/10 rounded-none p-6 sm:p-8 space-y-6 shadow-2xl overflow-hidden"
         >
           {/* Header */}
           <div className="flex items-center justify-between border-b border-white/10 pb-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-300 shadow-md">
+              <div className="w-10 h-10 rounded-none bg-zinc-100/10 border border-amber-400/40 flex items-center justify-center text-zinc-200 shadow-md">
                 <Target className="w-5 h-5" />
               </div>
               <div>
@@ -58,17 +58,17 @@ export function PredictionConfidenceModal({
             </div>
             <button
               onClick={onClose}
-              className="p-2 rounded-xl hover:bg-white/10 text-[#9CA3AF] hover:text-white transition-colors cursor-pointer"
+              className="p-2 rounded-none hover:bg-white/10 text-[#9CA3AF] hover:text-white transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
 
           {/* Title */}
-          <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-xs font-mono text-white flex items-center justify-between">
+          <div className="p-4 rounded-none bg-white/5 border border-white/10 text-xs font-mono text-white flex items-center justify-between">
             <div>
               <span className="text-[10px] text-[#9CA3AF] uppercase font-bold block mb-0.5">Target Prediction</span>
-              <span className="font-bold text-sm text-amber-300">"{predictionTitle}"</span>
+              <span className="font-bold text-sm text-zinc-200">"{predictionTitle}"</span>
             </div>
             <Badge className="bg-emerald-500/20 text-emerald-300 border-emerald-500/30 text-[10px] uppercase">
               Live Transit Trine
@@ -76,8 +76,8 @@ export function PredictionConfidenceModal({
           </div>
 
           {/* Interactive Calculation Toggles */}
-          <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-3 font-mono text-xs">
-            <span className="text-[10px] text-amber-400 font-bold uppercase tracking-wider block">Interactive Proof Simulation</span>
+          <div className="p-4 rounded-none bg-white/5 border border-white/10 space-y-3 font-mono text-xs">
+            <span className="text-[10px] text-zinc-300 font-bold uppercase tracking-wider block">Interactive Proof Simulation</span>
             
             <label className="flex items-center justify-between cursor-pointer">
               <span className="text-white">Attach Verified PDF Document (+10% Boost)</span>
@@ -103,16 +103,16 @@ export function PredictionConfidenceModal({
           {/* Mathematical Breakdown */}
           <div className="space-y-4">
             <h3 className="text-xs font-mono font-bold text-white uppercase tracking-wider flex items-center gap-2">
-              <Info className="w-4 h-4 text-amber-400" /> Mathematical Score Breakdown:
+              <Info className="w-4 h-4 text-zinc-300" /> Mathematical Score Breakdown:
             </h3>
 
             <div className="space-y-3 font-mono text-xs">
               {breakdown.map((item) => (
-                <div key={item.factor} className="p-3.5 rounded-xl bg-white/5 border border-white/10 space-y-2">
+                <div key={item.factor} className="p-3.5 rounded-none bg-white/5 border border-white/10 space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-white">{item.factor}</span>
                     <div className="flex items-center gap-2">
-                      <span className="text-amber-300 font-bold">{item.weight}</span>
+                      <span className="text-zinc-200 font-bold">{item.weight}</span>
                       <span className="text-[#9CA3AF] text-[10px]">({item.score}% match)</span>
                     </div>
                   </div>
@@ -126,7 +126,7 @@ export function PredictionConfidenceModal({
           {/* Footer */}
           <div className="pt-4 border-t border-white/10 flex items-center justify-between font-mono text-xs text-[#9CA3AF]">
             <span className="flex items-center gap-1.5 text-emerald-400 font-bold"><ShieldCheck className="w-4 h-4 text-emerald-400" /> Immutable Proof Model</span>
-            <Button size="sm" className="rounded-xl font-mono font-bold bg-amber-500 text-black hover:bg-amber-400" onClick={onClose}>
+            <Button size="sm" className="rounded-none font-mono font-bold bg-zinc-100 text-black hover:bg-zinc-200" onClick={onClose}>
               Apply & Close <ArrowRight className="w-3.5 h-3.5" />
             </Button>
           </div>

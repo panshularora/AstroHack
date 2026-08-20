@@ -19,7 +19,7 @@ export function PricingSection() {
 
       <div className="grid lg:grid-cols-3 gap-8 max-w-5xl mx-auto items-center">
         {plans.map((plan, i) => (
-          <div key={i} className={`bg-surface border rounded-lg p-8 relative flex flex-col h-full ${plan.popular ? 'border-brand shadow-2xl shadow-primary/20 scale-105 z-10' : 'border-line/60 hover:border-line-strong transition-colors'}`}>
+          <div key={i} className={`bg-surface border rounded-none p-8 relative flex flex-col h-full ${plan.popular ? 'border-brand shadow-2xl shadow-primary/20 scale-105 z-10' : 'border-line/60 hover:border-line-strong transition-colors'}`}>
             {plan.popular && (
               <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-brand text-white text-xs font-bold uppercase tracking-wider rounded-full flex items-center gap-1 shadow-lg">
                 <Star className="w-3 h-3 fill-current" /> Most Popular
@@ -46,11 +46,11 @@ export function PricingSection() {
             </ul>
             
             <Button
-              onClick={() => navigate("/app/dashboard")}
+              onClick={() => navigate("/app/subscription")}
               variant={plan.popular ? 'primary' : 'outline'}
               className={`w-full py-6 font-bold ${!plan.popular && 'border-line-strong'}`}
             >
-              Start 7-Day Free Trial
+              {plan.name === "Family" ? "Get Family" : "Start 7-Day Free Trial"}
             </Button>
           </div>
         ))}

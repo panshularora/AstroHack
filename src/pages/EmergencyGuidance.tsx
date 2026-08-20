@@ -102,7 +102,7 @@ export function EmergencyGuidance() {
       benefit: "Balances 12th House expenditure & restores emotional harmony",
       streak: `${streak} / 21 Days Active`,
       status: "Active Practice",
-      color: "text-amber-400"
+      color: "text-zinc-300"
     },
     {
       id: "r2",
@@ -162,7 +162,7 @@ export function EmergencyGuidance() {
 
           <Button
             size="sm"
-            className="bg-amber-500 text-black font-bold hover:bg-amber-400 font-mono text-xs rounded-xl cursor-pointer"
+            className="bg-zinc-100 text-black font-bold hover:bg-zinc-200 font-mono text-xs rounded-none cursor-pointer"
             onClick={() => navigate("/app/match")}
           >
             Consult Priest for Graha Shanti
@@ -170,7 +170,7 @@ export function EmergencyGuidance() {
         </div>
 
         {/* Interactive Mantra Chanting Counter */}
-        <div className="p-6 rounded-2xl bg-[#090A0F] border border-white/10 text-center space-y-6 shadow-xl relative">
+        <div className="p-6 rounded-none bg-[#090A0F] border border-white/10 text-center space-y-6 shadow-xl relative">
           <div className="absolute top-4 right-4">
              {isCompletedToday ? (
                 <Badge variant="success" size="sm" className="font-mono">Completed Today</Badge>
@@ -182,17 +182,17 @@ export function EmergencyGuidance() {
           <motion.div
             animate={mantraActive ? { scale: [1, 1.1, 1] } : { scale: 1 }}
             transition={mantraActive ? { duration: 2, repeat: Infinity, ease: "easeInOut" } : {}}
-            className="w-20 h-20 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center mx-auto text-amber-400 shadow-lg"
+            className="w-20 h-20 rounded-none bg-zinc-100/5 border border-zinc-700 flex items-center justify-center mx-auto text-zinc-300 shadow-lg"
           >
-            <Flame className="w-8 h-8 text-amber-400" />
+            <Flame className="w-8 h-8 text-zinc-300" />
           </motion.div>
 
           <div>
-            <span className="text-[10px] font-mono text-amber-400 font-bold uppercase tracking-widest block mb-1">
+            <span className="text-[10px] font-mono text-zinc-300 font-bold uppercase tracking-widest block mb-1">
               Active Daily Vedic Counter-Measure
             </span>
             <p className="text-lg font-bold text-white">
-              Venus Beej Mantra: <span className="text-amber-300">"Om Shum Shukraya Namaha"</span>
+              Venus Beej Mantra: <span className="text-zinc-200">"Om Shum Shukraya Namaha"</span>
             </p>
             <p className="text-xs font-mono text-[#9CA3AF] mt-1">
               {mantraActive ? `Recitation in progress · ${mantraCount} / 108 chants completed` : "108 Sunrise Chants for 12th House Venus Balance"}
@@ -202,7 +202,7 @@ export function EmergencyGuidance() {
           <div className="flex justify-center gap-3">
             <Button
               size="sm"
-              className="bg-amber-500 text-black font-bold hover:bg-amber-400 rounded-xl font-mono text-xs px-6 cursor-pointer"
+              className="bg-zinc-100 text-black font-bold hover:bg-zinc-200 rounded-none font-mono text-xs px-6 cursor-pointer"
               onClick={handleMantraIncrement}
             >
               {mantraActive ? <><Pause className="w-3.5 h-3.5 mr-1" /> Pause Counter</> : <><Play className="w-3.5 h-3.5 mr-1" /> Begin 108 Chants</>}
@@ -211,7 +211,7 @@ export function EmergencyGuidance() {
             <Button
               size="sm"
               variant="outline"
-              className="rounded-xl font-mono text-xs px-4 cursor-pointer text-white border-white/20 hover:bg-white/10"
+              className="rounded-none font-mono text-xs px-4 cursor-pointer text-white border-white/20 hover:bg-white/10"
               onClick={handleShare}
             >
               <Share2 className="w-3.5 h-3.5 mr-1" /> Share My Streak
@@ -229,9 +229,9 @@ export function EmergencyGuidance() {
                   <div 
                     key={day}
                     title={day}
-                    className={`h-8 rounded-md border flex items-center justify-center text-[10px] font-mono transition-colors
-                      ${isCompleted ? "bg-amber-500/20 border-amber-500/50 text-amber-400" : "bg-white/5 border-white/10 text-white/30"}
-                      ${isToday && !isCompleted ? "animate-pulse border-amber-500/50 bg-amber-500/10" : ""}
+                    className={`h-8 rounded-none border flex items-center justify-center text-[10px] font-mono transition-colors
+                      ${isCompleted ? "bg-zinc-100/10 border-zinc-600 text-zinc-300" : "bg-white/5 border-white/10 text-white/30"}
+                      ${isToday && !isCompleted ? "animate-pulse border-zinc-600 bg-zinc-100/5" : ""}
                     `}
                   >
                     {new Date(day).getDate()}
@@ -245,15 +245,15 @@ export function EmergencyGuidance() {
         {/* Personalized Active Astrological Remedies */}
         <div className="space-y-4">
           <h2 className="text-base font-bold text-white flex items-center gap-2">
-            <Shield className="w-4 h-4 text-amber-400" /> Prescribed Astrological Counter-Measures ({activeRemedies.length})
+            <Shield className="w-4 h-4 text-zinc-300" /> Prescribed Astrological Counter-Measures ({activeRemedies.length})
           </h2>
 
           <div className="space-y-3">
             {activeRemedies.map(r => (
-              <div key={r.id} className="p-5 rounded-2xl bg-[#090A0F] border border-white/10 space-y-3 shadow-lg">
+              <div key={r.id} className="p-5 rounded-none bg-[#090A0F] border border-white/10 space-y-3 shadow-lg">
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <span className="text-[10px] font-mono text-amber-400 font-bold uppercase block mb-1">
+                    <span className="text-[10px] font-mono text-zinc-300 font-bold uppercase block mb-1">
                       {r.planet}
                     </span>
                     <h3 className="text-sm font-bold text-white">{r.name}</h3>
@@ -276,12 +276,12 @@ export function EmergencyGuidance() {
         {/* Gemstone Suitability */}
         <div className="space-y-4">
           <h2 className="text-base font-bold text-white flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-amber-400" /> Natal Gemstone Suitability
+            <Sparkles className="w-4 h-4 text-zinc-300" /> Natal Gemstone Suitability
           </h2>
 
           <div className="grid sm:grid-cols-2 gap-4">
             {gemstoneGuidance.map((g, idx) => (
-              <div key={idx} className="p-5 rounded-2xl bg-white/5 border border-white/10 space-y-2">
+              <div key={idx} className="p-5 rounded-none bg-white/5 border border-white/10 space-y-2">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-white">{g.name}</span>
                   <Badge className="bg-emerald-500/10 text-emerald-300 border-emerald-500/20 text-[10px] font-mono">

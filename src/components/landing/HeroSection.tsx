@@ -65,11 +65,11 @@ export function HeroSection() {
                   Jupiter transits your 10th house. A powerful alignment favors bold career moves.
                 </p>
                 <div className="space-y-2 pt-2">
-                  <div className="flex items-center gap-3 bg-white/5 p-2 rounded-lg">
+                  <div className="flex items-center gap-3 bg-white/5 p-2 rounded-none">
                     <Star className="w-4 h-4 text-gold" />
                     <span className="text-xs font-medium">1 Active Prediction</span>
                   </div>
-                  <div className="flex items-center gap-3 bg-white/5 p-2 rounded-lg">
+                  <div className="flex items-center gap-3 bg-white/5 p-2 rounded-none">
                     <Bell className="w-4 h-4 text-brand" />
                     <span className="text-xs font-medium">Check-in needed</span>
                   </div>

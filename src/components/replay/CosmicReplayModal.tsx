@@ -51,8 +51,8 @@ export function CosmicReplayModal({ isOpen, onClose, sessionData }: CosmicReplay
             </p>
           </div>
           <div className="flex justify-center gap-4 text-xs">
-            <span className="px-3 py-1.5 bg-surface-2 border border-line rounded-xl text-white">45 Min Duration</span>
-            <span className="px-3 py-1.5 bg-surface-2 border border-line rounded-xl text-white">₹1,575 Paid</span>
+            <span className="px-3 py-1.5 bg-surface-2 border border-line rounded-none text-white">45 Min Duration</span>
+            <span className="px-3 py-1.5 bg-surface-2 border border-line rounded-none text-white">₹1,575 Paid</span>
             <span className="px-3 py-1.5 bg-green-500/15 border border-green-500/30 text-green-400 font-bold">5.0 Star Rating</span>
           </div>
         </div>
@@ -64,7 +64,7 @@ export function CosmicReplayModal({ isOpen, onClose, sessionData }: CosmicReplay
       subtitle: "Critical insights spoken during the session",
       render: () => (
         <div className="space-y-4 py-2">
-          <div className="p-4 rounded-lg bg-surface-2 border border-line flex gap-3 items-start">
+          <div className="p-4 rounded-none bg-surface-2 border border-line flex gap-3 items-start">
             <div className="w-8 h-8 rounded-full bg-brand/20 flex items-center justify-center shrink-0 text-brand font-bold text-xs">1</div>
             <div>
               <p className="text-xs text-white/90 leading-relaxed italic font-serif text-sm">
@@ -74,7 +74,7 @@ export function CosmicReplayModal({ isOpen, onClose, sessionData }: CosmicReplay
             </div>
           </div>
 
-          <div className="p-4 rounded-lg bg-surface-2 border border-line flex gap-3 items-start">
+          <div className="p-4 rounded-none bg-surface-2 border border-line flex gap-3 items-start">
             <div className="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center shrink-0 text-gold font-bold text-xs">2</div>
             <div>
               <p className="text-xs text-white/90 leading-relaxed italic font-serif text-sm">
@@ -92,7 +92,7 @@ export function CosmicReplayModal({ isOpen, onClose, sessionData }: CosmicReplay
       subtitle: "AI-parsed target dates & confidence levels",
       render: () => (
         <div className="space-y-4 py-2">
-          <div className="p-5 rounded-lg bg-gradient-to-r from-brand/20 to-surface border border-brand/30 shadow-lg">
+          <div className="p-5 rounded-none bg-gradient-to-r from-brand/20 to-surface border border-brand/30 shadow-lg">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-bold text-brand uppercase tracking-wider flex items-center gap-1">
                 <Target className="w-3.5 h-3.5" /> High Confidence Prediction
@@ -107,7 +107,7 @@ export function CosmicReplayModal({ isOpen, onClose, sessionData }: CosmicReplay
             </div>
           </div>
 
-          <div className="p-4 rounded-lg bg-surface-2 border border-line">
+          <div className="p-4 rounded-none bg-surface-2 border border-line">
             <div className="flex items-center justify-between mb-1">
               <h4 className="text-sm font-bold text-white">Financial Bonus / Investment Return</h4>
               <span className="text-xs font-bold text-white">75% Confidence</span>
@@ -123,8 +123,8 @@ export function CosmicReplayModal({ isOpen, onClose, sessionData }: CosmicReplay
       subtitle: "Customized planetary harmony practices",
       render: () => (
         <div className="space-y-4 py-2">
-          <div className="p-4 rounded-lg bg-gold/10 border border-gold/20 flex items-start gap-4">
-            <div className="w-10 h-10 rounded-xl bg-gold/20 flex items-center justify-center shrink-0 text-gold">
+          <div className="p-4 rounded-none bg-gold/10 border border-gold/20 flex items-start gap-4">
+            <div className="w-10 h-10 rounded-none bg-gold/20 flex items-center justify-center shrink-0 text-gold">
               <Sun className="w-5 h-5" />
             </div>
             <div className="flex-1">
@@ -139,8 +139,8 @@ export function CosmicReplayModal({ isOpen, onClose, sessionData }: CosmicReplay
             </div>
           </div>
 
-          <div className="p-4 rounded-lg bg-surface-2 border border-line flex items-start gap-4">
-            <div className="w-10 h-10 rounded-xl bg-brand/20 flex items-center justify-center shrink-0 text-brand">
+          <div className="p-4 rounded-none bg-surface-2 border border-line flex items-start gap-4">
+            <div className="w-10 h-10 rounded-none bg-brand/20 flex items-center justify-center shrink-0 text-brand">
               <Sparkles className="w-5 h-5" />
             </div>
             <div className="flex-1">
@@ -163,7 +163,7 @@ export function CosmicReplayModal({ isOpen, onClose, sessionData }: CosmicReplay
             { step: "3", task: "Complete Venus Beej Mantra daily through August 10th.", done: false },
             { step: "4", task: "Schedule 30-min follow-up check-in with Dr. Sarah Chen.", done: false },
           ].map(a => (
-            <div key={a.step} className="p-3.5 rounded-xl bg-surface-2 border border-line/60 flex items-center justify-between gap-3">
+            <div key={a.step} className="p-3.5 rounded-none bg-surface-2 border border-line/60 flex items-center justify-between gap-3">
               <div className="flex items-center gap-3">
                 <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
                   a.done ? "bg-green-500/20 text-green-400 border border-green-500/30" : "bg-white/10 text-[#9CA3AF]"
@@ -184,7 +184,7 @@ export function CosmicReplayModal({ isOpen, onClose, sessionData }: CosmicReplay
       subtitle: "Saved into Arjun's Cosmic Memory Vault",
       render: () => (
         <div className="space-y-4 py-2">
-          <div className="p-5 rounded-lg bg-gradient-to-r from-emerald-500/10 via-card to-surface border border-emerald-500/30">
+          <div className="p-5 rounded-none bg-gradient-to-r from-emerald-500/10 via-card to-surface border border-emerald-500/30">
             <div className="flex items-center gap-2 mb-2 text-emerald-400 font-bold text-xs uppercase tracking-wider">
               <CheckCircle2 className="w-4 h-4" /> Verified Memory Entry
             </div>
@@ -194,7 +194,7 @@ export function CosmicReplayModal({ isOpen, onClose, sessionData }: CosmicReplay
             <span className="text-[10px] text-[#9CA3AF] mt-2 block">Voice note recorded July 16 · Saved to Lifelong Timeline</span>
           </div>
 
-          <div className="p-4 bg-brand-light border border-brand/20 rounded-lg flex items-center justify-between">
+          <div className="p-4 bg-brand-light border border-brand/20 rounded-none flex items-center justify-between">
             <span className="text-xs text-white font-bold">Memory Node ID: #CM-2026-0715</span>
             <span className="text-xs font-bold text-ink-secondary flex items-center gap-1">
               Cosmic Memory Synced <Sparkles className="w-3.5 h-3.5 text-brand" />
@@ -232,7 +232,7 @@ export function CosmicReplayModal({ isOpen, onClose, sessionData }: CosmicReplay
           initial={{ opacity: 0, scale: 0.95, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 15 }}
-          className="relative w-full max-w-2xl bg-surface border border-line rounded-lg p-6 md:p-8 shadow-2xl overflow-hidden flex flex-col min-h-[520px]"
+          className="relative w-full max-w-2xl bg-surface border border-line rounded-none p-6 md:p-8 shadow-2xl overflow-hidden flex flex-col min-h-[520px]"
         >
           {/* Header Story Progress Bars */}
           <div className="flex gap-1.5 mb-6">
@@ -309,7 +309,7 @@ export function CosmicReplayModal({ isOpen, onClose, sessionData }: CosmicReplay
             <button
               onClick={handlePrev}
               disabled={currentSlide === 0}
-              className="px-4 py-2 rounded-xl bg-white/5 hover:bg-surface-3 disabled:opacity-30 text-xs font-bold text-white flex items-center gap-1 cursor-pointer"
+              className="px-4 py-2 rounded-none bg-white/5 hover:bg-surface-3 disabled:opacity-30 text-xs font-bold text-white flex items-center gap-1 cursor-pointer"
             >
               <ChevronLeft className="w-4 h-4" /> Previous
             </button>
@@ -317,14 +317,14 @@ export function CosmicReplayModal({ isOpen, onClose, sessionData }: CosmicReplay
             {currentSlide < slides.length - 1 ? (
               <button
                 onClick={handleNext}
-                className="px-5 py-2 rounded-xl bg-brand hover:bg-brand/90 text-xs font-bold text-white flex items-center gap-1 shadow-md cursor-pointer"
+                className="px-5 py-2 rounded-none bg-brand hover:bg-brand/90 text-xs font-bold text-white flex items-center gap-1 shadow-md cursor-pointer"
               >
                 Next Highlight <ChevronRight className="w-4 h-4" />
               </button>
             ) : (
               <button
                 onClick={onClose}
-                className="px-5 py-2 rounded-xl bg-green-500 hover:bg-green-600 text-xs font-bold text-white flex items-center gap-1 shadow-md cursor-pointer"
+                className="px-5 py-2 rounded-none bg-green-500 hover:bg-green-600 text-xs font-bold text-white flex items-center gap-1 shadow-md cursor-pointer"
               >
                 Close Replay <CheckCircle2 className="w-4 h-4" />
               </button>

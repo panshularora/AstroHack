@@ -1,44 +1,79 @@
-import { Users, Lock } from "lucide-react"
+import { useState } from "react"
+import { Button } from "@/components/ui/Button"
+import { useUser } from "@/context/UserContext"
+import { PaywallModal } from "@/components/paywall/PaywallModal"
+import { useI18n } from "@/lib/i18n"
 
 export function FamilyProfiles() {
+  const { user, addFamilyMember, switchChart } = useUser()
+  const { t } = useI18n()
+  const [paywall, setPaywall] = useState(false)
+  const [name, setName] = useState("")
+  const [relation, setRelation] = useState("Spouse")
+  const [dob, setDob] = useState("1996-03-12")
+  const [msg, setMsg] = useState("")
+
+  const add = () => {
+    if (user.plan !== "family") {
+      setPaywall(true)
+      return
+    }
+    const res = addFamilyMember({
+      name: name || "Family member",
+      relation,
+      dob,
+      timeOfBirth: "10:15",
+      placeOfBirth: user.placeOfBirth,
+    })
+    setMsg(res.ok ? t("chartAdded") : res.reason || "")
+    if (res.ok) setName("")
+  }
+
   return (
-    <div className="mb-24 bg-gradient-to-br from-blue-500/10 to-transparent border border-blue-500/20 rounded-[3rem] p-8 md:p-16 relative overflow-hidden shadow-2xl">
-      <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/20 rounded-full blur-[100px] -z-10" />
-      
-      <div className="flex flex-col md:flex-row gap-12 items-center">
-        <div className="flex-1">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-400 text-[10px] font-bold uppercase tracking-wider mb-6">
-            <Users className="w-4 h-4" /> Family Plan Exclusive
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight">Manage Your Loved Ones</h2>
-          <p className="text-[#9CA3AF] text-lg leading-relaxed mb-8">
-            Add up to 4 family members under a single AstroLive+ account. Each member receives their own private Cosmic Memory, Daily Briefs, and AI Companion.
-          </p>
-          <ul className="space-y-4">
-            <li className="flex items-center gap-3 text-white/90 font-medium">
-              <Lock className="w-5 h-5 text-green-400" /> 100% Private & Segmented Memories
-            </li>
-            <li className="flex items-center gap-3 text-white/90 font-medium">
-              <Lock className="w-5 h-5 text-green-400" /> Individual Daily Briefs & AI Check-ins
-            </li>
-          </ul>
-        </div>
-        
-        <div className="flex-1 flex justify-center gap-4 py-8">
-          <div className="w-32 aspect-[3/4] bg-surface border border-line rounded-lg flex flex-col items-center justify-center -rotate-6 shadow-xl hover:-translate-y-2 transition-transform">
-            <div className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center text-2xl font-bold text-white mb-3 border-4 border-background shadow-inner">D</div>
-            <span className="text-sm font-bold text-white">David</span>
-          </div>
-          <div className="w-32 aspect-[3/4] bg-surface border border-brand/40 rounded-lg flex flex-col items-center justify-center rotate-3 shadow-2xl z-10 scale-110 hover:-translate-y-2 transition-transform">
-            <div className="w-16 h-16 bg-brand rounded-full flex items-center justify-center text-2xl font-bold text-white mb-3 border-4 border-background shadow-inner">P</div>
-            <span className="text-sm font-bold text-white">Priya</span>
-          </div>
-          <div className="w-32 aspect-[3/4] bg-surface border border-line rounded-lg flex flex-col items-center justify-center rotate-12 shadow-xl hover:-translate-y-2 transition-transform">
-            <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center text-2xl font-bold text-white mb-3 border-4 border-background shadow-inner">M</div>
-            <span className="text-sm font-bold text-white">Maya</span>
-          </div>
-        </div>
+    <div>
+      <p className="text-[12px] uppercase tracking-[0.16em] text-zinc-500">{t("family")}</p>
+      <h2 className="font-display text-3xl text-zinc-50 mt-2">{t("oneWalletFour")}</h2>
+      <p className="text-sm text-zinc-500 mt-2 max-w-md">{t("familyBody")}</p>
+
+      <div className="mt-6 space-y-4">
+        <button type="button" onClick={() => switchChart("self")} className="block text-left">
+          <p className="font-display text-2xl text-zinc-50">{user.name}</p>
+          <p className="text-sm text-zinc-500">{user.moonSign} Moon · {user.ascendant} lagna</p>
+        </button>
+        {user.family.map((f) => (
+          <button key={f.id} type="button" onClick={() => switchChart(f.id)} className="block text-left">
+            <p className="font-display text-2xl text-zinc-50">{f.name}</p>
+            <p className="text-sm text-zinc-500">{f.relation}</p>
+          </button>
+        ))}
       </div>
+
+      <div className="mt-6 flex flex-wrap gap-2 items-center">
+        <input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Name"
+          className="h-11 rounded-full bg-white/5 border border-white/10 px-4 text-sm text-white w-40"
+        />
+        <select
+          value={relation}
+          onChange={(e) => setRelation(e.target.value)}
+          className="h-11 rounded-full bg-white/5 border border-white/10 px-4 text-sm text-white"
+        >
+          <option>Spouse</option>
+          <option>Parent</option>
+          <option>Child</option>
+        </select>
+        <input
+          type="date"
+          value={dob}
+          onChange={(e) => setDob(e.target.value)}
+          className="h-11 rounded-full bg-white/5 border border-white/10 px-4 text-sm text-white"
+        />
+        <Button onClick={add}>{user.plan === "family" ? "Add chart" : "Unlock Family"}</Button>
+      </div>
+      {msg && <p className="mt-3 text-sm text-emerald-300">{msg}</p>}
+      <PaywallModal open={paywall} feature="family" onClose={() => setPaywall(false)} />
     </div>
   )
 }

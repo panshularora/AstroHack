@@ -23,7 +23,7 @@ export function DashboardMetricCards({ isLoading }: DashboardMetricCardsProps) {
       trend: "10th House Jupiter Trine",
       icon: Target,
       badge: "88% Conf.",
-      color: "text-amber-400"
+      color: "text-zinc-300"
     },
     {
       title: "Active Remedy Streak",
@@ -39,7 +39,7 @@ export function DashboardMetricCards({ isLoading }: DashboardMetricCardsProps) {
       trend: "Offer Letter & Visa Synced",
       icon: ShieldCheck,
       badge: "256-bit Proof",
-      color: "text-amber-300"
+      color: "text-zinc-200"
     }
   ]
 
@@ -47,7 +47,7 @@ export function DashboardMetricCards({ isLoading }: DashboardMetricCardsProps) {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {[1, 2, 3, 4].map(i => (
-          <div key={i} className="h-28 rounded-2xl bg-white/5 border border-white/10 animate-pulse" />
+          <div key={i} className="h-28 rounded-none bg-white/5 border border-white/10 animate-pulse" />
         ))}
       </div>
     )
@@ -80,7 +80,7 @@ export function DashboardMetricCards({ isLoading }: DashboardMetricCardsProps) {
 
             <div className="flex items-center justify-between text-[11px] font-mono text-[#9CA3AF] pt-2 border-t border-white/5">
               <span>{m.trend}</span>
-              <ArrowUpRight className="w-3.5 h-3.5 text-amber-400" />
+              <ArrowUpRight className="w-3.5 h-3.5 text-zinc-300" />
             </div>
           </Card>
         </motion.div>

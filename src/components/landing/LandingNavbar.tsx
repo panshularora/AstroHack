@@ -36,7 +36,7 @@ export function LandingNavbar() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5 group">
-            <div className="w-7 h-7 rounded-md bg-surface-2 border border-brand/30 flex items-center justify-center text-brand">
+            <div className="w-7 h-7 rounded-none bg-surface-2 border border-brand/30 flex items-center justify-center text-brand">
               <Compass className="w-4 h-4 text-brand" />
             </div>
             <span className="text-base font-bold font-display tracking-tight text-ink">AstroLive</span>
@@ -57,10 +57,10 @@ export function LandingNavbar() {
 
           {/* Desktop CTAs */}
           <div className="hidden md:flex items-center gap-3">
-            <Button variant="ghost" size="sm" className="rounded-md font-mono" onClick={() => navigate("/login")}>
+            <Button variant="ghost" size="sm" className="rounded-none font-mono" onClick={() => navigate("/login")}>
               Sign In
             </Button>
-            <Button size="sm" className="rounded-md font-sans font-bold" onClick={() => navigate("/app/dashboard")}>
+            <Button size="sm" className="rounded-none font-sans font-bold" onClick={() => navigate("/app/dashboard")}>
               Enter App
             </Button>
           </div>
@@ -91,16 +91,16 @@ export function LandingNavbar() {
                   key={link.label}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className="block px-3 py-2 text-xs font-semibold text-ink-secondary hover:text-ink hover:bg-surface-2 rounded-md transition-colors"
+                  className="block px-3 py-2 text-xs font-semibold text-ink-secondary hover:text-ink hover:bg-surface-2 rounded-none transition-colors"
                 >
                   {link.label}
                 </a>
               ))}
               <div className="pt-3 flex flex-col gap-2">
-                <Button variant="outline" size="sm" className="rounded-md" onClick={() => navigate("/login")}>
+                <Button variant="outline" size="sm" className="rounded-none" onClick={() => navigate("/login")}>
                   Sign In
                 </Button>
-                <Button size="sm" className="rounded-md font-sans font-bold" onClick={() => navigate("/app/dashboard")}>
+                <Button size="sm" className="rounded-none font-sans font-bold" onClick={() => navigate("/app/dashboard")}>
                   Enter App
                 </Button>
               </div>

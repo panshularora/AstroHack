@@ -1,148 +1,132 @@
-import { useState, useEffect } from "react"
-import { Sun, Moon, Star, Flame, Share2, CheckCircle2, Calendar, ArrowLeft } from "lucide-react"
+import { useEffect, useMemo, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { Button } from "@/components/ui/Button"
-import { useUser } from "@/context/UserContext"
+import { useNatalChart, useUser } from "@/context/UserContext"
+import { useLedger } from "@/context/LedgerContext"
+import { computeChoghadiya, computePanchang, grahasInNatalHouses, nextMoonSignChange } from "@/lib/vedic"
+import { skyHeat } from "@/lib/skyHeat"
+import { CosmicField } from "@/components/sky/CosmicField"
+import { NightOrbit } from "@/components/sky/NightOrbit"
+import { KineticWords } from "@/components/motion/KineticWords"
+import { dueReminderAllowed, enableDueReminder } from "@/hooks/useDueReminder"
+import { useI18n } from "@/lib/i18n"
 
 export function DailyToday() {
   const navigate = useNavigate()
-  const { user } = useUser()
-  const [streak, setStreak] = useState(0)
-  const [hasCheckedInToday, setHasCheckedInToday] = useState(false)
-  
+  const { user, checkIn } = useUser()
+  const { predictions } = useLedger()
+  const { t, locale } = useI18n()
+  const natal = useNatalChart()
+  const [now, setNow] = useState(() => new Date())
+  const [bonus, setBonus] = useState(0)
+  const [saving, setSaving] = useState(false)
+  const [notifyOn, setNotifyOn] = useState(() => dueReminderAllowed())
+
   useEffect(() => {
-    const today = new Date().toDateString()
-    const storedStreak = parseInt(localStorage.getItem(`astrolive_checkin_streak_${user.id}`) || "0", 10)
-    const lastCheckIn = localStorage.getItem(`astrolive_last_checkin_${user.id}`)
-    
-    setStreak(storedStreak)
-    if (lastCheckIn === today) {
-      setHasCheckedInToday(true)
-    }
-  }, [user.id])
+    const id = window.setInterval(() => setNow(new Date()), 30_000)
+    return () => window.clearInterval(id)
+  }, [])
 
-  const handleCheckIn = () => {
-    const today = new Date().toDateString()
-    const newStreak = streak + 1
-    localStorage.setItem(`astrolive_checkin_streak_${user.id}`, newStreak.toString())
-    localStorage.setItem(`astrolive_last_checkin_${user.id}`, today)
-    setStreak(newStreak)
-    setHasCheckedInToday(true)
-  }
+  const panchang = useMemo(() => computePanchang(now, user.placeOfBirth), [now, user.placeOfBirth])
+  const live = useMemo(() => grahasInNatalHouses(natal, now), [natal, now])
+  const choghadiya = useMemo(() => computeChoghadiya(user.placeOfBirth), [user.placeOfBirth])
+  const moonMove = useMemo(() => nextMoonSignChange(now), [now])
+  const moon = live.bodies.find((b) => b.id === "moon")
+  const firstName = (user.name?.trim() || "there").split(" ")[0]
+  const today = new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" })
+  const done = user.lastCheckin === today
+  const due = predictions.filter(
+    (p) => (p.status === "pending" || p.status === "in_progress") && new Date(p.targetDate) <= now
+  )
+  const heat = useMemo(() => skyHeat(predictions, natal), [predictions, natal])
+  const moonHours = Math.max(1, Math.round(moonMove.hours))
 
-  const handleShare = async () => {
-    const shareText = "My Vedic transit today: Rohini Nakshatra, Chaturdashi Tithi. Checked in on AstroLive!"
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: "AstroLive Daily Transit",
-          text: shareText
-        })
-      } catch (err) {
-        console.error("Share failed", err)
-      }
-    } else {
-      navigator.clipboard.writeText(shareText)
-      alert("Copied to clipboard!")
-    }
+  const markToday = async () => {
+    setSaving(true)
+    const result = await checkIn()
+    setSaving(false)
+    if (result.bonus) setBonus(result.bonus)
   }
 
   return (
-    <div className="page-container max-w-5xl pb-28 font-sans">
-      <div className="space-y-10">
-        
-        {/* Header */}
-        <div className="border-b border-line/60 pb-6">
-          <button
-            onClick={() => navigate(-1)}
-            className="flex items-center gap-1.5 font-mono text-[11px] text-ink-tertiary hover:text-ink transition-colors mb-5 group cursor-pointer"
-          >
-            <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
-            Back
+    <div className="relative">
+      <CosmicField density={36} />
+      <div className="relative page-container max-w-2xl pb-24">
+        <p className="text-sm text-zinc-400">
+          {panchang.weekday} · {user.placeOfBirth.split(",")[0]}
+        </p>
+        <h1 className="font-display text-4xl sm:text-6xl text-zinc-50 mt-2 leading-[0.94]">
+          <KineticWords key={`n-${locale}`} text={t("someonesToday", { name: firstName })} />{" "}
+          <KineticWords key={`t-${locale}`} text={t("todayDot")} italic delay={0.1} className="text-zinc-300" />
+        </h1>
+        <div className="relative mt-8 h-[200px] sm:h-[240px]">
+          <NightOrbit bodies={live.bodies} panchang={panchang} />
+        </div>
+        <p className="mt-6 font-display text-3xl sm:text-4xl text-zinc-100 leading-[1.08]">
+          {moon
+            ? t("moonInHouse", { sign: panchang.moonSign, n: moon.house })
+            : t("moonIn", { sign: panchang.moonSign })}
+        </p>
+        <p className="mt-4 text-[15px] text-zinc-400 leading-relaxed max-w-lg">
+          {t("todaySkyDetail", {
+            tithi: panchang.tithi,
+            nak: panchang.nakshatra,
+            sign: moonMove.toSign,
+            n: moonHours,
+            rahu: panchang.rahuKaal.label,
+          })}
+        </p>
+
+        {heat[0] && due.length === 0 && (
+          <button type="button" onClick={() => navigate("/app/ledger")} className="mt-12 block text-left">
+            <p className="text-[12px] uppercase tracking-[0.16em] text-amber-200/80">{t("skyOnLine")}</p>
+            <p className="font-display text-3xl text-zinc-50 mt-2 leading-snug">{heat[0].prediction.title}</p>
+            <p className="mt-2 text-sm text-zinc-500 max-w-lg leading-relaxed">{heat[0].why}</p>
           </button>
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-8 h-8 rounded-md bg-surface-2 border border-brand/30 flex items-center justify-center text-brand">
-              <Calendar className="w-4 h-4 text-brand" />
-            </div>
-            <p className="text-xs font-mono font-bold uppercase tracking-widest text-brand">
-              {new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" })}
+        )}
+
+        {due.length > 0 ? (
+          <button type="button" onClick={() => navigate("/app/ledger")} className="mt-12 block text-left">
+            <p className="text-[12px] uppercase tracking-[0.16em] text-emerald-300">
+              {due.length === 1 ? t("oneLinePast") : t("linesPast", { n: due.length })}
             </p>
-          </div>
-          <h1 className="text-h1 font-display text-ink tracking-tight">Daily Panchang</h1>
-          <p className="text-sm text-ink-secondary mt-1">
-            Your daily astrological alignment and spiritual check-in.
+            <p className="font-display text-3xl text-zinc-50 mt-2">{t("markWhatHappened")}</p>
+          </button>
+        ) : (
+          <p className="mt-12 text-sm text-zinc-500 leading-relaxed max-w-lg">{t("nothingDue")}</p>
+        )}
+
+        <div className="mt-8">
+          <p className="text-sm text-zinc-300">
+            {done ? t("alreadyOpened", { n: user.checkinStreak }) : t("markToKeep", { n: user.checkinStreak || 0 })}
+          </p>
+          {bonus > 0 && <p className="mt-2 text-sm text-emerald-300">{t("streakBonus", { n: bonus })}</p>}
+          <Button className="mt-5" disabled={done || saving} onClick={markToday}>
+            {done ? t("todayMarked", { n: user.checkinStreak }) : saving ? t("saving") : t("iAmHere")}
+          </Button>
+          <button
+            type="button"
+            className="mt-4 block text-sm text-zinc-500 hover:text-zinc-200"
+            onClick={() => {
+              void enableDueReminder().then(setNotifyOn)
+            }}
+          >
+            {notifyOn ? t("deviceRemind") : t("remindMe")}
+          </button>
+        </div>
+
+        <div className="mt-16">
+          <h2 className="font-display text-2xl text-zinc-50">{t("hoursOfDay")}</h2>
+          <p className="mt-1 text-sm text-zinc-500">
+            {choghadiya.current ? t("nowIs", { name: choghadiya.current.name }) : t("dayHours")}
+          </p>
+          <p className="mt-4 text-sm text-zinc-400 leading-relaxed max-w-lg">
+            {choghadiya.slots
+              .filter((s) => s.period === "day")
+              .map((s) => `${s.name} ${s.label.split("–")[0].trim()}`)
+              .join(" · ")}
           </p>
         </div>
-
-        {/* Check-in Section */}
-        <div className="p-6 rounded-lg bg-surface border border-line flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-4">
-            <div className={`w-12 h-12 rounded-full flex items-center justify-center border ${hasCheckedInToday ? "bg-success/10 border-success text-success" : "bg-surface-2 border-line text-ink-tertiary"}`}>
-              {hasCheckedInToday ? <CheckCircle2 className="w-6 h-6" /> : <Flame className="w-6 h-6" />}
-            </div>
-            <div>
-              <p className="text-body font-bold text-ink">Daily Spiritual Check-in</p>
-              <p className="text-xs font-mono text-ink-secondary mt-1">
-                Current Streak: <span className="text-ink font-bold">{streak} Days</span>
-              </p>
-            </div>
-          </div>
-          <Button 
-            onClick={hasCheckedInToday ? undefined : handleCheckIn} 
-            variant={hasCheckedInToday ? "secondary" : "primary"}
-            disabled={hasCheckedInToday}
-            className="w-full sm:w-auto"
-          >
-            {hasCheckedInToday ? "Checked In" : "Mark Today Complete"}
-          </Button>
-        </div>
-
-        {/* Panchang Details */}
-        <div>
-          <h2 className="text-h2 font-display text-ink mb-4">Today's Panchang</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 font-mono">
-            {[
-              { label: "Tithi (Moon Phase)", value: "Chaturdashi", icon: Moon },
-              { label: "Nakshatra (Mansion)", value: "Rohini", icon: Star },
-              { label: "Yoga (Alignment)", value: "Shiva", icon: Sun },
-              { label: "Karana (Half-Tithi)", value: "Bava", icon: Sun },
-              { label: "Rahu Kaal", value: "9:00 AM – 10:30 AM", icon: Flame },
-              { label: "Abhijit Muhurta", value: "12:04 PM – 12:52 PM", icon: Star },
-            ].map(item => (
-              <div key={item.label} className="p-4 rounded-lg bg-surface border border-line flex flex-col gap-2">
-                <div className="flex items-center gap-2 text-ink-tertiary">
-                  <item.icon className="w-3.5 h-3.5" />
-                  <span className="text-[10px] uppercase font-bold">{item.label}</span>
-                </div>
-                <p className="text-sm font-bold text-ink">{item.value}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Mantra & Share */}
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="p-6 rounded-lg bg-surface border border-line space-y-4">
-            <h3 className="text-body font-bold text-ink border-b border-line/60 pb-3">Daily Mantra Suggestion</h3>
-            <div className="bg-surface-2 p-4 rounded-md border border-line/60 text-center space-y-2">
-              <p className="font-display text-2xl text-gold-bright tracking-wide">Om Namah Shivaya</p>
-              <p className="text-xs text-ink-secondary font-sans">Recite 108 times for inner peace and spiritual grounding.</p>
-            </div>
-          </div>
-          <div className="p-6 rounded-lg bg-surface border border-line space-y-4 flex flex-col justify-between">
-            <div>
-              <h3 className="text-body font-bold text-ink border-b border-line/60 pb-3">Share Alignment</h3>
-              <p className="text-xs text-ink-secondary mt-3 font-sans">
-                Share today's Panchang alignment with your friends and spiritual circle.
-              </p>
-            </div>
-            <Button onClick={handleShare} variant="outline" className="w-full flex items-center justify-center gap-2">
-              <Share2 className="w-4 h-4" />
-              Share Today's Transit
-            </Button>
-          </div>
-        </div>
-
       </div>
     </div>
   )

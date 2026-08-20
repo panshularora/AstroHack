@@ -1,179 +1,222 @@
-import { useState } from "react"
-import { motion } from "framer-motion"
+import { useMemo, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { BookOpen, Plus, AlertCircle } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { useLedger } from "@/context/LedgerContext"
 import { PredictionReceiptCard } from "@/components/ledger/PredictionReceiptCard"
 import { VerificationModal } from "@/components/ledger/VerificationModal"
-import { PredictionShareCardModal } from "@/components/predictions/PredictionShareCardModal"
+import { OutcomeProofModal } from "@/components/predictions/OutcomeProofModal"
+import { LogPredictionModal } from "@/components/predictions/LogPredictionModal"
 import type { DetailedPrediction } from "@/lib/mock-data"
 import { useUser } from "@/context/UserContext"
+import { getProof, proofFromPrediction, saveProof, type ProofRecord } from "@/lib/proof"
+import { CosmicField } from "@/components/sky/CosmicField"
+import { useI18n } from "@/lib/i18n"
+
+type Filter = "needs" | "waiting" | "done" | "all"
+
+function normClaim(title: string) {
+  return title
+    .toLowerCase()
+    .replace(/^a second opinion on this line:\s*/i, "")
+    .replace(/[^a-z0-9\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 56)
+}
+
+function bucket(p: DetailedPrediction): Exclude<Filter, "all"> {
+  if (p.status === "completed" || p.status === "failed") return "done"
+  if (new Date(p.targetDate) <= new Date()) return "needs"
+  return "waiting"
+}
 
 export function Ledger() {
   const navigate = useNavigate()
   const { user } = useUser()
-  const { predictions, verifyPrediction, stats } = useLedger()
+  const { predictions, verifyPrediction, addPrediction } = useLedger()
   const [verifyTarget, setVerifyTarget] = useState<DetailedPrediction | null>(null)
-  const [shareTarget, setShareTarget] = useState<DetailedPrediction | null>(null)
+  const [proof, setProof] = useState<ProofRecord | null>(null)
+  const [logOpen, setLogOpen] = useState(false)
+  const { t } = useI18n()
 
-  const needsVerification = predictions.filter(p => {
-    if (p.status !== "pending" && p.status !== "in_progress") return false
-    return new Date(p.targetDate) <= new Date()
-  })
+  const needs = predictions.filter((p) => bucket(p) === "needs")
+  const waiting = predictions.filter((p) => bucket(p) === "waiting")
+  const done = predictions.filter((p) => bucket(p) === "done")
 
-  const active = predictions.filter(p =>
-    (p.status === "pending" || p.status === "in_progress") &&
-    new Date(p.targetDate) > new Date()
-  )
+  const [filter, setFilter] = useState<Filter | null>(null)
+  const active = filter ?? (needs.length ? "needs" : "all")
 
-  const verified = predictions.filter(p => p.status === "completed")
+  const visible = useMemo(() => {
+    if (active === "needs") return needs
+    if (active === "waiting") return waiting
+    if (active === "done") return done
+    return [...needs, ...waiting, ...done]
+  }, [active, needs, waiting, done])
 
-  const handleVerify = (outcome: "yes" | "partial" | "no", note?: string) => {
-    if (!verifyTarget) return
-    verifyPrediction(verifyTarget.id, outcome, note)
-    if (outcome === "yes") {
-      setShareTarget({ ...verifyTarget, status: "completed", notes: note })
-    }
+  const closeLine = (p: DetailedPrediction, outcome: "yes" | "partial" | "no", note?: string, evidenceName?: string) => {
+    verifyPrediction(p.id, outcome, note)
+    const record = proofFromPrediction(p, user.name, outcome, note, evidenceName)
+    saveProof(record)
+    setProof(record)
     setVerifyTarget(null)
   }
 
-  return (
-    <div className="pb-28 font-sans bg-[#080C14] min-h-screen text-white">
-      {/* Hero — Unified Dark Cosmic Header */}
-      <div className="bg-gradient-to-b from-[#090A0F] to-[#0B101D] border-b border-white/10 px-6 pt-8 pb-10 md:px-10">
-        <div className="max-w-4xl mx-auto space-y-4">
-          <p className="font-mono text-[10px] uppercase tracking-widest text-amber-400 font-bold">
-            Prediction Proof Ledger
-          </p>
-          <h1 className="font-display text-2xl md:text-3xl font-bold text-white tracking-tight">
-            {user.name}'s Verified Predictions
-          </h1>
-          <p className="text-xs sm:text-sm text-[#9CA3AF] max-w-xl leading-relaxed">
-            Every astrologer prediction, dated and tracked against real-world outcome documents.
-          </p>
+  const handleVerify = (outcome: "yes" | "partial" | "no", note?: string, evidenceName?: string) => {
+    if (!verifyTarget) return
+    closeLine(verifyTarget, outcome, note, evidenceName)
+  }
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 font-mono">
-            {[
-              { label: "Tracked", value: stats.total },
-              { label: "Verified", value: stats.verified, accent: "text-emerald-400" },
-              { label: "Active", value: stats.active, accent: "text-amber-400" },
-              { label: "Accuracy", value: `${stats.accuracy}%`, accent: "text-cyan-300" },
-            ].map(s => (
-              <div key={s.label} className="p-3.5 rounded-xl bg-white/5 border border-white/10">
-                <p className="text-[10px] uppercase tracking-wider text-[#9CA3AF] font-bold">{s.label}</p>
-                <p className={`text-xl font-bold tabular-nums mt-0.5 ${s.accent || "text-white"}`}>{s.value}</p>
+  const openProof = (p: DetailedPrediction) => {
+    const existing = getProof(p.id)
+    if (existing) {
+      setProof(existing)
+      return
+    }
+    const outcome = p.outcome || (p.status === "failed" ? "no" : "yes")
+    const record = proofFromPrediction(p, user.name, outcome, p.notes)
+    saveProof(record)
+    setProof(record)
+  }
+
+  const pairs = useMemo(() => {
+    const map = new Map<string, DetailedPrediction[]>()
+    for (const p of predictions) {
+      const key = normClaim(p.title)
+      if (key.length < 8) continue
+      const list = map.get(key) || []
+      list.push(p)
+      map.set(key, list)
+    }
+    return [...map.values()].filter((list) => new Set(list.map((p) => p.astrologer.name)).size > 1)
+  }, [predictions])
+
+  const tabs: { id: Filter; label: "needsAnswer" | "stillWaiting" | "alreadyAnswered" | "allLines"; n: number }[] = [
+    { id: "needs", label: "needsAnswer", n: needs.length },
+    { id: "waiting", label: "stillWaiting", n: waiting.length },
+    { id: "done", label: "alreadyAnswered", n: done.length },
+    { id: "all", label: "allLines", n: predictions.length },
+  ]
+
+  return (
+    <div className="relative">
+      <CosmicField density={26} />
+      <div className="relative page-container max-w-2xl pb-28">
+      <p className="text-[12px] uppercase tracking-[0.18em] text-zinc-500">{t("results")}</p>
+      <h1 className="font-display text-4xl sm:text-6xl text-zinc-50 mt-2 leading-[0.95]">
+        {t("jobTrue")}
+      </h1>
+      <p className="mt-4 text-[15px] text-zinc-400 max-w-xl leading-relaxed">{t("jobTrueD")}</p>
+
+      {needs[0] && active === "needs" && (
+        <div className="mt-12">
+          <p className="text-[12px] uppercase tracking-[0.16em] text-emerald-400">{t("windowClosed")}</p>
+          <p className="mt-3 font-display text-3xl sm:text-5xl text-zinc-50 leading-[1.05]">{needs[0].title}</p>
+          <p className="mt-3 text-sm text-zinc-500">
+            {needs[0].astrologer.name} ·{" "}
+            {t("checkBy", {
+              date: new Date(needs[0].targetDate).toLocaleDateString("en-IN", { day: "numeric", month: "short" }),
+            })}
+          </p>
+          <div className="mt-6 flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:items-baseline">
+            <button type="button" className="font-display text-2xl sm:text-3xl text-emerald-300 text-left hover:italic" onClick={() => closeLine(needs[0], "yes")}>
+              {t("itHappened")}
+            </button>
+            <button type="button" className="font-display text-2xl sm:text-3xl text-zinc-300 text-left hover:italic" onClick={() => closeLine(needs[0], "partial")}>
+              {t("partly")}
+            </button>
+            <button type="button" className="font-display text-2xl sm:text-3xl text-zinc-500 text-left hover:italic" onClick={() => closeLine(needs[0], "no")}>
+              {t("itDidNot")}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {pairs.length > 0 && (
+        <div className="mt-10">
+          <p className="text-[12px] uppercase tracking-[0.16em] text-zinc-500">{t("secondOpinions")}</p>
+          <p className="mt-2 font-display text-2xl text-zinc-50">{t("twoExperts")}</p>
+          <div className="mt-5 space-y-8">
+            {pairs.map((list) => (
+              <div key={normClaim(list[0].title)}>
+                <p className="text-sm text-zinc-400 leading-relaxed">{list[0].title}</p>
+                <ul className="mt-3 space-y-2">
+                  {list.map((p) => (
+                    <li key={p.id} className="text-sm text-zinc-300">
+                      {p.astrologer.name}
+                      {" · "}
+                      {p.status === "completed" || p.status === "failed"
+                        ? p.outcome === "no" || p.status === "failed"
+                          ? t("didNotHappen")
+                          : p.outcome === "partial"
+                            ? t("partlyTrue")
+                            : t("cameTrue")
+                        : t("checkBy", {
+                            date: new Date(p.targetDate).toLocaleDateString("en-IN", { day: "numeric", month: "short" }),
+                          })}
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>
         </div>
+      )}
+
+      <div className="mt-8 flex flex-wrap gap-2">
+        {tabs.map((tab) => (
+          <button
+            key={tab.id}
+            type="button"
+            onClick={() => setFilter(tab.id)}
+            className={
+              active === tab.id
+                ? "h-8 px-3 rounded-full text-xs bg-zinc-100 text-zinc-950"
+                : "h-8 px-3 rounded-full text-xs text-zinc-400 hover:text-zinc-100"
+            }
+          >
+            {t(tab.label)} {tab.n}
+          </button>
+        ))}
       </div>
 
-      {/* Content — Unified Dark Glass Container */}
-      <div className="px-6 py-8 md:px-10 bg-[#080C14]">
-        <div className="max-w-4xl mx-auto space-y-8">
-
-          {/* Action banner */}
-          {needsVerification.length > 0 && (
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="p-4.5 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-between gap-4"
-            >
-              <div className="flex items-center gap-3">
-                <AlertCircle className="w-5 h-5 text-amber-400 shrink-0" />
-                <div>
-                  <p className="text-xs font-bold text-white">
-                    {needsVerification.length} prediction{needsVerification.length > 1 ? "s" : ""} need your confirmation
-                  </p>
-                  <p className="text-[11px] text-[#9CA3AF] font-mono mt-0.5">Window closed — did it happen?</p>
-                </div>
-              </div>
-              <Button size="sm" className="rounded-xl shrink-0 bg-amber-500 text-black font-bold hover:bg-amber-400 font-mono text-xs cursor-pointer" onClick={() => setVerifyTarget(needsVerification[0])}>
-                Verify Now
-              </Button>
-            </motion.div>
-          )}
-
-          {/* Needs verification */}
-          {needsVerification.length > 0 && (
-            <section className="space-y-3">
-              <h2 className="font-mono text-[11px] uppercase tracking-wider text-amber-400 font-bold">
-                Needs Verification
-              </h2>
-              <div className="space-y-3">
-                {needsVerification.map(p => (
-                  <div key={p.id}>
-                    <PredictionReceiptCard
-                      prediction={p}
-                      highlight
-                      onVerify={() => setVerifyTarget(p)}
-                    />
-                  </div>
-                ))}
-              </div>
-            </section>
-          )}
-
-          {/* Active windows */}
-          {active.length > 0 && (
-            <section className="space-y-3">
-              <h2 className="font-mono text-[11px] uppercase tracking-wider text-[#9CA3AF] font-bold">
-                Active Predictions
-              </h2>
-              <div className="space-y-3">
-                {active.map(p => (
-                  <div key={p.id}>
-                    <PredictionReceiptCard prediction={p} />
-                  </div>
-                ))}
-              </div>
-            </section>
-          )}
-
-          {/* Verified */}
-          {verified.length > 0 && (
-            <section className="space-y-3">
-              <h2 className="font-mono text-[11px] uppercase tracking-wider text-emerald-400 font-bold">
-                Verified Outcomes
-              </h2>
-              <div className="space-y-3">
-                {verified.map(p => (
-                  <div key={p.id}>
-                    <PredictionReceiptCard
-                      prediction={p}
-                      onShare={() => setShareTarget(p)}
-                    />
-                  </div>
-                ))}
-              </div>
-            </section>
-          )}
-
-          {/* Empty CTA */}
-          {predictions.length === 0 && (
-            <div className="text-center py-16 space-y-4 bg-white/5 border border-white/10 rounded-2xl p-8">
-              <BookOpen className="w-10 h-10 text-amber-400 mx-auto opacity-80" />
-              <h3 className="text-base font-bold text-white">Your prediction ledger is empty</h3>
-              <p className="text-xs text-[#9CA3AF] max-w-sm mx-auto font-mono">
-                Book a consultation. Every prediction becomes a dated receipt you can verify later.
-              </p>
-              <Button onClick={() => navigate("/app/match")} className="rounded-xl bg-amber-500 text-black font-bold font-mono text-xs">
-                <Plus className="w-4 h-4 mr-1" /> Book Consultation
-              </Button>
-            </div>
-          )}
-
-          {/* Footer Area */}
-          <div className="pt-6 border-t border-white/10 flex items-center justify-between font-mono text-xs">
-            <p className="text-[#9CA3AF]">
-              {stats.total} receipts · {user.sunSign} Sun · {user.ascendant} Ascendant
-            </p>
-            <Button size="sm" className="rounded-xl bg-amber-500 text-black font-bold hover:bg-amber-400 font-mono text-xs cursor-pointer" onClick={() => navigate("/app/match")}>
-              <Plus className="w-4 h-4 mr-1" /> New Consultation
-            </Button>
-          </div>
+      {visible.length > 0 ? (
+        <div className="mt-4">
+          {visible.map((p) => (
+            <PredictionReceiptCard
+              key={p.id}
+              prediction={p}
+              onVerify={() => setVerifyTarget(p)}
+              onShare={() => openProof(p)}
+              onSecond={() =>
+                navigate(
+                  `/app/consult?claim=${encodeURIComponent(p.title)}&cat=${encodeURIComponent(p.category)}`
+                )
+              }
+            />
+          ))}
         </div>
+      ) : (
+        <div className="mt-12">
+          <p className="font-display text-2xl text-zinc-50">
+            {predictions.length === 0
+              ? t("nothingSaved")
+              : active === "needs"
+                ? t("nothingNeeds")
+                : active === "waiting"
+                  ? t("nothingWaiting")
+                  : t("nothingAnswered")}
+          </p>
+          <p className="text-sm text-zinc-500 mt-3 max-w-sm leading-relaxed">{t("afterChatSave")}</p>
+        </div>
+      )}
+
+      <div className="mt-12 flex flex-wrap gap-3">
+        <Button size="sm" onClick={() => setLogOpen(true)}>
+          {t("savePrediction")}
+        </Button>
+        <Button size="sm" variant="outline" onClick={() => navigate("/app/consult")}>
+          {t("talkToExpert")}
+        </Button>
       </div>
 
       <VerificationModal
@@ -182,20 +225,9 @@ export function Ledger() {
         prediction={verifyTarget}
         onConfirm={handleVerify}
       />
-
-      <PredictionShareCardModal
-        isOpen={!!shareTarget}
-        onClose={() => setShareTarget(null)}
-        prediction={shareTarget ? {
-          id: shareTarget.id,
-          title: shareTarget.title,
-          category: shareTarget.category.toUpperCase(),
-          targetDate: shareTarget.targetDate,
-          confidence: shareTarget.confidence,
-          astrologerName: shareTarget.astrologer.name,
-          verifiedDate: new Date().toISOString().split("T")[0],
-        } : undefined}
-      />
+      <OutcomeProofModal isOpen={!!proof} onClose={() => setProof(null)} proof={proof} />
+      <LogPredictionModal open={logOpen} onClose={() => setLogOpen(false)} onSave={addPrediction} />
+      </div>
     </div>
   )
 }

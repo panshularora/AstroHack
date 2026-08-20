@@ -8,27 +8,54 @@ interface VerificationModalProps {
   isOpen: boolean
   onClose: () => void
   prediction: DetailedPrediction | null
-  onConfirm: (outcome: "yes" | "partial" | "no", note?: string) => void
+  onConfirm: (outcome: "yes" | "partial" | "no", note?: string, evidenceName?: string) => void
+}
+
+function formatDay(iso: string) {
+  return new Date(iso).toLocaleDateString("en-IN", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  })
 }
 
 export function VerificationModal({ isOpen, onClose, prediction, onConfirm }: VerificationModalProps) {
   const [selected, setSelected] = useState<"yes" | "partial" | "no" | null>(null)
   const [note, setNote] = useState("")
+  const [evidenceName, setEvidenceName] = useState("")
 
   if (!isOpen || !prediction) return null
 
   const handleConfirm = () => {
     if (!selected) return
-    onConfirm(selected, note || undefined)
+    onConfirm(selected, note || undefined, evidenceName || undefined)
     setSelected(null)
     setNote("")
-    onClose()
+    setEvidenceName("")
   }
 
   const options = [
-    { id: "yes" as const, label: "Yes, it happened", icon: CheckCircle2, color: "text-success border-success/30 bg-success/10" },
-    { id: "partial" as const, label: "Partially", icon: MinusCircle, color: "text-warning border-warning/30 bg-warning/10" },
-    { id: "no" as const, label: "No, it didn't", icon: XCircle, color: "text-ink-secondary border-line bg-surface-2" },
+    {
+      id: "yes" as const,
+      label: "Yes, it happened",
+      hint: "We will issue a proof card you can keep or share.",
+      icon: CheckCircle2,
+      color: "text-emerald-400 border-emerald-500/30 bg-emerald-500/10",
+    },
+    {
+      id: "partial" as const,
+      label: "It only partly happened",
+      hint: "The receipt closes with a mixed ending.",
+      icon: MinusCircle,
+      color: "text-amber-400 border-amber-500/30 bg-amber-500/10",
+    },
+    {
+      id: "no" as const,
+      label: "No, it did not happen",
+      hint: "We still keep the record. Honesty is the product.",
+      icon: XCircle,
+      color: "text-zinc-300 border-zinc-700 bg-zinc-900",
+    },
   ]
 
   return (
@@ -38,61 +65,73 @@ export function VerificationModal({ isOpen, onClose, prediction, onConfirm }: Ve
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 10 }}
-          transition={{ duration: 0.2, ease: "easeOut" }}
-          className="relative w-full max-w-md bg-[#090A0F] border border-white/10 rounded-2xl p-6 space-y-5 shadow-2xl font-sans"
+          className="relative w-full max-w-md bg-[#090A0F] border border-white/10 p-6 space-y-5 shadow-2xl"
         >
-          <div className="flex items-start justify-between">
+          <div className="flex items-start justify-between gap-3">
             <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-brand mb-1">Verify Outcome</p>
-              <h3 className="font-display text-xl text-ink font-bold">{prediction.title}</h3>
-              <p className="text-xs text-ink-secondary mt-1 font-mono">
-                Predicted by {prediction.astrologer.name} · {prediction.confidence}% confidence
+              <p className="text-[11px] uppercase tracking-[0.14em] text-zinc-500 mb-1">Give this an ending</p>
+              <h3 className="text-xl text-white font-display leading-snug">
+                {/[.!?]$/.test(prediction.title.trim()) ? prediction.title.trim() : `${prediction.title.trim()}.`}
+              </h3>
+              <p className="text-xs text-zinc-500 mt-2 leading-relaxed">
+                {prediction.astrologer.name} said this and was {prediction.confidence}% sure. The date to check was{" "}
+                {formatDay(prediction.targetDate)}.
               </p>
             </div>
-            <button onClick={onClose} className="p-1.5 rounded-md hover:bg-surface-2 text-ink-tertiary">
+            <button type="button" onClick={onClose} className="p-1.5 text-zinc-500 hover:text-white shrink-0">
               <X className="w-4 h-4" />
             </button>
           </div>
 
-          <p className="text-sm text-ink-secondary">
-            Did this prediction come true? Your answer updates {prediction.astrologer.name}'s verified accuracy score.
+          <p className="text-sm text-zinc-400 leading-relaxed">
+            Your answer becomes a dated proof card. If it landed, you can share it. If it did not, it stays honest.
           </p>
 
           <div className="space-y-2">
-            {options.map(opt => (
+            {options.map((opt) => (
               <button
                 key={opt.id}
+                type="button"
                 onClick={() => setSelected(opt.id)}
-                className={`w-full flex items-center gap-3 p-3.5 rounded-md border transition-all text-left ${
-                  selected === opt.id ? opt.color + " ring-1 ring-brand/20" : "border-line hover:border-line-strong bg-surface-2/40"
+                className={`w-full flex items-start gap-3 p-3.5 border text-left transition-colors duration-200 ${
+                  selected === opt.id ? opt.color + " ring-1 ring-white/10" : "border-zinc-800 hover:border-zinc-600 bg-zinc-950"
                 }`}
               >
-                <opt.icon className={`w-5 h-5 shrink-0 ${selected === opt.id ? "" : "text-ink-tertiary"}`} />
-                <span className="text-sm font-medium text-ink">{opt.label}</span>
+                <opt.icon className={`w-5 h-5 shrink-0 mt-0.5 ${selected === opt.id ? "" : "text-zinc-500"}`} />
+                <span>
+                  <span className="block text-sm font-medium text-white">{opt.label}</span>
+                  <span className="block text-[11px] text-zinc-500 mt-0.5 leading-relaxed">{opt.hint}</span>
+                </span>
               </button>
             ))}
           </div>
 
-          {selected === "yes" && (
-            <div className="p-4 rounded-md border border-dashed border-brand/30 bg-brand-tint space-y-2">
-              <div className="flex items-center gap-2 text-xs font-mono text-brand">
-                <Upload className="w-3.5 h-3.5" />
-                Attach evidence (optional)
-              </div>
+          <div className="space-y-2">
+            <label className="text-[11px] text-zinc-500">What actually happened? This line is printed on the card.</label>
+            <input
+              type="text"
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+              placeholder="Offer letter arrived on 14 August."
+              className="w-full h-9 bg-zinc-950 border border-zinc-800 px-3 text-xs text-white focus-visible:outline-none focus-visible:border-zinc-500"
+            />
+            <label className="flex items-center gap-2 text-[11px] text-zinc-500 cursor-pointer">
+              <Upload className="w-3.5 h-3.5" />
+              <span>{evidenceName || "Attach a photo or letter if you have one."}</span>
               <input
-                type="text"
-                value={note}
-                onChange={e => setNote(e.target.value)}
-                placeholder="e.g. Offer letter received Oct 14"
-                className="w-full h-9 rounded-md bg-surface border border-line px-3 text-xs text-ink focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand"
+                type="file"
+                className="hidden"
+                onChange={(e) => setEvidenceName(e.target.files?.[0]?.name || "")}
               />
-            </div>
-          )}
+            </label>
+          </div>
 
-          <div className="flex gap-2 pt-2">
-            <Button variant="outline" className="flex-1 rounded-md" onClick={onClose}>Cancel</Button>
-            <Button className="flex-1 rounded-md font-mono" disabled={!selected} onClick={handleConfirm}>
-              Confirm & Update Ledger
+          <div className="flex gap-2 pt-1">
+            <Button variant="outline" className="flex-1" onClick={onClose}>
+              Not now
+            </Button>
+            <Button className="flex-1" disabled={!selected} onClick={handleConfirm}>
+              Save this ending
             </Button>
           </div>
         </motion.div>

@@ -44,7 +44,7 @@ export function TrustSection() {
             className="relative"
           >
             <div className="absolute inset-0 bg-secondary/10 blur-[80px] rounded-full" />
-            <div className="relative bg-surface border border-line rounded-lg p-6 shadow-2xl">
+            <div className="relative bg-surface border border-line rounded-none p-6 shadow-2xl">
               <div className="flex items-start justify-between border-b border-line-subtle pb-6 mb-6">
                 <div className="flex items-center gap-4">
                   <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="Astrologer" className="w-16 h-16 rounded-full border-2 border-line/60 object-cover" />
@@ -56,18 +56,18 @@ export function TrustSection() {
                     <p className="text-[#9CA3AF] text-sm">Vedic Astrology • Numerology</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-1 bg-gold/10 text-gold px-2 py-1 rounded-md text-sm font-bold">
+                <div className="flex items-center gap-1 bg-gold/10 text-gold px-2 py-1 rounded-none text-sm font-bold">
                   <Star className="w-4 h-4 fill-gold" />
                   4.9
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4 mb-6">
-                <div className="bg-navy p-4 rounded-xl border border-line-subtle">
+                <div className="bg-navy p-4 rounded-none border border-line-subtle">
                   <div className="text-[#9CA3AF] text-xs mb-1">Prediction Accuracy</div>
                   <div className="text-2xl font-bold text-secondary">94%</div>
                 </div>
-                <div className="bg-navy p-4 rounded-xl border border-line-subtle">
+                <div className="bg-navy p-4 rounded-none border border-line-subtle">
                   <div className="text-[#9CA3AF] text-xs mb-1 flex items-center gap-2">
                     <Users className="w-3 h-3" /> Consultations
                   </div>
@@ -75,7 +75,7 @@ export function TrustSection() {
                 </div>
               </div>
 
-              <div className="bg-secondary/5 border border-secondary/20 p-4 rounded-xl">
+              <div className="bg-secondary/5 border border-secondary/20 p-4 rounded-none">
                 <p className="text-sm text-ink-secondary/90 italic">
                   "Sarah predicted my career shift down to the exact month. The AstroLive memory tracker proved she was 100% right."
                 </p>

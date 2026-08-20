@@ -15,9 +15,9 @@ export function PrivacyPermissions() {
         <p className="text-[#9CA3AF]">Manage what data you share and how it's used.</p>
       </div>
 
-      <div className="bg-surface border border-line rounded-lg p-6 md:p-8 space-y-6">
+      <div className="bg-surface border border-line rounded-none p-6 md:p-8 space-y-6">
         {permissions.map((perm, i) => (
-          <div key={i} className="flex items-start justify-between p-4 bg-white/5 rounded-lg border border-line-subtle hover:bg-surface-3 transition-colors">
+          <div key={i} className="flex items-start justify-between p-4 bg-white/5 rounded-none border border-line-subtle hover:bg-surface-3 transition-colors">
             <div className="flex gap-4">
               <div className="w-10 h-10 rounded-full bg-black/40 flex items-center justify-center shrink-0 mt-1">
                 {perm.icon}

@@ -28,7 +28,7 @@ export function AICompanionWidget() {
   }
 
   return (
-    <div className="bg-surface border border-line rounded-lg p-6 h-full flex flex-col shadow-xl">
+    <div className="bg-surface border border-line rounded-none p-6 h-full flex flex-col shadow-xl">
       {/* Header */}
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-3">
@@ -58,7 +58,7 @@ export function AICompanionWidget() {
             <button
               key={p}
               onClick={() => { setInput(p); sendMessage(p) }}
-              className="flex items-center gap-2 text-left px-4 py-2.5 bg-white/5 hover:bg-brand-light border border-line/60 hover:border-brand/30 rounded-xl text-sm text-[#9CA3AF] hover:text-white transition-all group"
+              className="flex items-center gap-2 text-left px-4 py-2.5 bg-white/5 hover:bg-brand-light border border-line/60 hover:border-brand/30 rounded-none text-sm text-[#9CA3AF] hover:text-white transition-all group"
             >
               <Sparkles className="w-3.5 h-3.5 text-brand/60 group-hover:text-brand shrink-0 transition-colors" />
               {p}
@@ -74,7 +74,7 @@ export function AICompanionWidget() {
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            className="flex items-center gap-3 mb-4 p-3 bg-brand/8 border border-brand/15 rounded-lg"
+            className="flex items-center gap-3 mb-4 p-3 bg-brand/8 border border-brand/15 rounded-none"
           >
             <Brain className="w-4 h-4 text-brand shrink-0" />
             <div className="flex gap-1">
@@ -93,7 +93,7 @@ export function AICompanionWidget() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-4 p-4 bg-brand/8 border border-brand/20 rounded-lg"
+            className="mb-4 p-4 bg-brand/8 border border-brand/20 rounded-none"
           >
             <div className="flex items-center gap-2 mb-2">
               <Brain className="w-3.5 h-3.5 text-brand" />
@@ -112,11 +112,11 @@ export function AICompanionWidget() {
           onChange={e => setInput(e.target.value)}
           onKeyDown={e => e.key === "Enter" && sendMessage(input)}
           placeholder="Ask anything about your journey…"
-          className="flex-1 bg-surface-2 border border-line focus:border-brand/40 focus:ring-1 focus:ring-primary/20 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-[#6B7280] outline-none transition-all"
+          className="flex-1 bg-surface-2 border border-line focus:border-brand/40 focus:ring-1 focus:ring-primary/20 rounded-none px-4 py-2.5 text-sm text-white placeholder:text-[#6B7280] outline-none transition-all"
         />
         <button
           onClick={() => sendMessage(input)}
-          className="w-10 h-10 bg-brand/20 hover:bg-brand/30 border border-brand/40 rounded-xl flex items-center justify-center text-brand transition-colors shrink-0"
+          className="w-10 h-10 bg-brand/20 hover:bg-brand/30 border border-brand/40 rounded-none flex items-center justify-center text-brand transition-colors shrink-0"
         >
           <Send className="w-4 h-4" />
         </button>

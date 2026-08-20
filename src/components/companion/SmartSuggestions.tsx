@@ -13,7 +13,7 @@ export function SmartSuggestions() {
       {suggestions.map((s, i) => (
         <button 
           key={i}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-surface border border-line hover:border-brand/50 hover:bg-white/5 transition-all shrink-0 group cursor-pointer"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-none bg-surface border border-line hover:border-brand/50 hover:bg-white/5 transition-all shrink-0 group cursor-pointer"
         >
           <div className="group-hover:scale-110 transition-transform">{s.icon}</div>
           <span className="text-xs font-bold text-white/80">{s.text}</span>

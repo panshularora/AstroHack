@@ -27,14 +27,14 @@ export function StepPreferences({ onNext, onBack }: StepPreferencesProps) {
       <div className="space-y-8 mb-10">
         
         {/* Consultation Mode */}
-        <div className="bg-surface border border-line p-6 md:p-8 rounded-lg">
+        <div className="bg-surface border border-line p-6 md:p-8 rounded-none">
           <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-5">Consultation Mode</h3>
-          <div className="flex bg-black/40 p-1.5 rounded-xl border border-line-subtle">
+          <div className="flex bg-black/40 p-1.5 rounded-none border border-line-subtle">
             {['chat', 'voice', 'video'].map(m => (
               <button
                 key={m}
                 onClick={() => setMode(m)}
-                className={`flex-1 py-3 rounded-lg text-sm font-bold capitalize transition-all cursor-pointer ${
+                className={`flex-1 py-3 rounded-none text-sm font-bold capitalize transition-all cursor-pointer ${
                   mode === m ? "bg-white/10 text-white shadow-sm" : "text-[#9CA3AF] hover:text-white"
                 }`}
               >
@@ -45,7 +45,7 @@ export function StepPreferences({ onNext, onBack }: StepPreferencesProps) {
         </div>
 
         {/* Language */}
-        <div className="bg-surface border border-line p-6 md:p-8 rounded-lg">
+        <div className="bg-surface border border-line p-6 md:p-8 rounded-none">
           <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-5">Preferred Language</h3>
           <div className="flex flex-wrap gap-3">
             {languages.map(l => (
@@ -65,7 +65,7 @@ export function StepPreferences({ onNext, onBack }: StepPreferencesProps) {
         </div>
 
         {/* Budget Slider */}
-        <div className="bg-surface border border-line p-6 md:p-8 rounded-lg">
+        <div className="bg-surface border border-line p-6 md:p-8 rounded-none">
           <div className="flex justify-between items-center mb-6">
             <h3 className="text-sm font-bold text-white uppercase tracking-wider">Budget per minute</h3>
             <span className="text-brand font-bold text-xl">${budget}</span>
@@ -75,7 +75,7 @@ export function StepPreferences({ onNext, onBack }: StepPreferencesProps) {
             min="1" max="10" step="1"
             value={budget}
             onChange={(e) => setBudget(Number(e.target.value))}
-            className="w-full accent-primary h-2 bg-white/10 rounded-lg appearance-none cursor-pointer outline-none"
+            className="w-full accent-primary h-2 bg-white/10 rounded-none appearance-none cursor-pointer outline-none"
           />
           <div className="flex justify-between text-xs text-[#9CA3AF] mt-3 font-medium">
             <span>$1</span>

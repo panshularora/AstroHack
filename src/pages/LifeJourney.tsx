@@ -268,8 +268,8 @@ export function LifeJourney() {
       {/* Empty State Overlay for New User Accounts */}
       {milestones.length === 0 && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none p-4 z-20">
-          <div className="bg-neutral-900/90 border border-amber-500/30 backdrop-blur-xl p-8 rounded-3xl max-w-lg text-center space-y-4 pointer-events-auto shadow-2xl">
-            <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 mx-auto">
+          <div className="bg-neutral-900/90 border border-zinc-700 backdrop-blur-xl p-8 rounded-none max-w-lg text-center space-y-4 pointer-events-auto shadow-2xl">
+            <div className="w-12 h-12 rounded-none bg-zinc-100/5 border border-zinc-700 flex items-center justify-center text-zinc-300 mx-auto">
               <Sparkles className="w-6 h-6 animate-pulse" />
             </div>
             <h3 className="font-serif text-xl sm:text-2xl text-white font-normal">Dasha Constellation Engine Active</h3>
@@ -279,16 +279,16 @@ export function LifeJourney() {
             <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
               <button
                 onClick={() => setIsAddModalOpen(true)}
-                className="px-5 py-2.5 bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs rounded-xl font-mono transition-colors cursor-pointer flex items-center gap-1.5"
+                className="px-5 py-2.5 bg-zinc-100 hover:bg-zinc-200 text-black font-bold text-xs rounded-none font-mono transition-colors cursor-pointer flex items-center gap-1.5"
               >
                 <Plus className="w-4 h-4" />
                 <span>+ Add First Milestone</span>
               </button>
               <button
                 onClick={() => setIsAddModalOpen(true)}
-                className="px-5 py-2.5 bg-neutral-800 hover:bg-neutral-700 text-white font-bold text-xs rounded-xl font-mono border border-neutral-700 transition-colors cursor-pointer flex items-center gap-1.5"
+                className="px-5 py-2.5 bg-neutral-800 hover:bg-neutral-700 text-white font-bold text-xs rounded-none font-mono border border-neutral-700 transition-colors cursor-pointer flex items-center gap-1.5"
               >
-                <Upload className="w-4 h-4 text-amber-400" />
+                <Upload className="w-4 h-4 text-zinc-300" />
                 <span>Upload Life Document PDF</span>
               </button>
             </div>

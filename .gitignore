@@ -24,3 +24,8 @@ dist-ssr
 *.sw?
 
 .vercel
+server/data/*.db
+server/data/*.db-*
+server/.env
+.env
+.grok/

@@ -48,12 +48,12 @@ export function PredictionShareCardModal({ isOpen, onClose, prediction }: Predic
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
-          className="relative w-full max-w-lg bg-surface border border-line rounded-lg p-6 sm:p-8 space-y-6 shadow-2xl overflow-hidden"
+          className="relative w-full max-w-lg bg-surface border border-line rounded-none p-6 sm:p-8 space-y-6 shadow-2xl overflow-hidden"
         >
           {/* Header */}
           <div className="flex items-center justify-between border-b border-line/60 pb-4">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-md bg-gold/10 border border-gold/30 flex items-center justify-center text-gold-bright">
+              <div className="w-8 h-8 rounded-none bg-gold/10 border border-gold/30 flex items-center justify-center text-gold-bright">
                 <Share2 className="w-4 h-4" />
               </div>
               <div>
@@ -63,14 +63,14 @@ export function PredictionShareCardModal({ isOpen, onClose, prediction }: Predic
             </div>
             <button
               onClick={onClose}
-              className="p-1.5 rounded-md hover:bg-surface-2 text-ink-tertiary hover:text-ink transition-colors cursor-pointer"
+              className="p-1.5 rounded-none hover:bg-surface-2 text-ink-tertiary hover:text-ink transition-colors cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
 
           {/* Card Preview (The shareable asset) */}
-          <div className="cosmic-hero p-6 rounded-lg border border-brand/40 shadow-xl space-y-5 text-center relative overflow-hidden">
+          <div className="cosmic-hero p-6 rounded-none border border-brand/40 shadow-xl space-y-5 text-center relative overflow-hidden">
             <div className="flex items-center justify-between text-xs font-mono">
               <div className="flex items-center gap-1.5 text-brand font-bold">
                 <Sparkles className="w-3.5 h-3.5" /> ASTROLIVE VERIFIED PROOF
@@ -88,7 +88,7 @@ export function PredictionShareCardModal({ isOpen, onClose, prediction }: Predic
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-3 p-3 rounded-md bg-surface/80 border border-line/60 font-mono text-xs text-left">
+            <div className="grid grid-cols-2 gap-3 p-3 rounded-none bg-surface/80 border border-line/60 font-mono text-xs text-left">
               <div>
                 <span className="text-[9px] text-ink-tertiary uppercase block">Target Window</span>
                 <span className="font-bold text-ink">{data.targetDate}</span>
@@ -117,19 +117,19 @@ export function PredictionShareCardModal({ isOpen, onClose, prediction }: Predic
                 type="text"
                 readOnly
                 value={shareUrl}
-                className="flex-1 h-9 rounded-md bg-surface-2 border border-line px-3 text-xs font-mono text-ink-secondary"
+                className="flex-1 h-9 rounded-none bg-surface-2 border border-line px-3 text-xs font-mono text-ink-secondary"
               />
-              <Button size="sm" variant="outline" className="rounded-md font-mono shrink-0" onClick={handleCopy}>
+              <Button size="sm" variant="outline" className="rounded-none font-mono shrink-0" onClick={handleCopy}>
                 {copied ? <Check className="w-4 h-4 text-success" /> : <Copy className="w-4 h-4" />}
                 {copied ? "Copied" : "Copy Link"}
               </Button>
             </div>
 
             <div className="grid grid-cols-2 gap-2 font-mono">
-              <Button size="sm" className="rounded-md w-full gap-2" onClick={handleCopy}>
+              <Button size="sm" className="rounded-none w-full gap-2" onClick={handleCopy}>
                 <Share2 className="w-3.5 h-3.5" /> Share to WhatsApp / X
               </Button>
-              <Button size="sm" variant="outline" className="rounded-md w-full gap-2" onClick={onClose}>
+              <Button size="sm" variant="outline" className="rounded-none w-full gap-2" onClick={onClose}>
                 <Download className="w-3.5 h-3.5" /> Save Image Card
               </Button>
             </div>

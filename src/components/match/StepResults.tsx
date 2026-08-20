@@ -34,7 +34,7 @@ export function StepResults({ results, onReset }: StepResultsProps) {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.08 }}
-            className={`p-6 rounded-lg border bg-surface transition-all duration-150 hover:border-brand/40 hover:shadow-md ${
+            className={`p-6 rounded-none border bg-surface transition-all duration-150 hover:border-brand/40 hover:shadow-md ${
               i === 0 ? "border-brand/50 bg-surface-2/50" : "border-line"
             }`}
           >
@@ -42,7 +42,7 @@ export function StepResults({ results, onReset }: StepResultsProps) {
             <div className="flex items-start justify-between gap-4 mb-5">
               <div className="flex items-center gap-4">
                 {/* Avatar */}
-                <div className="w-14 h-14 rounded-lg bg-gradient-to-br from-brand/20 to-brand-hover/10 border border-brand/30 flex items-center justify-center font-mono font-bold text-base text-gold-bright shrink-0">
+                <div className="w-14 h-14 rounded-none bg-gradient-to-br from-brand/20 to-brand-hover/10 border border-brand/30 flex items-center justify-center font-mono font-bold text-base text-gold-bright shrink-0">
                   {a.name.slice(0, 2).toUpperCase()}
                 </div>
                 <div>
@@ -91,7 +91,7 @@ export function StepResults({ results, onReset }: StepResultsProps) {
 
             {/* Why this match */}
             {a.recommendationReason && (
-              <div className="p-4 mb-5 bg-brand-tint border border-brand/15 rounded-md">
+              <div className="p-4 mb-5 bg-brand-tint border border-brand/15 rounded-none">
                 <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-brand mb-1.5 font-bold">
                   Why this match
                 </p>
@@ -103,7 +103,7 @@ export function StepResults({ results, onReset }: StepResultsProps) {
             <div className="flex flex-wrap gap-2.5">
               <Button
                 size="sm"
-                className="rounded-md font-mono"
+                className="rounded-none font-mono"
                 onClick={() => navigate(`/app/room/${a.id}`)}
               >
                 <MessageCircle className="w-3.5 h-3.5" /> Chat Now
@@ -111,7 +111,7 @@ export function StepResults({ results, onReset }: StepResultsProps) {
               <Button
                 variant="outline"
                 size="sm"
-                className="rounded-md font-mono"
+                className="rounded-none font-mono"
                 onClick={() => navigate(`/app/room/${a.id}`)}
               >
                 <Phone className="w-3.5 h-3.5" /> Voice
@@ -119,12 +119,12 @@ export function StepResults({ results, onReset }: StepResultsProps) {
               <Button
                 variant="outline"
                 size="sm"
-                className="rounded-md font-mono"
+                className="rounded-none font-mono"
                 onClick={() => navigate(`/app/room/${a.id}`)}
               >
                 <Video className="w-3.5 h-3.5" /> Video
               </Button>
-              <Button variant="ghost" size="sm" className="rounded-md font-mono text-ink-secondary">
+              <Button variant="ghost" size="sm" className="rounded-none font-mono text-ink-secondary">
                 <Calendar className="w-3.5 h-3.5" /> Schedule
               </Button>
             </div>

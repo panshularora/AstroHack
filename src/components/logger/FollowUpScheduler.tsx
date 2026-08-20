@@ -18,13 +18,13 @@ export function FollowUpScheduler() {
         <h2 className="text-xl font-bold text-white">Schedule Follow-Up</h2>
       </div>
 
-      <div className="bg-surface border border-line rounded-lg p-6 md:p-8">
+      <div className="bg-surface border border-line rounded-none p-6 md:p-8">
         <div className="grid md:grid-cols-4 gap-4 mb-8">
           {options.map((opt) => (
             <button
               key={opt.id}
               onClick={() => setSelected(opt.id)}
-              className={`p-4 rounded-lg border text-left transition-all cursor-pointer ${
+              className={`p-4 rounded-none border text-left transition-all cursor-pointer ${
                 selected === opt.id 
                   ? "bg-brand/20 border-brand" 
                   : "bg-white/5 border-transparent hover:bg-surface-3"
@@ -36,7 +36,7 @@ export function FollowUpScheduler() {
           ))}
         </div>
 
-        <div className="flex items-center gap-4 bg-navy/50 p-4 rounded-lg border border-line-subtle">
+        <div className="flex items-center gap-4 bg-navy/50 p-4 rounded-none border border-line-subtle">
           <div className="w-2 h-2 rounded-full bg-brand shrink-0" />
           <div className="text-sm text-[#9CA3AF] flex-1">
             We will automatically remind you to book a session <strong className="text-white">when your career prediction window opens in late August.</strong>

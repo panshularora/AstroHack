@@ -15,7 +15,7 @@ export const PractitionerProfileModal: React.FC<PractitionerProfileModalProps> =
 }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-lg font-sans">
-      <div className="relative w-full max-w-3xl bg-[#121316] border border-neutral-800 rounded-3xl p-5 sm:p-7 shadow-2xl text-neutral-100 max-h-[88vh] flex flex-col overflow-hidden">
+      <div className="relative w-full max-w-3xl bg-[#121316] border border-neutral-800 rounded-none p-5 sm:p-7 shadow-2xl text-neutral-100 max-h-[88vh] flex flex-col overflow-hidden">
         
         {/* Close Button */}
         <button
@@ -29,11 +29,11 @@ export const PractitionerProfileModal: React.FC<PractitionerProfileModalProps> =
         <div className="flex flex-col sm:flex-row gap-5 items-center sm:items-start pb-5 border-b border-neutral-800/80 shrink-0">
           
           {/* Clean Portrait Image Container - No Floating Overlay Badges */}
-          <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-2xl overflow-hidden bg-neutral-900 border border-neutral-700 shrink-0 shadow-xl">
+          <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-none overflow-hidden bg-neutral-900 border border-neutral-700 shrink-0 shadow-xl">
             <img
               src={practitioner.imageUrl}
               alt={practitioner.name}
-              className="w-full h-full object-cover grayscale contrast-125"
+              className="astro-face w-full h-full grayscale contrast-125"
             />
           </div>
 
@@ -46,35 +46,35 @@ export const PractitionerProfileModal: React.FC<PractitionerProfileModalProps> =
               <h2 className="font-serif text-xl sm:text-2xl md:text-3xl text-white font-normal leading-tight truncate">
                 {practitioner.name}
               </h2>
-              <ShieldCheck className="w-5 h-5 text-amber-400 shrink-0" />
+              <ShieldCheck className="w-5 h-5 text-zinc-300 shrink-0" />
             </div>
 
             <p className="text-xs sm:text-sm text-neutral-400 font-light flex items-center justify-center sm:justify-start gap-2 flex-wrap">
               <span className="truncate">{practitioner.title}</span>
               <span className="text-neutral-600">•</span>
-              <span className="px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/20 text-xs font-mono font-bold shrink-0">
+              <span className="px-2.5 py-0.5 rounded-full bg-zinc-100/5 text-zinc-200 border border-zinc-700 text-xs font-mono font-bold shrink-0">
                 {practitioner.specialty}
               </span>
-              <span className="px-2 py-0.5 rounded bg-black/60 text-amber-300 border border-neutral-700 text-[10px] font-mono font-bold uppercase shrink-0">
+              <span className="px-2 py-0.5 rounded bg-black/60 text-zinc-200 border border-neutral-700 text-[10px] font-mono font-bold uppercase shrink-0">
                 {practitioner.tag}
               </span>
             </p>
 
             {/* Metrics Badges Grid */}
             <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 pt-1 font-mono text-xs text-neutral-300">
-              <div className="flex items-center gap-1.5 bg-neutral-900/90 px-2.5 py-1 rounded-xl border border-neutral-800">
+              <div className="flex items-center gap-1.5 bg-neutral-900/90 px-2.5 py-1 rounded-none border border-neutral-800">
                 <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
                 <span className="text-emerald-400 font-bold">{practitioner.accuracy}</span>
                 <span className="text-neutral-500 text-[10px] uppercase">Accuracy</span>
               </div>
 
-              <div className="flex items-center gap-1.5 bg-neutral-900/90 px-2.5 py-1 rounded-xl border border-neutral-800">
-                <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+              <div className="flex items-center gap-1.5 bg-neutral-900/90 px-2.5 py-1 rounded-none border border-neutral-800">
+                <Star className="w-3.5 h-3.5 text-zinc-300 fill-zinc-300" />
                 <span className="font-bold text-white">{practitioner.rating}</span>
                 <span className="text-neutral-500 text-[10px]">({practitioner.totalSessions} sessions)</span>
               </div>
 
-              <div className="flex items-center gap-1.5 bg-neutral-900/90 px-2.5 py-1 rounded-xl border border-neutral-800">
+              <div className="flex items-center gap-1.5 bg-neutral-900/90 px-2.5 py-1 rounded-none border border-neutral-800">
                 <Clock className="w-3.5 h-3.5 text-neutral-400" />
                 <span className="font-bold text-white">{practitioner.experienceYears} Yrs Exp</span>
               </div>
@@ -85,7 +85,7 @@ export const PractitionerProfileModal: React.FC<PractitionerProfileModalProps> =
         {/* Bio & Quote Body - Scrollable Middle */}
         <div className="flex-1 overflow-y-auto py-4 space-y-4 pr-1">
           {practitioner.featuredQuote && (
-            <blockquote className="p-3.5 rounded-2xl bg-amber-950/20 border-l-3 border-amber-400 italic text-xs sm:text-sm text-amber-100 font-serif leading-relaxed">
+            <blockquote className="p-3.5 rounded-none bg-amber-950/20 border-l-3 border-amber-400 italic text-xs sm:text-sm text-amber-100 font-serif leading-relaxed">
               "{practitioner.featuredQuote}"
             </blockquote>
           )}
@@ -108,7 +108,7 @@ export const PractitionerProfileModal: React.FC<PractitionerProfileModalProps> =
                 {practitioner.techniques.map((tech) => (
                   <span
                     key={tech}
-                    className="px-3 py-1 bg-neutral-900 border border-neutral-800 text-xs font-mono text-neutral-300 rounded-xl"
+                    className="px-3 py-1 bg-neutral-900 border border-neutral-800 text-xs font-mono text-neutral-300 rounded-none"
                   >
                     {tech}
                   </span>
@@ -121,7 +121,7 @@ export const PractitionerProfileModal: React.FC<PractitionerProfileModalProps> =
         {/* Bottom High-Contrast Action Bar - Fixed Bottom (Never Cut Off) */}
         <div className="pt-4 border-t border-neutral-800/80 bg-[#121316] shrink-0 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="font-mono text-sm text-neutral-300">
-            Rate: <strong className="text-amber-400 font-bold text-base sm:text-lg">₹{practitioner.ratePerMin}</strong> / min
+            Rate: <strong className="text-zinc-300 font-bold text-base sm:text-lg">₹{practitioner.ratePerMin}</strong> / min
           </div>
 
           <div className="flex items-center gap-2 w-full sm:w-auto">
@@ -130,9 +130,9 @@ export const PractitionerProfileModal: React.FC<PractitionerProfileModalProps> =
                 onStartSession(practitioner, 'audio');
                 onClose();
               }}
-              className="flex-1 sm:flex-initial px-4 py-2.5 bg-neutral-900 hover:bg-neutral-800 text-neutral-200 hover:text-white border border-neutral-700 rounded-xl text-xs font-mono font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+              className="flex-1 sm:flex-initial px-4 py-2.5 bg-neutral-900 hover:bg-neutral-800 text-neutral-200 hover:text-white border border-neutral-700 rounded-none text-xs font-mono font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer"
             >
-              <Mic className="w-3.5 h-3.5 text-amber-400" />
+              <Mic className="w-3.5 h-3.5 text-zinc-300" />
               <span>Start Audio</span>
             </button>
             <button
@@ -140,9 +140,9 @@ export const PractitionerProfileModal: React.FC<PractitionerProfileModalProps> =
                 onStartSession(practitioner, 'video');
                 onClose();
               }}
-              className="flex-1 sm:flex-initial px-4 py-2.5 bg-neutral-900 hover:bg-neutral-800 text-neutral-200 hover:text-white border border-neutral-700 rounded-xl text-xs font-mono font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+              className="flex-1 sm:flex-initial px-4 py-2.5 bg-neutral-900 hover:bg-neutral-800 text-neutral-200 hover:text-white border border-neutral-700 rounded-none text-xs font-mono font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer"
             >
-              <Video className="w-3.5 h-3.5 text-amber-400" />
+              <Video className="w-3.5 h-3.5 text-zinc-300" />
               <span>Start Video</span>
             </button>
             <button
@@ -150,7 +150,7 @@ export const PractitionerProfileModal: React.FC<PractitionerProfileModalProps> =
                 onStartSession(practitioner, 'chat');
                 onClose();
               }}
-              className="flex-1 sm:flex-initial px-5 py-2.5 bg-amber-500 hover:bg-amber-400 text-black rounded-xl text-xs font-mono font-bold transition-all shadow-xl shadow-amber-500/20 flex items-center justify-center gap-1.5 cursor-pointer"
+              className="flex-1 sm:flex-initial px-5 py-2.5 bg-zinc-100 hover:bg-zinc-200 text-black rounded-none text-xs font-mono font-bold transition-all shadow-xl shadow-none flex items-center justify-center gap-1.5 cursor-pointer"
             >
               <MessageSquare className="w-3.5 h-3.5" />
               <span>Start Live Chat</span>

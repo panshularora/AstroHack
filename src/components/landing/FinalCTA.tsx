@@ -27,11 +27,11 @@ export function FinalCTA() {
               Join thousands who've turned astrology into a continuous, intelligent practice. Free to start, premium when you're ready.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Button size="lg" className="bg-brand hover:bg-brand-hover text-white rounded-md" onClick={() => navigate("/signup")}>
+              <Button size="lg" className="bg-brand hover:bg-brand-hover text-white rounded-none" onClick={() => navigate("/signup")}>
                 Get started free
                 <ArrowRight className="w-4 h-4" />
               </Button>
-              <Button variant="outline" size="lg" className="rounded-md" onClick={() => navigate("/login")}>
+              <Button variant="outline" size="lg" className="rounded-none" onClick={() => navigate("/login")}>
                 Sign in
               </Button>
             </div>

@@ -15,13 +15,13 @@ export function ReflectionJournal() {
         <p className="text-[#9CA3AF]">Record how you felt about the session. This will be securely saved to your Cosmic Memory.</p>
       </div>
 
-      <div className="bg-surface border border-line rounded-lg p-6 md:p-8">
+      <div className="bg-surface border border-line rounded-none p-6 md:p-8">
         <textarea 
           placeholder="I felt really relieved after Dr. Vance explained the Saturn transit..."
-          className="w-full h-32 bg-navy/30 border border-line-subtle rounded-lg p-5 text-white placeholder:text-[#9CA3AF]/50 focus:outline-none focus:border-secondary/50 resize-none transition-colors mb-6"
+          className="w-full h-32 bg-navy/30 border border-line-subtle rounded-none p-5 text-white placeholder:text-[#9CA3AF]/50 focus:outline-none focus:border-secondary/50 resize-none transition-colors mb-6"
         />
 
-        <div className="flex flex-col md:flex-row items-center gap-6 p-6 bg-white/5 rounded-lg border border-line-subtle">
+        <div className="flex flex-col md:flex-row items-center gap-6 p-6 bg-white/5 rounded-none border border-line-subtle">
           <button 
             onClick={() => {
               if (isRecording) {

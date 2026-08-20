@@ -57,9 +57,9 @@ export function QuickStats() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: i * 0.08 }}
           onClick={() => navigate(stat.route)}
-          className={`relative bg-surface border rounded-lg p-5 text-left hover:-translate-y-1 transition-all duration-200 shadow-lg ${stat.glow} ${stat.bg} group`}
+          className={`relative bg-surface border rounded-none p-5 text-left hover:-translate-y-1 transition-all duration-200 shadow-lg ${stat.glow} ${stat.bg} group`}
         >
-          <div className={`w-9 h-9 rounded-xl flex items-center justify-center mb-4 bg-surface-2 border border-line`}>
+          <div className={`w-9 h-9 rounded-none flex items-center justify-center mb-4 bg-surface-2 border border-line`}>
             <stat.icon className={`w-4 h-4 ${stat.color}`} />
           </div>
           <motion.p

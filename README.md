@@ -6,7 +6,7 @@
 **Live:** https://astro-hack-six.vercel.app · **Board:** https://astro-hack-six.vercel.app/board · **Public proof (no login):** https://astro-hack-six.vercel.app/p/proof-dp2?from=ARJUN
 Demo account: `arjun.sharma@example.com` / `cosmic2026`
 
-**Status:** a hackathon project (58 commits, 2–20 Aug 2026). It is deployed and working. The only automated check is `npm run test:vedic`, which verifies the astrology calculations.
+**Status:** a hackathon project (58 commits, 2–20 Aug 2026). It is deployed and working. On Vercel the API runs as a serverless function (`api/index.ts`) with an in-memory SQLite database that is re-seeded on each cold start, so sign-ups and new predictions there do not persist, and the `ws` signalling server is not available (call signalling falls back to HTTP polling). The only automated check is `npm run test:vedic`, which verifies the astrology calculations.
 
 ## How it works
 | Part | Implementation | Where |

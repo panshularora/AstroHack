@@ -17,6 +17,19 @@ function sendJson(res, status, body) {
   res.end(JSON.stringify(body))
 }
 
+// With Vercel's Node helpers enabled (the default), the request stream is
+// read before the handler runs and only replayed through req.on("data"/"end"),
+// which @hono/node-server does not use, so POST bodies hang. Buffer the body
+// here and hand it over as req.rawBody, which @hono/node-server reads directly.
+function readRawBody(req): Promise<Buffer> {
+  return new Promise((resolve, reject) => {
+    const chunks = []
+    req.on("data", (c) => chunks.push(Buffer.isBuffer(c) ? c : Buffer.from(c)))
+    req.on("end", () => resolve(Buffer.concat(chunks)))
+    req.on("error", reject)
+  })
+}
+
 export default async function route(req, res) {
   const pathname = (req.url || "/").split("?")[0]
   if (pathname === "/api/ping") {
@@ -26,6 +39,9 @@ export default async function route(req, res) {
     if (!handler) {
       const mod = await import("../server/index.js")
       handler = handle(mod.app)
+    }
+    if (req.method !== "GET" && req.method !== "HEAD" && !(req.rawBody instanceof Buffer)) {
+      req.rawBody = await readRawBody(req)
     }
     return await handler(req, res)
   } catch (err) {

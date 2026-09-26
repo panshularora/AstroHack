@@ -1,5 +1,5 @@
-export default function handler() {
-  return new Response(JSON.stringify({ ok: true, node: process.version }), {
-    headers: { "content-type": "application/json" },
-  })
+export default function handler(req, res) {
+  res.statusCode = 200
+  res.setHeader("content-type", "application/json")
+  res.end(JSON.stringify({ ok: true, node: process.version }))
 }

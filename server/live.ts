@@ -3,10 +3,10 @@ import {
   knownPlace,
   DEFAULT_PLACE,
   type GeoPlace,
-} from "../src/lib/vedic/cities.ts"
-import { RASHIS, RASHI_SA } from "../src/lib/vedic/constants.ts"
-import { computeNatal, computePanchang, detectYogas } from "../src/lib/vedic/engine.ts"
-import { matchKundlis } from "../src/lib/vedic/match.ts"
+} from "../src/lib/vedic/cities.js"
+import { RASHIS, RASHI_SA } from "../src/lib/vedic/constants.js"
+import { computeNatal, computePanchang, detectYogas } from "../src/lib/vedic/engine.js"
+import { matchKundlis } from "../src/lib/vedic/match.js"
 import {
   FIRST_FREE_MINUTES,
   FIRST_RECHARGE_BONUS,
@@ -15,7 +15,7 @@ import {
   PLAN_TALK_CREDIT,
   WALLET_PACKS,
   WELCOME_CREDIT,
-} from "../src/lib/entitlements.ts"
+} from "../src/lib/entitlements.js"
 
 const geoHits = new Map<string, GeoPlace>()
 

@@ -18,8 +18,8 @@ import {
   WEEKDAYS,
   YOGAS,
   type GrahaId,
-} from "./constants"
-import { resolvePlace } from "./cities"
+} from "./constants.js"
+import { resolvePlace } from "./cities.js"
 
 const DEG = Math.PI / 180
 const NAK_SPAN = 360 / 27

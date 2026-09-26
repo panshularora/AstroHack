@@ -1,6 +1,6 @@
 import { db, nowIso } from "./db.js"
 import { hashPassword } from "./auth.js"
-import { PRACTITIONERS } from "../src/data/practitioners.ts"
+import { PRACTITIONERS } from "../src/data/practitioners.js"
 
 export function seed() {
   const insert = db.prepare(`

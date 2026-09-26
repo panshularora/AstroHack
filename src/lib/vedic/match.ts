@@ -1,5 +1,5 @@
-import { NAKSHATRAS, RASHIS } from "./constants"
-import { computeNatal } from "./engine"
+import { NAKSHATRAS, RASHIS } from "./constants.js"
+import { computeNatal } from "./engine.js"
 
 const VARNA = [2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1]
 const GANA = [0, 1, 2, 1, 0, 2, 0, 0, 2, 2, 1, 1, 0, 2, 0, 2, 0, 2, 2, 1, 1, 0, 2, 2, 1, 1, 0]

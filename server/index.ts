@@ -15,7 +15,7 @@ import {
   pushSignal,
   readRoomToken,
 } from "./rtc.js"
-import { computeNatal, computePanchang } from "../src/lib/vedic/engine.ts"
+import { computeNatal, computePanchang } from "../src/lib/vedic/engine.js"
 import {
   buildHoroscope,
   geocodePlace,
@@ -23,9 +23,9 @@ import {
   serializeMatch,
   serializeNatal,
   serializePanchang,
-} from "./live.ts"
-import { offeringById } from "../src/data/offerings.ts"
-import { pujaById } from "../src/data/pujas.ts"
+} from "./live.js"
+import { offeringById } from "../src/data/offerings.js"
+import { pujaById } from "../src/data/pujas.js"
 import {
   FIRST_FREE_MINUTES,
   FIRST_RECHARGE_BONUS,
@@ -36,7 +36,7 @@ import {
   SHIP_FEE,
   WALLET_PACKS,
   WELCOME_CREDIT,
-} from "../src/lib/entitlements.ts"
+} from "../src/lib/entitlements.js"
 import { mountUpiRoutes } from "./pay.js"
 import { mountSpa } from "./static.js"
 import { rtcSecret } from "./env.js"

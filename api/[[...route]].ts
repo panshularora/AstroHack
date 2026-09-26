@@ -23,7 +23,7 @@ export default async function route(req, res) {
   }
   try {
     if (!handler) {
-      const mod = await import("../server/index.ts")
+      const mod = await import("../server/index.js")
       handler = handle(mod.app)
     }
     return await handler(req, res)

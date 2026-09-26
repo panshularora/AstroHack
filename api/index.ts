@@ -1,11 +1,12 @@
 // @ts-nocheck
 // Vercel's Node.js runtime calls a default export as (req, res) with a Node
 // IncomingMessage, so the Hono app is adapted with @hono/node-server/vercel.
+// vercel.json rewrites every /api/* path here (except /api/ping, which has
+// its own function); req.url keeps the original path for Hono's router.
 import { handle } from "@hono/node-server/vercel"
 
 export const config = {
   runtime: "nodejs",
-  maxDuration: 30,
 }
 
 let handler

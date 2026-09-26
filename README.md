@@ -1,48 +1,39 @@
-# AstroLive
+# AstroLive: an astrology marketplace that keeps score
 
-Talk to an astrologer, save what they predicted with a date, and later mark whether it came true. That result is a public page anyone can open.
+**What:** users chat with an astrologer, save any prediction with a date, and later mark whether it came true. Each resolved prediction becomes a public "proof" page, and astrologers are ranked on a leaderboard by their dated results.
+**Why:** astrology apps sell predictions but never track them. AstroLive makes accuracy visible, and that record is the product's selling point.
 
-**Live:** https://astro-hack-six.vercel.app  
-**Code:** https://github.com/panshularora/AstroHack  
-**Submission:** [AstroHack_Submission.docx](./AstroHack_Submission.docx)
+**Live:** https://astro-hack-six.vercel.app · **Board:** https://astro-hack-six.vercel.app/board · **Public proof (no login):** https://astro-hack-six.vercel.app/p/proof-dp2?from=ARJUN
+Demo account: `arjun.sharma@example.com` / `cosmic2026`
 
-Demo: `arjun.sharma@example.com` / `cosmic2026`  
-Public card (no login): https://astro-hack-six.vercel.app/p/proof-dp2?from=ARJUN  
-Board: https://astro-hack-six.vercel.app/board
+**Status:** a hackathon project (58 commits, 2–20 Aug 2026). It is deployed and working. The only automated check is `npm run test:vedic`, which verifies the astrology calculations.
+
+## How it works
+| Part | Implementation | Where |
+|---|---|---|
+| Web app | Vite + React 19 + TypeScript + Tailwind v4, react-router, Recharts | `src/` |
+| API | Hono on `@hono/node-server`: auth, plans, check-ins, invites, predictions and proof scores, horoscope / kundli / panchang, an SSE live "tape" (`/api/tape/stream`) | `server/index.ts` |
+| Database | better-sqlite3 (WAL, foreign keys), 12-table schema | `server/schema.sql`, `server/db.ts` |
+| Auth | scrypt password hashing with a random salt and constant-time compare; server-side session tokens | `server/auth.ts` |
+| Payments | Server-side checkout and entitlements; Razorpay order/payment signatures verified with HMAC-SHA256 | `server/pay.ts` |
+| Real-time calls | `ws` WebSocket signalling server at `/ws/rtc`; rooms authorised with HMAC-signed tokens (`timingSafeEqual`) | `server/rtc.ts` |
+| Astrology maths | Vedic calculations on-device, with a verification script | `src/lib/vedic/`, `scripts/verify-vedic.ts` |
 
 ## Run locally
-
 ```bash
-# API (port 8787)
-cd server
-npm install
-npx tsx index.ts
-
-# Web (port 5174)
-cd ..
-npm install
-npm run dev -- --host 127.0.0.1 --port 5174
+npm install && npm install --prefix server
+npm run dev:all          # web (Vite) + API (tsx server/index.ts) together
+# or separately:  npm run dev:server   and   npm run dev
+npm run test:vedic       # astrology maths check
 ```
-
-Open http://127.0.0.1:5174/
-
-Demo: `arjun.sharma@example.com` / `cosmic2026`
+Environment variables: see `server/env.ts`. Razorpay keys and the RTC secret are optional for local demo mode.
 
 ## Judge path
+1. `/`: the pitch and USP. 2. `/board`: experts ranked by dated results. 3. `/p/proof-dp2?from=ARJUN`: public proof. 4. Log in, then Home, then **Results**, then "Did this happen?". 5. Talk now, then **Save this line with a date**. 6. `/app/share`: referral credit (₹50 each).
 
-1. `/` — USP and **Why this** (virality, habit, revenue, USP).
-2. `/board` — experts ranked by dated results.
-3. `/p/proof-dp2?from=ARJUN` — public proof, no login.
-4. Log in → Home → **Results** → Did this happen?
-5. Talk now → chat → **Save this line with a date**.
-6. `/app/share` — invite code. Both get ₹50 when a new account uses it.
+## Repo notes
+- Submission documents: `AstroHack_Submission.docx/.pdf`, `REPORT.md`.
+- The numbered `1.md`–`12.md` files, the design-prototype folders and `prompt.md` are working notes. Moving them into `docs/` (or deleting them) would make the repo easier to read.
 
-## Documents
-
-- **`AstroHack_Submission.docx`** — document to submit (problem, AstroLive teardown, what we built, every surface, impact, metrics, how to evaluate).
-- [REPORT.md](./REPORT.md) — short justifying notes.
-- `AstroHack_Report.docx` — short Word version of those notes.
-
-## Stack
-
-Vite + React + TypeScript + Tailwind. Hono API + SQLite. Vedic math on-device (`src/lib/vedic`). Checkout and entitlements on the server only.
+## Next steps
+API tests for auth, checkout signature verification and the proof-score logic; a CI workflow running `npm run build` and the tests.
